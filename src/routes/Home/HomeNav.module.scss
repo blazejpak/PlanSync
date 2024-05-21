@@ -1,0 +1,71 @@
+@use "../../globals/variables";
+@use "../../globals/mixins";
+
+.header {
+  height: 8rem;
+
+  user-select: none;
+}
+
+.nav {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  margin-inline: 2.4rem;
+  position: relative;
+
+  justify-content: space-between;
+}
+
+.button {
+  background-color: variables.$bg-button;
+  border-radius: 16px;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 1.6rem;
+
+  &:hover {
+    transition: all 0.3s;
+    background-color: variables.$bg-button--hover;
+  }
+}
+
+.nav-computer {
+  display: none;
+
+  @include mixins.responsive(md) {
+    display: flex;
+    gap: 3.2rem;
+  }
+}
+
+.nav-mobile {
+  display: none;
+
+  button {
+    background-color: inherit;
+    border: 0;
+  }
+
+  @include mixins.responsive(xs) {
+    display: flex;
+
+    .menu {
+      align-items: center;
+      background-color: white;
+      display: flex;
+      gap: 3.2rem;
+      flex-direction: column;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      padding: 4rem;
+      box-shadow: 2px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  @include mixins.responsive(md) {
+    display: none;
+  }
+}
