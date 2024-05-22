@@ -11,8 +11,12 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.18",
     "@reduxjs/toolkit": "^2.2.5",
     "firebase": "^10.12.0",
+    "firebaseui": "^6.1.0",
     "formik": "^2.4.6",
     "luxon": "^3.4.4",
     "react": "^18.2.0",

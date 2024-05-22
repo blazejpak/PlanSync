@@ -11,7 +11,8 @@
   align-items: center;
   display: flex;
   height: 100%;
-  margin-inline: 2.4rem;
+  margin-inline: 5%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   position: relative;
 
   justify-content: space-between;
@@ -46,6 +47,7 @@
   button {
     background-color: inherit;
     border: 0;
+    cursor: pointer;
   }
 
   @include mixins.responsive(xs) {
@@ -54,14 +56,15 @@
     .menu {
       align-items: center;
       background-color: white;
+      box-shadow: 2px 1px 1px 1px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
       display: flex;
-      gap: 3.2rem;
       flex-direction: column;
+      gap: 3.2rem;
       position: absolute;
+      padding: 4rem;
       right: 0;
       top: 100%;
-      padding: 4rem;
-      box-shadow: 2px 1px 1px 1px rgba(0, 0, 0, 0.2);
     }
   }
 

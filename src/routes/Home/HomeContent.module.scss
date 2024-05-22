@@ -1,1 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  padding-inline: 5%;
+  margin-block: 6.4rem;
+}
 
+.heading {
+  font-size: 3.2rem;
+  font-weight: bold;
+}

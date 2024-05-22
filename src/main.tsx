@@ -5,12 +5,16 @@ import "./main.scss";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./routes/Home/Home";
+import SignIn from "./routes/Signin/SignIn";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    children: [],
+  },
+  {
+    path: "/sign-in",
+    element: <SignIn />,
   },
 ]);
 
