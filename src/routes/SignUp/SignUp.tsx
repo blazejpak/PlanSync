@@ -26,7 +26,7 @@ const SignUp = () => {
   return (
     <section className={styles.container}>
       <form onSubmit={formik.handleSubmit} className={styles.form}>
-        <h1>Sign in</h1>
+        <h1>Sign up</h1>
         <Stack spacing={2}>
           <TextField
             fullWidth
@@ -79,6 +79,10 @@ const SignUp = () => {
           </Stack>
         </Stack>
       </form>
+      <div>
+        <p>Already have an account?</p>
+        <p>Sign in</p>
+      </div>
     </section>
   );
 };
