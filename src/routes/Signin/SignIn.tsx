@@ -3,18 +3,30 @@ import styles from "./SignIn.module.scss";
 import { useFormik } from "formik";
 import { validationSchema } from "./ValidationSchema";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/AuthenticationContext";
+import { useContext } from "react";
+
+import { auth } from "../../utils/firebase";
 
 const SignIn = () => {
   const navigate = useNavigate();
 
+  const { signIn, logout } = useContext(UserContext);
+
+  console.log(auth);
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        await signIn(values.email, values.password);
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 

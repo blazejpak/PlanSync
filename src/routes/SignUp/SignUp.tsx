@@ -3,9 +3,13 @@ import styles from "../Signin/SignIn.module.scss";
 import { useFormik } from "formik";
 import { validationSchema } from "./ValidationSchema";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../context/AuthenticationContext";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+  const { createUser } = useContext(UserContext);
 
   const formik = useFormik({
     initialValues: {
@@ -14,8 +18,15 @@ const SignUp = () => {
       confirmPassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        if (values.password === values.confirmPassword) {
+          await createUser(values.email, values.password);
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
