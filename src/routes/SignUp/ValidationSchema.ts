@@ -9,4 +9,8 @@ export const validationSchema = yup.object({
     .string()
     .min(3, "Must be minimum 3 characters")
     .required("Name is required"),
+  confirmPassword: yup
+    .string()
+    .min(3, "Must be minimum 3 characters")
+    .required("Name is required"),
 });

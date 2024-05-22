@@ -1,16 +1,17 @@
 import { Button, Stack, TextField } from "@mui/material";
-import styles from "./SignIn.module.scss";
+import styles from "../Signin/SignIn.module.scss";
 import { useFormik } from "formik";
 import { validationSchema } from "./ValidationSchema";
 import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignUp = () => {
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
+      confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -50,6 +51,24 @@ const SignIn = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+
+          <TextField
+            fullWidth
+            id="confirmPassword"
+            name="confirmPassword"
+            label="confirmPassword"
+            type="password"
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.confirmPassword &&
+              Boolean(formik.errors.confirmPassword)
+            }
+            helperText={
+              formik.touched.confirmPassword && formik.errors.confirmPassword
+            }
+          />
+
           <Stack direction={{ xs: "column-reverse", md: "row" }} spacing={4}>
             <Button onClick={backToHomeHandle} variant="outlined" fullWidth>
               back
@@ -64,4 +83,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
