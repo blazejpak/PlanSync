@@ -18,13 +18,25 @@
   justify-content: space-between;
 }
 
+.logo {
+  height: 3.2rem;
+
+  @include mixins.responsive(sm) {
+    height: 4.8rem;
+  }
+}
+
 .button {
   background-color: variables.$bg-button;
   border-radius: 16px;
   color: white;
-  font-size: 1.8rem;
   font-weight: bold;
+  font-size: 1.6rem;
   padding: 1.6rem;
+
+  @include mixins.responsive(sm) {
+    font-size: 1.8rem;
+  }
 
   &:hover {
     transition: all 0.3s;

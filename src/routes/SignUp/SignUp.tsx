@@ -2,14 +2,21 @@ import { Button, Stack, TextField } from "@mui/material";
 import styles from "../Signin/SignIn.module.scss";
 import { useFormik } from "formik";
 import { validationSchema } from "./ValidationSchema";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/AuthenticationContext";
+import { ROUTES } from "../../utils/routes";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const { createUser } = useContext(UserContext);
+  const { createUser, user, loading } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user.email) {
+      navigate("/board");
+    }
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -45,10 +52,13 @@ const SignUp = () => {
             name="email"
             label="email"
             type="email"
+            variant="standard"
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
+            inputProps={{ style: { fontSize: 16 } }}
+            InputLabelProps={{ style: { fontSize: 14 } }}
           />
 
           <TextField
@@ -57,10 +67,13 @@ const SignUp = () => {
             name="password"
             label="password"
             type="password"
+            variant="standard"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            inputProps={{ style: { fontSize: 16 } }}
+            InputLabelProps={{ style: { fontSize: 14 } }}
           />
 
           <TextField
@@ -69,6 +82,7 @@ const SignUp = () => {
             name="confirmPassword"
             label="confirmPassword"
             type="password"
+            variant="standard"
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
             error={
@@ -78,22 +92,35 @@ const SignUp = () => {
             helperText={
               formik.touched.confirmPassword && formik.errors.confirmPassword
             }
+            inputProps={{ style: { fontSize: 16 } }}
+            InputLabelProps={{ style: { fontSize: 14 } }}
           />
 
-          <Stack direction={{ xs: "column-reverse", md: "row" }} spacing={4}>
-            <Button onClick={backToHomeHandle} variant="outlined" fullWidth>
+          <Stack direction={{ xs: "column-reverse", md: "row" }} spacing={1}>
+            <Button
+              onClick={backToHomeHandle}
+              variant="outlined"
+              fullWidth
+              style={{ fontSize: 16 }}
+            >
               back
             </Button>
-            <Button type="submit" variant="contained" fullWidth>
+            <Button
+              type="submit"
+              variant="contained"
+              style={{ fontSize: 16 }}
+              fullWidth
+            >
               Submit
             </Button>
           </Stack>
         </Stack>
+        <div className={styles.external}>
+          <p>Already have an account?</p>
+          <Link to={ROUTES.ROUTE_SIGN_IN}>Sign in</Link>
+        </div>
+        {loading && <p>Loading...</p>}
       </form>
-      <div>
-        <p>Already have an account?</p>
-        <p>Sign in</p>
-      </div>
     </section>
   );
 };
