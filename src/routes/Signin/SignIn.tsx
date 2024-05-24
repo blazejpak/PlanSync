@@ -9,11 +9,13 @@ import { FcGoogle } from "react-icons/fc";
 import { useContext, useEffect } from "react";
 
 import { ROUTES } from "../../utils/routes";
+import { RotatingLines } from "react-loader-spinner";
 
 const SignIn = () => {
   const navigate = useNavigate();
 
-  const { signIn, user, GoogleLogin, loading } = useContext(UserContext);
+  const { signIn, user, GoogleLogin, loading, errorMessage } =
+    useContext(UserContext);
 
   useEffect(() => {
     if (user.email) {
@@ -101,6 +103,8 @@ const SignIn = () => {
           </Stack>
         </Stack>
 
+        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+
         <div className={styles.external}>
           <p>Don't have an account?</p>
           <Link to={ROUTES.ROUTE_SIGN_UP}>Sign up</Link>
@@ -111,7 +115,11 @@ const SignIn = () => {
           </button>
           <FcGoogle size={24} />
         </div>
-        {loading && <p>Loading...</p>}
+        {loading && (
+          <div className={styles.loading}>
+            <RotatingLines strokeColor="#4455cf" />
+          </div>
+        )}
       </form>
     </section>
   );

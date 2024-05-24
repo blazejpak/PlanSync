@@ -6,11 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/AuthenticationContext";
 import { ROUTES } from "../../utils/routes";
+import { RotatingLines } from "react-loader-spinner";
+import { FcGoogle } from "react-icons/fc";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const { createUser, user, loading } = useContext(UserContext);
+  const { createUser, user, loading, GoogleLogin } = useContext(UserContext);
 
   useEffect(() => {
     if (user.email) {
@@ -39,6 +41,11 @@ const SignUp = () => {
 
   const backToHomeHandle = () => {
     navigate("/");
+  };
+
+  const googleSignIn = () => {
+    GoogleLogin();
+    navigate(ROUTES.ROUTE_BOARD);
   };
 
   return (
@@ -119,7 +126,19 @@ const SignUp = () => {
           <p>Already have an account?</p>
           <Link to={ROUTES.ROUTE_SIGN_IN}>Sign in</Link>
         </div>
-        {loading && <p>Loading...</p>}
+
+        <div className={styles.google}>
+          <button onClick={googleSignIn} type="button">
+            Sign in with Google
+          </button>
+          <FcGoogle size={24} />
+        </div>
+
+        {loading && (
+          <div className={styles.loading}>
+            <RotatingLines strokeColor="#4455cf" />
+          </div>
+        )}
       </form>
     </section>
   );

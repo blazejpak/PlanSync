@@ -22,6 +22,7 @@ interface initialDataProps {
   logout: any;
   GoogleLogin: any;
   loading: boolean;
+  errorMessage: string;
 }
 
 const initialData: initialDataProps = {
@@ -31,6 +32,7 @@ const initialData: initialDataProps = {
   logout: null,
   GoogleLogin: null,
   loading: true,
+  errorMessage: "",
 };
 
 export const UserContext = createContext(initialData);
@@ -43,7 +45,8 @@ export const AuthenticationContextProvider = ({
   children,
 }: AuthenticationContextProviderTypes) => {
   const [user, setUser] = useState(initialData.user);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(initialData.loading);
+  const [errorMessage, setErrorMessage] = useState(initialData.errorMessage);
 
   const googleProvider = new GoogleAuthProvider();
 
@@ -53,13 +56,22 @@ export const AuthenticationContextProvider = ({
   };
 
   const createUser = (email: string, password: string) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    try {
+      setLoading(true);
+      return createUserWithEmailAndPassword(auth, email, password);
+    } catch (error: any) {
+      setErrorMessage(error.message);
+    }
   };
 
   const signIn = (email: string, password: string) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password).catch(
+      (error: any) => {
+        console.log("type errprrrr:  " + error);
+        setErrorMessage(error.message);
+      }
+    );
   };
 
   const logout = () => {
@@ -71,6 +83,7 @@ export const AuthenticationContextProvider = ({
     const subscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
+        setErrorMessage("");
       }
       setLoading(false);
     });
@@ -81,7 +94,15 @@ export const AuthenticationContextProvider = ({
 
   return (
     <UserContext.Provider
-      value={{ user, GoogleLogin, createUser, signIn, logout, loading }}
+      value={{
+        user,
+        GoogleLogin,
+        createUser,
+        signIn,
+        logout,
+        loading,
+        errorMessage,
+      }}
     >
       {children}
     </UserContext.Provider>
