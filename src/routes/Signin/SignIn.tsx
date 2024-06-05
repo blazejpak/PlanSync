@@ -14,12 +14,11 @@ import { RotatingLines } from "react-loader-spinner";
 const SignIn = () => {
   const navigate = useNavigate();
 
-  const { signIn, user, GoogleLogin, loading, errorMessage } =
-    useContext(UserContext);
+  const { SignIn, user, GoogleLogin, loading, error } = useContext(UserContext);
 
   useEffect(() => {
-    if (user.email) {
-      navigate("/board");
+    if (user) {
+      navigate(ROUTES.ROUTE_BOARD);
     }
   }, []);
 
@@ -30,17 +29,12 @@ const SignIn = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      signIn(values.email, values.password)
-        .then(() => {
-          console.log("User logged out successfully");
-          navigate("/board");
-        })
-        .catch((error: string) => console.error(error));
+      SignIn({ email: values.email, password: values.password });
     },
   });
 
   const backToHomeHandle = () => {
-    navigate("/");
+    navigate(ROUTES.ROUTE_HOME);
   };
 
   const googleSignIn = () => {
@@ -103,7 +97,7 @@ const SignIn = () => {
           </Stack>
         </Stack>
 
-        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
         <div className={styles.external}>
           <p>Don't have an account?</p>

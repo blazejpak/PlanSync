@@ -44,7 +44,7 @@
   }
 }
 
-.nav-computer {
+.nav-desktop {
   display: none;
 
   @include mixins.responsive(md) {

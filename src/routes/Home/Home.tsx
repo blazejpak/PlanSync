@@ -1,15 +1,15 @@
-import HomeNav from "./HomeNav";
+import Nav from "./Nav";
 
 import styles from "./Home.module.scss";
-import HomeContent from "./HomeContent";
-import HomeFooter from "./HomeFooter";
+import Content from "./Content";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
     <div className={styles.container}>
-      <HomeNav />
-      <HomeContent />
-      <HomeFooter />
+      <Nav />
+      <Content />
+      <Footer />
     </div>
   );
 };

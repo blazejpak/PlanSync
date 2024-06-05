@@ -1,5 +1,12 @@
+import { Outlet } from "react-router-dom";
+import { AuthenticationContextProvider } from "../context/AuthenticationContext";
+
 const Root = () => {
-  return <div>Root</div>;
+  return (
+    <AuthenticationContextProvider>
+      <Outlet />
+    </AuthenticationContextProvider>
+  );
 };
 
 export default Root;

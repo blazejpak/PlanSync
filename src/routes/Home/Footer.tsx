@@ -2,7 +2,7 @@ import logo from "../../assets/logo.png";
 import { AiFillFacebook, AiFillInstagram } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 
-import styles from "./HomeFooter.module.scss";
+import styles from "./Footer.module.scss";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/routes";
 
@@ -15,7 +15,7 @@ const HomeFooter = () => {
     <footer className={styles.footer}>
       <div className={styles["left-part"]}>
         <Link to={ROUTES.ROUTE_HOME} onClick={logoLink}>
-          <img src={logo} height={48} className={styles.image} />
+          <img src={logo} height={48} alt="Logo" className={styles.image} />
         </Link>
         <p className={styles.description}>
           PlanSync is a task management app designed to streamline your workflow

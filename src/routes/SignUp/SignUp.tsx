@@ -12,11 +12,11 @@ import { FcGoogle } from "react-icons/fc";
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const { createUser, user, loading, GoogleLogin } = useContext(UserContext);
+  const { SignUp, user, loading, GoogleLogin, error } = useContext(UserContext);
 
   useEffect(() => {
-    if (user.email) {
-      navigate("/board");
+    if (user) {
+      navigate(ROUTES.ROUTE_BOARD);
     }
   }, []);
 
@@ -27,15 +27,8 @@ const SignUp = () => {
       confirmPassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      try {
-        if (values.password === values.confirmPassword) {
-          await createUser(values.email, values.password);
-          navigate("/");
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    onSubmit: (values) => {
+      SignUp({ email: values.email, password: values.password });
     },
   });
 
@@ -122,6 +115,9 @@ const SignUp = () => {
             </Button>
           </Stack>
         </Stack>
+
+        {error && <p className={styles.error}>{error}</p>}
+
         <div className={styles.external}>
           <p>Already have an account?</p>
           <Link to={ROUTES.ROUTE_SIGN_IN}>Sign in</Link>

@@ -1,38 +1,30 @@
+import { ReactNode, createContext, useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   signInWithPopup,
-  signOut,
 } from "firebase/auth";
-import { ReactNode, createContext, useEffect, useState } from "react";
-import { auth } from "../utils/firebase";
 
-interface User {
-  displayName: string | null;
-  email: string | null;
-  uid: string;
-}
+import { firebaseAuth } from "../utils/firebase/firebase";
+import { InitialDataProps, LoginValues } from "../utils/firebase/AuthTypes";
+import {
+  SignInUser,
+  SignOutUser,
+  SignUpUser,
+} from "../utils/firebase/AuthService";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../utils/routes";
 
-interface initialDataProps {
-  user: User;
-  createUser: any;
-  signIn: any;
-  logout: any;
-  GoogleLogin: any;
-  loading: boolean;
-  errorMessage: string;
-}
+const googleProvider = new GoogleAuthProvider();
 
-const initialData: initialDataProps = {
-  user: { email: "", displayName: "", uid: "" },
-  createUser: null,
-  signIn: null,
-  logout: null,
-  GoogleLogin: null,
-  loading: true,
-  errorMessage: "",
+const initialData: InitialDataProps = {
+  user: firebaseAuth.currentUser,
+  SignUp: () => {},
+  SignIn: () => {},
+  SignOut: () => {},
+  GoogleLogin: () => {},
+  loading: false,
+  error: "",
 };
 
 export const UserContext = createContext(initialData);
@@ -44,67 +36,119 @@ interface AuthenticationContextProviderTypes {
 export const AuthenticationContextProvider = ({
   children,
 }: AuthenticationContextProviderTypes) => {
-  const [user, setUser] = useState(initialData.user);
-  const [loading, setLoading] = useState(initialData.loading);
-  const [errorMessage, setErrorMessage] = useState(initialData.errorMessage);
+  const [currentUser, setCurrentUser] = useState(initialData.user);
+  const [isAuthLoading, setIsAuthLoading] = useState(initialData.loading);
+  const [errorMessage, setErrorMessage] = useState(initialData.error);
 
-  const googleProvider = new GoogleAuthProvider();
+  const navigate = useNavigate();
 
-  const GoogleLogin = () => {
-    setLoading(true);
-    signInWithPopup(auth, googleProvider);
-  };
+  const GoogleLogin = async () => {
+    setIsAuthLoading(true);
 
-  const createUser = (email: string, password: string) => {
     try {
-      setLoading(true);
-      return createUserWithEmailAndPassword(auth, email, password);
-    } catch (error: any) {
-      setErrorMessage(error.message);
+      const result = await signInWithPopup(firebaseAuth, googleProvider);
+
+      const user = result.user;
+
+      if (user) {
+        navigate(ROUTES.ROUTE_BOARD, { replace: true });
+      }
+    } catch (error) {
+      setErrorMessage("Unknown Error");
+    } finally {
+      setIsAuthLoading(false);
     }
   };
 
-  const signIn = (email: string, password: string) => {
-    setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password).catch(
-      (error: any) => {
-        console.log("type errprrrr:  " + error);
-        setErrorMessage(error.message);
-      }
-    );
+  const SignUp = async (creds: LoginValues) => {
+    setIsAuthLoading(true);
+    SignUpUser(creds)
+      .then(async (userCredential) => {
+        const { user } = userCredential;
+
+        if (user) {
+          setCurrentUser(user);
+
+          navigate(ROUTES.ROUTE_BOARD, { replace: true });
+        } else {
+          setIsAuthLoading(false);
+        }
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          setErrorMessage("Email is already in use");
+        } else {
+          setErrorMessage("Unknown Error");
+        }
+      })
+      .finally(() => {
+        setIsAuthLoading(false);
+      });
   };
 
-  const logout = () => {
-    setLoading(true);
-    return signOut(auth);
+  const SignIn = async (creds: LoginValues) => {
+    setIsAuthLoading(true);
+    SignInUser(creds)
+      .then((userCredential) => {
+        const { user } = userCredential;
+
+        if (user) {
+          setCurrentUser(user);
+          navigate(ROUTES.ROUTE_BOARD, { replace: true });
+        } else {
+          setIsAuthLoading(false);
+        }
+      })
+      .catch((error) => {
+        if (error.code === "auth/wrong-password") {
+          setErrorMessage("Wrong password");
+        } else if (error.code === "auth/too-many-requests") {
+          setErrorMessage("Too many requests");
+        } else {
+          setErrorMessage("Unknown Error");
+        }
+      })
+      .finally(() => {
+        setIsAuthLoading(false);
+      });
+  };
+
+  const SignOut = async () => {
+    setIsAuthLoading(true);
+    try {
+      await SignOutUser();
+      setCurrentUser(null);
+    } catch (error) {
+      setErrorMessage("SOMETHING WENT WRONG");
+    } finally {
+      setIsAuthLoading(false);
+    }
   };
 
   useEffect(() => {
-    const subscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
+    const subscribe = onAuthStateChanged(firebaseAuth, (currentUserFromWeb) => {
+      if (currentUserFromWeb) {
+        setCurrentUser(currentUserFromWeb);
         setErrorMessage("");
       }
-      setLoading(false);
+      setIsAuthLoading(false);
     });
     return () => {
       subscribe();
     };
   }, []);
 
+  const authValues: InitialDataProps = {
+    user: currentUser,
+    loading: isAuthLoading,
+    error: errorMessage,
+    SignIn,
+    SignUp,
+    SignOut,
+    GoogleLogin: GoogleLogin,
+  };
+
   return (
-    <UserContext.Provider
-      value={{
-        user,
-        GoogleLogin,
-        createUser,
-        signIn,
-        logout,
-        loading,
-        errorMessage,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={authValues}>{children}</UserContext.Provider>
   );
 };
