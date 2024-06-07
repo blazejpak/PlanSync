@@ -1,15 +1,22 @@
+@use "../../globals/variables";
+
 .container {
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
 
-  width: 300px;
+  width: 240px;
 }
 
 .navigation {
+  background-color: variables.$bg-button;
+  border-radius: 16px;
+  color: white;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 3.2rem;
+  padding-inline: 1.6rem;
+  padding-block: 3.2rem;
 
   &__category {
     display: flex;

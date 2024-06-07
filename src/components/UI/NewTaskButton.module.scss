@@ -1,0 +1,15 @@
+@use "../../globals/variables";
+
+.button {
+  background-color: variables.$bg-azure;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 1.6rem 3rem;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: variables.$bg-azure--hover;
+  }
+}
