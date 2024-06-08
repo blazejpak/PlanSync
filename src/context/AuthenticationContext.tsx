@@ -14,6 +14,9 @@ import {
 } from "../utils/firebase/AuthService";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../utils/routes";
+import { firebaseErrors } from "../utils/firebase/Errors";
+
+type FirebaseErrorKey = keyof typeof firebaseErrors;
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -53,8 +56,11 @@ export const AuthenticationContextProvider = ({
       if (user) {
         navigate(ROUTES.ROUTE_BOARD, { replace: true });
       }
-    } catch (error) {
-      setErrorMessage("Unknown Error");
+    } catch (error: any) {
+      const errorCode = error.code as FirebaseErrorKey;
+      const message =
+        firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+      setErrorMessage(message);
     } finally {
       setIsAuthLoading(false);
     }
@@ -74,12 +80,11 @@ export const AuthenticationContextProvider = ({
           setIsAuthLoading(false);
         }
       })
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          setErrorMessage("Email is already in use");
-        } else {
-          setErrorMessage("Unknown Error");
-        }
+      .catch((error: any) => {
+        const errorCode = error.code as FirebaseErrorKey;
+        const message =
+          firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+        setErrorMessage(message);
       })
       .finally(() => {
         setIsAuthLoading(false);
@@ -99,14 +104,11 @@ export const AuthenticationContextProvider = ({
           setIsAuthLoading(false);
         }
       })
-      .catch((error) => {
-        if (error.code === "auth/wrong-password") {
-          setErrorMessage("Wrong password");
-        } else if (error.code === "auth/too-many-requests") {
-          setErrorMessage("Too many requests");
-        } else {
-          setErrorMessage("Unknown Error");
-        }
+      .catch((error: any) => {
+        const errorCode = error.code as FirebaseErrorKey;
+        const message =
+          firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+        setErrorMessage(message);
       })
       .finally(() => {
         setIsAuthLoading(false);
@@ -118,8 +120,11 @@ export const AuthenticationContextProvider = ({
     try {
       await SignOutUser();
       setCurrentUser(null);
-    } catch (error) {
-      setErrorMessage("SOMETHING WENT WRONG");
+    } catch (error: any) {
+      const errorCode = error.code as FirebaseErrorKey;
+      const message =
+        firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+      setErrorMessage(message);
     } finally {
       setIsAuthLoading(false);
     }
