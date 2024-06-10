@@ -1,0 +1,86 @@
+@use "../../globals/variables";
+@use "../../globals/mixins";
+
+.header {
+  height: 8rem;
+
+  user-select: none;
+}
+
+.nav {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  margin-inline: 5%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  justify-content: space-between;
+}
+
+.logo {
+  height: 3.2rem;
+
+  @include mixins.responsive(sm) {
+    height: 4.8rem;
+  }
+}
+
+.button {
+  background-color: variables.$bg-button;
+  border-radius: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.6rem;
+  padding: 1.6rem;
+
+  @include mixins.responsive(sm) {
+    font-size: 1.8rem;
+  }
+
+  &:hover {
+    transition: all 0.3s;
+    background-color: variables.$bg-button--hover;
+  }
+}
+
+.nav-desktop {
+  display: none;
+
+  @include mixins.responsive(md) {
+    display: flex;
+    gap: 3.2rem;
+  }
+}
+
+.nav-mobile {
+  display: none;
+
+  button {
+    background-color: inherit;
+    border: 0;
+    cursor: pointer;
+  }
+
+  @include mixins.responsive(xs) {
+    display: flex;
+
+    .menu {
+      align-items: center;
+      background-color: white;
+      box-shadow: 2px 1px 1px 1px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3.2rem;
+      position: absolute;
+      padding: 4rem;
+      right: 0;
+      top: 100%;
+    }
+  }
+
+  @include mixins.responsive(md) {
+    display: none;
+  }
+}
