@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-// import { AuthenticationContextProvider } from "../context/AuthenticationContext";
+import { AuthenticationContextProvider } from "../context/AuthenticationContext";
 
 const Root = () => {
   return (
-    // <AuthenticationContextProvider>
-    <Outlet />
-    // </AuthenticationContextProvider>
+    <AuthenticationContextProvider>
+      <Outlet />
+    </AuthenticationContextProvider>
   );
 };
 
