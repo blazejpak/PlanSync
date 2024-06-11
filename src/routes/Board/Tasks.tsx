@@ -3,11 +3,24 @@ import { FaArrowRight } from "react-icons/fa";
 import { DateTime } from "luxon";
 
 import styles from "./Tasks.module.scss";
-import { useState } from "react";
-import data from "../../data.json";
-import Task from "./Task";
+import { useEffect, useState } from "react";
+import TaskMobile from "./TaskMobile";
+import TasksDesktop from "./TasksDesktop";
 
 const Tasks = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handlerResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handlerResize);
+    handlerResize();
+
+    return () => window.removeEventListener("resize", handlerResize);
+  }, []);
+
   const time = DateTime.now().setLocale("en-GB");
 
   const [date, setDate] = useState(time);
@@ -39,55 +52,7 @@ const Tasks = () => {
         </button>
       </div>
 
-      <div className={styles.tasks}>
-        <div className={styles.column}>
-          <p className={`${styles.todo} ${styles.tasks__name}`}>To do</p>
-          <ul className={styles.list}>
-            {data
-              .filter((item) => item.typeOfTask === "todo")
-              .map((task) => (
-                <li key={task.uid}>
-                  <Task data={task} />
-                </li>
-              ))}
-          </ul>
-          <div className={styles.add__task}>
-            <button data-color="todo">+</button>
-          </div>
-        </div>
-        <div className={styles.column}>
-          <p className={`${styles.progress} ${styles.tasks__name}`}>
-            In Progress
-          </p>
-          <ul className={styles.list}>
-            {data
-              .filter((item) => item.typeOfTask === "progress")
-              .map((task) => (
-                <li key={task.uid}>
-                  <Task data={task} />
-                </li>
-              ))}
-          </ul>
-          <div className={styles.add__task}>
-            <button data-color="progress">+</button>
-          </div>
-        </div>
-        <div className={styles.column}>
-          <p className={`${styles.done} ${styles.tasks__name}`}>done</p>
-          <ul className={styles.list}>
-            {data
-              .filter((item) => item.typeOfTask === "done")
-              .map((task) => (
-                <li key={task.uid}>
-                  <Task data={task} />
-                </li>
-              ))}
-          </ul>
-          <div className={styles.add__task}>
-            <button data-color="done">+</button>
-          </div>
-        </div>
-      </div>
+      {isMobile ? <TaskMobile /> : <TasksDesktop />}
     </section>
   );
 };
