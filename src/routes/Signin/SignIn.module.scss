@@ -1,0 +1,88 @@
+@use "../../globals/mixins";
+@use "../../globals/variables";
+
+.container {
+  height: 100dvh;
+  width: 100%;
+
+  display: flex;
+}
+
+.form {
+  background-color: white;
+  border-radius: 16px;
+  margin-block: auto;
+  margin-inline: auto;
+  padding: 4rem;
+  width: 30rem;
+
+  @include mixins.responsive(sm) {
+    width: 40rem;
+  }
+
+  @include mixins.responsive(sm) {
+    width: 50rem;
+  }
+
+  h1 {
+    font-size: 3.4rem;
+    font-weight: bold;
+    margin-bottom: 3.2rem;
+  }
+}
+
+.external {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+
+  a {
+    color: variables.$bg-button;
+    transition: all 0.3s;
+    font-weight: bold;
+
+    &:hover {
+      color: variables.$bg-button--hover;
+      transform: scale(1.05);
+    }
+  }
+}
+
+.google {
+  position: relative;
+  margin-top: 2.4rem;
+
+  button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+
+    width: 100%;
+    background-color: rgb(59, 57, 57);
+    color: white;
+    padding-block: 1.6rem;
+    border-radius: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      transition: all 0.3s;
+      background-color: rgba(59, 57, 57, 0.9);
+    }
+  }
+
+  svg {
+    position: absolute;
+    left: 2rem;
+    transform: translateY(50%);
+  }
+}
+
+.error {
+  color: red;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 1.6rem;
+}

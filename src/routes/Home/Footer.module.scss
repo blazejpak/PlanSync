@@ -1,0 +1,80 @@
+@use "../../globals/mixins";
+@use "../../globals/variables";
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
+  margin-inline: 5%;
+  padding-block: 3.6rem;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  @include mixins.responsive(lg) {
+    flex-direction: row;
+  }
+}
+
+.image {
+  filter: grayscale(1);
+
+  object-fit: contain;
+  width: 20rem;
+}
+
+.left-part {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  @include mixins.responsive(md) {
+    align-items: left;
+  }
+
+  @include mixins.responsive(lg) {
+    width: 80%;
+  }
+}
+
+.description {
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+.right-part {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  text-align: center;
+
+  @include mixins.responsive(md) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  @include mixins.responsive(lg) {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 20%;
+  }
+}
+
+.copyright {
+  font-size: 1.4rem;
+  opacity: 0.8;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+
+  @include mixins.responsive(md) {
+    width: 50%;
+  }
+
+  svg:hover {
+    fill: variables.$bg-button--hover;
+    transition: all 0.3s;
+  }
+}
