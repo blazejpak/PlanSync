@@ -1,0 +1,58 @@
+[
+  {
+    "uid": "1",
+    "task": "Make a sandwich",
+    "description": "How to make a sandwich",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false },
+      { "title": "2nd subtask", "isDone": false },
+      { "title": "3rd subtask", "isDone": false }
+    ],
+    "date": "2024-06-09T13:01:46.795Z",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": 1
+  },
+  {
+    "uid": "2",
+    "task": "Make a pizza",
+    "description": "How to make a pizza",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": true },
+      { "title": "2nd subtask", "isDone": true },
+      { "title": "3rd subtask", "isDone": false }
+    ],
+    "date": "2024-06-09T13:01:46.795Z",
+    "subtasksDone": false,
+    "typeOfTask": "progress",
+    "userId": 2
+  },
+  {
+    "uid": "3",
+    "task": "Make a spaghetti",
+    "description": "How to make a spaghetti",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false },
+      { "title": "2nd subtask", "isDone": false },
+      { "title": "3rd subtask", "isDone": false }
+    ],
+    "date": "2024-06-09T13:01:46.795Z",
+    "subtasksDone": false,
+    "typeOfTask": "done",
+    "userId": 1
+  },
+  {
+    "uid": "4",
+    "task": "Make a lasagne",
+    "description": "How to make a lasagne",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false },
+      { "title": "2nd subtask", "isDone": false },
+      { "title": "3rd subtask", "isDone": false }
+    ],
+    "date": "2024-06-09T13:01:46.795Z",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": 2
+  }
+]

@@ -1,0 +1,28 @@
+@use "../../globals//variables";
+
+.task {
+  background-color: white;
+  border-radius: 16px;
+  padding: 1.6rem;
+
+  strong {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  .progress {
+    display: flex;
+    align-items: center;
+
+    .bar {
+      position: relative;
+    }
+
+    .bar_background {
+      background-color: variables.$bg-color;
+      border-radius: 16px;
+      height: 1.6rem;
+      width: 100%;
+    }
+  }
+}

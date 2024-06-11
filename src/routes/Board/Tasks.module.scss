@@ -10,7 +10,13 @@
   .date {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 3.6rem;
+
+    button {
+      border: none;
+      background-color: transparent;
+    }
 
     svg {
       background-color: variables.$bg-grey-dark;
@@ -58,6 +64,7 @@
 
     .todo {
       background-color: variables.$bg-azure;
+      margin-bottom: 1.6rem;
     }
 
     .progress {
@@ -69,6 +76,12 @@
     }
     .column {
       width: 100%;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 3.2rem;
     }
   }
 }
