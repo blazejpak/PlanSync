@@ -41,7 +41,7 @@ const Tasks = () => {
 
       <div className={styles.tasks}>
         <div className={styles.column}>
-          <p className={styles.todo}>To do</p>
+          <p className={`${styles.todo} ${styles.tasks__name}`}>To do</p>
           <ul className={styles.list}>
             {data
               .filter((item) => item.typeOfTask === "todo")
@@ -51,9 +51,14 @@ const Tasks = () => {
                 </li>
               ))}
           </ul>
+          <div className={styles.add__task}>
+            <button data-color="todo">+</button>
+          </div>
         </div>
         <div className={styles.column}>
-          <p className={styles.progress}>In Progress</p>
+          <p className={`${styles.progress} ${styles.tasks__name}`}>
+            In Progress
+          </p>
           <ul className={styles.list}>
             {data
               .filter((item) => item.typeOfTask === "progress")
@@ -63,9 +68,12 @@ const Tasks = () => {
                 </li>
               ))}
           </ul>
+          <div className={styles.add__task}>
+            <button data-color="progress">+</button>
+          </div>
         </div>
         <div className={styles.column}>
-          <p className={styles.done}>done</p>
+          <p className={`${styles.done} ${styles.tasks__name}`}>done</p>
           <ul className={styles.list}>
             {data
               .filter((item) => item.typeOfTask === "done")
@@ -75,6 +83,9 @@ const Tasks = () => {
                 </li>
               ))}
           </ul>
+          <div className={styles.add__task}>
+            <button data-color="done">+</button>
+          </div>
         </div>
       </div>
     </section>

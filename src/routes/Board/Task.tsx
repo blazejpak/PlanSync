@@ -30,7 +30,10 @@ const Task = ({ data }: TaskProps) => {
     setProgressOfSubtasks(doneCount);
   }, [subtasks]);
 
-  const progressValue = 1;
+  const progressValue = (
+    (progressOfSubtasks / subtasks.length) *
+    100
+  ).toFixed();
 
   return (
     <div className={styles.task}>
@@ -39,17 +42,16 @@ const Task = ({ data }: TaskProps) => {
         <div className={styles.bar}>
           <div className={styles.bar_background}></div>
 
-          <div className={styles.bar_background} style={{ width: pr }}></div>
+          <div
+            className={styles["bar_background--progress"]}
+            style={{ width: progressValue + "%" }}
+            data-set={typeOfTask}
+          ></div>
         </div>
-        <p>
-          {progressOfSubtasks === 0
-            ? 0
-            : (progressOfSubtasks / subtasks.length).toFixed(2)}
-          %
-        </p>
+        <p>{progressOfSubtasks === 0 ? 0 : progressValue}%</p>
       </div>
 
-      <p>{description}</p>
+      <p className={styles.task__description}>{description}</p>
     </div>
   );
 };

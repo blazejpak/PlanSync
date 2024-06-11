@@ -6,7 +6,8 @@
     "subtasks": [
       { "title": "1st subtask", "isDone": false },
       { "title": "2nd subtask", "isDone": false },
-      { "title": "3rd subtask", "isDone": false }
+      { "title": "3rd subtask", "isDone": true },
+      { "title": "4th subtask", "isDone": true }
     ],
     "date": "2024-06-09T13:01:46.795Z",
     "subtasksDone": false,
