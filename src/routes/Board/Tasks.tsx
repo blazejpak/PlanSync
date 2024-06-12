@@ -4,8 +4,8 @@ import { DateTime } from "luxon";
 
 import styles from "./Tasks.module.scss";
 import { useEffect, useState } from "react";
-import TaskMobile from "./TaskMobile";
-import TasksDesktop from "./TasksDesktop";
+import TaskMobile from "./mobile/TaskMobile";
+import TasksDesktop from "./desktop/TasksDesktop";
 
 const Tasks = () => {
   const [isMobile, setIsMobile] = useState(false);

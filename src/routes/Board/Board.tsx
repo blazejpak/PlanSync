@@ -1,9 +1,12 @@
+import { ModalContextProvider } from "../../context/ModalStates";
 import Tasks from "./Tasks";
 
 const Board = () => {
   return (
     <div>
-      <Tasks />
+      <ModalContextProvider>
+        <Tasks />
+      </ModalContextProvider>
     </div>
   );
 };

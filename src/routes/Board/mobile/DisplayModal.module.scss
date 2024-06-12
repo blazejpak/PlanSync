@@ -1,0 +1,53 @@
+@use "../../../globals/variables";
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+
+  .subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    .subtask {
+      background-color: variables.$bg-grey;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      gap: 1.6rem;
+      padding: 0.4rem 0.8rem;
+
+      &__text {
+        width: 100%;
+
+        &.active {
+          text-decoration: line-through;
+        }
+      }
+
+      &__checkbox {
+        border: 1px solid variables.$bg-grey-dark;
+        min-height: 1.6rem;
+        min-width: 1.6rem;
+
+        &.active {
+          background-color: variables.$bg-grey-dark;
+        }
+      }
+    }
+  }
+}
