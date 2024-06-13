@@ -1,11 +1,13 @@
 import { ReactNode, createContext, useState } from "react";
-import { Task } from "../helpers/types";
+import { TaskType } from "../helpers/types";
 
 interface ModalContextType {
   isTaskMobileActive: boolean;
   setIsTaskMobileActive: (value: boolean) => void;
-  activeTaskData: Task | null;
-  setActiveTaskData: (value: Task | null) => void;
+  activeTaskData: TaskType | null;
+  setActiveTaskData: (value: TaskType | null) => void;
+  day: string;
+  setDay: (value: string) => void;
 }
 
 const initialData: ModalContextType = {
@@ -13,6 +15,8 @@ const initialData: ModalContextType = {
   setIsTaskMobileActive: () => {},
   activeTaskData: null,
   setActiveTaskData: () => {},
+  day: "",
+  setDay: () => {},
 };
 
 export const ModalContext = createContext<ModalContextType>(initialData);
@@ -30,10 +34,13 @@ export const ModalContextProvider = ({
   const [activeTaskData, setActiveTaskData] = useState(
     initialData.activeTaskData
   );
+  const [day, setDay] = useState("");
 
   return (
     <ModalContext.Provider
       value={{
+        day,
+        setDay,
         isTaskMobileActive,
         setIsTaskMobileActive,
         activeTaskData,

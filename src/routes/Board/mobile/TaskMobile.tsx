@@ -1,16 +1,26 @@
 import styles from "./TaskMobile.module.scss";
 import data from "../../../data.json";
 import Task from "../Task";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DisplayModal from "./DisplayModal";
 import { ModalContext } from "../../../context/ModalStates";
+import { TaskType } from "../../../helpers/types";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(
     "todo"
   );
-  const { isTaskMobileActive, setIsTaskMobileActive, setActiveTaskData } =
+  const [filteredData, setFilteredData] = useState<TaskType[]>([]);
+  const { day, isTaskMobileActive, setIsTaskMobileActive, setActiveTaskData } =
     useContext(ModalContext);
+
+  useEffect(() => {
+    const newData = data.filter(
+      (tasks) => tasks.typeOfTask === typeTasks && tasks.date === day
+    );
+    console.log(newData);
+    setFilteredData(newData);
+  }, [day, typeTasks]);
 
   return (
     <div className={styles.container}>
@@ -41,9 +51,8 @@ const TaskMobile = () => {
         </p>
       </div>
       <ul className={styles.tasks}>
-        {data
-          .filter((tasks) => tasks.typeOfTask === typeTasks)
-          .map((task) => (
+        {filteredData.length ? (
+          filteredData.map((task) => (
             <li
               key={task.uid}
               className={styles.task}
@@ -54,7 +63,10 @@ const TaskMobile = () => {
             >
               <Task data={task} />
             </li>
-          ))}
+          ))
+        ) : (
+          <p>We can't find any data. </p>
+        )}
       </ul>
       {isTaskMobileActive && <DisplayModal />}
     </div>

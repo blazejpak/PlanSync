@@ -9,7 +9,7 @@
       { "title": "3rd subtask", "isDone": true, "id": 3 },
       { "title": "4th subtask", "isDone": true, "id": 4 }
     ],
-    "date": "2024-06-09T13:01:46.795Z",
+    "date": "2024-06-09",
     "subtasksDone": false,
     "typeOfTask": "todo",
     "userId": 1
@@ -23,7 +23,7 @@
       { "title": "2nd subtask", "isDone": true, "id": 2 },
       { "title": "3rd subtask", "isDone": false, "id": 3 }
     ],
-    "date": "2024-06-09T13:01:46.795Z",
+    "date": "2024-06-09",
     "subtasksDone": false,
     "typeOfTask": "progress",
     "userId": 2
@@ -37,7 +37,7 @@
       { "title": "2nd subtask", "isDone": false, "id": 2 },
       { "title": "3rd subtask", "isDone": false, "id": 3 }
     ],
-    "date": "2024-06-09T13:01:46.795Z",
+    "date": "2024-06-09",
     "subtasksDone": false,
     "typeOfTask": "done",
     "userId": 1
@@ -51,7 +51,7 @@
       { "title": "2nd subtask", "isDone": false, "id": 2 },
       { "title": "3rd subtask", "isDone": false, "id": 3 }
     ],
-    "date": "2024-06-09T13:01:46.795Z",
+    "date": "2024-06-15",
     "subtasksDone": false,
     "typeOfTask": "todo",
     "userId": 2
@@ -65,7 +65,7 @@
       { "title": "2nd subtask", "isDone": false, "id": 2 },
       { "title": "3rd subtask", "isDone": false, "id": 3 }
     ],
-    "date": "2024-06-09T13:01:46.795Z",
+    "date": "2024-06-09",
     "subtasksDone": false,
     "typeOfTask": "todo",
     "userId": 3
@@ -79,7 +79,7 @@
       { "title": "2nd subtask", "isDone": false, "id": 2 },
       { "title": "3rd subtask", "isDone": false, "id": 3 }
     ],
-    "date": "2024-06-09T13:01:46.795Z",
+    "date": "2024-06-09",
     "subtasksDone": false,
     "typeOfTask": "todo",
     "userId": 1
@@ -93,7 +93,35 @@
       { "title": "2nd subtask", "isDone": false, "id": 2 },
       { "title": "3rd subtask", "isDone": false, "id": 3 }
     ],
-    "date": "2024-06-09T13:01:46.795Z",
+    "date": "2024-06-14",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": 2
+  },
+  {
+    "uid": "8",
+    "task": "Make a pasta",
+    "description": "How to make a pasta",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-13",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": 2
+  },
+  {
+    "uid": "9",
+    "task": "Make a apple pie",
+    "description": "How to make a apple pie",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-08",
     "subtasksDone": false,
     "typeOfTask": "todo",
     "userId": 2

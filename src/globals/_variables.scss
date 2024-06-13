@@ -1,3 +1,18 @@
+// RADIUS
+$border-radius--sm: 4px;
+$border-radius--md: 8px;
+$border-radius--lg: 16px;
+
+// TYPOGRAPHY
+$font-heading--1: 2.4rem;
+$font-heading--2: 2rem;
+$font-heading--3: 1.8rem;
+
+$font-button: 1.8rem;
+
+$font-paragraph: 1.6rem;
+$font-paragraph--smaller: 1.4rem;
+// COLORS
 // LIGHT THEME
 $bg-color: #eaeaf9;
 $bg-button: #4455cf;
@@ -11,5 +26,7 @@ $bg-pink--hover: rgb(252, 103, 135);
 $bg-grey: #e5e3f5;
 $bg-grey-dark: #d0d0dd;
 $bg-grey-dark--hover: #bcbcc4;
+$bg-error: #ce1818;
+$bg-error--hover: #df3a3a;
 
 // DARK THEME
