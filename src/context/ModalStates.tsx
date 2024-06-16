@@ -4,6 +4,10 @@ import { TaskType } from "../helpers/types";
 interface ModalContextType {
   isTaskMobileActive: boolean;
   setIsTaskMobileActive: (value: boolean) => void;
+  isTaskDesktopActive: boolean;
+  setIsTaskDesktopActive: (value: boolean) => void;
+  typeTaskModal: "task" | "edit" | "delete";
+  setTypeTaskModal: (value: "task" | "edit" | "delete") => void;
   activeTaskData: TaskType | null;
   setActiveTaskData: (value: TaskType | null) => void;
   day: string;
@@ -13,6 +17,10 @@ interface ModalContextType {
 const initialData: ModalContextType = {
   isTaskMobileActive: false,
   setIsTaskMobileActive: () => {},
+  isTaskDesktopActive: false,
+  setIsTaskDesktopActive: () => {},
+  typeTaskModal: "task",
+  setTypeTaskModal: () => {},
   activeTaskData: null,
   setActiveTaskData: () => {},
   day: "",
@@ -31,6 +39,10 @@ export const ModalContextProvider = ({
   const [isTaskMobileActive, setIsTaskMobileActive] = useState(
     initialData.isTaskMobileActive
   );
+  const [isTaskDesktopActive, setIsTaskDesktopActive] = useState(
+    initialData.isTaskDesktopActive
+  );
+  const [typeTaskModal, setTypeTaskModal] = useState(initialData.typeTaskModal);
   const [activeTaskData, setActiveTaskData] = useState(
     initialData.activeTaskData
   );
@@ -43,6 +55,10 @@ export const ModalContextProvider = ({
         setDay,
         isTaskMobileActive,
         setIsTaskMobileActive,
+        isTaskDesktopActive,
+        setIsTaskDesktopActive,
+        typeTaskModal,
+        setTypeTaskModal,
         activeTaskData,
         setActiveTaskData,
       }}

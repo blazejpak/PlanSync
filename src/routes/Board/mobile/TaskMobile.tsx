@@ -2,7 +2,7 @@ import styles from "./TaskMobile.module.scss";
 import data from "../../../data.json";
 import Task from "../Task";
 import { useContext, useEffect, useState } from "react";
-import DisplayModal from "./DisplayModal";
+import DisplayModal from "../DisplayModal";
 import { ModalContext } from "../../../context/ModalStates";
 import { TaskType } from "../../../helpers/types";
 

@@ -50,7 +50,6 @@
   }
 
   .tasks {
-    cursor: pointer;
     display: flex;
     gap: 1.6rem;
     max-width: 55rem;
@@ -58,6 +57,7 @@
     overflow-x: auto;
 
     .task {
+      cursor: pointer;
       min-width: 20rem;
     }
   }

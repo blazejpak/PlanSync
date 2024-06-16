@@ -44,23 +44,30 @@
     display: flex;
     flex-direction: column;
     gap: 3.2rem;
+
+    li {
+      cursor: pointer;
+    }
   }
 
   .add__task {
     align-items: center;
     background-color: white;
+    border: none;
     border-radius: 16px;
+    cursor: pointer;
     display: flex;
-    justify-content: center;
     height: 11.2rem;
+    justify-content: center;
     width: 100%;
 
-    button {
+    p {
+      align-items: center;
       background-color: transparent;
-      border: none;
-      cursor: pointer;
+      display: flex;
       font-size: 3.2rem;
       height: 6.4rem;
+      justify-content: center;
       transition: all 0.3s;
       width: 6.4rem;
 
@@ -68,33 +75,36 @@
         border: dotted 3px variables.$bg-azure;
         border-radius: 100%;
         color: variables.$bg-azure;
-
-        &:hover {
-          border: dotted 3px variables.$bg-azure--hover;
-          color: variables.$bg-azure--hover;
-        }
       }
 
       &[data-color="progress"] {
         border: dotted 3px variables.$bg-yellow;
         border-radius: 100%;
         color: variables.$bg-yellow;
-
-        &:hover {
-          border: dotted 3px variables.$bg-yellow--hover;
-          color: variables.$bg-yellow--hover;
-        }
       }
 
       &[data-color="done"] {
         border: dotted 3px variables.$bg-pink;
         border-radius: 100%;
         color: variables.$bg-pink;
+      }
+    }
 
-        &:hover {
-          border: dotted 3px variables.$bg-pink--hover;
-          color: variables.$bg-pink--hover;
-        }
+    &:hover p {
+      transform: scale(1.05);
+      &[data-color="todo"] {
+        border: dotted 3px variables.$bg-azure--hover;
+        color: variables.$bg-azure--hover;
+      }
+
+      &[data-color="progress"] {
+        border: dotted 3px variables.$bg-yellow--hover;
+        color: variables.$bg-yellow--hover;
+      }
+
+      &[data-color="done"] {
+        border: dotted 3px variables.$bg-pink--hover;
+        color: variables.$bg-pink--hover;
       }
     }
   }
