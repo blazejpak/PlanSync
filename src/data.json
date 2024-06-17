@@ -65,7 +65,7 @@
       { "title": "2nd subtask", "isDone": false, "id": 2 },
       { "title": "3rd subtask", "isDone": false, "id": 3 }
     ],
-    "date": "2024-06-09",
+    "date": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "todo",
     "userId": 3

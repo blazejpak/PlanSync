@@ -1,24 +1,27 @@
 import styles from "./TaskMobile.module.scss";
-import data from "../../../data.json";
 import Task from "../Task";
 import { useContext, useEffect, useState } from "react";
 import DisplayModal from "../DisplayModal";
 import { ModalContext } from "../../../context/ModalStates";
 import { TaskType } from "../../../helpers/types";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { sendData } from "../../../store/reducers/data";
+import FilteredTasks from "../FilteredTasks";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(
     "todo"
   );
   const [filteredData, setFilteredData] = useState<TaskType[]>([]);
-  const { day, isTaskMobileActive, setIsTaskMobileActive, setActiveTaskData } =
+  const { isTaskMobileActive, setIsTaskMobileActive, setActiveTaskData } =
     useContext(ModalContext);
 
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.dataSlice.data);
+  const day = useAppSelector((state) => state.dataSlice.day);
+
   useEffect(() => {
-    const newData = data.filter(
-      (tasks) => tasks.typeOfTask === typeTasks && tasks.date === day
-    );
-    console.log(newData);
+    const newData = data.filter((item) => item.typeOfTask === typeTasks);
     setFilteredData(newData);
   }, [day, typeTasks]);
 
@@ -51,22 +54,7 @@ const TaskMobile = () => {
         </p>
       </div>
       <ul className={styles.tasks}>
-        {filteredData.length ? (
-          filteredData.map((task) => (
-            <li
-              key={task.uid}
-              className={styles.task}
-              onClick={() => {
-                setIsTaskMobileActive(!isTaskMobileActive);
-                setActiveTaskData(task);
-              }}
-            >
-              <Task data={task} />
-            </li>
-          ))
-        ) : (
-          <p>We can't find any data. </p>
-        )}
+        <FilteredTasks typeOfDevice="mobile" typeOfTask={typeTasks} />
       </ul>
       {isTaskMobileActive && <DisplayModal />}
     </div>

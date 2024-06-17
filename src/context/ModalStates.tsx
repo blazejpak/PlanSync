@@ -10,8 +10,6 @@ interface ModalContextType {
   setTypeTaskModal: (value: "task" | "edit" | "delete") => void;
   activeTaskData: TaskType | null;
   setActiveTaskData: (value: TaskType | null) => void;
-  day: string;
-  setDay: (value: string) => void;
 }
 
 const initialData: ModalContextType = {
@@ -23,8 +21,6 @@ const initialData: ModalContextType = {
   setTypeTaskModal: () => {},
   activeTaskData: null,
   setActiveTaskData: () => {},
-  day: "",
-  setDay: () => {},
 };
 
 export const ModalContext = createContext<ModalContextType>(initialData);
@@ -46,13 +42,10 @@ export const ModalContextProvider = ({
   const [activeTaskData, setActiveTaskData] = useState(
     initialData.activeTaskData
   );
-  const [day, setDay] = useState("");
 
   return (
     <ModalContext.Provider
       value={{
-        day,
-        setDay,
         isTaskMobileActive,
         setIsTaskMobileActive,
         isTaskDesktopActive,
