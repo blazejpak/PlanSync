@@ -1,11 +1,27 @@
-import { ReactNode, createContext, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useState,
+} from "react";
 import { TaskType } from "../helpers/types";
 
 interface ModalContextType {
   isTaskMobileActive: boolean;
-  setIsTaskMobileActive: (value: boolean) => void;
+  setIsTaskMobileActive: Dispatch<SetStateAction<boolean>>;
   isTaskDesktopActive: boolean;
-  setIsTaskDesktopActive: (value: boolean) => void;
+  setIsTaskDesktopActive: Dispatch<SetStateAction<boolean>>;
+  newTaskModal: {
+    isActive: boolean;
+    typeOfTask: "todo" | "progress" | "done";
+  };
+  setNewTaskModal: Dispatch<
+    SetStateAction<{
+      isActive: boolean;
+      typeOfTask: "todo" | "progress" | "done";
+    }>
+  >;
   typeTaskModal: "task" | "edit" | "delete";
   setTypeTaskModal: (value: "task" | "edit" | "delete") => void;
   activeTaskData: TaskType | null;
@@ -17,6 +33,8 @@ const initialData: ModalContextType = {
   setIsTaskMobileActive: () => {},
   isTaskDesktopActive: false,
   setIsTaskDesktopActive: () => {},
+  newTaskModal: { isActive: false, typeOfTask: "todo" },
+  setNewTaskModal: () => {},
   typeTaskModal: "task",
   setTypeTaskModal: () => {},
   activeTaskData: null,
@@ -38,6 +56,7 @@ export const ModalContextProvider = ({
   const [isTaskDesktopActive, setIsTaskDesktopActive] = useState(
     initialData.isTaskDesktopActive
   );
+  const [newTaskModal, setNewTaskModal] = useState(initialData.newTaskModal);
   const [typeTaskModal, setTypeTaskModal] = useState(initialData.typeTaskModal);
   const [activeTaskData, setActiveTaskData] = useState(
     initialData.activeTaskData
@@ -50,6 +69,8 @@ export const ModalContextProvider = ({
         setIsTaskMobileActive,
         isTaskDesktopActive,
         setIsTaskDesktopActive,
+        newTaskModal,
+        setNewTaskModal,
         typeTaskModal,
         setTypeTaskModal,
         activeTaskData,

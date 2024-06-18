@@ -24,7 +24,7 @@
   .column {
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
+    // gap: 1.6rem;
     width: 100%;
 
     .todo {
@@ -46,6 +46,7 @@
     gap: 3.2rem;
 
     li {
+      margin-top: 1.6rem;
       cursor: pointer;
     }
   }
@@ -59,6 +60,7 @@
     display: flex;
     height: 11.2rem;
     justify-content: center;
+    margin-top: 1.6rem;
     width: 100%;
 
     p {
