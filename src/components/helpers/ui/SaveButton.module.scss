@@ -9,6 +9,7 @@
   font-size: variables.$font-button;
   font-weight: bold;
   height: 4rem;
+  transition: all 0.3s;
   width: 100%;
 
   &:hover {

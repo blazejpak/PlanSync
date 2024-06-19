@@ -1,3 +1,5 @@
+@use "../../globals/variables";
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -17,6 +19,38 @@
   flex-direction: column;
   gap: 2.4rem;
   padding: 4rem;
-  width: 80%;
   max-width: 66rem;
+
+  .subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 4.8rem;
+
+    .subtask {
+      display: flex;
+      justify-content: center;
+
+      .subtask__remove {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+    }
+    .subtask__add {
+      background-color: transparent;
+      background-color: variables.$bg-grey;
+      border: none;
+      border-radius: variables.$border-radius--sm;
+      cursor: pointer;
+      font-size: variables.$font-button;
+      font-weight: bold;
+      height: 4rem;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: variables.$bg-grey-dark;
+      }
+    }
+  }
 }
