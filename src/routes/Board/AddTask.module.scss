@@ -21,11 +21,29 @@
   padding: 4rem;
   max-width: 66rem;
 
+  .error {
+    color: variables.$bg-error;
+    font-size: 1.4rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+
+    .select {
+      height: 4.8rem;
+      border-radius: variables.$border-radius--sm;
+      border: 1px solid rgba(0, 0, 0, 0.23);
+      padding-left: 0.8rem;
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+
   .subtasks {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    margin-top: 4.8rem;
 
     .subtask {
       display: flex;

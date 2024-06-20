@@ -2,16 +2,9 @@ import { useContext, useRef, useState } from "react";
 import styles from "./AddTask.module.scss";
 import { ModalContext } from "../../context/ModalStates";
 import useClickOutside from "../../components/helpers/helpers/useClickOutside";
-import { Field, FieldArray, Formik } from "formik";
+import { FieldArray, Formik } from "formik";
 import SaveButton from "../../components/helpers/ui/SaveButton";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import * as yup from "yup";
 import { DateTime } from "luxon";
 import { CgClose } from "react-icons/cg";
@@ -20,7 +13,6 @@ const AddTask = () => {
   const time = DateTime.now().setLocale("en-GB").toISO().slice(0, 10);
 
   const modalRef = useRef<HTMLDivElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
   const [subtaskError, setSubtaskError] = useState(false);
 
   const { setNewTaskModal } = useContext(ModalContext);
@@ -39,16 +31,6 @@ const AddTask = () => {
       })
     ),
   });
-
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   return (
     <div className={styles["modal-overlay"]}>
@@ -75,8 +57,9 @@ const AddTask = () => {
             handleBlur,
             handleSubmit,
             isSubmitting,
+            setFieldValue,
           }) => (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.form}>
               <Stack spacing={2} alignItems="center">
                 <TextField
                   style={{ width: "40rem" }}
@@ -160,25 +143,35 @@ const AddTask = () => {
                             <button
                               className={styles.subtask__remove}
                               type="button"
-                              onClick={() => remove(index)}
+                              onClick={() => {
+                                if (values.subtasks.length === 1) {
+                                  if (values.subtasks[0].subtask) {
+                                    setFieldValue("subtasks[0].subtask", "");
+                                  }
+                                  return;
+                                }
+                                remove(index);
+                              }}
                             >
                               <CgClose size={24} />
                             </button>
                           </div>
                         ))}
-                      {subtaskError && <p>Previous subtask can't be empty</p>}
+                      {subtaskError && (
+                        <p className={styles.error}>
+                          Previous subtask can't be empty
+                        </p>
+                      )}
                       <button
                         className={styles.subtask__add}
                         type="button"
                         onClick={() => {
+                          console.log(values);
                           if (
                             !values.subtasks[values.subtasks.length - 1].subtask
                           ) {
                             setSubtaskError(true);
-                          }
-                          if (
-                            values.subtasks[values.subtasks.length - 1].subtask
-                          ) {
+                          } else {
                             push({ subtask: "" });
                           }
                         }}
@@ -190,33 +183,17 @@ const AddTask = () => {
                 />
               </Stack>
 
-              <Stack>
-                <FieldArray
-                  name="types"
-                  render={(helpers) => (
-                    <FormControl fullWidth>
-                      <InputLabel id="type">Status</InputLabel>
-
-                      <Select
-                        label="Status"
-                        id="type"
-                        name="type"
-                        value={values.type}
-                        onChange={(e) => {
-                          handleChange(e);
-                        }}
-                        open={open}
-                        onClose={handleClose}
-                        onOpen={handleOpen}
-                      >
-                        <MenuItem value="todo">Todo</MenuItem>
-                        <MenuItem value="progress">In progress</MenuItem>
-                        <MenuItem value="done">Done</MenuItem>
-                      </Select>
-                    </FormControl>
-                  )}
-                />
-              </Stack>
+              <select
+                name="type"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.type}
+                className={styles.select}
+              >
+                <option value="todo">Todo</option>
+                <option value="progress">In progress</option>
+                <option value="done">Done</option>
+              </select>
 
               <SaveButton type="submit" style={{ marginTop: "1.6rem" }}>
                 Add task
