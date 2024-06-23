@@ -1,0 +1,44 @@
+@use "../../../globals/variables";
+.container {
+  .button {
+    border: none;
+    border: 1px solid variables.$bg-grey-dark--hover;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0.8rem 1.6rem;
+    width: fit-content;
+  }
+  .calendar {
+    align-items: center;
+    background-color: variables.$bg-grey;
+    margin-top: 0.8rem;
+    padding: 0.8rem;
+    width: 20rem;
+
+    &__month {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    &__days {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+
+      p {
+        cursor: pointer;
+        font-size: variables.$font-paragraph;
+
+        &:hover {
+          color: variables.$bg-button--hover;
+        }
+      }
+      .active {
+        color: variables.$bg-button;
+        font-weight: bold;
+      }
+    }
+  }
+}

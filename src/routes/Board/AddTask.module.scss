@@ -20,6 +20,13 @@
   gap: 2.4rem;
   padding: 4rem;
   max-width: 66rem;
+  max-height: 45rem;
+  overflow-y: auto;
+
+  .modal__heading {
+    font-weight: bold;
+    font-size: variables.$font-heading--2;
+  }
 
   .error {
     color: variables.$bg-error;
@@ -69,6 +76,22 @@
       &:hover {
         background-color: variables.$bg-grey-dark;
       }
+    }
+  }
+
+  .radio__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    strong {
+      font-size: variables.$font-heading--3;
+    }
+
+    .radio__selectors {
+      display: flex;
+      flex-direction: row;
+      gap: 0.8rem;
     }
   }
 }
