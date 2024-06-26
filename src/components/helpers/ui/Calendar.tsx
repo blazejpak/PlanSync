@@ -2,25 +2,25 @@ import { DateTime, Interval } from "luxon";
 import { useRef, useState } from "react";
 
 import styles from "./Calendar.module.scss";
-import useClickOutside from "../helpers/useClickOutside";
+
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { pickDate } from "../../../store/reducers/date";
+import { getRangeDate, pickRangeDate } from "../../../store/reducers/data";
 
 const Calendar = () => {
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const date = useAppSelector((state) => state.dateSlice.date);
-  const time = DateTime.fromISO(date);
-
   const dispatch = useAppDispatch();
 
-  const calendarRef = useRef<HTMLDivElement>(null);
-  useClickOutside({
-    ref: calendarRef,
-    callback: () => setIsCalendarOpen(false),
-  });
+  const rangeTaskDate = useAppSelector(getRangeDate);
+  const [monthCalendar, setMonthCalendar] = useState(
+    DateTime.fromISO(rangeTaskDate.from)
+  );
+  const [clickCount, setClickCount] = useState(0);
 
-  const startMonth = time.startOf("month");
-  const endMonth = time.endOf("month");
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const startMonth = monthCalendar.startOf("month");
+  const endMonth = monthCalendar.endOf("month");
 
   const intervals = Interval.fromDateTimes(
     startMonth.startOf("day"),
@@ -33,39 +33,67 @@ const Calendar = () => {
     setIsCalendarOpen((prev) => !prev);
   };
   const pickDay = (day: string) => {
-    dispatch(pickDate(day));
+    console.log(clickCount);
+    setClickCount((prev) => (prev = prev + 1));
+    console.log(clickCount);
+
+    if (clickCount === 0) {
+      if (DateTime.fromISO(day) <= DateTime.fromISO(rangeTaskDate.to)) {
+        dispatch(pickRangeDate({ from: day, to: day }));
+      } else {
+        dispatch(pickRangeDate({ from: day, to: rangeTaskDate.to }));
+      }
+    } else if (clickCount === 1) {
+      if (DateTime.fromISO(day) >= DateTime.fromISO(rangeTaskDate.from)) {
+        dispatch(pickRangeDate({ from: rangeTaskDate.from, to: day }));
+      } else {
+        dispatch(
+          pickRangeDate({
+            from: rangeTaskDate.from,
+            to: rangeTaskDate.from,
+          })
+        );
+      }
+    } else if (clickCount === 2) {
+      if (DateTime.fromISO(day) >= DateTime.fromISO(rangeTaskDate.to)) {
+        dispatch(pickRangeDate({ from: day, to: day }));
+      } else {
+        dispatch(pickRangeDate({ from: day, to: rangeTaskDate.to }));
+      }
+      setClickCount(1);
+    }
   };
 
   const previousMonth = () => {
-    const value = time.minus({ month: 1 });
-    const newMonth = value.toISO()?.slice(0, 10);
+    const value = monthCalendar.minus({ month: 1 });
 
-    if (newMonth) {
-      dispatch(pickDate(newMonth));
-    }
+    setMonthCalendar(value);
   };
 
   const nextMonth = () => {
-    const value = time.plus({ month: 1 });
-    const newMonth = value.toISO()?.slice(0, 10);
+    const value = monthCalendar.plus({ month: 1 });
 
-    if (newMonth) {
-      dispatch(pickDate(newMonth));
-    }
+    setMonthCalendar(value);
   };
 
   return (
     <div className={styles.container}>
-      <button type="button" className={styles.button} onClick={showCalendar}>
-        <p>{date}</p>
-      </button>
+      <div className={styles.button__container}>
+        <button type="button" className={styles.button} onClick={showCalendar}>
+          <p>{rangeTaskDate.from}</p>
+        </button>
+
+        <button type="button" className={styles.button} onClick={showCalendar}>
+          <p>{rangeTaskDate.to}</p>
+        </button>
+      </div>
       {isCalendarOpen && (
         <div className={styles.calendar} ref={calendarRef}>
           <div className={styles.calendar__month}>
             <button type="button" onClick={previousMonth}>
               {"<"}
             </button>
-            <p>{time.monthLong}</p>
+            <p>{monthCalendar.monthLong}</p>
             <button type="button" onClick={nextMonth}>
               {">"}{" "}
             </button>
@@ -73,12 +101,15 @@ const Calendar = () => {
           <div className={styles.calendar__days}>
             {intervals.map((day) => {
               if (day) {
-                const activeDay = day === time.toISODate();
+                const from = day === rangeTaskDate.from;
+                const to = day === rangeTaskDate.to;
                 return (
                   <p
                     key={day}
                     onClick={() => pickDay(day)}
-                    className={activeDay ? styles.active : ""}
+                    className={`${from ? styles.active__from : ""} ${
+                      to ? styles.active__to : ""
+                    }`}
                   >
                     {day?.slice(-2)}
                   </p>

@@ -4,6 +4,7 @@ import { useAppSelector } from "../../store/hooks";
 import Task from "./Task";
 
 import styles from "./FilteredTasks.module.scss";
+import { getData } from "../../store/reducers/data";
 
 type FilteredTasksProps = {
   typeOfTask: "todo" | "progress" | "done";
@@ -19,7 +20,7 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
     setIsTaskMobileActive,
   } = useContext(ModalContext);
 
-  const data = useAppSelector((state) => state.dataSlice.data);
+  const data = useAppSelector(getData);
 
   const filteredTasks = data.filter((item) => item.typeOfTask === typeOfTask);
 

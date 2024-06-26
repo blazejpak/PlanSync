@@ -10,7 +10,7 @@ import { DateTime, Interval } from "luxon";
 import { CgClose } from "react-icons/cg";
 import Calendar from "../../components/helpers/ui/Calendar";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { sendData } from "../../store/reducers/data";
+import { getData } from "../../store/reducers/data";
 
 const AddTask = () => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -18,8 +18,7 @@ const AddTask = () => {
 
   const { setNewTaskModal, newTaskModal } = useContext(ModalContext);
   const { typeOfTask } = newTaskModal;
-  const date = useAppSelector((state) => state.dateSlice.date);
-  const data = useAppSelector((state) => state.dataSlice.data);
+  const data = useAppSelector(getData);
   const dispatch = useAppDispatch();
 
   useClickOutside({
@@ -29,14 +28,9 @@ const AddTask = () => {
 
   const startMonth = DateTime.now().setLocale("en-GB");
 
-  const intervals = Interval.fromDateTimes(startMonth, DateTime.fromISO(date))
-    .splitBy({ day: 1 })
-    .map((date: Interval) => date.start?.toISODate());
-
-  // console.log(date);
-  console.log(DateTime.fromISO(date));
-  console.log(startMonth);
-  console.log(intervals);
+  // const intervals = Interval.fromDateTimes(startMonth, DateTime.fromISO(date))
+  //   .splitBy({ day: 1 })
+  //   .map((date: Interval) => date.start?.toISODate());
 
   const validationSchema = yup.object({
     task: yup.string().min(3).required("Task is required."),
@@ -235,7 +229,7 @@ const AddTask = () => {
                   </label>
                 </Stack>
                 {values.pickedRadioDate === "pickDate" && (
-                  <Stack>
+                  <Stack flexDirection="row">
                     <Calendar />
                   </Stack>
                 )}

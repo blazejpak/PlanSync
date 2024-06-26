@@ -5,17 +5,17 @@ import Tasks from "./Tasks";
 import { useEffect } from "react";
 import data from "../../data.json";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { sendData } from "../../store/reducers/data";
+import { sendTasks } from "../../store/reducers/data";
 
 const Board = () => {
   const dispatch = useAppDispatch();
-  const day = useAppSelector((state) => state.dataSlice.day);
+  const day = useAppSelector((state) => state.dataSlice.currentDay);
 
   useEffect(() => {
     if (day) {
       const prevData = data;
       const newData = prevData.filter((item) => item.date === day);
-      dispatch(sendData(newData));
+      dispatch(sendTasks(newData));
     }
   }, [day]);
 

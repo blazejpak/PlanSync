@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { dataSlice } from "./reducers/data";
-import { dateSlice } from "./reducers/date";
 
 export const store = configureStore({
   reducer: {
     dataSlice: dataSlice.reducer,
-    dateSlice: dateSlice.reducer,
   },
 });
 

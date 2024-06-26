@@ -8,6 +8,8 @@ export interface TaskType {
     id: number;
   }[];
   date: string;
+  rangeDateFrom: string;
+  rangeDateTo: string;
   subtasksDone: boolean;
   typeOfTask: string;
   userId: number;

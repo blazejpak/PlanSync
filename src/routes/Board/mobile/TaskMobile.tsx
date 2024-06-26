@@ -5,7 +5,6 @@ import DisplayModal from "../DisplayModal";
 import { ModalContext } from "../../../context/ModalStates";
 import { TaskType } from "../../../helpers/types";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { sendData } from "../../../store/reducers/data";
 import FilteredTasks from "../FilteredTasks";
 
 const TaskMobile = () => {
@@ -17,8 +16,8 @@ const TaskMobile = () => {
     useContext(ModalContext);
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.dataSlice.data);
-  const day = useAppSelector((state) => state.dataSlice.day);
+  const data = useAppSelector((state) => state.dataSlice.tasks);
+  const day = useAppSelector((state) => state.dataSlice.currentDay);
 
   useEffect(() => {
     const newData = data.filter((item) => item.typeOfTask === typeTasks);
