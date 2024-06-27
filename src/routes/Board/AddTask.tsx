@@ -6,19 +6,27 @@ import { Field, FieldArray, Formik } from "formik";
 import SaveButton from "../../components/helpers/ui/SaveButton";
 import { Stack, TextField } from "@mui/material";
 import * as yup from "yup";
-import { DateTime, Interval } from "luxon";
+
 import { CgClose } from "react-icons/cg";
 import Calendar from "../../components/helpers/ui/Calendar";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getData } from "../../store/reducers/data";
+import {
+  allData,
+  dataFromAllDays,
+  getRangeDate,
+} from "../../store/reducers/data";
+import { UserContext } from "../../context/AuthenticationContext";
 
 const AddTask = () => {
   const modalRef = useRef<HTMLDivElement>(null);
   const [subtaskError, setSubtaskError] = useState(false);
 
   const { setNewTaskModal, newTaskModal } = useContext(ModalContext);
+  const { user } = useContext(UserContext);
+
   const { typeOfTask } = newTaskModal;
-  const data = useAppSelector(getData);
+  const data = useAppSelector(dataFromAllDays);
+  const rangeData = useAppSelector(getRangeDate);
   const dispatch = useAppDispatch();
 
   useClickOutside({
@@ -26,18 +34,14 @@ const AddTask = () => {
     callback: () => setNewTaskModal({ isActive: false, typeOfTask: "todo" }),
   });
 
-  const startMonth = DateTime.now().setLocale("en-GB");
-
-  // const intervals = Interval.fromDateTimes(startMonth, DateTime.fromISO(date))
-  //   .splitBy({ day: 1 })
-  //   .map((date: Interval) => date.start?.toISODate());
-
   const validationSchema = yup.object({
     task: yup.string().min(3).required("Task is required."),
     description: yup.string().min(3),
     subtasks: yup.array().of(
       yup.object({
-        subtask: yup.string().min(3),
+        title: yup.string().min(3),
+        isDone: yup.boolean(),
+        id: yup.number(),
       })
     ),
     type: yup.string(),
@@ -52,7 +56,7 @@ const AddTask = () => {
           initialValues={{
             task: "",
             description: "",
-            subtasks: [{ subtask: "" }],
+            subtasks: [{ title: "", isDone: false, id: Math.random() }],
             type: typeOfTask,
             pickedRadioDate: "today",
           }}
@@ -61,8 +65,24 @@ const AddTask = () => {
             resetForm();
             setNewTaskModal({ isActive: false, typeOfTask: "todo" });
 
-            if (values.task) {
-              // dispatch(sendData([...data,{}]))
+            if (values.task && user) {
+              dispatch(
+                allData([
+                  ...data,
+                  {
+                    uid: Math.random().toString(),
+                    task: values.task,
+                    description: values.description || "",
+                    rangeDateFrom: rangeData.from,
+                    rangeDateTo: rangeData.to,
+                    subtasks: values.subtasks || null,
+                    typeOfTask: values.type,
+                    userId: user?.uid,
+                    subtasksDone: false,
+                    date: rangeData.from,
+                  },
+                ])
+              );
             }
           }}
         >
@@ -129,23 +149,27 @@ const AddTask = () => {
                         values.subtasks.map((subtask, index) => (
                           <div className={styles.subtask} key={index}>
                             <TextField
-                              name={`subtasks.${index}.subtask`}
+                              name={`subtasks.${index}.title`}
                               label={`Subtask ${index + 1}`}
                               type="text"
-                              value={subtask.subtask}
+                              value={subtask.title}
                               onChange={(e) => {
                                 handleChange(e);
                                 setSubtaskError(false);
                               }}
                               style={{ flex: 1 }}
                               error={Boolean(
-                                errors.subtasks?.[index]?.subtask &&
-                                  touched.subtasks?.[index]?.subtask
+                                errors.subtasks?.[index] &&
+                                  touched.subtasks?.[index]
                               )}
                               helperText={
-                                errors.subtasks?.[index]?.subtask &&
-                                touched.subtasks?.[index]?.subtask
-                                  ? errors.subtasks[index].subtask
+                                errors.subtasks &&
+                                errors.subtasks[index] &&
+                                errors.subtasks[index].title &&
+                                touched.subtasks &&
+                                touched.subtasks[index] &&
+                                touched.subtasks[index].title
+                                  ? errors.subtasks[index].title
                                   : ""
                               }
                               InputLabelProps={{
@@ -162,7 +186,7 @@ const AddTask = () => {
                               type="button"
                               onClick={() => {
                                 if (values.subtasks.length === 1) {
-                                  if (values.subtasks[0].subtask) {
+                                  if (values.subtasks[0].title) {
                                     setFieldValue("subtasks[0].subtask", "");
                                   }
                                   return;
@@ -185,11 +209,11 @@ const AddTask = () => {
                         onClick={() => {
                           console.log(values);
                           if (
-                            !values.subtasks[values.subtasks.length - 1].subtask
+                            !values.subtasks[values.subtasks.length - 1].title
                           ) {
                             setSubtaskError(true);
                           } else {
-                            push({ subtask: "" });
+                            push({ title: "", isDone: false, id: 0 });
                           }
                         }}
                       >

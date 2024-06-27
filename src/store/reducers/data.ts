@@ -6,13 +6,15 @@ import { DateTime } from "luxon";
 const time = DateTime.now().setLocale("en-GB").toISO().slice(0, 10);
 
 type InitialStateProps = {
-  tasks: TaskType[];
+  allTasks: TaskType[];
+  dailyTasks: TaskType[];
   currentDay: string;
   rangeDate: { from: string; to: string };
 };
 
 const initialState: InitialStateProps = {
-  tasks: [],
+  allTasks: [],
+  dailyTasks: [],
   currentDay: "",
   rangeDate: { from: time, to: time },
 };
@@ -21,8 +23,12 @@ export const dataSlice = createSlice({
   name: "data",
   initialState: initialState,
   reducers: {
-    sendTasks: (state, action: PayloadAction<TaskType[]>) => {
-      state.tasks = action.payload;
+    allData: (state, action: PayloadAction<TaskType[]>) => {
+      state.allTasks = action.payload;
+    },
+
+    dailyData: (state, action: PayloadAction<TaskType[]>) => {
+      state.dailyTasks = action.payload;
     },
 
     pickCurrentDay: (state, action: PayloadAction<string>) => {
@@ -38,10 +44,13 @@ export const dataSlice = createSlice({
   },
 });
 
-export const getData = (state: RootState) => state.dataSlice.tasks;
+export const dataFromAllDays = (state: RootState) => state.dataSlice.allTasks;
+export const dataFromTheCurrentDay = (state: RootState) =>
+  state.dataSlice.dailyTasks;
 export const getCurrentDay = (state: RootState) => state.dataSlice.currentDay;
 export const getRangeDate = (state: RootState) => state.dataSlice.rangeDate;
 
-export const { sendTasks, pickCurrentDay, pickRangeDate } = dataSlice.actions;
+export const { allData, dailyData, pickCurrentDay, pickRangeDate } =
+  dataSlice.actions;
 
 export default dataSlice.reducer;

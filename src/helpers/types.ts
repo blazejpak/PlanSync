@@ -12,5 +12,5 @@ export interface TaskType {
   rangeDateTo: string;
   subtasksDone: boolean;
   typeOfTask: string;
-  userId: number;
+  userId: string;
 }

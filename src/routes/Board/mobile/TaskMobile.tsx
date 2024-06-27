@@ -6,6 +6,10 @@ import { ModalContext } from "../../../context/ModalStates";
 import { TaskType } from "../../../helpers/types";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import FilteredTasks from "../FilteredTasks";
+import {
+  dataFromTheCurrentDay,
+  getCurrentDay,
+} from "../../../store/reducers/data";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(
@@ -16,8 +20,8 @@ const TaskMobile = () => {
     useContext(ModalContext);
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.dataSlice.tasks);
-  const day = useAppSelector((state) => state.dataSlice.currentDay);
+  const data = useAppSelector(dataFromTheCurrentDay);
+  const day = useAppSelector(getCurrentDay);
 
   useEffect(() => {
     const newData = data.filter((item) => item.typeOfTask === typeTasks);

@@ -14,7 +14,7 @@
     "rangeDateTo": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "todo",
-    "userId": 1
+    "userId": "1"
   },
   {
     "uid": "2",
@@ -30,7 +30,7 @@
     "rangeDateTo": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "progress",
-    "userId": 2
+    "userId": "2"
   },
   {
     "uid": "3",
@@ -46,7 +46,7 @@
     "rangeDateTo": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "done",
-    "userId": 1
+    "userId": "1"
   },
   {
     "uid": "4",
@@ -62,7 +62,7 @@
     "rangeDateTo": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "todo",
-    "userId": 2
+    "userId": "2"
   },
   {
     "uid": "5",
@@ -78,7 +78,7 @@
     "rangeDateTo": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "todo",
-    "userId": 3
+    "userId": "3"
   },
   {
     "uid": "6",
@@ -94,7 +94,7 @@
     "rangeDateTo": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "todo",
-    "userId": 1
+    "userId": "1"
   },
   {
     "uid": "7",
@@ -110,7 +110,7 @@
     "rangeDateTo": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "todo",
-    "userId": 2
+    "userId": "2"
   },
   {
     "uid": "8",
@@ -126,7 +126,7 @@
     "rangeDateTo": "2024-06-17",
     "subtasksDone": false,
     "typeOfTask": "todo",
-    "userId": 2
+    "userId": "2"
   },
   {
     "uid": "9",
@@ -139,9 +139,9 @@
     ],
     "date": "2024-06-08",
     "rangeDateFrom": "2024-06-17",
-    "rangeDateTo": "2024-06-17",
+    "rangeDateTo": "2024-06-27",
     "subtasksDone": false,
     "typeOfTask": "todo",
-    "userId": 2
+    "userId": "2"
   }
 ]
