@@ -130,8 +130,8 @@
   },
   {
     "uid": "9",
-    "task": "Make a apple pie",
-    "description": "How to make a apple pie",
+    "task": "Make an apple pie",
+    "description": "How to make an apple pie",
     "subtasks": [
       { "title": "1st subtask", "isDone": false, "id": 1 },
       { "title": "2nd subtask", "isDone": false, "id": 2 },
