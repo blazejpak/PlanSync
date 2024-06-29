@@ -1,0 +1,147 @@
+[
+  {
+    "uid": "1",
+    "task": "Make a sandwich",
+    "description": "How to make a sandwich",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": true, "id": 3 },
+      { "title": "4th subtask", "isDone": true, "id": 4 }
+    ],
+    "date": "2024-06-09",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-17",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": "1"
+  },
+  {
+    "uid": "2",
+    "task": "Make a pizza",
+    "description": "How to make a pizza",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": true, "id": 1 },
+      { "title": "2nd subtask", "isDone": true, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-09",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-17",
+    "subtasksDone": false,
+    "typeOfTask": "progress",
+    "userId": "2"
+  },
+  {
+    "uid": "3",
+    "task": "Make a spaghetti",
+    "description": "How to make a spaghetti",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-09",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-17",
+    "subtasksDone": false,
+    "typeOfTask": "done",
+    "userId": "1"
+  },
+  {
+    "uid": "4",
+    "task": "Make a lasagne",
+    "description": "How to make a lasagne",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-15",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-17",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": "2"
+  },
+  {
+    "uid": "5",
+    "task": "Make a burger",
+    "description": "How to make a burger",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-17",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-17",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": "3"
+  },
+  {
+    "uid": "6",
+    "task": "Make a salad",
+    "description": "How to make a salad",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-09",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-17",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": "1"
+  },
+  {
+    "uid": "7",
+    "task": "Make a hot dog",
+    "description": "How to make a hot dog",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-14",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-17",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": "2"
+  },
+  {
+    "uid": "8",
+    "task": "Make a pasta",
+    "description": "How to make a pasta",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-13",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-17",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": "2"
+  },
+  {
+    "uid": "9",
+    "task": "Make an apple pie",
+    "description": "How to make an apple pie",
+    "subtasks": [
+      { "title": "1st subtask", "isDone": false, "id": 1 },
+      { "title": "2nd subtask", "isDone": false, "id": 2 },
+      { "title": "3rd subtask", "isDone": false, "id": 3 }
+    ],
+    "date": "2024-06-08",
+    "rangeDateFrom": "2024-06-17",
+    "rangeDateTo": "2024-06-27",
+    "subtasksDone": false,
+    "typeOfTask": "todo",
+    "userId": "2"
+  }
+]
