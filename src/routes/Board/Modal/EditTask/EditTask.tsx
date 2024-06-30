@@ -1,93 +1,137 @@
-import { HiDotsVertical } from "react-icons/hi";
-import styles from "../Overlay.module.scss";
 import { MouseEvent, useContext, useState } from "react";
+
+import { Formik, FormikHelpers, FormikState } from "formik";
+
 import { ModalContext } from "../../../../context/ModalStates";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+
+import {
+  allData,
+  dataFromAllDays,
+  getRangeDate,
+} from "../../../../store/reducers/data";
+import { UserContext } from "../../../../context/AuthenticationContext";
+
 import SaveButton from "../../../../components/helpers/ui/SaveButton";
+
+import styles from "../AddTask/AddTask.module.scss";
+import { validationSchema } from "../../AddTaskValidationSchema";
 import Overlay from "../Overlay";
+import TaskFields from "../AddTask/TaskFields";
+import SubtasksFields from "../AddTask/SubtasksFields";
+import DateFields from "../AddTask/DateFields";
+import { ValuesTypes } from "../AddTask/ValuesType";
 
 const EditTask = () => {
-  const { typeTaskModal, setTypeTaskModal, activeTask, setActiveTask } =
+  const { typeTaskModal, setTypeTaskModal, activeTask, setIsModalActive } =
     useContext(ModalContext);
+  const { user } = useContext(UserContext);
+  const typeOfTask = typeTaskModal.prop as string;
 
-  const [isEditTaskActive, setIsEditTaskActive] = useState(false);
+  const data = useAppSelector(dataFromAllDays);
+  const rangeData = useAppSelector(getRangeDate);
+  const dispatch = useAppDispatch();
 
   if (!activeTask) return null;
 
-  const changeActiveSubtasks = (id: number) => {
-    const changedSubtasks = activeTask.subtasks.map((subtask) =>
-      subtask.id === id ? { ...subtask, isDone: !subtask.isDone } : subtask
-    );
-    setActiveTask({ ...activeTask, subtasks: changedSubtasks });
+  const initialValue = {
+    task: activeTask.task,
+    description: activeTask.description,
+    subtasks: activeTask.subtasks,
+    type: activeTask.typeOfTask,
+    pickedRadioDate: "today",
   };
 
-  const displayTaskHandler = () => {
-    setTypeTaskModal({ type: "task", prop: null });
-    setIsEditTaskActive(false);
-  };
+  const saveTask = (
+    values: ValuesTypes,
+    { setSubmitting, resetForm }: FormikHelpers<ValuesTypes>
+  ) => {
+    if (user) {
+      const filteredSubtasks = values.subtasks.filter(
+        (subtask) => subtask.title
+      );
 
-  const deleteTaskHandler = () => {
-    setTypeTaskModal({ type: "delete", prop: null });
-    setIsEditTaskActive(false);
-  };
+      const editedTask = data.map((task) => {
+        if (task.uid === activeTask.uid) {
+          task = {
+            uid: Math.random().toString(),
+            task: values.task,
+            description: values.description || "",
+            rangeDateFrom: rangeData.from,
+            rangeDateTo: rangeData.to,
+            subtasks: filteredSubtasks,
+            typeOfTask: values.type,
+            userId: user?.uid,
+            subtasksDone: activeTask.subtasksDone,
+            date: rangeData.from,
+          };
+        }
+        return task;
+      });
 
-  const saveTask = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+      dispatch(allData(editedTask));
+
+      resetForm();
+      setTypeTaskModal({ type: null, prop: null });
+      setIsModalActive(false);
+    }
   };
 
   if (typeTaskModal.type !== "edit") return null;
-
+  console.log(activeTask);
   return (
     <Overlay>
-      <div className={styles.header}>
-        <strong className={styles.header__text}>{activeTask.task}</strong>
-        <button
-          className={styles.header__button}
-          onClick={() => setIsEditTaskActive((prev) => !prev)}
-        >
-          <HiDotsVertical size={30} />
-        </button>
+      <strong className={styles.modal__heading}>Edit task</strong>
+      <Formik
+        initialValues={initialValue}
+        validationSchema={validationSchema}
+        onSubmit={saveTask}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          setFieldValue,
+        }) => (
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <TaskFields
+              values={values}
+              errors={errors}
+              touched={touched}
+              handleChange={handleChange}
+            />
 
-        {isEditTaskActive && (
-          <div className={styles.header__edit}>
-            <button
-              className={styles["header__edit--edit"]}
-              onClick={displayTaskHandler}
-            >
-              Display task
-            </button>
-            <button
-              className={styles["header__edit--delete"]}
-              onClick={deleteTaskHandler}
-            >
-              Delete task
-            </button>
-          </div>
+            <SubtasksFields
+              values={values}
+              errors={errors}
+              touched={touched}
+              handleChange={handleChange}
+              setFieldValue={setFieldValue}
+            />
+
+            <DateFields
+              values={values}
+              errors={errors}
+              touched={touched}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+            />
+
+            <div>
+              <SaveButton type="submit" style={{ marginTop: "1.6rem" }}>
+                Save
+              </SaveButton>
+              <SaveButton type="button" style={{ marginTop: "1.6rem" }}>
+                Cancel
+              </SaveButton>
+            </div>
+          </form>
         )}
-      </div>
-      <p className={styles.description}>{activeTask.description}</p>
-      <ul className={styles.subtasks}>
-        {activeTask.subtasks.map((subtask) => (
-          <li
-            key={subtask.id}
-            className={styles.subtask}
-            onClick={() => changeActiveSubtasks(subtask.id)}
-          >
-            <div
-              className={`${styles.subtask__checkbox} ${
-                subtask.isDone ? styles.active : ""
-              }`}
-            ></div>
-            <p
-              className={`${styles.subtask__text} ${
-                subtask.isDone ? styles.active : ""
-              }`}
-            >
-              {subtask.title}
-            </p>
-          </li>
-        ))}
-      </ul>
-      <SaveButton onClick={saveTask}>Save Task</SaveButton>
+      </Formik>
     </Overlay>
   );
 };

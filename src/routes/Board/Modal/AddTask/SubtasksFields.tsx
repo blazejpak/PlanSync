@@ -67,6 +67,7 @@ const SubtasksFields = ({
                         backgroundColor: "white",
                       },
                     }}
+                    inputProps={{ style: { fontSize: 16 } }}
                     required
                   />
 
