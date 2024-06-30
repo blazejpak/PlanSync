@@ -1,0 +1,30 @@
+@use "../../../globals/variables";
+
+.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  border-radius: variables.$border-radius--lg;
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem 1.6rem;
+  transition: background-color 0.3s;
+  width: 16rem;
+
+  &.delete {
+    background-color: variables.$bg-error;
+
+    &:hover {
+      background-color: variables.$bg-error--hover;
+    }
+  }
+
+  &.cancel {
+    background-color: variables.$bg-button;
+
+    &:hover {
+      background-color: variables.$bg-button--hover;
+    }
+  }
+}

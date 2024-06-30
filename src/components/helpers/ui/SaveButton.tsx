@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import styles from "./SaveButton.module.scss";
 
-type SaveButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type SaveButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
 };
 
