@@ -8,37 +8,27 @@ import {
 import { TaskType } from "../helpers/types";
 
 interface ModalContextType {
-  isTaskMobileActive: boolean;
-  setIsTaskMobileActive: Dispatch<SetStateAction<boolean>>;
-  isTaskDesktopActive: boolean;
-  setIsTaskDesktopActive: Dispatch<SetStateAction<boolean>>;
-  newTaskModal: {
-    isActive: boolean;
-    typeOfTask: "todo" | "progress" | "done";
+  isModalActive: boolean;
+  setIsModalActive: Dispatch<SetStateAction<boolean>>;
+  typeTaskModal: {
+    type: "task" | "edit" | "delete" | "add" | null;
+    prop: string | null;
   };
-  setNewTaskModal: Dispatch<
-    SetStateAction<{
-      isActive: boolean;
-      typeOfTask: "todo" | "progress" | "done";
-    }>
-  >;
-  typeTaskModal: "task" | "edit" | "delete";
-  setTypeTaskModal: (value: "task" | "edit" | "delete") => void;
-  activeTaskData: TaskType | null;
-  setActiveTaskData: (value: TaskType | null) => void;
+  setTypeTaskModal: (value: {
+    type: "task" | "edit" | "delete" | "add" | null;
+    prop: string | null;
+  }) => void;
+  activeTask: TaskType | null;
+  setActiveTask: Dispatch<SetStateAction<TaskType | null>>;
 }
 
 const initialData: ModalContextType = {
-  isTaskMobileActive: false,
-  setIsTaskMobileActive: () => {},
-  isTaskDesktopActive: false,
-  setIsTaskDesktopActive: () => {},
-  newTaskModal: { isActive: false, typeOfTask: "todo" },
-  setNewTaskModal: () => {},
-  typeTaskModal: "task",
+  isModalActive: false,
+  setIsModalActive: () => {},
+  typeTaskModal: { type: "task", prop: null },
   setTypeTaskModal: () => {},
-  activeTaskData: null,
-  setActiveTaskData: () => {},
+  activeTask: null,
+  setActiveTask: () => {},
 };
 
 export const ModalContext = createContext<ModalContextType>(initialData);
@@ -50,31 +40,19 @@ interface ChildrenContextProviderType {
 export const ModalContextProvider = ({
   children,
 }: ChildrenContextProviderType) => {
-  const [isTaskMobileActive, setIsTaskMobileActive] = useState(
-    initialData.isTaskMobileActive
-  );
-  const [isTaskDesktopActive, setIsTaskDesktopActive] = useState(
-    initialData.isTaskDesktopActive
-  );
-  const [newTaskModal, setNewTaskModal] = useState(initialData.newTaskModal);
+  const [isModalActive, setIsModalActive] = useState(initialData.isModalActive);
   const [typeTaskModal, setTypeTaskModal] = useState(initialData.typeTaskModal);
-  const [activeTaskData, setActiveTaskData] = useState(
-    initialData.activeTaskData
-  );
+  const [activeTask, setActiveTask] = useState(initialData.activeTask);
 
   return (
     <ModalContext.Provider
       value={{
-        isTaskMobileActive,
-        setIsTaskMobileActive,
-        isTaskDesktopActive,
-        setIsTaskDesktopActive,
-        newTaskModal,
-        setNewTaskModal,
+        isModalActive,
+        setIsModalActive,
         typeTaskModal,
         setTypeTaskModal,
-        activeTaskData,
-        setActiveTaskData,
+        activeTask,
+        setActiveTask,
       }}
     >
       {children}

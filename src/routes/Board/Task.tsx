@@ -1,21 +1,10 @@
 import { useEffect, useState } from "react";
 
 import styles from "./Task.module.scss";
+import { TaskType } from "../../helpers/types";
 
 interface TaskProps {
-  data: {
-    uid: string;
-    task: string;
-    description: string;
-    subtasks: {
-      title: string;
-      isDone: boolean;
-    }[];
-    date: string;
-    subtasksDone: boolean;
-    typeOfTask: string;
-    userId: number;
-  };
+  data: TaskType;
 }
 
 const Task = ({ data }: TaskProps) => {

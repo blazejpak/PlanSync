@@ -4,13 +4,13 @@ import { FormikErrors, FormikTouched, FieldArray } from "formik";
 
 import { CgClose } from "react-icons/cg";
 
-import styles from "../AddTask.module.scss";
+import styles from "./AddTask.module.scss";
 import { ValuesTypes } from "./ValuesType";
 
 interface SubtasksFieldsProps {
   values: ValuesTypes;
-  errors: FormikErrors<{ task: string; description: string }>;
-  touched: FormikTouched<{ task: string; description: string }>;
+  errors: FormikErrors<ValuesTypes>;
+  touched: FormikTouched<ValuesTypes>;
   handleChange: (e: ChangeEvent) => void;
   setFieldValue: (
     field: string,
@@ -53,11 +53,11 @@ const SubtasksFields = ({
                     helperText={
                       errors.subtasks &&
                       errors.subtasks[index] &&
-                      errors.subtasks[index].title &&
+                      errors.subtasks[index]?.title &&
                       touched.subtasks &&
                       touched.subtasks[index] &&
                       touched.subtasks[index].title
-                        ? errors.subtasks[index].title
+                        ? errors.subtasks[index]?.title
                         : ""
                     }
                     InputLabelProps={{

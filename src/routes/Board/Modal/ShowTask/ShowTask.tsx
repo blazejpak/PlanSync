@@ -1,44 +1,58 @@
-import { HiDotsVertical } from "react-icons/hi";
-import styles from "./DisplayModal.module.scss";
 import { MouseEvent, useContext, useState } from "react";
-import { ModalContext } from "../../context/ModalStates";
-import SaveButton from "../../components/helpers/ui/SaveButton";
+import styles from "./ShowTask.module.scss";
+import { HiDotsVertical } from "react-icons/hi";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { allData, dataFromAllDays } from "../../../../store/reducers/data";
+import { ModalContext } from "../../../../context/ModalStates";
+import SaveButton from "../../../../components/helpers/ui/SaveButton";
+import Overlay from "../Overlay";
 
-const EditTask = () => {
-  const { typeTaskModal, setTypeTaskModal, activeTaskData, setActiveTaskData } =
+const ShowTask = () => {
+  const { activeTask, setActiveTask, setTypeTaskModal, setIsModalActive } =
     useContext(ModalContext);
+  const data = useAppSelector(dataFromAllDays);
+  const dispatch = useAppDispatch();
 
   const [isEditTaskActive, setIsEditTaskActive] = useState(false);
 
-  if (!activeTaskData) return null;
+  if (!activeTask) return null;
 
-  const changeActiveSubtasks = (id: number) => {
-    const changedSubtasks = activeTaskData.subtasks.map((subtask) =>
+  const changeDoneSubtasks = (id: number) => {
+    const changedSubtasks = activeTask.subtasks.map((subtask) =>
       subtask.id === id ? { ...subtask, isDone: !subtask.isDone } : subtask
     );
-    setActiveTaskData({ ...activeTaskData, subtasks: changedSubtasks });
+    setActiveTask({ ...activeTask, subtasks: changedSubtasks });
   };
 
-  const displayTaskHandler = () => {
-    setTypeTaskModal("task");
+  const editTaskHandler = () => {
+    setTypeTaskModal({ type: "edit", prop: null });
     setIsEditTaskActive(false);
   };
 
   const deleteTaskHandler = () => {
-    setTypeTaskModal("delete");
+    setTypeTaskModal({ type: "delete", prop: null });
     setIsEditTaskActive(false);
   };
 
   const saveTask = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    const newData = data.map((task) => {
+      if (task.uid === activeTask.uid) {
+        return activeTask;
+      }
+
+      return task;
+    });
+
+    dispatch(allData(newData));
+    setIsModalActive(false);
   };
 
-  if (typeTaskModal !== "edit") return null;
-
   return (
-    <>
+    <Overlay>
       <div className={styles.header}>
-        <strong className={styles.header__text}>{activeTaskData.task}</strong>
+        <strong className={styles.header__text}>{activeTask.task}</strong>
         <button
           className={styles.header__button}
           onClick={() => setIsEditTaskActive((prev) => !prev)}
@@ -50,9 +64,9 @@ const EditTask = () => {
           <div className={styles.header__edit}>
             <button
               className={styles["header__edit--edit"]}
-              onClick={displayTaskHandler}
+              onClick={editTaskHandler}
             >
-              Display task
+              Edit task
             </button>
             <button
               className={styles["header__edit--delete"]}
@@ -63,13 +77,13 @@ const EditTask = () => {
           </div>
         )}
       </div>
-      <p className={styles.description}>{activeTaskData.description}</p>
+      <p className={styles.description}>{activeTask.description}</p>
       <ul className={styles.subtasks}>
-        {activeTaskData.subtasks.map((subtask) => (
+        {activeTask.subtasks.map((subtask) => (
           <li
             key={subtask.id}
             className={styles.subtask}
-            onClick={() => changeActiveSubtasks(subtask.id)}
+            onClick={() => changeDoneSubtasks(subtask.id)}
           >
             <div
               className={`${styles.subtask__checkbox} ${
@@ -87,8 +101,8 @@ const EditTask = () => {
         ))}
       </ul>
       <SaveButton onClick={saveTask}>Save Task</SaveButton>
-    </>
+    </Overlay>
   );
 };
 
-export default EditTask;
+export default ShowTask;

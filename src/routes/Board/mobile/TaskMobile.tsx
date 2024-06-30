@@ -59,7 +59,7 @@ const TaskMobile = () => {
       <ul className={styles.tasks}>
         <FilteredTasks typeOfDevice="mobile" typeOfTask={typeTasks} />
       </ul>
-      {isTaskMobileActive && <DisplayModal />}
+      {/* {isTaskMobileActive && <DisplayModal />} */}
     </div>
   );
 };

@@ -5,8 +5,8 @@ import { ValuesTypes } from "./ValuesType";
 
 interface TaskFieldsProps {
   values: ValuesTypes;
-  errors: FormikErrors<{ task: string; description: string }>;
-  touched: FormikTouched<{ task: string; description: string }>;
+  errors: FormikErrors<ValuesTypes>;
+  touched: FormikTouched<ValuesTypes>;
   handleChange: (e: ChangeEvent) => void;
 }
 

@@ -1,16 +1,21 @@
 import styles from "./TasksDesktop.module.scss";
 import { useContext } from "react";
 import { ModalContext } from "../../../context/ModalStates";
-import DisplayModal from "../DisplayModal";
+
 import FilteredTasks from "../FilteredTasks";
-import AddTask from "../AddTask";
+
+import ShowTask from "../Modal/ShowTask/ShowTask";
+import EditTask from "../Modal/EditTask/EditTask";
+import DeleteTask from "../Modal/DeleteTask/DeleteTask";
+import AddTask from "../Modal/AddTask/AddTask";
 
 const TasksDesktop = () => {
-  const { isTaskDesktopActive, newTaskModal, setNewTaskModal } =
+  const { typeTaskModal, isModalActive, setIsModalActive, setTypeTaskModal } =
     useContext(ModalContext);
 
   const addTask = (type: "todo" | "progress" | "done") => {
-    setNewTaskModal({ isActive: true, typeOfTask: type });
+    setIsModalActive(true);
+    setTypeTaskModal({ type: "add", prop: type });
   };
 
   return (
@@ -48,8 +53,14 @@ const TasksDesktop = () => {
         </button>
       </div>
 
-      {isTaskDesktopActive && <DisplayModal />}
-      {newTaskModal.isActive && <AddTask />}
+      {typeTaskModal.type === "task" && isModalActive && <ShowTask />}
+
+      {typeTaskModal.type === "edit" && isModalActive && <EditTask />}
+
+      {((typeTaskModal.type === "delete" && isModalActive) ||
+        (typeTaskModal.type === "delete" && isModalActive)) && <DeleteTask />}
+
+      {typeTaskModal.type === "add" && isModalActive && <AddTask />}
     </div>
   );
 };

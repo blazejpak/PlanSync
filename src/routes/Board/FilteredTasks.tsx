@@ -12,13 +12,8 @@ type FilteredTasksProps = {
 };
 
 const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
-  const {
-    isTaskDesktopActive,
-    setIsTaskDesktopActive,
-    setActiveTaskData,
-    isTaskMobileActive,
-    setIsTaskMobileActive,
-  } = useContext(ModalContext);
+  const { setTypeTaskModal, setIsModalActive, setActiveTask } =
+    useContext(ModalContext);
 
   const data = useAppSelector(dataFromTheCurrentDay);
 
@@ -31,37 +26,36 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
   return (
     <>
       {typeOfDevice === "desktop"
-        ? data
-            .filter((item) => item.typeOfTask === typeOfTask)
-            .map((task) => {
-              return (
-                <li
-                  key={task.uid}
-                  onClick={() => {
-                    setIsTaskDesktopActive(!isTaskDesktopActive);
-                    setActiveTaskData(task);
-                  }}
-                >
-                  <Task data={task} />
-                </li>
-              );
-            })
-        : data
-            .filter((item) => item.typeOfTask === typeOfTask)
-            .map((task) => {
-              return (
-                <li
-                  className={styles.task}
-                  key={task.uid}
-                  onClick={() => {
-                    setIsTaskMobileActive(!isTaskMobileActive);
-                    setActiveTaskData(task);
-                  }}
-                >
-                  <Task data={task} />
-                </li>
-              );
-            })}
+        ? filteredTasks.map((task) => {
+            console.log(task);
+            return (
+              <li
+                key={task.uid}
+                onClick={() => {
+                  setIsModalActive(true);
+                  setTypeTaskModal({ type: "task", prop: null });
+                  setActiveTask(task);
+                }}
+              >
+                <Task data={task} />
+              </li>
+            );
+          })
+        : filteredTasks.map((task) => {
+            return (
+              <li
+                className={styles.task}
+                key={task.uid}
+                onClick={() => {
+                  setIsModalActive(true);
+                  setTypeTaskModal({ type: "task", prop: null });
+                  setActiveTask(task);
+                }}
+              >
+                <Task data={task} />
+              </li>
+            );
+          })}
     </>
   );
 };

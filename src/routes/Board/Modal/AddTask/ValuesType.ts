@@ -6,6 +6,6 @@ export interface ValuesTypes {
     isDone: boolean;
     id: number;
   }[];
-  type: "progress" | "todo" | "done";
+  type: string;
   pickedRadioDate: string;
 }
