@@ -46,7 +46,9 @@ const Calendar = () => {
       if (DateTime.fromISO(day) >= DateTime.fromISO(rangeTaskDate.from)) {
         dispatch(pickRangeDate({ from: rangeTaskDate.from, to: day }));
       } else {
-        dispatch(pickRangeDate({ from: day, to: day }));
+        dispatch(
+          pickRangeDate({ from: rangeTaskDate.from, to: rangeTaskDate.from })
+        );
       }
       setActiveInput("");
       setIsCalendarOpen(false);
@@ -101,7 +103,6 @@ const Calendar = () => {
                 const isBetween =
                   day > rangeTaskDate.from && day < rangeTaskDate.to;
                 const today = day === DateTime.now().toISO().slice(0, 10);
-                console.log(today);
 
                 return (
                   <p
