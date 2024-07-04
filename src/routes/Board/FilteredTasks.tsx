@@ -27,7 +27,6 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
     <>
       {typeOfDevice === "desktop"
         ? filteredTasks.map((task) => {
-            console.log(task);
             return (
               <li
                 key={task.uid}

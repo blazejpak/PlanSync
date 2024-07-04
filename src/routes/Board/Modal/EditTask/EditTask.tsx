@@ -1,4 +1,4 @@
-import { MouseEvent, useContext, useState } from "react";
+import { MouseEvent, useContext, useEffect, useState } from "react";
 
 import { Formik, FormikHelpers, FormikState } from "formik";
 
@@ -9,6 +9,7 @@ import {
   allData,
   dataFromAllDays,
   getRangeDate,
+  pickRangeDate,
 } from "../../../../store/reducers/data";
 import { UserContext } from "../../../../context/AuthenticationContext";
 
@@ -21,6 +22,7 @@ import TaskFields from "../AddTask/TaskFields";
 import SubtasksFields from "../AddTask/SubtasksFields";
 import DateFields from "../AddTask/DateFields";
 import { ValuesTypes } from "../AddTask/ValuesType";
+import { Interval } from "luxon";
 
 const EditTask = () => {
   const { typeTaskModal, setTypeTaskModal, activeTask, setIsModalActive } =
@@ -32,53 +34,61 @@ const EditTask = () => {
   const rangeData = useAppSelector(getRangeDate);
   const dispatch = useAppDispatch();
 
-  if (!activeTask) return null;
+  if (!activeTask || !user) return null;
+
+  useEffect(() => {
+    dispatch(
+      pickRangeDate({
+        from: activeTask.rangeDateFrom,
+        to: activeTask.rangeDateTo,
+      })
+    );
+  }, []);
+
+  const typeOfCalendar =
+    activeTask?.rangeDateTo > activeTask?.rangeDateFrom ? "pickDate" : "today";
 
   const initialValue = {
     task: activeTask.task,
     description: activeTask.description,
     subtasks: activeTask.subtasks,
     type: activeTask.typeOfTask,
-    pickedRadioDate: "today",
+    pickedRadioDate: typeOfCalendar,
   };
 
   const saveTask = (
     values: ValuesTypes,
     { setSubmitting, resetForm }: FormikHelpers<ValuesTypes>
   ) => {
-    if (user) {
-      const filteredSubtasks = values.subtasks.filter(
-        (subtask) => subtask.title
-      );
+    const filteredSubtasks = values.subtasks.filter((subtask) => subtask.title);
 
-      const editedTask = data.map((task) => {
-        if (task.uid === activeTask.uid) {
-          task = {
-            uid: Math.random().toString(),
-            task: values.task,
-            description: values.description || "",
-            rangeDateFrom: rangeData.from,
-            rangeDateTo: rangeData.to,
-            subtasks: filteredSubtasks,
-            typeOfTask: values.type,
-            userId: user?.uid,
-            subtasksDone: activeTask.subtasksDone,
-            date: rangeData.from,
-          };
-        }
-        return task;
-      });
+    const editedTask = data.map((task) => {
+      if (task.uid === activeTask.uid) {
+        task = {
+          uid: Math.random().toString(),
+          task: values.task,
+          description: values.description || "",
+          rangeDateFrom: rangeData.from,
+          rangeDateTo: rangeData.to,
+          subtasks: filteredSubtasks,
+          typeOfTask: values.type,
+          userId: user?.uid,
+          subtasksDone: activeTask.subtasksDone,
+          date: rangeData.from,
+        };
+      }
+      return task;
+    });
 
-      dispatch(allData(editedTask));
+    dispatch(allData(editedTask));
 
-      resetForm();
-      setTypeTaskModal({ type: null, prop: null });
-      setIsModalActive(false);
-    }
+    resetForm();
+    setTypeTaskModal({ type: null, prop: null });
+    setIsModalActive(false);
   };
 
   if (typeTaskModal.type !== "edit") return null;
-  console.log(activeTask);
+
   return (
     <Overlay>
       <strong className={styles.modal__heading}>Edit task</strong>

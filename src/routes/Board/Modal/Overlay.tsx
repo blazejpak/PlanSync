@@ -27,7 +27,7 @@ const Overlay = ({ children }: OverlayProps) => {
       setTypeTaskModal({ type: null, prop: null });
     },
   });
-  console.log(modalRef);
+
   return (
     <div className={styles["modal-overlay"]}>
       <div className={styles["modal-content"]} ref={modalRef}>
