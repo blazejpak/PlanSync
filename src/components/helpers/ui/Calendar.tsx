@@ -2,6 +2,7 @@ import { DateTime, Interval } from "luxon";
 import { useRef, useState } from "react";
 
 import styles from "./Calendar.module.scss";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getRangeDate, pickRangeDate } from "../../../store/reducers/data";
@@ -13,7 +14,7 @@ const Calendar = () => {
   const [monthCalendar, setMonthCalendar] = useState(
     DateTime.fromISO(rangeTaskDate.from)
   );
-  const [clickCount, setClickCount] = useState(0);
+  const [activeInput, setActiveInput] = useState("from");
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
@@ -29,38 +30,26 @@ const Calendar = () => {
     .splitBy({ day: 1 })
     .map((date: Interval) => date.start?.toISODate());
 
-  const showCalendar = () => {
-    setIsCalendarOpen((prev) => !prev);
+  const showCalendar = (input: "from" | "to") => {
+    setIsCalendarOpen(true);
+    setActiveInput(input);
   };
   const pickDay = (day: string) => {
-    console.log(clickCount);
-    setClickCount((prev) => (prev = prev + 1));
-    console.log(clickCount);
-
-    if (clickCount === 0) {
+    if (activeInput === "from") {
       if (DateTime.fromISO(day) <= DateTime.fromISO(rangeTaskDate.to)) {
-        dispatch(pickRangeDate({ from: day, to: day }));
-      } else {
         dispatch(pickRangeDate({ from: day, to: rangeTaskDate.to }));
+      } else {
+        dispatch(pickRangeDate({ from: day, to: day }));
       }
-    } else if (clickCount === 1) {
+      setActiveInput("to");
+    } else if (activeInput === "to") {
       if (DateTime.fromISO(day) >= DateTime.fromISO(rangeTaskDate.from)) {
         dispatch(pickRangeDate({ from: rangeTaskDate.from, to: day }));
       } else {
-        dispatch(
-          pickRangeDate({
-            from: rangeTaskDate.from,
-            to: rangeTaskDate.from,
-          })
-        );
-      }
-    } else if (clickCount === 2) {
-      if (DateTime.fromISO(day) >= DateTime.fromISO(rangeTaskDate.to)) {
         dispatch(pickRangeDate({ from: day, to: day }));
-      } else {
-        dispatch(pickRangeDate({ from: day, to: rangeTaskDate.to }));
       }
-      setClickCount(1);
+      setActiveInput("");
+      setIsCalendarOpen(false);
     }
   };
 
@@ -79,23 +68,29 @@ const Calendar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.button__container}>
-        <button type="button" className={styles.button} onClick={showCalendar}>
-          <p>{rangeTaskDate.from}</p>
-        </button>
+        <input
+          className={styles.button}
+          onClick={() => showCalendar("from")}
+          value={rangeTaskDate.from}
+          readOnly
+        />
 
-        <button type="button" className={styles.button} onClick={showCalendar}>
-          <p>{rangeTaskDate.to}</p>
-        </button>
+        <input
+          className={styles.button}
+          onClick={() => showCalendar("to")}
+          value={rangeTaskDate.to}
+          readOnly
+        />
       </div>
       {isCalendarOpen && (
         <div className={styles.calendar} ref={calendarRef}>
           <div className={styles.calendar__month}>
             <button type="button" onClick={previousMonth}>
-              {"<"}
+              <FaArrowLeft size={16} />
             </button>
             <p>{monthCalendar.monthLong}</p>
             <button type="button" onClick={nextMonth}>
-              {">"}{" "}
+              <FaArrowRight size={16} />
             </button>
           </div>
           <div className={styles.calendar__days}>
@@ -103,12 +98,19 @@ const Calendar = () => {
               if (day) {
                 const from = day === rangeTaskDate.from;
                 const to = day === rangeTaskDate.to;
+                const isBetween =
+                  day > rangeTaskDate.from && day < rangeTaskDate.to;
+                const today = day === DateTime.now().toISO().slice(0, 10);
+                console.log(today);
+
                 return (
                   <p
                     key={day}
                     onClick={() => pickDay(day)}
                     className={`${from ? styles.active__from : ""} ${
                       to ? styles.active__to : ""
+                    } ${isBetween ? styles.active__between : ""} ${
+                      today && styles.active__today
                     }`}
                   >
                     {day?.slice(-2)}
