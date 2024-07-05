@@ -5,7 +5,7 @@ import { FormikErrors, FormikTouched, FieldArray } from "formik";
 import { CgClose } from "react-icons/cg";
 
 import styles from "./AddTask.module.scss";
-import { ValuesTypes } from "./ValuesType";
+import { Subtask, ValuesTypes } from "./ValuesType";
 
 interface SubtasksFieldsProps {
   values: ValuesTypes;
@@ -48,16 +48,24 @@ const SubtasksFields = ({
                     }}
                     style={{ flex: 1 }}
                     error={Boolean(
-                      errors.subtasks?.[index] && touched.subtasks?.[index]
+                      (
+                        errors.subtasks as FormikErrors<Subtask>[] | undefined
+                      )?.[index]?.title &&
+                        (
+                          touched.subtasks as
+                            | FormikTouched<Subtask>[]
+                            | undefined
+                        )?.[index]?.title
                     )}
                     helperText={
-                      errors.subtasks &&
-                      errors.subtasks[index] &&
-                      errors.subtasks[index]?.title &&
-                      touched.subtasks &&
-                      touched.subtasks[index] &&
-                      touched.subtasks[index].title
-                        ? errors.subtasks[index]?.title
+                      (
+                        errors.subtasks as FormikErrors<Subtask>[] | undefined
+                      )?.[index]?.title &&
+                      (
+                        touched.subtasks as FormikTouched<Subtask>[] | undefined
+                      )?.[index]?.title
+                        ? (errors.subtasks as FormikErrors<Subtask>[])[index]
+                            ?.title
                         : ""
                     }
                     InputLabelProps={{
@@ -95,7 +103,6 @@ const SubtasksFields = ({
               className={styles.subtask__add}
               type="button"
               onClick={() => {
-                console.log(values);
                 if (!values.subtasks[values.subtasks.length - 1].title) {
                   setSubtaskError(true);
                 } else {

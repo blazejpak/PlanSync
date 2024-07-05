@@ -64,6 +64,9 @@
         border-top-left-radius: variables.$border-radius--lg;
         border-bottom-left-radius: variables.$border-radius--lg;
 
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+
         &:hover {
           color: white;
         }
@@ -73,6 +76,8 @@
         background-color: variables.$bg-button--hover;
         border-top-right-radius: variables.$border-radius--lg;
         border-bottom-right-radius: variables.$border-radius--lg;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
 
         &:hover {
           color: white;

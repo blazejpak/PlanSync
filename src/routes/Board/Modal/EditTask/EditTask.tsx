@@ -1,6 +1,6 @@
-import { MouseEvent, useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
-import { Formik, FormikHelpers, FormikState } from "formik";
+import { Formik, FormikHelpers } from "formik";
 
 import { ModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
@@ -22,13 +22,11 @@ import TaskFields from "../AddTask/TaskFields";
 import SubtasksFields from "../AddTask/SubtasksFields";
 import DateFields from "../AddTask/DateFields";
 import { ValuesTypes } from "../AddTask/ValuesType";
-import { Interval } from "luxon";
 
 const EditTask = () => {
   const { typeTaskModal, setTypeTaskModal, activeTask, setIsModalActive } =
     useContext(ModalContext);
   const { user } = useContext(UserContext);
-  const typeOfTask = typeTaskModal.prop as string;
 
   const data = useAppSelector(dataFromAllDays);
   const rangeData = useAppSelector(getRangeDate);

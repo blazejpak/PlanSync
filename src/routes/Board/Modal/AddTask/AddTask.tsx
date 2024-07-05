@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 
 import { ModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
@@ -20,6 +20,7 @@ import TaskFields from "./TaskFields";
 import SubtasksFields from "./SubtasksFields";
 import DateFields from "./DateFields";
 import Overlay from "../Overlay";
+import { ValuesTypes } from "./ValuesType";
 
 const AddTask = () => {
   const { user } = useContext(UserContext);
@@ -31,47 +32,54 @@ const AddTask = () => {
   const rangeData = useAppSelector(getRangeDate);
   const dispatch = useAppDispatch();
 
+  const initialValues: ValuesTypes = {
+    task: "",
+    description: "",
+    subtasks: [{ title: "", isDone: false, id: Math.random() }],
+    type: typeOfTask,
+    pickedRadioDate: "today",
+  };
+
+  const addTask = (
+    values: ValuesTypes,
+    { setSubmitting, resetForm }: FormikHelpers<ValuesTypes>
+  ) => {
+    if (values.task && user) {
+      const filteredSubtasks = values.subtasks.filter(
+        (subtask) => subtask.title
+      );
+
+      dispatch(
+        allData([
+          ...data,
+          {
+            uid: Math.random().toString(),
+            task: values.task,
+            description: values.description || "",
+            rangeDateFrom: rangeData.from,
+            rangeDateTo: rangeData.to,
+            subtasks: filteredSubtasks,
+            typeOfTask: typeOfTask,
+            userId: user?.uid,
+            subtasksDone: false,
+            date: rangeData.from,
+          },
+        ])
+      );
+
+      resetForm();
+      setTypeTaskModal({ type: null, prop: null });
+      setIsModalActive(false);
+    }
+  };
+
   return (
     <Overlay>
       <strong className={styles.modal__heading}>Add new task</strong>
       <Formik
-        initialValues={{
-          task: "",
-          description: "",
-          subtasks: [{ title: "", isDone: false, id: Math.random() }],
-          type: typeOfTask,
-          pickedRadioDate: "today",
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          if (values.task && user) {
-            const filteredSubtasks = values.subtasks.filter(
-              (subtask) => subtask.title
-            );
-
-            dispatch(
-              allData([
-                ...data,
-                {
-                  uid: Math.random().toString(),
-                  task: values.task,
-                  description: values.description || "",
-                  rangeDateFrom: rangeData.from,
-                  rangeDateTo: rangeData.to,
-                  subtasks: filteredSubtasks,
-                  typeOfTask: typeOfTask,
-                  userId: user?.uid,
-                  subtasksDone: false,
-                  date: rangeData.from,
-                },
-              ])
-            );
-
-            resetForm();
-            setTypeTaskModal({ type: null, prop: null });
-            setIsModalActive(false);
-          }
-        }}
+        onSubmit={addTask}
       >
         {({
           values,
@@ -101,8 +109,6 @@ const AddTask = () => {
 
             <DateFields
               values={values}
-              errors={errors}
-              touched={touched}
               handleChange={handleChange}
               handleBlur={handleBlur}
             />
