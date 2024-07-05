@@ -36,7 +36,7 @@ const SubtasksFields = ({
           <div className={styles.subtasks}>
             {values.subtasks.length > 0 &&
               values.subtasks.map((subtask, index) => (
-                <div className={styles.subtask} key={index}>
+                <div className={styles.subtask} key={subtask.id}>
                   <TextField
                     name={`subtasks.${index}.title`}
                     label={`Subtask ${index + 1}`}

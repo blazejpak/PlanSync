@@ -6,6 +6,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getRangeDate, pickRangeDate } from "../../../store/reducers/data";
+import useClickOutside from "../helpers/useClickOutside";
 
 const Calendar = () => {
   const dispatch = useAppDispatch();
@@ -50,8 +51,7 @@ const Calendar = () => {
           pickRangeDate({ from: rangeTaskDate.from, to: rangeTaskDate.from })
         );
       }
-      setActiveInput("");
-      setIsCalendarOpen(false);
+      setActiveInput("from");
     }
   };
 
@@ -67,8 +67,13 @@ const Calendar = () => {
     setMonthCalendar(value);
   };
 
+  useClickOutside({
+    ref: calendarRef,
+    callback: () => setIsCalendarOpen(false),
+  });
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={calendarRef}>
       <div className={styles.button__container}>
         <input
           className={styles.button}
@@ -85,7 +90,7 @@ const Calendar = () => {
         />
       </div>
       {isCalendarOpen && (
-        <div className={styles.calendar} ref={calendarRef}>
+        <div className={styles.calendar}>
           <div className={styles.calendar__month}>
             <button type="button" onClick={previousMonth}>
               <FaArrowLeft size={16} />
@@ -102,7 +107,8 @@ const Calendar = () => {
                 const to = day === rangeTaskDate.to;
                 const isBetween =
                   day > rangeTaskDate.from && day < rangeTaskDate.to;
-                const today = day === DateTime.now().toISO().slice(0, 10);
+                const today = DateTime.now().toISO().slice(0, 10);
+                const isToday = day === today;
 
                 return (
                   <p
@@ -111,7 +117,10 @@ const Calendar = () => {
                     className={`${from ? styles.active__from : ""} ${
                       to ? styles.active__to : ""
                     } ${isBetween ? styles.active__between : ""} ${
-                      today && styles.active__today
+                      isToday &&
+                      today !== rangeTaskDate.from &&
+                      today !== rangeTaskDate.to &&
+                      styles.active__today
                     }`}
                   >
                     {day?.slice(-2)}
