@@ -123,8 +123,6 @@ const EditTask = () => {
 
             <DateFields
               values={values}
-              errors={errors}
-              touched={touched}
               handleChange={handleChange}
               handleBlur={handleBlur}
             />
