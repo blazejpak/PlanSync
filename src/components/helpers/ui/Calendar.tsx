@@ -9,21 +9,17 @@ import { getRangeDate, pickRangeDate } from "../../../store/reducers/data";
 import useClickOutside from "../helpers/useClickOutside";
 
 const Calendar = () => {
+  const calendarRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
-
   const rangeTaskDate = useAppSelector(getRangeDate);
   const [monthCalendar, setMonthCalendar] = useState(
     DateTime.fromISO(rangeTaskDate.from)
   );
   const [activeInput, setActiveInput] = useState("from");
-
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-
-  const calendarRef = useRef<HTMLDivElement>(null);
 
   const startMonth = monthCalendar.startOf("month");
   const endMonth = monthCalendar.endOf("month");
-
   const intervals = Interval.fromDateTimes(
     startMonth.startOf("day"),
     endMonth.endOf("day")

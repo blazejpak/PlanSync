@@ -8,23 +8,19 @@ type OverlayProps = {
 };
 
 const Overlay = ({ children }: OverlayProps) => {
-  const { setIsModalActive, setTypeTaskModal } = useContext(ModalContext);
+  const { setTaskModal } = useContext(ModalContext);
 
   const modalRef = useRef<HTMLDivElement>(null);
 
   useClickOutside({
     ref: modalRef,
     callback: () => {
-      setIsModalActive(false);
-      setTypeTaskModal({ type: null, prop: null });
-    },
-  });
-
-  useClickOutside({
-    ref: modalRef,
-    callback: () => {
-      setIsModalActive(false);
-      setTypeTaskModal({ type: null, prop: null });
+      setTaskModal({
+        isActive: false,
+        prop: null,
+        activeTaskData: null,
+        type: null,
+      });
     },
   });
 

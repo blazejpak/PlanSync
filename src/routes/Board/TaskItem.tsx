@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 import styles from "./Task.module.scss";
-import { TaskType } from "../../helpers/types";
+import { Task } from "../../types/task";
 
 interface TaskProps {
-  data: TaskType;
+  data: Task;
 }
 
-const Task = ({ data }: TaskProps) => {
+const TaskItem = ({ data }: TaskProps) => {
   const { task, description, subtasks, typeOfTask } = data;
 
   const [progressOfSubtasks, setProgressOfSubtasks] = useState(0);
@@ -45,4 +45,4 @@ const Task = ({ data }: TaskProps) => {
   );
 };
 
-export default Task;
+export default TaskItem;

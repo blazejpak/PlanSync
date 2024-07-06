@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ModalContext } from "../../context/ModalStates";
 import { useAppSelector } from "../../store/hooks";
-import Task from "./Task";
+import TaskItem from "./TaskItem";
 
 import styles from "./FilteredTasks.module.scss";
 import { dataFromTheCurrentDay } from "../../store/reducers/data";
@@ -12,8 +12,7 @@ type FilteredTasksProps = {
 };
 
 const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
-  const { setTypeTaskModal, setIsModalActive, setActiveTask } =
-    useContext(ModalContext);
+  const { setTaskModal } = useContext(ModalContext);
 
   const data = useAppSelector(dataFromTheCurrentDay);
 
@@ -23,40 +22,24 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
     return <p>Can't find any data</p>;
   }
 
-  return (
-    <>
-      {typeOfDevice === "desktop"
-        ? filteredTasks.map((task) => {
-            return (
-              <li
-                key={task.uid}
-                onClick={() => {
-                  setIsModalActive(true);
-                  setTypeTaskModal({ type: "task", prop: null });
-                  setActiveTask(task);
-                }}
-              >
-                <Task data={task} />
-              </li>
-            );
-          })
-        : filteredTasks.map((task) => {
-            return (
-              <li
-                className={styles.task}
-                key={task.uid}
-                onClick={() => {
-                  setIsModalActive(true);
-                  setTypeTaskModal({ type: "task", prop: null });
-                  setActiveTask(task);
-                }}
-              >
-                <Task data={task} />
-              </li>
-            );
-          })}
-    </>
-  );
+  return filteredTasks.map((task) => {
+    return (
+      <li
+        className={`${typeOfDevice === "mobile" && styles.task}`}
+        key={task.uid}
+        onClick={() => {
+          setTaskModal({
+            type: "task",
+            prop: null,
+            activeTaskData: task,
+            isActive: true,
+          });
+        }}
+      >
+        <TaskItem data={task} />
+      </li>
+    );
+  });
 };
 
 export default FilteredTasks;

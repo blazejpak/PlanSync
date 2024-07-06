@@ -15,7 +15,7 @@ import { UserContext } from "../../../../context/AuthenticationContext";
 import SaveButton from "../../../../components/helpers/ui/SaveButton";
 
 import styles from "./AddTask.module.scss";
-import { validationSchema } from "../../AddTaskValidationSchema";
+import { validationSchema } from "./AddTaskValidationSchema";
 import TaskFields from "./TaskFields";
 import SubtasksFields from "./SubtasksFields";
 import DateFields from "./DateFields";
@@ -24,9 +24,8 @@ import { ValuesTypes } from "./ValuesType";
 
 const AddTask = () => {
   const { user } = useContext(UserContext);
-  const { typeTaskModal, setTypeTaskModal, setIsModalActive } =
-    useContext(ModalContext);
-  const typeOfTask = typeTaskModal.prop as string;
+  const { taskModal, closeModal } = useContext(ModalContext);
+  const typeOfTask = taskModal.prop as string;
 
   const data = useAppSelector(dataFromAllDays);
   const rangeData = useAppSelector(getRangeDate);
@@ -68,8 +67,7 @@ const AddTask = () => {
       );
 
       resetForm();
-      setTypeTaskModal({ type: null, prop: null });
-      setIsModalActive(false);
+      closeModal();
     }
   };
 

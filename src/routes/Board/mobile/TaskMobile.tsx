@@ -1,9 +1,8 @@
 import styles from "./TaskMobile.module.scss";
-import Task from "../Task";
 import { useContext, useEffect, useState } from "react";
 import DisplayModal from "../DisplayModal";
 import { ModalContext } from "../../../context/ModalStates";
-import { TaskType } from "../../../helpers/types";
+import { Task } from "../../../types/task";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import FilteredTasks from "../FilteredTasks";
 import {
@@ -15,7 +14,7 @@ const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(
     "todo"
   );
-  const [filteredData, setFilteredData] = useState<TaskType[]>([]);
+  const [filteredData, setFilteredData] = useState<Task[]>([]);
   const { isTaskMobileActive, setIsTaskMobileActive, setActiveTaskData } =
     useContext(ModalContext);
 

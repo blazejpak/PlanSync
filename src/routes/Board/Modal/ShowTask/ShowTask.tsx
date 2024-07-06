@@ -8,8 +8,8 @@ import SaveButton from "../../../../components/helpers/ui/SaveButton";
 import Overlay from "../Overlay";
 
 const ShowTask = () => {
-  const { activeTask, setActiveTask, setTypeTaskModal, setIsModalActive } =
-    useContext(ModalContext);
+  const { taskModal, setTaskModal, closeModal } = useContext(ModalContext);
+  const activeTask = taskModal.activeTaskData;
   const data = useAppSelector(dataFromAllDays);
   const dispatch = useAppDispatch();
 
@@ -21,17 +21,40 @@ const ShowTask = () => {
     const changedSubtasks = activeTask.subtasks.map((subtask) =>
       subtask.id === id ? { ...subtask, isDone: !subtask.isDone } : subtask
     );
-    setActiveTask({ ...activeTask, subtasks: changedSubtasks });
+
+    if (changedSubtasks) {
+      setTaskModal({
+        type: taskModal.type,
+        prop: taskModal.prop,
+        activeTaskData: {
+          ...activeTask,
+          subtasks: changedSubtasks,
+        },
+        isActive: true,
+      });
+    }
   };
 
   const editTaskHandler = () => {
-    setTypeTaskModal({ type: "edit", prop: null });
     setIsEditTaskActive(false);
+
+    setTaskModal({
+      ...taskModal,
+      type: "edit",
+      prop: null,
+      isActive: true,
+    });
   };
 
   const deleteTaskHandler = () => {
-    setTypeTaskModal({ type: "delete", prop: null });
     setIsEditTaskActive(false);
+
+    setTaskModal({
+      ...taskModal,
+      type: "delete",
+      prop: null,
+      isActive: true,
+    });
   };
 
   const saveTask = (e: MouseEvent<HTMLButtonElement>) => {
@@ -46,7 +69,7 @@ const ShowTask = () => {
     });
 
     dispatch(allData(newData));
-    setIsModalActive(false);
+    closeModal();
   };
 
   return (

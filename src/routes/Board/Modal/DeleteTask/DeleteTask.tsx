@@ -9,20 +9,25 @@ import { allData, dataFromAllDays } from "../../../../store/reducers/data";
 
 const DeleteTask = () => {
   const dispatch = useAppDispatch();
-  const { activeTask, setTypeTaskModal, setIsModalActive } =
-    useContext(ModalContext);
+  const { taskModal, setTaskModal, closeModal } = useContext(ModalContext);
   const data = useAppSelector(dataFromAllDays);
 
   const deleteTask = () => {
-    const newData = data.filter((task) => task.uid !== activeTask?.uid);
+    const newData = data.filter(
+      (task) => task.uid !== taskModal.activeTaskData?.uid
+    );
 
     dispatch(allData(newData));
-    setTypeTaskModal({ type: "task", prop: null });
-    setIsModalActive(false);
+    closeModal();
   };
 
   const cancel = () => {
-    setTypeTaskModal({ type: "task", prop: null });
+    setTaskModal({
+      ...taskModal,
+      type: "task",
+      prop: null,
+      isActive: false,
+    });
   };
 
   return (

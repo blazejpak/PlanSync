@@ -16,7 +16,7 @@ import { UserContext } from "../../../../context/AuthenticationContext";
 import SaveButton from "../../../../components/helpers/ui/SaveButton";
 
 import styles from "../AddTask/AddTask.module.scss";
-import { validationSchema } from "../../AddTaskValidationSchema";
+import { validationSchema } from "../AddTask/AddTaskValidationSchema";
 import Overlay from "../Overlay";
 import TaskFields from "../AddTask/TaskFields";
 import SubtasksFields from "../AddTask/SubtasksFields";
@@ -24,7 +24,7 @@ import DateFields from "../AddTask/DateFields";
 import { ValuesTypes } from "../AddTask/ValuesType";
 
 const EditTask = () => {
-  const { typeTaskModal, setTypeTaskModal, activeTask, setIsModalActive } =
+  const { setTypeTaskModal, activeTask, setIsModalActive } =
     useContext(ModalContext);
   const { user } = useContext(UserContext);
 
@@ -84,8 +84,6 @@ const EditTask = () => {
     setTypeTaskModal({ type: null, prop: null });
     setIsModalActive(false);
   };
-
-  if (typeTaskModal.type !== "edit") return null;
 
   return (
     <Overlay>

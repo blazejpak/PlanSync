@@ -10,12 +10,15 @@ import DeleteTask from "../Modal/DeleteTask/DeleteTask";
 import AddTask from "../Modal/AddTask/AddTask";
 
 const TasksDesktop = () => {
-  const { typeTaskModal, isModalActive, setIsModalActive, setTypeTaskModal } =
-    useContext(ModalContext);
+  const { taskModal, setTaskModal } = useContext(ModalContext);
 
   const addTask = (type: "todo" | "progress" | "done") => {
-    setIsModalActive(true);
-    setTypeTaskModal({ type: "add", prop: type });
+    setTaskModal({
+      type: "add",
+      prop: type,
+      activeTaskData: null,
+      isActive: true,
+    });
   };
 
   return (
@@ -53,14 +56,14 @@ const TasksDesktop = () => {
         </button>
       </div>
 
-      {typeTaskModal.type === "task" && isModalActive && <ShowTask />}
+      {taskModal.type === "task" && taskModal.isActive && <ShowTask />}
 
-      {typeTaskModal.type === "edit" && isModalActive && <EditTask />}
+      {taskModal.type === "edit" && taskModal.isActive && <EditTask />}
 
-      {((typeTaskModal.type === "delete" && isModalActive) ||
-        (typeTaskModal.type === "delete" && isModalActive)) && <DeleteTask />}
+      {((taskModal.type === "delete" && taskModal.isActive) ||
+        (taskModal.type === "delete" && taskModal.isActive)) && <DeleteTask />}
 
-      {typeTaskModal.type === "add" && isModalActive && <AddTask />}
+      {taskModal.type === "add" && taskModal.isActive && <AddTask />}
     </div>
   );
 };

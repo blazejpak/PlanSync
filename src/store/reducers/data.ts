@@ -1,13 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { TaskType } from "../../helpers/types";
+import { Task } from "../../types/task";
 import { RootState } from "../store";
 import { DateTime } from "luxon";
 
 const time = DateTime.now().setLocale("en-GB").toISO().slice(0, 10);
 
 type InitialStateProps = {
-  allTasks: TaskType[];
-  dailyTasks: TaskType[];
+  allTasks: Task[];
+  dailyTasks: Task[];
   currentDay: string;
   rangeDate: { from: string; to: string };
 };
@@ -23,11 +23,11 @@ export const dataSlice = createSlice({
   name: "data",
   initialState: initialState,
   reducers: {
-    allData: (state, action: PayloadAction<TaskType[]>) => {
+    allData: (state, action: PayloadAction<Task[]>) => {
       state.allTasks = action.payload;
     },
 
-    dailyData: (state, action: PayloadAction<TaskType[]>) => {
+    dailyData: (state, action: PayloadAction<Task[]>) => {
       state.dailyTasks = action.payload;
     },
 

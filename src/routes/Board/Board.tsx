@@ -1,7 +1,7 @@
 import { ModalContextProvider } from "../../context/ModalStates";
 import CalendarPerDay from "./CalendarPerDay";
 import styles from "./Board.module.scss";
-import Tasks from "./Tasks";
+
 import { useEffect } from "react";
 import data from "../../data.json";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -12,6 +12,7 @@ import {
   getCurrentDay,
 } from "../../store/reducers/data";
 import { DateTime, Interval } from "luxon";
+import TaskList from "./TaskList";
 
 const Board = () => {
   const dispatch = useAppDispatch();
@@ -37,7 +38,7 @@ const Board = () => {
     <section className={styles.board}>
       <ModalContextProvider>
         <CalendarPerDay />
-        <Tasks />
+        <TaskList />
       </ModalContextProvider>
     </section>
   );

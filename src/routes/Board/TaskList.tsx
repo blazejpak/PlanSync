@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TaskMobile from "./mobile/TaskMobile";
 import TasksDesktop from "./desktop/TasksDesktop";
 
-const Tasks = () => {
+const TaskList = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -19,4 +19,4 @@ const Tasks = () => {
   return <>{isMobile ? <TaskMobile /> : <TasksDesktop />}</>;
 };
 
-export default Tasks;
+export default TaskList;
