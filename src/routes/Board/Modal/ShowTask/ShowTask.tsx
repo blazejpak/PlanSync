@@ -1,14 +1,14 @@
-import { MouseEvent, useContext, useState } from "react";
+import { MouseEvent, useState } from "react";
 import styles from "./ShowTask.module.scss";
 import { HiDotsVertical } from "react-icons/hi";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { allData, dataFromAllDays } from "../../../../store/reducers/data";
-import { ModalContext } from "../../../../context/ModalStates";
-import SaveButton from "../../../../components/helpers/ui/SaveButton";
+import { useSafeContext } from "../../../../context/ModalStates";
+import SaveButton from "../../../../components/button/SaveButton";
 import Overlay from "../Overlay";
 
 const ShowTask = () => {
-  const { taskModal, setTaskModal, closeModal } = useContext(ModalContext);
+  const { taskModal, setTaskModal, closeModal } = useSafeContext();
   const activeTask = taskModal.activeTaskData;
   const data = useAppSelector(dataFromAllDays);
   const dispatch = useAppDispatch();

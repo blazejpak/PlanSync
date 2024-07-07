@@ -1,7 +1,7 @@
 import styles from "./TaskMobile.module.scss";
 import { useContext, useEffect, useState } from "react";
 import DisplayModal from "../DisplayModal";
-import { ModalContext } from "../../../context/ModalStates";
+import { ModalContext, useSafeContext } from "../../../context/ModalStates";
 import { Task } from "../../../types/task";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import FilteredTasks from "../FilteredTasks";
@@ -16,7 +16,7 @@ const TaskMobile = () => {
   );
   const [filteredData, setFilteredData] = useState<Task[]>([]);
   const { isTaskMobileActive, setIsTaskMobileActive, setActiveTaskData } =
-    useContext(ModalContext);
+    useSafeContext();
 
   const dispatch = useAppDispatch();
   const data = useAppSelector(dataFromTheCurrentDay);

@@ -1,15 +1,14 @@
-import { useContext } from "react";
-import Button from "../../../../components/helpers/ui/Button";
 import Overlay from "../Overlay";
 
 import styles from "./DeleteTask.module.scss";
-import { ModalContext } from "../../../../context/ModalStates";
+import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { allData, dataFromAllDays } from "../../../../store/reducers/data";
+import Button from "../../../../components/button/Button";
 
 const DeleteTask = () => {
   const dispatch = useAppDispatch();
-  const { taskModal, setTaskModal, closeModal } = useContext(ModalContext);
+  const { taskModal, setTaskModal, closeModal } = useSafeModalContext();
   const data = useAppSelector(dataFromAllDays);
 
   const deleteTask = () => {

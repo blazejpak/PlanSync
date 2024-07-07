@@ -3,6 +3,7 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
+  useContext,
   useState,
 } from "react";
 import { Task, TypeOfModal } from "../types/task";
@@ -67,4 +68,12 @@ export const ModalContextProvider = ({
       {children}
     </ModalContext.Provider>
   );
+};
+
+export const useSafeModalContext = () => {
+  const value = useContext(ModalContext);
+  if (value === undefined) {
+    throw new Error("Context value is undefined");
+  }
+  return value;
 };

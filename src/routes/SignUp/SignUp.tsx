@@ -3,8 +3,8 @@ import styles from "../Signin/SignIn.module.scss";
 import { useFormik } from "formik";
 import { validationSchema } from "./ValidationSchema";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../../context/AuthenticationContext";
+import { useEffect } from "react";
+import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { ROUTES } from "../../utils/routes";
 import { RotatingLines } from "react-loader-spinner";
 import { FcGoogle } from "react-icons/fc";
@@ -12,7 +12,7 @@ import { FcGoogle } from "react-icons/fc";
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const { SignUp, user, loading, GoogleLogin, error } = useContext(UserContext);
+  const { SignUp, user, loading, GoogleLogin, error } = useSafeUserContext();
 
   useEffect(() => {
     if (user) {

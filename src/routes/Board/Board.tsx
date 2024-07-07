@@ -1,5 +1,4 @@
 import { ModalContextProvider } from "../../context/ModalStates";
-import CalendarPerDay from "./CalendarPerDay";
 import styles from "./Board.module.scss";
 
 import { useEffect } from "react";
@@ -13,6 +12,7 @@ import {
 } from "../../store/reducers/data";
 import { DateTime, Interval } from "luxon";
 import TaskList from "./TaskList";
+import CalendarPerDay from "../../components/dates/CalendarPerDay";
 
 const Board = () => {
   const dispatch = useAppDispatch();

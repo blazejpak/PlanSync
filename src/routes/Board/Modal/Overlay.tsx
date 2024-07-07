@@ -1,14 +1,14 @@
-import { ReactNode, useContext, useRef } from "react";
+import { ReactNode, useRef } from "react";
 import styles from "./Overlay.module.scss";
-import { ModalContext } from "../../../context/ModalStates";
-import useClickOutside from "../../../components/helpers/helpers/useClickOutside";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import useClickOutside from "../../../hooks/useClickOutside";
 
 type OverlayProps = {
   children: ReactNode;
 };
 
 const Overlay = ({ children }: OverlayProps) => {
-  const { setTaskModal } = useContext(ModalContext);
+  const { setTaskModal } = useSafeModalContext();
 
   const modalRef = useRef<HTMLDivElement>(null);
 

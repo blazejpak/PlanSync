@@ -1,8 +1,6 @@
-import { useContext } from "react";
-
 import { Formik, FormikHelpers } from "formik";
 
-import { ModalContext } from "../../../../context/ModalStates";
+import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 
 import {
@@ -10,9 +8,9 @@ import {
   dataFromAllDays,
   getRangeDate,
 } from "../../../../store/reducers/data";
-import { UserContext } from "../../../../context/AuthenticationContext";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 
-import SaveButton from "../../../../components/helpers/ui/SaveButton";
+import SaveButton from "../../../../components/button/SaveButton";
 
 import styles from "./AddTask.module.scss";
 import { validationSchema } from "./AddTaskValidationSchema";
@@ -23,8 +21,8 @@ import Overlay from "../Overlay";
 import { ValuesTypes } from "./ValuesType";
 
 const AddTask = () => {
-  const { user } = useContext(UserContext);
-  const { taskModal, closeModal } = useContext(ModalContext);
+  const { user } = useSafeUserContext();
+  const { taskModal, closeModal } = useSafeModalContext();
   const typeOfTask = taskModal.prop as string;
 
   const data = useAppSelector(dataFromAllDays);

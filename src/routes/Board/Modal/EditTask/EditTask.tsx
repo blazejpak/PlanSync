@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 
 import { Formik, FormikHelpers } from "formik";
 
-import { ModalContext } from "../../../../context/ModalStates";
+import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 
 import {
@@ -13,7 +13,7 @@ import {
 } from "../../../../store/reducers/data";
 import { UserContext } from "../../../../context/AuthenticationContext";
 
-import SaveButton from "../../../../components/helpers/ui/SaveButton";
+import SaveButton from "../../../../components/button/SaveButton";
 
 import styles from "../AddTask/AddTask.module.scss";
 import { validationSchema } from "../AddTask/AddTaskValidationSchema";
@@ -24,8 +24,8 @@ import DateFields from "../AddTask/DateFields";
 import { ValuesTypes } from "../AddTask/ValuesType";
 
 const EditTask = () => {
-  const { setTypeTaskModal, activeTask, setIsModalActive } =
-    useContext(ModalContext);
+  const { taskModal, closeModal } = useSafeModalContext();
+  const activeTask = taskModal.activeTaskData;
   const { user } = useContext(UserContext);
 
   const data = useAppSelector(dataFromAllDays);
@@ -81,8 +81,7 @@ const EditTask = () => {
     dispatch(allData(editedTask));
 
     resetForm();
-    setTypeTaskModal({ type: null, prop: null });
-    setIsModalActive(false);
+    closeModal();
   };
 
   return (

@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { ModalContext } from "../../context/ModalStates";
+import { useSafeModalContext } from "../../context/ModalStates";
 import { useAppSelector } from "../../store/hooks";
 import TaskItem from "./TaskItem";
 
@@ -12,7 +11,7 @@ type FilteredTasksProps = {
 };
 
 const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
-  const { setTaskModal } = useContext(ModalContext);
+  const { setTaskModal } = useSafeModalContext();
 
   const data = useAppSelector(dataFromTheCurrentDay);
 

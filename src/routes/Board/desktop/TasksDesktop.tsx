@@ -1,6 +1,5 @@
 import styles from "./TasksDesktop.module.scss";
-import { useContext } from "react";
-import { ModalContext } from "../../../context/ModalStates";
+import { useSafeModalContext } from "../../../context/ModalStates";
 
 import FilteredTasks from "../FilteredTasks";
 
@@ -10,7 +9,7 @@ import DeleteTask from "../Modal/DeleteTask/DeleteTask";
 import AddTask from "../Modal/AddTask/AddTask";
 
 const TasksDesktop = () => {
-  const { taskModal, setTaskModal } = useContext(ModalContext);
+  const { taskModal, setTaskModal } = useSafeModalContext();
 
   const addTask = (type: "todo" | "progress" | "done") => {
     setTaskModal({

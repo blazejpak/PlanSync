@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -156,4 +162,12 @@ export const AuthenticationContextProvider = ({
   return (
     <UserContext.Provider value={authValues}>{children}</UserContext.Provider>
   );
+};
+
+export const useSafeUserContext = () => {
+  const value = useContext(UserContext);
+  if (value === undefined) {
+    throw new Error("Context value is undefined");
+  }
+  return value;
 };
