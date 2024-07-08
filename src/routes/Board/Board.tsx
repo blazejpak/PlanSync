@@ -1,5 +1,5 @@
-import Navigation from "./Navigation";
-import Statistics from "./Statistics";
+import Navigation from "./navigation/Navigation";
+import Statistics from "./navigation/Statistics";
 import Tasks from "./Tasks";
 
 import styles from "./Board.module.scss";

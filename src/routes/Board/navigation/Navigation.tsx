@@ -1,14 +1,15 @@
-import ButtonBoardNav from "../../components/UI/BoardNavButton";
-import NewTaskButton from "../../components/UI/NewTaskButton";
-import { categoryBoardNav } from "../../helpers/CategoryBoardNav";
-import { tasksBoardNav } from "../../helpers/TasksBoardNav";
+import ButtonBoardNav from "../../../components/UI/BoardNavButton";
+import NewTaskButton from "../../../components/UI/NewTaskButton";
+import { categoryBoardNav } from "../../../helpers/CategoryBoardNav";
+import { tasksBoardNav } from "../../../helpers/TasksBoardNav";
+import logo from "../../../assets/logo.png";
 
 import styles from "./Navigation.module.scss";
 
 const Navigation = () => {
   return (
     <section className={styles.container}>
-      <p>LOGO IMG</p>
+      <img alt="logo" src={logo} height={50} className={styles.image} />
 
       <nav className={styles.navigation}>
         <div className={styles["navigation__category"]}>

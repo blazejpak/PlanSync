@@ -1,11 +1,15 @@
-@use "../../globals/variables";
+@use "../../../globals/variables";
 
 .container {
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
 
   width: 240px;
+
+  .image {
+    padding: 1.6rem;
+    height: 100%;
+  }
 }
 
 .navigation {
