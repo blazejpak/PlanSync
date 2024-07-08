@@ -87,6 +87,7 @@ const EditTask = () => {
   return (
     <Overlay>
       <strong className={styles.modal__heading}>Edit task</strong>
+
       <Formik
         initialValues={initialValue}
         validationSchema={validationSchema}

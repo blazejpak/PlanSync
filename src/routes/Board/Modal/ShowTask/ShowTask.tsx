@@ -3,12 +3,12 @@ import styles from "./ShowTask.module.scss";
 import { HiDotsVertical } from "react-icons/hi";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { allData, dataFromAllDays } from "../../../../store/reducers/data";
-import { useSafeContext } from "../../../../context/ModalStates";
+import { useSafeModalContext } from "../../../../context/ModalStates";
 import SaveButton from "../../../../components/button/SaveButton";
 import Overlay from "../Overlay";
 
 const ShowTask = () => {
-  const { taskModal, setTaskModal, closeModal } = useSafeContext();
+  const { taskModal, setTaskModal, closeModal } = useSafeModalContext();
   const activeTask = taskModal.activeTaskData;
   const data = useAppSelector(dataFromAllDays);
   const dispatch = useAppDispatch();
@@ -76,6 +76,7 @@ const ShowTask = () => {
     <Overlay>
       <div className={styles.header}>
         <strong className={styles.header__text}>{activeTask.task}</strong>
+
         <button
           className={styles.header__button}
           onClick={() => setIsEditTaskActive((prev) => !prev)}
