@@ -14,11 +14,12 @@ import SaveButton from "../../../../components/button/SaveButton";
 
 import styles from "./AddTask.module.scss";
 import { validationSchema } from "./AddTaskValidationSchema";
-import TaskFields from "./TaskFields";
-import SubtasksFields from "./SubtasksFields";
-import DateFields from "./DateFields";
+
 import Overlay from "../Overlay";
-import { ValuesTypes } from "./ValuesType";
+import { ValuesTypes } from "../ValuesType";
+import TaskFields from "../TaskFields";
+import SubtasksFields from "../SubtasksFields";
+import DateFields from "../DateFields";
 
 const AddTask = () => {
   const { user } = useSafeUserContext();

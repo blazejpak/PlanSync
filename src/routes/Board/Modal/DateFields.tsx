@@ -1,36 +1,55 @@
 import { ChangeEvent, FocusEvent } from "react";
 import { Stack } from "@mui/material";
-import { Field } from "formik";
+import { Field, FormikErrors } from "formik";
+import Select from "react-select";
 
-import styles from "./AddTask.module.scss";
-
-import { ValuesTypes } from "./ValuesType";
-import Calendar from "../../../../components/dates/Calendar";
+import styles from "./AddTask/AddTask.module.scss";
+import { Subtask, ValuesTypes } from "./ValuesType";
+import Calendar from "../../../components/dates/Calendar";
 
 interface SubtasksFieldsProps {
   values: ValuesTypes;
   handleChange: (e: ChangeEvent) => void;
   handleBlur: (e: FocusEvent) => void;
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean
+  ) => Promise<void | FormikErrors<{
+    task: string;
+    description: string;
+    subtasks: Subtask[];
+    type: string;
+    pickedRadioDate: string;
+  }>>;
 }
+
+const options = [
+  { value: "todo", label: "Todo" },
+  { value: "progress", label: "In progress" },
+  { value: "done", label: "Done" },
+];
 
 const DateFields = ({
   values,
   handleChange,
   handleBlur,
+  setFieldValue,
 }: SubtasksFieldsProps) => {
   return (
     <>
-      <select
+      {/* TODO */}
+      <Select
+        id="type"
         name="type"
-        onChange={handleChange}
+        value={options.find((option) => option.value === values.type)}
+        onChange={(option) => {
+          console.log(option);
+          setFieldValue(values.type, option?.value || "");
+        }}
         onBlur={handleBlur}
-        value={values.type}
-        className={styles.select}
-      >
-        <option value="todo">Todo</option>
-        <option value="progress">In progress</option>
-        <option value="done">Done</option>
-      </select>
+        options={options}
+      />
 
       <Stack className={styles.radio__container}>
         <strong>When should the task be completed?</strong>

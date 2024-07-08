@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import { Stack, TextField } from "@mui/material";
 import { FormikErrors, FormikTouched } from "formik";
 import { ValuesTypes } from "./ValuesType";
+import styles from "./TaskFields.module.scss";
 
 interface TaskFieldsProps {
   values: ValuesTypes;
@@ -18,7 +19,7 @@ const TaskFields = ({
 }: TaskFieldsProps) => (
   <Stack spacing={2} alignItems="center">
     <TextField
-      style={{ width: "40rem" }}
+      className={styles.input}
       id="task"
       name="task"
       label="Task"
@@ -38,7 +39,7 @@ const TaskFields = ({
       required
     />
     <TextField
-      style={{ width: "40rem" }}
+      className={styles.input}
       id="description"
       name="description"
       label="Description"

@@ -1,34 +1,19 @@
 import styles from "./TaskMobile.module.scss";
-import { useContext, useEffect, useState } from "react";
-import DisplayModal from "../DisplayModal";
-import {
-  ModalContext,
-  useSafeModalContext,
-} from "../../../context/ModalStates";
-import { Task } from "../../../types/task";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useState } from "react";
+
 import FilteredTasks from "../FilteredTasks";
-import {
-  dataFromTheCurrentDay,
-  getCurrentDay,
-} from "../../../store/reducers/data";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import ShowTask from "../Modal/ShowTask/ShowTask";
+import EditTask from "../Modal/EditTask/EditTask";
+import DeleteTask from "../Modal/DeleteTask/DeleteTask";
+import AddTask from "../Modal/AddTask/AddTask";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(
     "todo"
   );
-  const [filteredData, setFilteredData] = useState<Task[]>([]);
-  // const { isTaskMobileActive, setIsTaskMobileActive, setActiveTaskData } =
-  //   useSafeModalContext();
 
-  const dispatch = useAppDispatch();
-  const data = useAppSelector(dataFromTheCurrentDay);
-  const day = useAppSelector(getCurrentDay);
-
-  useEffect(() => {
-    const newData = data.filter((item) => item.typeOfTask === typeTasks);
-    setFilteredData(newData);
-  }, [day, typeTasks]);
+  const { taskModal } = useSafeModalContext();
 
   return (
     <div className={styles.container}>
@@ -61,7 +46,13 @@ const TaskMobile = () => {
       <ul className={styles.tasks}>
         <FilteredTasks typeOfDevice="mobile" typeOfTask={typeTasks} />
       </ul>
-      {/* {isTaskMobileActive && <DisplayModal />} */}
+      {taskModal.type === "task" && taskModal.isActive && <ShowTask />}
+
+      {taskModal.type === "edit" && taskModal.isActive && <EditTask />}
+
+      {taskModal.type === "delete" && taskModal.isActive && <DeleteTask />}
+
+      {taskModal.type === "add" && taskModal.isActive && <AddTask />}
     </div>
   );
 };

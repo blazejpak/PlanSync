@@ -4,7 +4,7 @@ import { FormikErrors, FormikTouched, FieldArray } from "formik";
 
 import { CgClose } from "react-icons/cg";
 
-import styles from "./AddTask.module.scss";
+import styles from "./AddTask/AddTask.module.scss";
 import { Subtask, ValuesTypes } from "./ValuesType";
 
 interface SubtasksFieldsProps {

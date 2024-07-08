@@ -59,8 +59,7 @@ const TasksDesktop = () => {
 
       {taskModal.type === "edit" && taskModal.isActive && <EditTask />}
 
-      {((taskModal.type === "delete" && taskModal.isActive) ||
-        (taskModal.type === "delete" && taskModal.isActive)) && <DeleteTask />}
+      {taskModal.type === "delete" && taskModal.isActive && <DeleteTask />}
 
       {taskModal.type === "add" && taskModal.isActive && <AddTask />}
     </div>

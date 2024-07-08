@@ -18,10 +18,11 @@ import SaveButton from "../../../../components/button/SaveButton";
 import styles from "../AddTask/AddTask.module.scss";
 import { validationSchema } from "../AddTask/AddTaskValidationSchema";
 import Overlay from "../Overlay";
-import TaskFields from "../AddTask/TaskFields";
-import SubtasksFields from "../AddTask/SubtasksFields";
-import DateFields from "../AddTask/DateFields";
-import { ValuesTypes } from "../AddTask/ValuesType";
+
+import { ValuesTypes } from "../ValuesType";
+import TaskFields from "../TaskFields";
+import SubtasksFields from "../SubtasksFields";
+import DateFields from "../DateFields";
 
 const EditTask = () => {
   const { taskModal, closeModal } = useSafeModalContext();
@@ -123,6 +124,7 @@ const EditTask = () => {
               values={values}
               handleChange={handleChange}
               handleBlur={handleBlur}
+              setFieldValue={setFieldValue}
             />
 
             <div>
