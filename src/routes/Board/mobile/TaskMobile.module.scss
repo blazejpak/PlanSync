@@ -1,0 +1,59 @@
+@use "../../../styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+
+  .group {
+    display: flex;
+    gap: 1.6rem;
+
+    .type__task {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.6rem;
+    }
+    .todo {
+      background-color: variables.$bg-azure--hover;
+      border: 3px solid variables.$bg-azure;
+      border-radius: 16px;
+      cursor: pointer;
+
+      &--active {
+        background-color: variables.$bg-azure;
+      }
+    }
+
+    .progress {
+      background-color: variables.$bg-yellow--hover;
+      border: 3px solid variables.$bg-yellow;
+      border-radius: 16px;
+      cursor: pointer;
+
+      &--active {
+        background-color: variables.$bg-yellow;
+      }
+    }
+
+    .done {
+      background-color: variables.$bg-pink--hover;
+      border: 3px solid variables.$bg-pink;
+      border-radius: 16px;
+      cursor: pointer;
+
+      &--active {
+        background-color: variables.$bg-pink;
+      }
+    }
+  }
+
+  .tasks {
+    display: flex;
+    gap: 1.6rem;
+    max-width: 55rem;
+    padding-bottom: 3.2rem;
+    overflow-x: auto;
+  }
+}

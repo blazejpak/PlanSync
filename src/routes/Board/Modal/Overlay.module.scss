@@ -1,0 +1,34 @@
+@use "../../../styles/variables";
+
+.modal-overlay {
+  align-items: center;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 4rem;
+  position: relative;
+  min-width: 40rem;
+  max-width: 66rem;
+  max-height: 45rem;
+  overflow-y: auto;
+
+  .icon {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 0.4rem;
+    top: 0.4rem;
+    z-index: 1000;
+  }
+}

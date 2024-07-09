@@ -6,7 +6,7 @@ import { MdMenu } from "react-icons/md";
 import styles from "./Nav.module.scss";
 import { ROUTES } from "../../utils/routes";
 import { useContext, useRef, useState } from "react";
-import useClickOutside from "../../components/helpers/useClickOutside";
+import useClickOutside from "../../hooks/useClickOutside";
 import { UserContext } from "../../context/AuthenticationContext";
 
 const HomeNav = () => {

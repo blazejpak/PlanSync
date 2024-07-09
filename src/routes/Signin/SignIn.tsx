@@ -3,10 +3,10 @@ import styles from "./SignIn.module.scss";
 import { useFormik } from "formik";
 import { validationSchema } from "./ValidationSchema";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/AuthenticationContext";
+import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { FcGoogle } from "react-icons/fc";
 
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
 import { ROUTES } from "../../utils/routes";
 import { RotatingLines } from "react-loader-spinner";
@@ -14,7 +14,7 @@ import { RotatingLines } from "react-loader-spinner";
 const SignIn = () => {
   const navigate = useNavigate();
 
-  const { SignIn, user, GoogleLogin, loading, error } = useContext(UserContext);
+  const { SignIn, user, GoogleLogin, loading, error } = useSafeUserContext();
 
   useEffect(() => {
     if (user) {

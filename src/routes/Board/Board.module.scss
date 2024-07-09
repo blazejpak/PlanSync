@@ -1,0 +1,16 @@
+@use "../../styles/variables";
+@use "../../styles/mixins";
+
+.board {
+  background-color: variables.$bg-grey;
+  border-radius: variables.$border-radius--lg;
+  height: 100%;
+  padding: 3.2rem;
+  margin-inline: 10%;
+  margin-top: 5%;
+  max-width: 140rem;
+
+  @include mixins.responsive(xl) {
+    margin-inline: auto;
+  }
+}

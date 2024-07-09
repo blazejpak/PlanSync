@@ -1,0 +1,42 @@
+@use "../../styles/variables";
+@use "../../styles/mixins";
+
+.date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3.6rem;
+
+  button {
+    border: none;
+    background-color: transparent;
+  }
+
+  svg {
+    background-color: variables.$bg-grey-dark;
+    border-radius: 2px;
+    cursor: pointer;
+    padding: 0.4rem;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: variables.$bg-grey-dark--hover;
+    }
+  }
+
+  .text {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+
+    strong {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+}
