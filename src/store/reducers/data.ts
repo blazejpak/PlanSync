@@ -6,6 +6,7 @@ import { DateTime } from "luxon";
 const time = DateTime.now().setLocale("en-GB").toISO().slice(0, 10);
 
 type InitialStateProps = {
+  dataStatus: string;
   allTasks: Task[];
   dailyTasks: Task[];
   currentDay: string;
@@ -13,6 +14,7 @@ type InitialStateProps = {
 };
 
 const initialState: InitialStateProps = {
+  dataStatus: "",
   allTasks: [],
   dailyTasks: [],
   currentDay: "",

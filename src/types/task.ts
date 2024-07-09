@@ -5,7 +5,6 @@ export interface Subtask {
 }
 
 export interface Task {
-  uid: string;
   task: string;
   description: string;
   subtasks: Subtask[];
