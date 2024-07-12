@@ -1,17 +1,11 @@
 import styles from "./TaskMobile.module.scss";
-import { useContext, useEffect, useState } from "react";
-import DisplayModal from "../DisplayModal";
-import {
-  ModalContext,
-  useSafeModalContext,
-} from "../../../context/ModalStates";
+import { useEffect, useState } from "react";
+
 import { Task } from "../../../types/task";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import FilteredTasks from "../FilteredTasks";
-import {
-  dataFromTheCurrentDay,
-  getCurrentDay,
-} from "../../../store/reducers/data";
+import { getCurrentDay } from "../../../store/reducers/calendar";
+import { dataFromTheCurrentDay } from "../../../store/reducers/tasks";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(

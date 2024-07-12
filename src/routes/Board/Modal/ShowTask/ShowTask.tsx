@@ -1,16 +1,15 @@
 import { MouseEvent, useState } from "react";
 import styles from "./ShowTask.module.scss";
 import { HiDotsVertical } from "react-icons/hi";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { allData, dataFromAllDays } from "../../../../store/reducers/data";
+import { useAppDispatch } from "../../../../store/hooks";
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import SaveButton from "../../../../components/button/SaveButton";
 import Overlay from "../Overlay";
+import { updateTaskFromFirestore } from "../../../../store/reducers/tasks";
 
 const ShowTask = () => {
   const { taskModal, setTaskModal, closeModal } = useSafeModalContext();
   const activeTask = taskModal.activeTaskData;
-  const data = useAppSelector(dataFromAllDays);
   const dispatch = useAppDispatch();
 
   const [isEditTaskActive, setIsEditTaskActive] = useState(false);
@@ -60,15 +59,7 @@ const ShowTask = () => {
   const saveTask = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const newData = data.map((task) => {
-      if (task.uid === activeTask.uid) {
-        return activeTask;
-      }
-
-      return task;
-    });
-
-    dispatch(allData(newData));
+    dispatch(updateTaskFromFirestore(activeTask));
     closeModal();
   };
 

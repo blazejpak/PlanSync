@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import styles from "./Calendar.module.scss";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getRangeDate, pickRangeDate } from "../../store/reducers/data";
+import { getRangeDate, pickRangeDate } from "../../store/reducers/calendar";
 import useClickOutside from "../../hooks/useClickOutside";
 
 const Calendar = () => {

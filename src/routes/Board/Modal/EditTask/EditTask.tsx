@@ -6,11 +6,9 @@ import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 
 import {
-  allData,
-  dataFromAllDays,
   getRangeDate,
   pickRangeDate,
-} from "../../../../store/reducers/data";
+} from "../../../../store/reducers/calendar";
 import { UserContext } from "../../../../context/AuthenticationContext";
 
 import SaveButton from "../../../../components/button/SaveButton";
@@ -22,13 +20,17 @@ import TaskFields from "../AddTask/TaskFields";
 import SubtasksFields from "../AddTask/SubtasksFields";
 import DateFields from "../AddTask/DateFields";
 import { ValuesTypes } from "../AddTask/ValuesType";
+import {
+  getAllData,
+  updateTaskFromFirestore,
+} from "../../../../store/reducers/tasks";
 
 const EditTask = () => {
   const { taskModal, closeModal } = useSafeModalContext();
   const activeTask = taskModal.activeTaskData;
   const { user } = useContext(UserContext);
 
-  const data = useAppSelector(dataFromAllDays);
+  const data = useAppSelector(getAllData);
   const rangeData = useAppSelector(getRangeDate);
   const dispatch = useAppDispatch();
 
@@ -60,25 +62,20 @@ const EditTask = () => {
   ) => {
     const filteredSubtasks = values.subtasks.filter((subtask) => subtask.title);
 
-    const editedTask = data.map((task) => {
-      if (task.uid === activeTask.uid) {
-        task = {
-          uid: Math.random().toString(),
-          task: values.task,
-          description: values.description || "",
-          rangeDateFrom: rangeData.from,
-          rangeDateTo: rangeData.to,
-          subtasks: filteredSubtasks,
-          typeOfTask: values.type,
-          userId: user?.uid,
-          subtasksDone: activeTask.subtasksDone,
-          date: rangeData.from,
-        };
-      }
-      return task;
-    });
+    const updatedTask = {
+      id: activeTask.id,
+      task: values.task,
+      description: values.description || "",
+      rangeDateFrom: rangeData.from,
+      rangeDateTo: rangeData.to,
+      subtasks: filteredSubtasks,
+      typeOfTask: values.type,
+      userId: user?.uid,
+      subtasksDone: activeTask.subtasksDone,
+      date: rangeData.from,
+    };
 
-    dispatch(allData(editedTask));
+    dispatch(updateTaskFromFirestore(updatedTask));
 
     resetForm();
     closeModal();

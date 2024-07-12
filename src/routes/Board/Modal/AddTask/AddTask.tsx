@@ -3,11 +3,7 @@ import { Formik, FormikHelpers } from "formik";
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 
-import {
-  allData,
-  dataFromAllDays,
-  getRangeDate,
-} from "../../../../store/reducers/data";
+import { getRangeDate } from "../../../../store/reducers/calendar";
 import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 
 import SaveButton from "../../../../components/button/SaveButton";
@@ -19,13 +15,13 @@ import SubtasksFields from "./SubtasksFields";
 import DateFields from "./DateFields";
 import Overlay from "../Overlay";
 import { ValuesTypes } from "./ValuesType";
+import { addTaskToFirestore } from "../../../../store/reducers/tasks";
 
 const AddTask = () => {
   const { user } = useSafeUserContext();
   const { taskModal, closeModal } = useSafeModalContext();
   const typeOfTask = taskModal.prop as string;
 
-  const data = useAppSelector(dataFromAllDays);
   const rangeData = useAppSelector(getRangeDate);
   const dispatch = useAppDispatch();
 
@@ -47,21 +43,17 @@ const AddTask = () => {
       );
 
       dispatch(
-        allData([
-          ...data,
-          {
-            uid: Math.random().toString(),
-            task: values.task,
-            description: values.description || "",
-            rangeDateFrom: rangeData.from,
-            rangeDateTo: rangeData.to,
-            subtasks: filteredSubtasks,
-            typeOfTask: typeOfTask,
-            userId: user?.uid,
-            subtasksDone: false,
-            date: rangeData.from,
-          },
-        ])
+        addTaskToFirestore({
+          task: values.task,
+          description: values.description || "",
+          rangeDateFrom: rangeData.from,
+          rangeDateTo: rangeData.to,
+          subtasks: filteredSubtasks,
+          typeOfTask: typeOfTask,
+          userId: user?.uid,
+          subtasksDone: false,
+          date: rangeData.from,
+        })
       );
 
       resetForm();

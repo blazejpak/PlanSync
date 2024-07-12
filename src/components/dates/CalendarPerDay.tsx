@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import styles from "./CalendarPerDay.module.scss";
 import { useAppDispatch } from "../../store/hooks";
-import { pickCurrentDay } from "../../store/reducers/data";
+import { pickCurrentDay } from "../../store/reducers/calendar";
 
 const CalendarPerDay = () => {
   const time = DateTime.now().setLocale("en-GB");
