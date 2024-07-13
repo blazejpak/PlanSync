@@ -1,0 +1,55 @@
+@use "../../styles/variables";
+
+.task {
+  background-color: white;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 1.6rem;
+
+  strong {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  .progress {
+    align-items: center;
+    display: flex;
+    gap: 0.8rem;
+
+    .bar {
+      position: relative;
+      display: flex;
+      flex-grow: 1;
+
+      .bar_background {
+        background-color: variables.$bg-color;
+        border-radius: 16px;
+        height: 1.6rem;
+        width: 100%;
+      }
+
+      .bar_background--progress {
+        border-radius: 16px;
+        height: 1.6rem;
+        position: absolute;
+        top: 0;
+
+        &[data-set="todo"] {
+          background-color: variables.$bg-azure;
+        }
+        &[data-set="progress"] {
+          background-color: variables.$bg-yellow;
+        }
+        &[data-set="done"] {
+          background-color: variables.$bg-pink;
+        }
+      }
+    }
+  }
+
+  &__description {
+    font-size: 1.4rem;
+  }
+}

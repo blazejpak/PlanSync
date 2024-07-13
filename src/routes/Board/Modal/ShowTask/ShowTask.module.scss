@@ -1,0 +1,109 @@
+@use "../../../../styles/variables";
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  &__text {
+    font-size: variables.$font-heading--2;
+    font-weight: bold;
+  }
+
+  &__button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .header__edit {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    justify-content: center;
+    padding-left: 1.2rem;
+
+    &--edit {
+      color: variables.$bg-button;
+
+      &:hover {
+        color: variables.$bg-button--hover;
+      }
+    }
+
+    &--delete {
+      color: variables.$bg-error;
+
+      &:hover {
+        color: variables.$bg-error--hover;
+      }
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: variables.$font-paragraph--smaller;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+  }
+
+  &__edit {
+    background-color: variables.$bg-grey;
+    border-radius: variables.$border-radius--sm;
+    height: 10rem;
+    position: absolute;
+    right: 3rem;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    top: 4rem;
+    width: 20rem;
+  }
+}
+
+.description {
+  font-size: variables.$font-heading--3;
+}
+
+.subtasks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  .subtask {
+    background-color: variables.$bg-grey;
+    border-radius: variables.$border-radius--sm;
+    cursor: pointer;
+    display: flex;
+    gap: 1.6rem;
+    padding: 0.8rem 1.6rem;
+
+    &:hover .subtask__checkbox {
+      background-color: variables.$bg-button--hover;
+    }
+
+    &__text {
+      font-size: variables.$font-paragraph;
+    }
+
+    &__text {
+      width: 100%;
+
+      &.active {
+        text-decoration: line-through;
+      }
+    }
+
+    &__checkbox {
+      border: 1px solid variables.$bg-grey-dark;
+      min-height: 1.6rem;
+      min-width: 1.6rem;
+
+      &.active {
+        background-color: variables.$bg-button;
+      }
+    }
+  }
+}
