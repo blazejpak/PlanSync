@@ -9,11 +9,8 @@ import SignIn from "./routes/Signin/SignIn";
 import SignUp from "./routes/SignUp/SignUp";
 import Root from "./routes/Root";
 import Board from "./routes/Board/Board";
-<<<<<<< HEAD
-=======
 import { Provider } from "react-redux";
 import { store } from "./store/store";
->>>>>>> main
 
 const router = createBrowserRouter([
   {

@@ -1,14 +1,15 @@
-@use "../../../globals/variables";
+@use "../../../styles/variables";
 
 .container {
   display: flex;
   flex-direction: column;
 
   width: 240px;
+  height: 100dvh;
 
   .image {
     padding: 1.6rem;
-    height: 100%;
+    height: 80px;
   }
 }
 
@@ -18,9 +19,16 @@
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+  justify-content: space-between;
+  height: 100%;
   padding-inline: 1.6rem;
   padding-block: 3.2rem;
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+  }
 
   &__category {
     display: flex;
@@ -31,5 +39,19 @@
       font-weight: bold;
       font-size: 1.8rem;
     }
+  }
+}
+
+.button {
+  background-color: variables.$bg-azure;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 1.6rem 3rem;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: variables.$bg-azure--hover;
   }
 }

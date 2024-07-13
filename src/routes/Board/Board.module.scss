@@ -1,22 +1,17 @@
-<<<<<<< HEAD
-.board {
-  margin-left: auto;
-  margin-right: auto;
-=======
 @use "../../styles/variables";
 @use "../../styles/mixins";
+
+.page {
+  display: flex;
+}
 
 .board {
   background-color: variables.$bg-grey;
   border-radius: variables.$border-radius--lg;
   height: 100%;
-  padding: 3.2rem;
-  margin-inline: 10%;
-  margin-top: 5%;
+  margin-top: 80px;
+  margin-inline: 1.6rem;
   max-width: 140rem;
-
-  @include mixins.responsive(xl) {
-    margin-inline: auto;
-  }
->>>>>>> main
+  padding: 3.2rem;
+  width: 100%;
 }

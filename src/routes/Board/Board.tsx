@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-import Navigation from "./navigation/Navigation";
-import Statistics from "./navigation/Statistics";
-import Tasks from "./Tasks";
-
-import styles from "./Board.module.scss";
-
-const Board = () => {
-  return (
-    <div className={styles.board}>
-      <Navigation />
-      <Tasks />
-      <Statistics />
-    </div>
-=======
 import { ModalContextProvider } from "../../context/ModalStates";
 import styles from "./Board.module.scss";
 
@@ -28,6 +13,7 @@ import {
 import { DateTime, Interval } from "luxon";
 import TaskList from "./TaskList";
 import CalendarPerDay from "../../components/dates/CalendarPerDay";
+import Navigation from "./navigation/Navigation";
 
 const Board = () => {
   const dispatch = useAppDispatch();
@@ -50,13 +36,15 @@ const Board = () => {
   }, [getAllData, day]);
 
   return (
-    <section className={styles.board}>
+    <section className={styles.page}>
       <ModalContextProvider>
-        <CalendarPerDay />
-        <TaskList />
+        <Navigation />
+        <div className={styles.board}>
+          <CalendarPerDay />
+          <TaskList />
+        </div>
       </ModalContextProvider>
     </section>
->>>>>>> main
   );
 };
 
