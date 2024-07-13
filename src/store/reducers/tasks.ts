@@ -1,39 +1,20 @@
-import { Task } from "./../../types/task";
+import { Status, Task } from "./../../types/task";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../store";
 
-import db from "../../utils/firebase/firebase";
 import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+  addTaskToFirestore,
+  deleteTaskFromFirestore,
+  fetchAllTasksfromFirestore,
+  updateTaskInFirestore,
+} from "../../services/taskService";
 
 export const fetchAllTasks = createAsyncThunk(
   "tasks/fetchAllTasks",
   async (_, { rejectWithValue }) => {
     try {
-      const tasksSnapshot = await getDocs(collection(db, "Tasks"));
-      const tasks = tasksSnapshot.docs.map((doc) => {
-        const data = doc.data();
-
-        return {
-          id: doc.id,
-          task: data.task,
-          description: data.description,
-          subtasks: data.subtasks,
-          date: data.date,
-          rangeDateFrom: data.rangeDateFrom,
-          rangeDateTo: data.rangeDateTo,
-          subtasksDone: data.subtasksDone,
-          typeOfTask: data.typeOfTask,
-          userId: data.userId,
-        } as Task;
-      });
+      const tasks = await fetchAllTasksfromFirestore();
 
       return tasks;
     } catch (error: any) {
@@ -42,12 +23,11 @@ export const fetchAllTasks = createAsyncThunk(
   }
 );
 
-export const addTaskToFirestore = createAsyncThunk(
-  "tasks/addTaskToFirestore",
+export const addTask = createAsyncThunk(
+  "tasks/addTask",
   async (task: Omit<Task, "id">, { rejectWithValue }) => {
     try {
-      const addTask = await addDoc(collection(db, "Tasks"), task);
-      const newTask = { ...task, id: addTask.id };
+      const newTask = await addTaskToFirestore(task);
       return newTask;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -55,11 +35,11 @@ export const addTaskToFirestore = createAsyncThunk(
   }
 );
 
-export const deleteTaskFromFirestore = createAsyncThunk(
-  "tasks/deleteTaskFromFirestore",
+export const deleteTask = createAsyncThunk(
+  "tasks/deleteTask",
   async (taskId: string, { rejectWithValue }) => {
     try {
-      await deleteDoc(doc(db, "Tasks", taskId));
+      await deleteTaskFromFirestore(taskId);
       return taskId;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -67,23 +47,18 @@ export const deleteTaskFromFirestore = createAsyncThunk(
   }
 );
 
-export const updateTaskFromFirestore = createAsyncThunk(
-  "tasks/updateTaskFromFirestore",
+export const updateTask = createAsyncThunk(
+  "tasks/updateTask",
   async (updatedTask: Task, { rejectWithValue }) => {
     try {
-      const { id, ...taskData } = updatedTask;
-      if (id) {
-        const taskRef = doc(db, "Tasks", id);
-        await updateDoc(taskRef, taskData);
-      }
+      await updateTaskInFirestore(updatedTask);
+
       return updatedTask;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
-
-type Status = "idle" | "loading" | "succeeded" | "failed";
 
 type InitialStateProps = {
   fetchStatus: Status;
@@ -96,10 +71,10 @@ type InitialStateProps = {
 };
 
 const initialState: InitialStateProps = {
-  fetchStatus: "idle",
-  addStatus: "idle",
-  deleteStatus: "idle",
-  updateStatus: "idle",
+  fetchStatus: Status.IDLE,
+  addStatus: Status.IDLE,
+  deleteStatus: Status.IDLE,
+  updateStatus: Status.IDLE,
   error: "",
   data: [],
   currentDayData: [],
@@ -117,61 +92,76 @@ export const tasksSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllTasks.pending, (state) => {
-        state.fetchStatus = "loading";
+        state.fetchStatus = Status.LOADING;
+        state.error = "";
       })
       .addCase(fetchAllTasks.fulfilled, (state, action) => {
-        state.fetchStatus = "succeeded";
+        state.fetchStatus = Status.SUCCEEDED;
         state.data = action.payload;
+        state.error = "";
       })
       .addCase(fetchAllTasks.rejected, (state, action) => {
-        state.fetchStatus = "failed";
+        state.fetchStatus = Status.FAILED;
         state.error = action.payload as string;
       })
-      .addCase(addTaskToFirestore.pending, (state) => {
-        state.addStatus = "loading";
+      .addCase(addTask.pending, (state) => {
+        state.addStatus = Status.LOADING;
+        state.error = "";
       })
-      .addCase(addTaskToFirestore.fulfilled, (state, action) => {
-        state.addStatus = "succeeded";
+      .addCase(addTask.fulfilled, (state, action) => {
+        state.addStatus = Status.SUCCEEDED;
+        state.error = "";
+
         state.data.push(action.payload);
       })
-      .addCase(addTaskToFirestore.rejected, (state, action) => {
-        state.addStatus = "failed";
+      .addCase(addTask.rejected, (state, action) => {
+        state.addStatus = Status.FAILED;
         state.error = action.payload as string;
       })
-      .addCase(deleteTaskFromFirestore.pending, (state) => {
-        state.deleteStatus = "loading";
+      .addCase(deleteTask.pending, (state) => {
+        state.deleteStatus = Status.LOADING;
+        state.error = "";
       })
-      .addCase(deleteTaskFromFirestore.fulfilled, (state, action) => {
-        state.deleteStatus = "succeeded";
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.deleteStatus = Status.SUCCEEDED;
+        state.error = "";
+
         state.data = state.data.filter((task) => task.id !== action.payload);
       })
-      .addCase(deleteTaskFromFirestore.rejected, (state, action) => {
-        state.deleteStatus = "failed";
+      .addCase(deleteTask.rejected, (state, action) => {
+        state.deleteStatus = Status.FAILED;
         state.error = action.payload as string;
       })
-      .addCase(updateTaskFromFirestore.pending, (state) => {
-        state.updateStatus = "loading";
+      .addCase(updateTask.pending, (state) => {
+        state.updateStatus = Status.LOADING;
+        state.error = "";
       })
-      .addCase(updateTaskFromFirestore.fulfilled, (state, action) => {
-        state.updateStatus = "succeeded";
+      .addCase(updateTask.fulfilled, (state, action) => {
+        state.updateStatus = Status.SUCCEEDED;
+        state.error = "";
+
         state.data = state.data.map((task) =>
           task.id === action.payload.id ? action.payload : task
         );
       })
-      .addCase(updateTaskFromFirestore.rejected, (state, action) => {
-        state.updateStatus = "failed";
+      .addCase(updateTask.rejected, (state, action) => {
+        state.updateStatus = Status.FAILED;
         state.error = action.payload as string;
       });
   },
 });
 
 export const getAllData = (state: RootState) => state.tasks.data;
+export const getAllFromTasksSlice = (state: RootState) => state.tasks;
 export const dataFromTheCurrentDay = (state: RootState) =>
   state.tasks.currentDayData;
-export const getFetchStatus = (state: RootState) => state.tasks.fetchStatus;
-export const getAddStatus = (state: RootState) => state.tasks.addStatus;
-export const getDeleteStatus = (state: RootState) => state.tasks.deleteStatus;
-export const getUpdateStatus = (state: RootState) => state.tasks.updateStatus;
+
+export const selectFetchStatus = (state: RootState) => state.tasks.fetchStatus;
+export const selectAddStatus = (state: RootState) => state.tasks.addStatus;
+export const selectDeleteStatus = (state: RootState) =>
+  state.tasks.deleteStatus;
+export const selectUpdateStatus = (state: RootState) =>
+  state.tasks.updateStatus;
 
 export const { dailyData } = tasksSlice.actions;
 

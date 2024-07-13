@@ -5,9 +5,10 @@ import TaskItem from "./TaskItem";
 import styles from "./FilteredTasks.module.scss";
 import {
   dataFromTheCurrentDay,
-  getFetchStatus,
+  selectFetchStatus,
 } from "../../store/reducers/tasks";
 import { Skeleton } from "@mui/material";
+import { Status } from "../../types/task";
 
 type FilteredTasksProps = {
   typeOfTask: "todo" | "progress" | "done";
@@ -18,7 +19,7 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
   const { setTaskModal } = useSafeModalContext();
 
   const data = useAppSelector(dataFromTheCurrentDay);
-  const dataStatus = useAppSelector(getFetchStatus);
+  const dataStatus = useAppSelector(selectFetchStatus);
 
   const filteredTasks = data.filter((item) => item.typeOfTask === typeOfTask);
 
@@ -26,9 +27,9 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
     return <p>Can't find any data</p>;
   }
 
-  if (dataStatus === "failed") return <p>Something went wrong</p>;
+  if (dataStatus === Status.FAILED) return <p>Something went wrong</p>;
 
-  return dataStatus === "loading" ? (
+  return dataStatus === Status.LOADING ? (
     <Skeleton variant="rounded" height={100} style={{ marginTop: "2rem" }} />
   ) : (
     filteredTasks.map((task) => {

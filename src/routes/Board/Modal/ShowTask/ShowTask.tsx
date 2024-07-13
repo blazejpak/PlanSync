@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../../../store/hooks";
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import SaveButton from "../../../../components/button/SaveButton";
 import Overlay from "../Overlay";
-import { updateTaskFromFirestore } from "../../../../store/reducers/tasks";
+import { updateTask } from "../../../../store/reducers/tasks";
 
 const ShowTask = () => {
   const { taskModal, setTaskModal, closeModal } = useSafeModalContext();
@@ -59,7 +59,7 @@ const ShowTask = () => {
   const saveTask = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    dispatch(updateTaskFromFirestore(activeTask));
+    dispatch(updateTask(activeTask));
     closeModal();
   };
 

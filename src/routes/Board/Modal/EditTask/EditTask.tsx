@@ -20,10 +20,7 @@ import TaskFields from "../AddTask/TaskFields";
 import SubtasksFields from "../AddTask/SubtasksFields";
 import DateFields from "../AddTask/DateFields";
 import { ValuesTypes } from "../AddTask/ValuesType";
-import {
-  getAllData,
-  updateTaskFromFirestore,
-} from "../../../../store/reducers/tasks";
+import { getAllData, updateTask } from "../../../../store/reducers/tasks";
 
 const EditTask = () => {
   const { taskModal, closeModal } = useSafeModalContext();
@@ -75,7 +72,7 @@ const EditTask = () => {
       date: rangeData.from,
     };
 
-    dispatch(updateTaskFromFirestore(updatedTask));
+    dispatch(updateTask(updatedTask));
 
     resetForm();
     closeModal();

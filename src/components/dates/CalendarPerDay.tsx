@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import styles from "./CalendarPerDay.module.scss";
 import { useAppDispatch } from "../../store/hooks";
-import { pickCurrentDay } from "../../store/reducers/calendar";
+import { pickCurrentDay, pickRangeDate } from "../../store/reducers/calendar";
 
 const CalendarPerDay = () => {
   const time = DateTime.now().setLocale("en-GB");
@@ -15,6 +15,8 @@ const CalendarPerDay = () => {
   useEffect(() => {
     const dataISO = date.toISO().slice(0, 10);
     dispatch(pickCurrentDay(dataISO));
+
+    dispatch(pickRangeDate({ from: dataISO, to: dataISO }));
   }, [date]);
 
   const previousDay = () => {

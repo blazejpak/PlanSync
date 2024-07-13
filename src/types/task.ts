@@ -18,3 +18,10 @@ export interface Task {
 }
 
 export type TypeOfModal = "task" | "edit" | "delete" | "add" | null;
+
+export enum Status {
+  IDLE = "idle",
+  LOADING = "loading",
+  SUCCEEDED = "succeeded",
+  FAILED = "failed",
+}

@@ -4,7 +4,7 @@ import styles from "./DeleteTask.module.scss";
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch } from "../../../../store/hooks";
 import Button from "../../../../components/button/Button";
-import { deleteTaskFromFirestore } from "../../../../store/reducers/tasks";
+import { deleteTask } from "../../../../store/reducers/tasks";
 
 const DeleteTask = () => {
   const dispatch = useAppDispatch();
@@ -12,8 +12,8 @@ const DeleteTask = () => {
   const activeData = taskModal.activeTaskData;
   if (!activeData) return null;
 
-  const deleteTask = (id: string) => {
-    dispatch(deleteTaskFromFirestore(id));
+  const handleDeleteTask = (id: string) => {
+    dispatch(deleteTask(id));
     closeModal();
   };
 
@@ -32,7 +32,7 @@ const DeleteTask = () => {
       <div className={styles.buttons}>
         <Button
           typeOfButton="delete"
-          onClick={() => deleteTask(activeData.id)}
+          onClick={() => handleDeleteTask(activeData.id)}
           type="button"
         >
           Delete

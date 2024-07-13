@@ -15,7 +15,7 @@ import SubtasksFields from "./SubtasksFields";
 import DateFields from "./DateFields";
 import Overlay from "../Overlay";
 import { ValuesTypes } from "./ValuesType";
-import { addTaskToFirestore } from "../../../../store/reducers/tasks";
+import { addTask } from "../../../../store/reducers/tasks";
 
 const AddTask = () => {
   const { user } = useSafeUserContext();
@@ -33,7 +33,7 @@ const AddTask = () => {
     pickedRadioDate: "today",
   };
 
-  const addTask = (
+  const submitAddTask = (
     values: ValuesTypes,
     { setSubmitting, resetForm }: FormikHelpers<ValuesTypes>
   ) => {
@@ -43,7 +43,7 @@ const AddTask = () => {
       );
 
       dispatch(
-        addTaskToFirestore({
+        addTask({
           task: values.task,
           description: values.description || "",
           rangeDateFrom: rangeData.from,
@@ -67,7 +67,7 @@ const AddTask = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={addTask}
+        onSubmit={submitAddTask}
       >
         {({
           values,
