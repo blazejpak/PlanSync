@@ -108,6 +108,7 @@ const AddTask = () => {
               values={values}
               handleChange={handleChange}
               handleBlur={handleBlur}
+              setFieldValue={setFieldValue}
             />
 
             <SaveButton type="submit" style={{ marginTop: "1.6rem" }}>
