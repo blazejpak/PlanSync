@@ -17,4 +17,9 @@ export interface Task {
   userId: string;
 }
 
+export interface TaskFilter extends Task {
+  CategoryFilter: "work" | "personal" | "family" | "all";
+  TypeTaskFilter: "todo" | "progress" | "done" | "all";
+}
+
 export type TypeOfModal = "task" | "edit" | "delete" | "add" | null;

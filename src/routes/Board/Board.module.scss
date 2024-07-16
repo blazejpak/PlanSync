@@ -2,16 +2,30 @@
 @use "../../styles/mixins";
 
 .page {
-  display: flex;
+  display: grid;
+
+  @include mixins.responsive(md) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 10rem 1fr;
+  }
+  @include mixins.responsive(lg) {
+    grid-template-columns: 23rem 1fr;
+    grid-template-rows: 1fr;
+  }
 }
 
 .board {
   background-color: variables.$bg-grey;
   border-radius: variables.$border-radius--lg;
-  height: 100%;
-  margin-top: 80px;
-  margin-inline: 1.6rem;
-  max-width: 140rem;
   padding: 3.2rem;
-  width: 100%;
+
+  @include mixins.responsive(md) {
+    width: 100dvw;
+  }
+
+  @include mixins.responsive(lg) {
+    margin-top: 80px;
+    margin-inline: 1.6rem;
+    max-width: calc(100vw - 26rem);
+  }
 }

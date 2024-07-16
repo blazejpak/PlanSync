@@ -1,0 +1,24 @@
+@use "../../../styles/variables";
+@use "../../../styles/mixins";
+
+.navigation__links {
+  display: none;
+
+  @include mixins.responsive(lg) {
+    display: flex;
+    flex-direction: row;
+    gap: 3.2rem;
+    flex-direction: column;
+  }
+}
+
+.navigation__category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  h2 {
+    font-weight: bold;
+    font-size: 1.8rem;
+  }
+}
