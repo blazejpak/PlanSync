@@ -2,9 +2,10 @@
 @use "../../../styles/mixins";
 
 .container {
+  background-color: variables.$bg-button;
   display: flex;
   flex-direction: column;
-  background-color: variables.$bg-button;
+  user-select: none;
 
   @include mixins.responsive(md) {
     background-color: inherit;
@@ -45,11 +46,14 @@
   color: white;
   display: flex;
   height: 100%;
-  padding-inline: 1.6rem;
+  padding-inline: 0.8rem;
   padding-block: 3.2rem;
   justify-content: space-around;
 
   @include mixins.responsive(md) {
+    justify-content: space-around;
+    padding-inline: 1.6rem;
+
     width: 100%;
   }
   @include mixins.responsive(lg) {
@@ -65,8 +69,12 @@
   border-radius: 16px;
   cursor: pointer;
   font-weight: bold;
-  padding: 1.6rem 3rem;
+  padding: 0.8rem 1.6rem;
   transition: all 0.3s;
+
+  @include mixins.responsive(sm) {
+    padding: 1.6rem 3rem;
+  }
 
   &:hover {
     background-color: variables.$bg-azure--hover;
