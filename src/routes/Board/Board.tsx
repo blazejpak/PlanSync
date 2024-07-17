@@ -13,6 +13,8 @@ import {
 import { DateTime, Interval } from "luxon";
 import TaskList from "./TaskList";
 import CalendarPerDay from "../../components/dates/CalendarPerDay";
+import Settings from "./Modal/Settings/Settings";
+import { SettingsContextProvider } from "../../context/Settings";
 
 const Board = () => {
   const dispatch = useAppDispatch();
@@ -36,10 +38,13 @@ const Board = () => {
 
   return (
     <section className={styles.board}>
-      <ModalContextProvider>
-        <CalendarPerDay />
-        <TaskList />
-      </ModalContextProvider>
+      <SettingsContextProvider>
+        <ModalContextProvider>
+          <CalendarPerDay />
+          <TaskList />
+          <Settings />
+        </ModalContextProvider>
+      </SettingsContextProvider>
     </section>
   );
 };
