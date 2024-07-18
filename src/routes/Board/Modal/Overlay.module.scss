@@ -1,5 +1,9 @@
 @use "../../../styles/variables";
 
+html {
+  overflow-y: hidden;
+}
+
 .modal-overlay {
   align-items: center;
   position: fixed;
@@ -10,7 +14,7 @@
 }
 
 .modal-content {
-  background: white;
+  background-color: var(--bg-grey);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -26,6 +30,7 @@
     background-color: transparent;
     border: 0;
     cursor: pointer;
+    color: var(--font-color);
     position: absolute;
     right: 0.4rem;
     top: 0.4rem;

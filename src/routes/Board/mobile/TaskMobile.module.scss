@@ -16,35 +16,35 @@
       padding: 1.6rem;
     }
     .todo {
-      background-color: variables.$bg-azure--hover;
-      border: 3px solid variables.$bg-azure;
+      background-color: var(--bg-azure--hover);
+      border: 3px solid var(--bg-azure);
       border-radius: 16px;
       cursor: pointer;
 
       &--active {
-        background-color: variables.$bg-azure;
+        background-color: var(--bg-azure);
       }
     }
 
     .progress {
-      background-color: variables.$bg-yellow--hover;
-      border: 3px solid variables.$bg-yellow;
+      background-color: var(--bg-yellow--hover);
+      border: 3px solid var(--bg-yellow);
       border-radius: 16px;
       cursor: pointer;
 
       &--active {
-        background-color: variables.$bg-yellow;
+        background-color: var(--bg-yellow);
       }
     }
 
     .done {
-      background-color: variables.$bg-pink--hover;
-      border: 3px solid variables.$bg-pink;
+      background-color: var(--bg-pink--hover);
+      border: 3px solid var(--bg-pink);
       border-radius: 16px;
       cursor: pointer;
 
       &--active {
-        background-color: variables.$bg-pink;
+        background-color: var(--bg-pink);
       }
     }
   }

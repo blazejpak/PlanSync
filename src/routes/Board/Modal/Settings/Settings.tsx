@@ -4,27 +4,49 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowDown } from "react-icons/fa";
 import Application from "./Application";
 import Account from "./Account";
+import { useState } from "react";
+
+import styles from "./Settings.module.scss";
 
 const Settings = () => {
+  const [isAppOptionsActive, setIsAppOptionsActive] = useState(false);
+  const [isAccountOptionsActive, setIsAccountOptionsActive] = useState(false);
+
   return (
     <Overlay>
-      <div>
-        <strong>Settings</strong>
+      <div className={styles.container}>
+        <strong className={styles.heading}>Settings</strong>
         <div>
-          <button type="button" onClick={() => {}}>
+          <button
+            type="button"
+            onClick={() => setIsAppOptionsActive(!isAppOptionsActive)}
+            className={styles.button}
+          >
             <p>Application</p>
-            <FaArrowLeft size={16} />
+            {isAppOptionsActive ? (
+              <FaArrowDown size={16} />
+            ) : (
+              <FaArrowLeft size={16} />
+            )}
           </button>
-          <Application />
+          {isAppOptionsActive && <Application />}
         </div>
 
-        {/* <div>
-          <button type="button" onClick={() => {}}>
+        <div>
+          <button
+            type="button"
+            onClick={() => setIsAccountOptionsActive(!isAccountOptionsActive)}
+            className={styles.button}
+          >
             <p>Account</p>
-            <FaArrowLeft size={16} />
+            {isAccountOptionsActive ? (
+              <FaArrowDown size={16} />
+            ) : (
+              <FaArrowLeft size={16} />
+            )}
           </button>
-          <Account />
-        </div> */}
+          {isAccountOptionsActive && <Account />}
+        </div>
       </div>
     </Overlay>
   );

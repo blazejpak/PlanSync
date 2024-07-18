@@ -2,7 +2,7 @@
 @use "../../styles/mixins";
 
 .board {
-  background-color: variables.$bg-grey;
+  background-color: var(--bg-grey);
   border-radius: variables.$border-radius--lg;
   height: 100%;
   padding: 3.2rem;

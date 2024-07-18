@@ -27,7 +27,7 @@
 }
 
 .button {
-  background-color: variables.$bg-button;
+  background-color: var(--bg-button);
   border-radius: 16px;
   color: white;
   font-weight: bold;
@@ -40,7 +40,7 @@
 
   &:hover {
     transition: all 0.3s;
-    background-color: variables.$bg-button--hover;
+    background-color: var(--bg-button--hover);
   }
 }
 

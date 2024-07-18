@@ -2,17 +2,17 @@
 
 .button {
   border: none;
-  background-color: variables.$bg-button;
-  border-radius: variables.$border-radius--sm;
+  background-color: var(--bg-button);
+  border-radius: var(--border-radius--sm);
   color: white;
   cursor: pointer;
-  font-size: variables.$font-button;
+  font-size: var(--font-button);
   font-weight: bold;
   height: 4rem;
   transition: all 0.3s;
   width: 100%;
 
   &:hover {
-    background-color: variables.$bg-button--hover;
+    background-color: var(--bg-button--hover);
   }
 }

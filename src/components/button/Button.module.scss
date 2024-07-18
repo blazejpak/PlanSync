@@ -13,18 +13,18 @@
   width: 16rem;
 
   &.delete {
-    background-color: variables.$bg-error;
+    background-color: var(--bg-error);
 
     &:hover {
-      background-color: variables.$bg-error--hover;
+      background-color: var(--bg-error--hover);
     }
   }
 
   &.cancel {
-    background-color: variables.$bg-button;
+    background-color: var(--bg-button);
 
     &:hover {
-      background-color: variables.$bg-button--hover;
+      background-color: var(--bg-button--hover);
     }
   }
 }

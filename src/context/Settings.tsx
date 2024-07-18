@@ -1,19 +1,13 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 interface initialValueProps {
   isModalSettingsOpen: boolean;
-  isDarkThemeActive: boolean;
+  pickedTheme: "light" | "dark";
   pickedFont: "Rubik" | "Lora" | "Montserrat";
   pickedFontSize: "small" | "medium" | "large";
 
   switchSettingsModalActive: () => void;
-  switchDarkTheme: () => void;
+  changeDarkTheme: (values: "light" | "dark") => void;
   changeFontFamily: (values: "Rubik" | "Lora" | "Montserrat") => void;
   changeFontSize: (values: "small" | "medium" | "large") => void;
   closeSettingsModal: () => void;
@@ -21,12 +15,12 @@ interface initialValueProps {
 
 const initialValue: initialValueProps = {
   isModalSettingsOpen: false,
-  isDarkThemeActive: false,
+  pickedTheme: "light",
   pickedFont: "Rubik",
   pickedFontSize: "medium",
 
   switchSettingsModalActive: () => {},
-  switchDarkTheme: () => {},
+  changeDarkTheme: () => {},
   changeFontFamily: () => {},
   changeFontSize: () => {},
   closeSettingsModal: () => {},
@@ -44,9 +38,7 @@ export const SettingsContextProvider = ({
   const [isModalSettingsOpen, setIsModalSettingsOpen] = useState(
     initialValue.isModalSettingsOpen
   );
-  const [isDarkThemeActive, setIsDarkThemeActive] = useState(
-    initialValue.isDarkThemeActive
-  );
+  const [pickedTheme, setPickedTheme] = useState(initialValue.pickedTheme);
   const [pickedFont, setPickedFont] = useState(initialValue.pickedFont);
   const [pickedFontSize, setPickedFontSize] = useState(
     initialValue.pickedFontSize
@@ -56,36 +48,42 @@ export const SettingsContextProvider = ({
     setIsModalSettingsOpen(!isModalSettingsOpen);
   };
 
-  const switchDarkTheme = () => {
-    setIsDarkThemeActive(!isDarkThemeActive);
+  const changeDarkTheme = (theme: "light" | "dark") => {
+    setPickedTheme(theme);
+    document.body.classList.remove("light");
+    document.body.classList.remove("dark");
+
+    document.body.classList.add(theme);
   };
 
   const changeFontFamily = (fontFamily: "Rubik" | "Lora" | "Montserrat") => {
     setPickedFont(fontFamily);
+    document.documentElement.style.fontFamily = fontFamily;
   };
 
   const changeFontSize = (fontSize: "small" | "medium" | "large") => {
     setPickedFontSize(fontSize);
+    document.body.classList.remove("small-font");
+    document.body.classList.remove("medium-font");
+    document.body.classList.remove("large-font");
+
+    document.body.classList.add(fontSize + "-font");
   };
 
   const closeSettingsModal = () => {
     setIsModalSettingsOpen(false);
   };
 
-  useEffect(() => {
-    document.documentElement.style.fontFamily = pickedFont;
-  }, [pickedFont]);
-
   return (
     <SettingsContext.Provider
       value={{
         switchSettingsModalActive,
-        switchDarkTheme,
+        changeDarkTheme,
         changeFontFamily,
         changeFontSize,
         closeSettingsModal,
         isModalSettingsOpen,
-        isDarkThemeActive,
+        pickedTheme,
         pickedFont,
         pickedFontSize,
       }}

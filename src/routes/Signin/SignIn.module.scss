@@ -37,12 +37,12 @@
   margin-top: 1.6rem;
 
   a {
-    color: variables.$bg-button;
+    color: var(--bg-button);
     transition: all 0.3s;
     font-weight: bold;
 
     &:hover {
-      color: variables.$bg-button--hover;
+      color: var(--bg-button--hover);
       transform: scale(1.05);
     }
   }
