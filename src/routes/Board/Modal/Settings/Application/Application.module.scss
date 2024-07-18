@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+
+  margin-left: 1.2rem;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    &__heading {
+      font-size: var(--font-heading--2);
+    }
+
+    button {
+      font-size: var(--font-button);
+    }
+  }
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+
+  align-items: center;
+  border-bottom: 1px solid var(--bg-grey-dark);
+  cursor: pointer;
+  color: var(--font-color);
+  font-size: var(--font-button);
+  display: flex;
+  justify-content: space-between;
+  padding-block: 0.4rem;
+  width: 100%;
+}

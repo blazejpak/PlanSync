@@ -3,7 +3,7 @@ import styles from "./Button.module.scss";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
-  typeOfButton: "delete" | "cancel";
+  typeOfButton: "delete" | "cancel" | null;
 };
 
 const Button = ({ children, typeOfButton, ...props }: ButtonProps) => {
