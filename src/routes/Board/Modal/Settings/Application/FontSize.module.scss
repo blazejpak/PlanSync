@@ -1,18 +1,7 @@
 //   FONT-SIZE
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin-left: 1.2rem;
-  margin-top: 1.6rem;
-
-  &__heading {
-    font-size: var(--font-paragraph--smaller);
-  }
-
-  button {
-    font-size: var(--font-button);
-  }
+.content__heading {
+  font-size: var(--font-paragraph--smaller);
+  margin-bottom: 0.8rem;
 }
 
 .button__fonts-size {

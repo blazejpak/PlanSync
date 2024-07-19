@@ -3,6 +3,7 @@ import styles from "./Theme.module.scss";
 
 import { motion, useSpring } from "framer-motion";
 import { useSafeSettingsContext } from "../../../../../context/Settings";
+import Indentation from "../Indentation";
 
 const Theme = () => {
   const { changeDarkTheme, pickedTheme } = useSafeSettingsContext();
@@ -17,7 +18,7 @@ const Theme = () => {
     }
   };
   return (
-    <div className={styles.content}>
+    <Indentation>
       <strong className={styles.content__heading}>
         Change your color theme
       </strong>
@@ -39,7 +40,7 @@ const Theme = () => {
         </button>
         <FaMoon size={20} />
       </div>
-    </div>
+    </Indentation>
   );
 };
 

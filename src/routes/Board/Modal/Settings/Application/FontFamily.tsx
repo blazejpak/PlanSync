@@ -1,11 +1,12 @@
 import { useSafeSettingsContext } from "../../../../../context/Settings";
+import Indentation from "../Indentation";
 import styles from "./FontFamily.module.scss";
 
 const FontFamily = () => {
   const { changeFontFamily, pickedFont } = useSafeSettingsContext();
 
   return (
-    <div className={styles.content}>
+    <Indentation>
       <strong className={styles.content__heading}>
         Pick your favorite font
       </strong>
@@ -35,7 +36,7 @@ const FontFamily = () => {
           Montserrat
         </button>
       </div>
-    </div>
+    </Indentation>
   );
 };
 

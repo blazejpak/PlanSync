@@ -1,11 +1,12 @@
 import { useSafeSettingsContext } from "../../../../../context/Settings";
+import Indentation from "../Indentation";
 import styles from "./FontSize.module.scss";
 
 const FontSize = () => {
   const { changeFontSize, pickedFontSize } = useSafeSettingsContext();
 
   return (
-    <div className={styles.content}>
+    <Indentation>
       <strong className={styles.content__heading}>
         Change size of letters
       </strong>
@@ -35,7 +36,7 @@ const FontSize = () => {
           LARGE
         </button>
       </div>
-    </div>
+    </Indentation>
   );
 };
 

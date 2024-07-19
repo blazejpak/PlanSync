@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import {
+  getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
@@ -133,6 +134,16 @@ export const AuthenticationContextProvider = ({
       setErrorMessage(message);
     } finally {
       setIsAuthLoading(false);
+    }
+  };
+
+  const updateDisplayName = async (username: string) => {
+    try {
+      const update = await firebaseAuth.updateCurrentUser();
+    } catch (error: any) {
+      const errorCode = error.code as FirebaseErrorKey;
+
+      setErrorMessage(errorCode);
     }
   };
 
