@@ -1,11 +1,13 @@
+import { useEffect } from "react";
+
 import { ModalContextProvider } from "../../context/ModalStates";
-import styles from "./Board.module.scss";
+import { useAppDispatch } from "../../store/hooks";
+import { fetchAllTasks } from "../../store/reducers/tasks";
 
 import TaskList from "./TaskList";
 import CalendarPerDay from "../../components/dates/CalendarPerDay";
-import { useEffect } from "react";
-import { useAppDispatch } from "../../store/hooks";
-import { fetchAllTasks } from "../../store/reducers/tasks";
+
+import styles from "./Board.module.scss";
 
 const Board = () => {
   const dispatch = useAppDispatch();

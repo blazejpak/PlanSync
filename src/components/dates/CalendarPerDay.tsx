@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react";
+import { DateTime } from "luxon";
+
+import { pickCurrentDay, pickRangeDate } from "../../store/reducers/calendar";
+import { useAppDispatch } from "../../store/hooks";
+
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
-import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
 import styles from "./CalendarPerDay.module.scss";
-import { useAppDispatch } from "../../store/hooks";
-import { pickCurrentDay, pickRangeDate } from "../../store/reducers/calendar";
 
 const CalendarPerDay = () => {
   const time = DateTime.now().setLocale("en-GB");

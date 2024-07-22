@@ -1,34 +1,31 @@
 import { useContext, useEffect } from "react";
-
 import { Formik, FormikHelpers } from "formik";
 
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-
-import {
-  getRangeDate,
-  pickRangeDate,
-} from "../../../../store/reducers/calendar";
+import { validationSchema } from "../AddTask/AddTaskValidationSchema";
 import { UserContext } from "../../../../context/AuthenticationContext";
+import {
+  pickRangeDate,
+  selectRangeDate,
+} from "../../../../store/reducers/calendar";
+import { updateTask } from "../../../../store/reducers/tasks";
+import { ValuesTypes } from "../AddTask/ValuesType";
 
 import SaveButton from "../../../../components/button/SaveButton";
-
-import styles from "../AddTask/AddTask.module.scss";
-import { validationSchema } from "../AddTask/AddTaskValidationSchema";
 import Overlay from "../Overlay";
 import TaskFields from "../AddTask/TaskFields";
 import SubtasksFields from "../AddTask/SubtasksFields";
 import DateFields from "../AddTask/DateFields";
-import { ValuesTypes } from "../AddTask/ValuesType";
-import { getAllData, updateTask } from "../../../../store/reducers/tasks";
+
+import styles from "../AddTask/AddTask.module.scss";
 
 const EditTask = () => {
   const { taskModal, closeModal } = useSafeModalContext();
   const activeTask = taskModal.activeTaskData;
   const { user } = useContext(UserContext);
 
-  const data = useAppSelector(getAllData);
-  const rangeData = useAppSelector(getRangeDate);
+  const rangeData = useAppSelector(selectRangeDate);
   const dispatch = useAppDispatch();
 
   if (!activeTask || !user) return null;

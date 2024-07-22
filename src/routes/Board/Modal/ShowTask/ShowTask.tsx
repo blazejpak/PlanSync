@@ -1,11 +1,14 @@
 import { MouseEvent, useState } from "react";
-import styles from "./ShowTask.module.scss";
-import { HiDotsVertical } from "react-icons/hi";
+
 import { useAppDispatch } from "../../../../store/hooks";
 import { useSafeModalContext } from "../../../../context/ModalStates";
+import { updateTask } from "../../../../store/reducers/tasks";
+
 import SaveButton from "../../../../components/button/SaveButton";
 import Overlay from "../Overlay";
-import { updateTask } from "../../../../store/reducers/tasks";
+
+import { HiDotsVertical } from "react-icons/hi";
+import styles from "./ShowTask.module.scss";
 
 const ShowTask = () => {
   const { taskModal, setTaskModal, closeModal } = useSafeModalContext();

@@ -2,27 +2,26 @@ import { Formik, FormikHelpers } from "formik";
 
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-
-import { getRangeDate } from "../../../../store/reducers/calendar";
+import { selectRangeDate } from "../../../../store/reducers/calendar";
 import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+import { addTask } from "../../../../store/reducers/tasks";
+import { ValuesTypes } from "./ValuesType";
 
 import SaveButton from "../../../../components/button/SaveButton";
-
-import styles from "./AddTask.module.scss";
 import { validationSchema } from "./AddTaskValidationSchema";
 import TaskFields from "./TaskFields";
 import SubtasksFields from "./SubtasksFields";
 import DateFields from "./DateFields";
 import Overlay from "../Overlay";
-import { ValuesTypes } from "./ValuesType";
-import { addTask } from "../../../../store/reducers/tasks";
+
+import styles from "./AddTask.module.scss";
 
 const AddTask = () => {
   const { user } = useSafeUserContext();
   const { taskModal, closeModal } = useSafeModalContext();
   const typeOfTask = taskModal.prop as string;
 
-  const rangeData = useAppSelector(getRangeDate);
+  const rangeData = useAppSelector(selectRangeDate);
   const dispatch = useAppDispatch();
 
   const initialValues: ValuesTypes = {

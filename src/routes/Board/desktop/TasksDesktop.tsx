@@ -1,12 +1,12 @@
-import styles from "./TasksDesktop.module.scss";
 import { useSafeModalContext } from "../../../context/ModalStates";
 
 import FilteredTasks from "../FilteredTasks";
-
 import ShowTask from "../Modal/ShowTask/ShowTask";
 import EditTask from "../Modal/EditTask/EditTask";
 import DeleteTask from "../Modal/DeleteTask/DeleteTask";
 import AddTask from "../Modal/AddTask/AddTask";
+
+import styles from "./TasksDesktop.module.scss";
 
 const TasksDesktop = () => {
   const { taskModal, setTaskModal } = useSafeModalContext();

@@ -31,8 +31,8 @@ export const calendarSlice = createSlice({
   },
 });
 
-export const getCurrentDay = (state: RootState) => state.calendar.currentDay;
-export const getRangeDate = (state: RootState) => state.calendar.rangeDate;
+export const selectCurrentDay = (state: RootState) => state.calendar.currentDay;
+export const selectRangeDate = (state: RootState) => state.calendar.rangeDate;
 
 export const { pickCurrentDay, pickRangeDate } = calendarSlice.actions;
 

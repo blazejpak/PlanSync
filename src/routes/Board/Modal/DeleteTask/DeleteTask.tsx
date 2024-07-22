@@ -1,10 +1,11 @@
-import Overlay from "../Overlay";
-
-import styles from "./DeleteTask.module.scss";
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch } from "../../../../store/hooks";
-import Button from "../../../../components/button/Button";
 import { deleteTask } from "../../../../store/reducers/tasks";
+
+import Overlay from "../Overlay";
+import Button from "../../../../components/button/Button";
+
+import styles from "./DeleteTask.module.scss";
 
 const DeleteTask = () => {
   const dispatch = useAppDispatch();

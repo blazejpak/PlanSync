@@ -1,14 +1,16 @@
-import { useSafeModalContext } from "../../context/ModalStates";
-import { useAppSelector } from "../../store/hooks";
+import { Skeleton } from "@mui/material";
+
 import TaskItem from "./TaskItem";
 
-import styles from "./FilteredTasks.module.scss";
+import { Status } from "../../types/task";
+import { useSafeModalContext } from "../../context/ModalStates";
+import { useAppSelector } from "../../store/hooks";
 import {
-  dataFromTheCurrentDay,
+  selectDataFromTheCurrentDay,
   selectFetchStatus,
 } from "../../store/reducers/tasks";
-import { Skeleton } from "@mui/material";
-import { Status } from "../../types/task";
+
+import styles from "./FilteredTasks.module.scss";
 
 type FilteredTasksProps = {
   typeOfTask: "todo" | "progress" | "done";
@@ -18,7 +20,7 @@ type FilteredTasksProps = {
 const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
   const { setTaskModal } = useSafeModalContext();
 
-  const data = useAppSelector(dataFromTheCurrentDay);
+  const data = useAppSelector(selectDataFromTheCurrentDay);
   const dataStatus = useAppSelector(selectFetchStatus);
 
   const filteredTasks = data.filter((item) => item.typeOfTask === typeOfTask);
@@ -29,28 +31,29 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
 
   if (dataStatus === Status.FAILED) return <p>Something went wrong</p>;
 
-  return dataStatus === Status.LOADING ? (
-    <Skeleton variant="rounded" height={100} style={{ marginTop: "2rem" }} />
-  ) : (
-    filteredTasks.map((task) => {
-      return (
-        <li
-          className={`${typeOfDevice === "mobile" && styles.task}`}
-          key={task.id}
-          onClick={() => {
-            setTaskModal({
-              type: "task",
-              prop: null,
-              activeTaskData: task,
-              isActive: true,
-            });
-          }}
-        >
-          <TaskItem data={task} />
-        </li>
-      );
-    })
-  );
+  if (dataStatus === Status.LOADING) {
+    return (
+      <Skeleton variant="rounded" height={100} style={{ marginTop: "2rem" }} />
+    );
+  }
+  return filteredTasks.map((task) => {
+    return (
+      <li
+        className={`${typeOfDevice === "mobile" && styles.task}`}
+        key={task.id}
+        onClick={() => {
+          setTaskModal({
+            type: "task",
+            prop: null,
+            activeTaskData: task,
+            isActive: true,
+          });
+        }}
+      >
+        <TaskItem data={task} />
+      </li>
+    );
+  });
 };
 
 export default FilteredTasks;

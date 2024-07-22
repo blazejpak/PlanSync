@@ -2,10 +2,10 @@ import { ChangeEvent, useState } from "react";
 import { Stack, TextField } from "@mui/material";
 import { FormikErrors, FormikTouched, FieldArray } from "formik";
 
-import { CgClose } from "react-icons/cg";
-
-import styles from "./AddTask.module.scss";
 import { Subtask, ValuesTypes } from "./ValuesType";
+
+import { CgClose } from "react-icons/cg";
+import styles from "./AddTask.module.scss";
 
 interface SubtasksFieldsProps {
   values: ValuesTypes;

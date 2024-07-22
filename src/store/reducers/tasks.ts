@@ -3,18 +3,13 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../store";
 
-import {
-  addTaskToFirestore,
-  deleteTaskFromFirestore,
-  fetchAllTasksfromFirestore,
-  updateTaskInFirestore,
-} from "../../services/taskService";
+import { taskService } from "../../services/taskService";
 
 export const fetchAllTasks = createAsyncThunk(
   "tasks/fetchAllTasks",
   async (_, { rejectWithValue }) => {
     try {
-      const tasks = await fetchAllTasksfromFirestore();
+      const tasks = await taskService.fetchAll();
 
       return tasks;
     } catch (error: any) {
@@ -27,7 +22,7 @@ export const addTask = createAsyncThunk(
   "tasks/addTask",
   async (task: Omit<Task, "id">, { rejectWithValue }) => {
     try {
-      const newTask = await addTaskToFirestore(task);
+      const newTask = await taskService.add(task);
       return newTask;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -39,7 +34,7 @@ export const deleteTask = createAsyncThunk(
   "tasks/deleteTask",
   async (taskId: string, { rejectWithValue }) => {
     try {
-      await deleteTaskFromFirestore(taskId);
+      await taskService.remove(taskId);
       return taskId;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -51,7 +46,7 @@ export const updateTask = createAsyncThunk(
   "tasks/updateTask",
   async (updatedTask: Task, { rejectWithValue }) => {
     try {
-      await updateTaskInFirestore(updatedTask);
+      await taskService.update(updatedTask);
 
       return updatedTask;
     } catch (error: any) {
@@ -151,9 +146,9 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const getAllData = (state: RootState) => state.tasks.data;
-export const getAllFromTasksSlice = (state: RootState) => state.tasks;
-export const dataFromTheCurrentDay = (state: RootState) =>
+export const selectAllData = (state: RootState) => state.tasks.data;
+export const selectAllFromTasksSlice = (state: RootState) => state.tasks;
+export const selectDataFromTheCurrentDay = (state: RootState) =>
   state.tasks.currentDayData;
 
 export const selectFetchStatus = (state: RootState) => state.tasks.fetchStatus;
@@ -162,6 +157,8 @@ export const selectDeleteStatus = (state: RootState) =>
   state.tasks.deleteStatus;
 export const selectUpdateStatus = (state: RootState) =>
   state.tasks.updateStatus;
+
+export const selectTasksSlice = (state: RootState) => state.tasks;
 
 export const { dailyData } = tasksSlice.actions;
 
