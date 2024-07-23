@@ -1,14 +1,12 @@
 import { FaMoon, FaSun } from "react-icons/fa";
 import styles from "./Theme.module.scss";
 
-import { motion, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { useSafeSettingsContext } from "../../../../../context/Settings";
 import Indentation from "../Indentation";
 
 const Theme = () => {
   const { changeDarkTheme, pickedTheme } = useSafeSettingsContext();
-
-  const spring = useSpring(0);
 
   const changeTheme = () => {
     if (pickedTheme === "light") {
@@ -31,8 +29,9 @@ const Theme = () => {
           onClick={changeTheme}
         >
           <motion.div
-            layout
-            transition={spring}
+            initial={{ x: "0.4rem" }}
+            animate={{ x: pickedTheme === "dark" ? "5.2rem" : "0.4rem" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className={`${styles.button__ball} ${
               pickedTheme === "dark" && styles["button__ball--active"]
             }`}

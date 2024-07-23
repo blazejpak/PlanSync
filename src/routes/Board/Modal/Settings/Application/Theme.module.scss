@@ -22,26 +22,29 @@ button {
     border: none;
     cursor: pointer;
 
+    align-items: center;
     background-color: #4455cf;
     border: 1px solid #d0d0dd;
     border-radius: 16px;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 7.2rem;
     height: 3.2rem;
-
-    &--active {
-      justify-content: flex-end;
-    }
+    justify-content: flex-start;
+    position: relative;
+    width: 7.2rem;
 
     .button__ball {
-      align-items: center;
+      position: absolute;
+      left: 0;
       border-radius: 999px;
-      margin-left: 0.4rem;
       width: 1.6rem;
       height: 1.6rem;
       background-color: white;
+    }
+
+    &--active {
+      .button__ball {
+        right: 0;
+      }
     }
   }
 }

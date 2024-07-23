@@ -139,7 +139,7 @@ export const AuthenticationContextProvider = ({
 
   const updateDisplayName = async (username: string) => {
     try {
-      const update = await firebaseAuth.updateCurrentUser();
+      // const update = await firebaseAuth.updateCurrentUser();
     } catch (error: any) {
       const errorCode = error.code as FirebaseErrorKey;
 
