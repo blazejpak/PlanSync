@@ -1,8 +1,10 @@
 import { ReactNode, useRef } from "react";
-import styles from "./Overlay.module.scss";
+
 import { useSafeModalContext } from "../../../context/ModalStates";
 import useClickOutside from "../../../hooks/useClickOutside";
+
 import { IoMdClose } from "react-icons/io";
+import styles from "./Overlay.module.scss";
 
 type OverlayProps = {
   children: ReactNode;

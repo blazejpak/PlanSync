@@ -2,10 +2,10 @@ import { ChangeEvent, FocusEvent } from "react";
 import { Stack } from "@mui/material";
 import { Field } from "formik";
 
-import styles from "./AddTask.module.scss";
-
 import { ValuesTypes } from "./ValuesType";
 import Calendar from "../../../../components/dates/Calendar";
+
+import styles from "./AddTask.module.scss";
 
 interface SubtasksFieldsProps {
   values: ValuesTypes;

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-import styles from "./TaskItem.module.scss";
 import { Task } from "../../types/task";
+
+import styles from "./TaskItem.module.scss";
 
 interface TaskProps {
   data: Task;
