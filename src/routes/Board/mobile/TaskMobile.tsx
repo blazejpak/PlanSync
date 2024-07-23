@@ -1,17 +1,13 @@
-import styles from "./TaskMobile.module.scss";
-import { useContext, useEffect, useState } from "react";
-import DisplayModal from "../DisplayModal";
-import {
-  ModalContext,
-  useSafeModalContext,
-} from "../../../context/ModalStates";
+import { useEffect, useState } from "react";
+
+import { selectCurrentDay } from "../../../store/reducers/calendar";
+import { selectDataFromTheCurrentDay } from "../../../store/reducers/tasks";
 import { Task } from "../../../types/task";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+
 import FilteredTasks from "../FilteredTasks";
-import {
-  dataFromTheCurrentDay,
-  getCurrentDay,
-} from "../../../store/reducers/data";
+
+import styles from "./TaskMobile.module.scss";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(
@@ -22,8 +18,8 @@ const TaskMobile = () => {
   //   useSafeModalContext();
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector(dataFromTheCurrentDay);
-  const day = useAppSelector(getCurrentDay);
+  const data = useAppSelector(selectDataFromTheCurrentDay);
+  const day = useAppSelector(selectCurrentDay);
 
   useEffect(() => {
     const newData = data.filter((item) => item.typeOfTask === typeTasks);

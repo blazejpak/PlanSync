@@ -5,7 +5,7 @@ export interface Subtask {
 }
 
 export interface Task {
-  uid: string;
+  id: string;
   task: string;
   description: string;
   subtasks: Subtask[];
@@ -23,3 +23,10 @@ export interface TaskFilter extends Task {
 }
 
 export type TypeOfModal = "task" | "edit" | "delete" | "add" | null;
+
+export enum Status {
+  IDLE = "idle",
+  LOADING = "loading",
+  SUCCEEDED = "succeeded",
+  FAILED = "failed",
+}

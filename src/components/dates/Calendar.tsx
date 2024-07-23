@@ -1,16 +1,17 @@
 import { DateTime, Interval } from "luxon";
 import { useRef, useState } from "react";
 
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { pickRangeDate, selectRangeDate } from "../../store/reducers/calendar";
+import useClickOutside from "../../hooks/useClickOutside";
+
 import styles from "./Calendar.module.scss";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getRangeDate, pickRangeDate } from "../../store/reducers/data";
-import useClickOutside from "../../hooks/useClickOutside";
 
 const Calendar = () => {
   const calendarRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
-  const rangeTaskDate = useAppSelector(getRangeDate);
+  const rangeTaskDate = useAppSelector(selectRangeDate);
   const [monthCalendar, setMonthCalendar] = useState(
     DateTime.fromISO(rangeTaskDate.from)
   );
