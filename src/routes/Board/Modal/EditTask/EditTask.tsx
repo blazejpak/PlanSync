@@ -1,36 +1,39 @@
 import { useContext, useEffect } from "react";
-
 import { Formik, FormikHelpers } from "formik";
 
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-
-import {
-  allData,
-  dataFromAllDays,
-  getRangeDate,
-  pickRangeDate,
-} from "../../../../store/reducers/data";
+import { validationSchema } from "../AddTask/AddTaskValidationSchema";
 import { UserContext } from "../../../../context/AuthenticationContext";
+import {
+  pickRangeDate,
+  selectRangeDate,
+} from "../../../../store/reducers/calendar";
+import { updateTask } from "../../../../store/reducers/tasks";
+import { ValuesTypes } from "../AddTask/ValuesType";
 
 import SaveButton from "../../../../components/button/SaveButton";
-
-import styles from "../AddTask/AddTask.module.scss";
-import { validationSchema } from "../AddTask/AddTaskValidationSchema";
 import Overlay from "../Overlay";
+<<<<<<< HEAD
 
 import { ValuesTypes } from "../ValuesType";
 import TaskFields from "../TaskFields";
 import SubtasksFields from "../SubtasksFields";
 import DateFields from "../DateFields";
+=======
+import TaskFields from "../AddTask/TaskFields";
+import SubtasksFields from "../AddTask/SubtasksFields";
+import DateFields from "../AddTask/DateFields";
+
+import styles from "../AddTask/AddTask.module.scss";
+>>>>>>> main
 
 const EditTask = () => {
   const { taskModal, closeModal } = useSafeModalContext();
   const activeTask = taskModal.activeTaskData;
   const { user } = useContext(UserContext);
 
-  const data = useAppSelector(dataFromAllDays);
-  const rangeData = useAppSelector(getRangeDate);
+  const rangeData = useAppSelector(selectRangeDate);
   const dispatch = useAppDispatch();
 
   if (!activeTask || !user) return null;
@@ -61,25 +64,20 @@ const EditTask = () => {
   ) => {
     const filteredSubtasks = values.subtasks.filter((subtask) => subtask.title);
 
-    const editedTask = data.map((task) => {
-      if (task.uid === activeTask.uid) {
-        task = {
-          uid: Math.random().toString(),
-          task: values.task,
-          description: values.description || "",
-          rangeDateFrom: rangeData.from,
-          rangeDateTo: rangeData.to,
-          subtasks: filteredSubtasks,
-          typeOfTask: values.type,
-          userId: user?.uid,
-          subtasksDone: activeTask.subtasksDone,
-          date: rangeData.from,
-        };
-      }
-      return task;
-    });
+    const updatedTask = {
+      id: activeTask.id,
+      task: values.task,
+      description: values.description || "",
+      rangeDateFrom: rangeData.from,
+      rangeDateTo: rangeData.to,
+      subtasks: filteredSubtasks,
+      typeOfTask: values.type,
+      userId: user?.uid,
+      subtasksDone: activeTask.subtasksDone,
+      date: rangeData.from,
+    };
 
-    dispatch(allData(editedTask));
+    dispatch(updateTask(updatedTask));
 
     resetForm();
     closeModal();
