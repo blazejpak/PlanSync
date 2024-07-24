@@ -5,13 +5,15 @@ import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectRangeDate } from "../../../../store/reducers/calendar";
 import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 import { addTask } from "../../../../store/reducers/tasks";
-import { ValuesTypes } from "./ValuesType";
 
 import SaveButton from "../../../../components/button/SaveButton";
 import { validationSchema } from "./AddTaskValidationSchema";
-
+import TaskFields from "../TaskFields";
+import SubtasksFields from "../SubtasksFields";
+import DateFields from "../DateFields";
 import Overlay from "../Overlay";
 
+import { ValuesTypes } from "../ValuesType";
 import styles from "./AddTask.module.scss";
 
 const AddTask = () => {
