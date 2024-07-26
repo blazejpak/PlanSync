@@ -13,10 +13,16 @@ const Theme = () => {
   const changeTheme = () => {
     if (pickedTheme === "light") {
       changeDarkTheme("dark");
-      UpdateUserData({ ...currentUserData, uiTheme: "dark" });
+      UpdateUserData({
+        ...currentUserData,
+        appSettings: { ...currentUserData.appSettings, uiTheme: "dark" },
+      });
     } else {
       changeDarkTheme("light");
-      UpdateUserData({ ...currentUserData, uiTheme: "light" });
+      UpdateUserData({
+        ...currentUserData,
+        appSettings: { ...currentUserData.appSettings, uiTheme: "light" },
+      });
     }
   };
   // console.log(currentUserData);

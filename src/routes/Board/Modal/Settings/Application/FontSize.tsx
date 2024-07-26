@@ -1,9 +1,19 @@
+import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
 import { useSafeSettingsContext } from "../../../../../context/Settings";
 import Indentation from "../Indentation";
 import styles from "./FontSize.module.scss";
 
 const FontSize = () => {
   const { changeFontSize, pickedFontSize } = useSafeSettingsContext();
+  const { UpdateUserData, currentUserData } = useSafeUserContext();
+
+  const pickFontSize = (fontSize: "small" | "medium" | "large") => {
+    changeFontSize(fontSize);
+    UpdateUserData({
+      ...currentUserData,
+      appSettings: { ...currentUserData.appSettings, fontSize: fontSize },
+    });
+  };
 
   return (
     <Indentation>
@@ -15,7 +25,7 @@ const FontSize = () => {
           className={`${styles["button__font-size"]} ${
             pickedFontSize === "small" && styles["button__font-size--active"]
           }`}
-          onClick={() => changeFontSize("small")}
+          onClick={() => pickFontSize("small")}
         >
           SMALL
         </button>
@@ -23,7 +33,7 @@ const FontSize = () => {
           className={`${styles["button__font-size"]} ${
             pickedFontSize === "medium" && styles["button__font-size--active"]
           }`}
-          onClick={() => changeFontSize("medium")}
+          onClick={() => pickFontSize("medium")}
         >
           MEDIUM
         </button>
@@ -31,7 +41,7 @@ const FontSize = () => {
           className={`${styles["button__font-size"]} ${
             pickedFontSize === "large" && styles["button__font-size--active"]
           }`}
-          onClick={() => changeFontSize("large")}
+          onClick={() => pickFontSize("large")}
         >
           LARGE
         </button>

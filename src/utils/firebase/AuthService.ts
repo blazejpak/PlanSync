@@ -34,15 +34,13 @@ export const SignOutUser = async () => {
 };
 
 export const CreatePersonalData = async (PersonalData: PersonalDataProps) => {
-  const { userId, ...data } = PersonalData;
-  const userDocRef = doc(db, "Users", userId);
-  await setDoc(userDocRef, data);
+  const userDocRef = doc(db, "Users", PersonalData.userId);
+  await setDoc(userDocRef, PersonalData);
 
   return PersonalData;
 };
 
 export const updatePersonalData = async (PersonalData: PersonalDataProps) => {
-  console.log(PersonalData);
   const { userId, ...data } = PersonalData;
   const userDocRef = doc(db, "Users", userId);
   await updateDoc(userDocRef, data);

@@ -14,7 +14,8 @@ import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { getPersonalData } from "../../utils/firebase/AuthService";
 
 const Board = () => {
-  const { changeDarkTheme } = useSafeSettingsContext();
+  const { changeDarkTheme, changeFontFamily, changeFontSize } =
+    useSafeSettingsContext();
   const { currentUserData } = useSafeUserContext();
 
   const dispatch = useAppDispatch();
@@ -25,8 +26,11 @@ const Board = () => {
   useEffect(() => {
     const getData = async () => {
       const userData = await getPersonalData(currentUserData.userId);
+
       if (userData) {
-        changeDarkTheme(userData.uiTheme);
+        changeDarkTheme(userData.appSettings.uiTheme);
+        changeFontFamily(userData.appSettings.fontFamily);
+        changeFontSize(userData.appSettings.fontSize);
       }
     };
     getData();

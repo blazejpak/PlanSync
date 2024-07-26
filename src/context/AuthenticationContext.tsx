@@ -41,7 +41,11 @@ const initialCurrentUserData: PersonalDataProps = {
   phoneNumber: null,
   email: "",
   role: "user",
-  uiTheme: "light",
+  appSettings: {
+    uiTheme: "light",
+    fontFamily: "Rubik",
+    fontSize: "medium",
+  },
 };
 
 const initialData: InitialDataProps = {
@@ -95,7 +99,11 @@ export const AuthenticationContextProvider = ({
             email: user.email || "",
             phoneNumber: null,
             role: "user",
-            uiTheme: "light",
+            appSettings: {
+              uiTheme: "light",
+              fontFamily: "Rubik",
+              fontSize: "medium",
+            },
             userName: user.displayName || "",
           });
           setCurrentUserData(userData);
@@ -126,7 +134,11 @@ export const AuthenticationContextProvider = ({
             email: user.email || "",
             phoneNumber: null,
             role: "user",
-            uiTheme: "light",
+            appSettings: {
+              uiTheme: "light",
+              fontFamily: "Rubik",
+              fontSize: "medium",
+            },
             userName: user.displayName || "",
           });
           setCurrentUserData(userData);

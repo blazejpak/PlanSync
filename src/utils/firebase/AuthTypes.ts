@@ -24,5 +24,9 @@ export interface PersonalDataProps {
   phoneNumber: number | null;
   email: string;
   role: "user" | "admin";
-  uiTheme: "light" | "dark";
+  appSettings: {
+    uiTheme: "light" | "dark";
+    fontFamily: "Rubik" | "Lora" | "Montserrat";
+    fontSize: "small" | "medium" | "large";
+  };
 }
