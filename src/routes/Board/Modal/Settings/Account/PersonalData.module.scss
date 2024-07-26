@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  strong {
+    font-size: var(--font-heading--3);
+    font-weight: 500;
+  }
+
+  p {
+    font-size: var(--font-paragraph--smaller);
+    font-weight: 300;
+  }
+}

@@ -4,17 +4,22 @@ import styles from "./Theme.module.scss";
 import { motion } from "framer-motion";
 import { useSafeSettingsContext } from "../../../../../context/Settings";
 import Indentation from "../Indentation";
+import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
 
 const Theme = () => {
   const { changeDarkTheme, pickedTheme } = useSafeSettingsContext();
+  const { currentUserData, UpdateUserData } = useSafeUserContext();
 
   const changeTheme = () => {
     if (pickedTheme === "light") {
       changeDarkTheme("dark");
+      UpdateUserData({ ...currentUserData, uiTheme: "dark" });
     } else {
       changeDarkTheme("light");
+      UpdateUserData({ ...currentUserData, uiTheme: "light" });
     }
   };
+  // console.log(currentUserData);
   return (
     <Indentation>
       <strong className={styles.content__heading}>

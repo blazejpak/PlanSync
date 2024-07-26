@@ -6,35 +6,54 @@ import {
   useState,
 } from "react";
 import {
-  getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
 } from "firebase/auth";
 
-import { firebaseAuth } from "../utils/firebase/firebase";
-import { InitialDataProps, LoginValues } from "../utils/firebase/AuthTypes";
+import db, { firebaseAuth } from "../utils/firebase/firebase";
 import {
+  InitialDataProps,
+  LoginValues,
+  PersonalDataProps,
+} from "../utils/firebase/AuthTypes";
+import {
+  CreatePersonalData,
+  getPersonalData,
   SignInUser,
   SignOutUser,
   SignUpUser,
+  updatePersonalData,
 } from "../utils/firebase/AuthService";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../utils/routes";
 import { firebaseErrors } from "../utils/firebase/Errors";
+import { doc, getDoc } from "firebase/firestore";
 
 type FirebaseErrorKey = keyof typeof firebaseErrors;
 
 const googleProvider = new GoogleAuthProvider();
 
+const initialCurrentUserData: PersonalDataProps = {
+  userId: "",
+  userName: "",
+  fullName: "",
+  phoneNumber: null,
+  email: "",
+  role: "user",
+  uiTheme: "light",
+};
+
 const initialData: InitialDataProps = {
-  user: firebaseAuth.currentUser,
+  user: firebaseAuth.currentUser!,
   SignUp: () => {},
   SignIn: () => {},
   SignOut: () => {},
   GoogleLogin: () => {},
+  UpdateUserData: () => {},
   loading: false,
   error: "",
+  currentUserData: initialCurrentUserData,
 };
 
 export const UserContext = createContext(initialData);
@@ -49,6 +68,9 @@ export const AuthenticationContextProvider = ({
   const [currentUser, setCurrentUser] = useState(initialData.user);
   const [isAuthLoading, setIsAuthLoading] = useState(initialData.loading);
   const [errorMessage, setErrorMessage] = useState(initialData.error);
+  const [currentUserData, setCurrentUserData] = useState<PersonalDataProps>(
+    initialData.currentUserData
+  );
 
   const navigate = useNavigate();
 
@@ -61,6 +83,23 @@ export const AuthenticationContextProvider = ({
       const user = result.user;
 
       if (user) {
+        setCurrentUser(user);
+
+        const userDocRef = doc(db, "Users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (!userDoc.exists()) {
+          const userData = await CreatePersonalData({
+            userId: user.uid,
+            fullName: "",
+            email: user.email || "",
+            phoneNumber: null,
+            role: "user",
+            uiTheme: "light",
+            userName: user.displayName || "",
+          });
+          setCurrentUserData(userData);
+        }
         navigate(ROUTES.ROUTE_BOARD, { replace: true });
       }
     } catch (error: any) {
@@ -81,7 +120,16 @@ export const AuthenticationContextProvider = ({
 
         if (user) {
           setCurrentUser(user);
-
+          const userData = await CreatePersonalData({
+            userId: user.uid,
+            fullName: "",
+            email: user.email || "",
+            phoneNumber: null,
+            role: "user",
+            uiTheme: "light",
+            userName: user.displayName || "",
+          });
+          setCurrentUserData(userData);
           navigate(ROUTES.ROUTE_BOARD, { replace: true });
         } else {
           setIsAuthLoading(false);
@@ -100,33 +148,18 @@ export const AuthenticationContextProvider = ({
 
   const SignIn = async (creds: LoginValues) => {
     setIsAuthLoading(true);
-    SignInUser(creds)
-      .then((userCredential) => {
-        const { user } = userCredential;
 
-        if (user) {
-          setCurrentUser(user);
-          navigate(ROUTES.ROUTE_BOARD, { replace: true });
-        } else {
-          setIsAuthLoading(false);
-        }
-      })
-      .catch((error: any) => {
-        const errorCode = error.code as FirebaseErrorKey;
-        const message =
-          firebaseErrors[errorCode] || "Unknown Error. Please again later.";
-        setErrorMessage(message);
-      })
-      .finally(() => {
-        setIsAuthLoading(false);
-      });
-  };
-
-  const SignOut = async () => {
-    setIsAuthLoading(true);
     try {
-      await SignOutUser();
-      setCurrentUser(null);
+      const userCredential = await SignInUser(creds);
+      const { user } = userCredential;
+      if (user) {
+        setCurrentUser(user);
+        const userData = await getPersonalData(user.uid);
+        setCurrentUserData(userData);
+        navigate(ROUTES.ROUTE_BOARD, { replace: true });
+      } else {
+        setIsAuthLoading(false);
+      }
     } catch (error: any) {
       const errorCode = error.code as FirebaseErrorKey;
       const message =
@@ -137,24 +170,41 @@ export const AuthenticationContextProvider = ({
     }
   };
 
-  const updateDisplayName = async (username: string) => {
+  const SignOut = async () => {
+    setIsAuthLoading(true);
     try {
-      // const update = await firebaseAuth.updateCurrentUser();
+      await SignOutUser();
+
+      setCurrentUserData(initialCurrentUserData);
     } catch (error: any) {
       const errorCode = error.code as FirebaseErrorKey;
-
-      setErrorMessage(errorCode);
+      const message =
+        firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+      setErrorMessage(message);
+    } finally {
+      setIsAuthLoading(false);
     }
   };
 
+  const UpdateUserData = async (data: PersonalDataProps) => {
+    const userData = await updatePersonalData(data);
+    setCurrentUserData(userData);
+    // console.log(userData);
+  };
+
   useEffect(() => {
-    const subscribe = onAuthStateChanged(firebaseAuth, (currentUserFromWeb) => {
-      if (currentUserFromWeb) {
-        setCurrentUser(currentUserFromWeb);
-        setErrorMessage("");
+    const subscribe = onAuthStateChanged(
+      firebaseAuth,
+      async (currentUserFromWeb) => {
+        if (currentUserFromWeb) {
+          setCurrentUser(currentUserFromWeb);
+          const userData = await getPersonalData(currentUserFromWeb.uid);
+          setCurrentUserData(userData);
+          setErrorMessage("");
+        }
+        setIsAuthLoading(false);
       }
-      setIsAuthLoading(false);
-    });
+    );
     return () => {
       subscribe();
     };
@@ -168,6 +218,8 @@ export const AuthenticationContextProvider = ({
     SignUp,
     SignOut,
     GoogleLogin: GoogleLogin,
+    currentUserData,
+    UpdateUserData,
   };
 
   return (
