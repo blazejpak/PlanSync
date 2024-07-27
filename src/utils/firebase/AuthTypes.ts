@@ -21,7 +21,7 @@ export interface PersonalDataProps {
   userId: string;
   userName: string;
   fullName: string;
-  phoneNumber: number | null;
+  phoneNumber: string | null;
   email: string;
   role: "user" | "admin";
   appSettings: {

@@ -1,14 +1,19 @@
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import SaveButton from "../../../../../components/button/SaveButton";
 import Indentation from "../Indentation";
 
 import styles from "./UpdateInfo.module.scss";
-import { validationUsernameSchema } from "./AccountValidation";
+import {
+  validationPhoneSchema,
+  validationUsernameSchema,
+} from "./AccountValidation";
 import { TextField } from "@mui/material";
 import { useSafeSettingsContext } from "../../../../../context/Settings";
+import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
 
 const UpdateUsername = () => {
   const { pickedTheme } = useSafeSettingsContext();
+  const { currentUserData, UpdateUserData } = useSafeUserContext();
 
   const initialUsernameSchema = { username: "" };
   const submitUsername = (e: any) => {
@@ -16,15 +21,21 @@ const UpdateUsername = () => {
   };
 
   const initialPhoneSchema = { phoneNumber: "" };
-  const submitPhoneNumber = (e: any) => {
-    e.preventDefault();
+
+  const submitPhoneNumber = (
+    values: { phoneNumber: string },
+    formikHelpers: FormikHelpers<{ phoneNumber: string }>
+  ) => {
+    UpdateUserData({ ...currentUserData, phoneNumber: values.phoneNumber });
+
+    formikHelpers.resetForm();
   };
 
   return (
     <Indentation>
       <div className={styles.forms}>
         <Formik
-          onSubmit={submitPhoneNumber}
+          onSubmit={submitUsername}
           initialValues={initialUsernameSchema}
           validationSchema={validationUsernameSchema}
           className={styles.content}
@@ -74,9 +85,9 @@ const UpdateUsername = () => {
         </Formik>
 
         <Formik
-          onSubmit={submitUsername}
+          onSubmit={submitPhoneNumber}
           initialValues={initialPhoneSchema}
-          validationSchema={validationUsernameSchema}
+          validationSchema={validationPhoneSchema}
           className={styles.content}
         >
           {({
@@ -91,8 +102,8 @@ const UpdateUsername = () => {
           }) => (
             <form onSubmit={handleSubmit} className={styles.input__box}>
               <TextField
-                id="username"
-                name="username"
+                id="phoneNumber"
+                name="phoneNumber"
                 label="Update your phone number"
                 type="text"
                 variant="standard"

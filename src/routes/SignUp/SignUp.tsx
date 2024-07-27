@@ -80,7 +80,7 @@ const SignUp = () => {
             fullWidth
             id="confirmPassword"
             name="confirmPassword"
-            label="confirmPassword"
+            label="confirm password"
             type="password"
             variant="standard"
             value={formik.values.confirmPassword}
