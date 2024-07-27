@@ -60,7 +60,7 @@ const initialData: InitialDataProps = {
   currentUserData: initialCurrentUserData,
 };
 
-export const UserContext = createContext(initialData);
+const UserContext = createContext(initialData);
 
 interface AuthenticationContextProviderTypes {
   children: ReactNode;
@@ -94,16 +94,10 @@ export const AuthenticationContextProvider = ({
 
         if (!userDoc.exists()) {
           const userData = await CreatePersonalData({
+            ...initialCurrentUserData,
             userId: user.uid,
-            fullName: "",
             email: user.email || "",
             phoneNumber: null,
-            role: "user",
-            appSettings: {
-              uiTheme: "light",
-              fontFamily: "Rubik",
-              fontSize: "medium",
-            },
             userName: user.displayName || "",
           });
           setCurrentUserData(userData);
@@ -129,16 +123,10 @@ export const AuthenticationContextProvider = ({
         if (user) {
           setCurrentUser(user);
           const userData = await CreatePersonalData({
+            ...initialCurrentUserData,
             userId: user.uid,
-            fullName: "",
             email: user.email || "",
             phoneNumber: null,
-            role: "user",
-            appSettings: {
-              uiTheme: "light",
-              fontFamily: "Rubik",
-              fontSize: "medium",
-            },
             userName: user.displayName || "",
           });
           setCurrentUserData(userData);
@@ -201,7 +189,6 @@ export const AuthenticationContextProvider = ({
   const UpdateUserData = async (data: PersonalDataProps) => {
     const userData = await updatePersonalData(data);
     setCurrentUserData(userData);
-    // console.log(userData);
   };
 
   useEffect(() => {

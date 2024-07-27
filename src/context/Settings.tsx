@@ -1,15 +1,16 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { PickedFont, PickedFontSize, PickedTheme } from "../types/settings";
 
 interface initialValueProps {
   isModalSettingsOpen: boolean;
-  pickedTheme: "light" | "dark";
-  pickedFont: "Rubik" | "Lora" | "Montserrat";
-  pickedFontSize: "small" | "medium" | "large";
+  pickedTheme: PickedTheme;
+  pickedFont: PickedFont;
+  pickedFontSize: PickedFontSize;
 
   switchSettingsModalActive: () => void;
-  changeDarkTheme: (values: "light" | "dark") => void;
-  changeFontFamily: (values: "Rubik" | "Lora" | "Montserrat") => void;
-  changeFontSize: (values: "small" | "medium" | "large") => void;
+  changeDarkTheme: (values: PickedTheme) => void;
+  changeFontFamily: (values: PickedFont) => void;
+  changeFontSize: (values: PickedFontSize) => void;
   closeSettingsModal: () => void;
 }
 
@@ -32,6 +33,10 @@ interface ChildrenContextProviderType {
   children: ReactNode;
 }
 
+const clearClass = (className: string) => {
+  document.body.classList.remove(className);
+};
+
 export const SettingsContextProvider = ({
   children,
 }: ChildrenContextProviderType) => {
@@ -48,25 +53,20 @@ export const SettingsContextProvider = ({
     setIsModalSettingsOpen(!isModalSettingsOpen);
   };
 
-  const changeDarkTheme = (theme: "light" | "dark") => {
+  const changeDarkTheme = (theme: PickedTheme) => {
     setPickedTheme(theme);
-    document.body.classList.remove("light");
-    document.body.classList.remove("dark");
-
+    ["light", "dark"].forEach(clearClass);
     document.body.classList.add(theme);
   };
 
-  const changeFontFamily = (fontFamily: "Rubik" | "Lora" | "Montserrat") => {
+  const changeFontFamily = (fontFamily: PickedFont) => {
     setPickedFont(fontFamily);
     document.documentElement.style.fontFamily = fontFamily;
   };
 
-  const changeFontSize = (fontSize: "small" | "medium" | "large") => {
+  const changeFontSize = (fontSize: PickedFontSize) => {
     setPickedFontSize(fontSize);
-    document.body.classList.remove("small-font");
-    document.body.classList.remove("medium-font");
-    document.body.classList.remove("large-font");
-
+    ["small-font", "medium-font", "large-font"].forEach(clearClass);
     document.body.classList.add(fontSize + "-font");
   };
 

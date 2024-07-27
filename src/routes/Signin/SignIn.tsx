@@ -39,7 +39,7 @@ const SignIn = () => {
 
   const googleSignIn = () => {
     GoogleLogin();
-    navigate(ROUTES.ROUTE_BOARD);
+    // navigate(ROUTES.ROUTE_BOARD);
   };
 
   return (
