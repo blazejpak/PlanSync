@@ -1,17 +1,20 @@
 import { Button, Stack, TextField } from "@mui/material";
-import styles from "./SignIn.module.scss";
 import { useFormik } from "formik";
-import { validationSchema } from "./ValidationSchema";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSafeUserContext } from "../../context/AuthenticationContext";
-import { FcGoogle } from "react-icons/fc";
 
-import { useEffect } from "react";
+import { validationSchema } from "./ValidationSchema";
+import { useSafeUserContext } from "../../context/AuthenticationContext";
 
 import { ROUTES } from "../../utils/routes";
 import { RotatingLines } from "react-loader-spinner";
 
+import { FcGoogle } from "react-icons/fc";
+import { BiShow, BiHide } from "react-icons/bi";
+import styles from "./SignIn.module.scss";
+
 const SignIn = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const { SignIn, user, GoogleLogin, loading, error } = useSafeUserContext();
@@ -39,7 +42,6 @@ const SignIn = () => {
 
   const googleSignIn = () => {
     GoogleLogin();
-    // navigate(ROUTES.ROUTE_BOARD);
   };
 
   return (
@@ -61,21 +63,25 @@ const SignIn = () => {
             inputProps={{ style: { fontSize: 16 } }}
             InputLabelProps={{ style: { fontSize: 14 } }}
           />
-
-          <TextField
-            fullWidth
-            id="password"
-            name="password"
-            label="password"
-            type="password"
-            variant="standard"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-            inputProps={{ style: { fontSize: 16 } }}
-            InputLabelProps={{ style: { fontSize: 14 } }}
-          />
+          <div className={styles.form__password}>
+            <TextField
+              fullWidth
+              id="password"
+              name="password"
+              label="password"
+              type={showPassword ? "text" : "password"}
+              variant="standard"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+              inputProps={{ style: { fontSize: 16 } }}
+              InputLabelProps={{ style: { fontSize: 14 } }}
+            />
+            <button onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <BiHide size={24} /> : <BiShow size={24} />}
+            </button>
+          </div>
           <Stack direction={{ xs: "column-reverse", md: "row" }} spacing={1}>
             <Button
               onClick={backToHomeHandle}
