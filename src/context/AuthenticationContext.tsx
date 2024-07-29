@@ -6,9 +6,12 @@ import {
   useState,
 } from "react";
 import {
+  EmailAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
+  reauthenticateWithCredential,
   signInWithPopup,
+  updatePassword,
 } from "firebase/auth";
 
 import db, { firebaseAuth } from "../utils/firebase/firebase";
@@ -36,7 +39,6 @@ const googleProvider = new GoogleAuthProvider();
 
 const initialCurrentUserData: PersonalDataProps = {
   userId: "",
-  userName: "",
   fullName: "",
   phoneNumber: null,
   email: "",
@@ -55,6 +57,7 @@ const initialData: InitialDataProps = {
   SignOut: () => {},
   GoogleLogin: () => {},
   UpdateUserData: () => {},
+  UpdateUserPassword: () => {},
   loading: false,
   error: "",
   currentUserData: initialCurrentUserData,
@@ -98,7 +101,7 @@ export const AuthenticationContextProvider = ({
             userId: user.uid,
             email: user.email || "",
             phoneNumber: null,
-            userName: user.displayName || "",
+            fullName: user.displayName || "",
           });
           setCurrentUserData(userData);
         }
@@ -107,7 +110,7 @@ export const AuthenticationContextProvider = ({
     } catch (error: any) {
       const errorCode = error.code as FirebaseErrorKey;
       const message =
-        firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+        firebaseErrors[errorCode] || "Unknown Error. Please try again later.";
       setErrorMessage(message);
     } finally {
       setIsAuthLoading(false);
@@ -127,7 +130,7 @@ export const AuthenticationContextProvider = ({
             userId: user.uid,
             email: user.email || "",
             phoneNumber: null,
-            userName: user.displayName || "",
+            fullName: user.displayName || "",
           });
           setCurrentUserData(userData);
           navigate(ROUTES.ROUTE_BOARD, { replace: true });
@@ -138,7 +141,7 @@ export const AuthenticationContextProvider = ({
       .catch((error: any) => {
         const errorCode = error.code as FirebaseErrorKey;
         const message =
-          firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+          firebaseErrors[errorCode] || "Unknown Error. Please try again later.";
         setErrorMessage(message);
       })
       .finally(() => {
@@ -163,7 +166,7 @@ export const AuthenticationContextProvider = ({
     } catch (error: any) {
       const errorCode = error.code as FirebaseErrorKey;
       const message =
-        firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+        firebaseErrors[errorCode] || "Unknown Error. Please try again later.";
       setErrorMessage(message);
     } finally {
       setIsAuthLoading(false);
@@ -179,7 +182,31 @@ export const AuthenticationContextProvider = ({
     } catch (error: any) {
       const errorCode = error.code as FirebaseErrorKey;
       const message =
-        firebaseErrors[errorCode] || "Unknown Error. Please again later.";
+        firebaseErrors[errorCode] || "Unknown Error. Please try again later.";
+      setErrorMessage(message);
+    } finally {
+      setIsAuthLoading(false);
+    }
+  };
+
+  const UpdateUserPassword = async (prevPassword: string, password: string) => {
+    try {
+      setIsAuthLoading(true);
+      if (currentUser.email) {
+        let credential = EmailAuthProvider.credential(
+          currentUser.email,
+          prevPassword
+        );
+
+        await reauthenticateWithCredential(currentUser, credential);
+
+        await updatePassword(currentUser, password);
+      }
+    } catch (error: any) {
+      const errorCode = error.code as FirebaseErrorKey;
+      const message =
+        firebaseErrors[errorCode] ||
+        "Can't update password. Please try again later.";
       setErrorMessage(message);
     } finally {
       setIsAuthLoading(false);
@@ -219,6 +246,7 @@ export const AuthenticationContextProvider = ({
     GoogleLogin: GoogleLogin,
     currentUserData,
     UpdateUserData,
+    UpdateUserPassword,
   };
 
   return (
