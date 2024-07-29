@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
-import UpdateUsername from "./UpdateInfo";
 
-import styles from "./Account.module.scss";
-import { FaArrowDown, FaArrowLeft } from "react-icons/fa";
 import ChangePassword from "./ChangePassword";
 import PersonalData from "./PersonalData";
+import UpdateData from "./UpdateData";
+
+import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
+
+import { FaArrowDown, FaArrowLeft } from "react-icons/fa";
+import styles from "./Account.module.scss";
 
 const Account = () => {
   const [isAccountSettingsActive, setIsAccountSettingsActive] = useState(false);
@@ -23,7 +25,7 @@ const Account = () => {
           onClick={() => setIsPersonalDataActive(!isPersonalDataActive)}
           className={styles.button}
         >
-          <p>Personal Data</p>
+          <p>Personal data</p>
           {isPersonalDataActive ? (
             <FaArrowDown size={16} />
           ) : (
@@ -39,14 +41,14 @@ const Account = () => {
           onClick={() => setIsAccountSettingsActive(!isAccountSettingsActive)}
           className={styles.button}
         >
-          <p>Details</p>
+          <p>Update account data</p>
           {isAccountSettingsActive ? (
             <FaArrowDown size={16} />
           ) : (
             <FaArrowLeft size={16} />
           )}
         </button>
-        {isAccountSettingsActive && <UpdateUsername />}
+        {isAccountSettingsActive && <UpdateData />}
       </div>
 
       {user.providerData[0].providerId !== "google.com" && (

@@ -16,3 +16,11 @@
     background-color: var(--bg-button--hover);
   }
 }
+
+.succeed {
+  background-color: var(--bg-succeed);
+
+  &:hover {
+    background-color: var(--bg-succeed--hover);
+  }
+}

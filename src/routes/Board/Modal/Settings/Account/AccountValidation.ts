@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
-export const validationUsernameSchema = yup.object({
-  username: yup.string().min(3).required("Task is required."),
+export const validationFullNameSchema = yup.object({
+  fullName: yup.string().min(3).required("Task is required."),
 });
 
 export const validationPhoneSchema = yup.object({

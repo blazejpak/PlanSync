@@ -12,14 +12,15 @@ export interface InitialDataProps {
   SignOut: () => void;
   GoogleLogin: () => void;
   UpdateUserData: (data: PersonalDataProps) => void;
+  UpdateUserPassword: (prevPassword: string, password: string) => void;
   loading: boolean;
   error: string;
   currentUserData: PersonalDataProps;
+  isSucceed: boolean;
 }
 
 export interface PersonalDataProps {
   userId: string;
-  userName: string;
   fullName: string;
   phoneNumber: string | null;
   email: string;

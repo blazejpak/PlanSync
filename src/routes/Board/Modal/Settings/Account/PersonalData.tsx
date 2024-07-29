@@ -9,14 +9,6 @@ const PersonalData = () => {
     <Indentation>
       <section className={styles.container}>
         <div>
-          <strong>Username:</strong>
-          <p>
-            {currentUserData.userName
-              ? currentUserData.userName
-              : "You haven't entered your Username yet."}
-          </p>
-        </div>
-        <div>
           <strong>Email:</strong>
           <p>{currentUserData.email}</p>
         </div>

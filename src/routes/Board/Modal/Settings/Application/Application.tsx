@@ -4,12 +4,14 @@ import FontFamily from "./FontFamily";
 import FontSize from "./FontSize";
 import Theme from "./Theme";
 import { FaArrowDown, FaArrowLeft } from "react-icons/fa";
+import Information from "./Information";
 
 const Application = () => {
   const [isThemeOptionActive, setIsThemeOptionActive] = useState(false);
   const [isFontFamilyOptionActive, setIsFontFamilyOptionActive] =
     useState(false);
   const [isFontSizeOptionActive, setIsFontSizeOptionActive] = useState(false);
+  const [isAppInfoActive, setIsAppInfoActive] = useState(false);
 
   return (
     <section className={styles.container}>
@@ -65,6 +67,23 @@ const Application = () => {
           )}
         </button>
         {isFontSizeOptionActive && <FontSize />}
+      </div>
+
+      {/* App info */}
+      <div>
+        <button
+          type="button"
+          onClick={() => setIsAppInfoActive(!isAppInfoActive)}
+          className={styles.button}
+        >
+          <p>App details</p>
+          {isAppInfoActive ? (
+            <FaArrowDown size={16} />
+          ) : (
+            <FaArrowLeft size={16} />
+          )}
+        </button>
+        {isAppInfoActive && <Information />}
       </div>
     </section>
   );

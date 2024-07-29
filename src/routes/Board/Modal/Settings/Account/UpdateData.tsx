@@ -2,22 +2,37 @@ import { Formik, FormikHelpers } from "formik";
 import SaveButton from "../../../../../components/button/SaveButton";
 import Indentation from "../Indentation";
 
-import styles from "./UpdateInfo.module.scss";
+import styles from "./UpdateData.module.scss";
 import {
   validationPhoneSchema,
-  validationUsernameSchema,
+  validationFullNameSchema,
 } from "./AccountValidation";
 import { TextField } from "@mui/material";
 import { useSafeSettingsContext } from "../../../../../context/Settings";
 import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
+import { useState } from "react";
 
-const UpdateUsername = () => {
+const UpdateData = () => {
   const { pickedTheme } = useSafeSettingsContext();
-  const { currentUserData, UpdateUserData } = useSafeUserContext();
+  const { currentUserData, UpdateUserData, isSucceed, error } =
+    useSafeUserContext();
 
-  const initialUsernameSchema = { username: "" };
-  const submitUsername = (e: any) => {
-    e.preventDefault();
+  const [isFullNameButtonClicked, setIsFullNameButtonClicked] = useState(false);
+  const [isPhoneNumberButtonClicked, setIsPhoneNumberButtonClicked] =
+    useState(false);
+
+  const initialFullNameSchema = { fullName: "" };
+
+  const submitFullName = (
+    values: { fullName: string },
+    formikHelpers: FormikHelpers<{ fullName: string }>
+  ) => {
+    setIsFullNameButtonClicked(true);
+    UpdateUserData({ ...currentUserData, fullName: values.fullName });
+    formikHelpers.resetForm();
+    setTimeout(() => {
+      setIsFullNameButtonClicked(false);
+    }, 1000);
   };
 
   const initialPhoneSchema = { phoneNumber: "" };
@@ -26,18 +41,21 @@ const UpdateUsername = () => {
     values: { phoneNumber: string },
     formikHelpers: FormikHelpers<{ phoneNumber: string }>
   ) => {
+    setIsPhoneNumberButtonClicked(true);
     UpdateUserData({ ...currentUserData, phoneNumber: values.phoneNumber });
-
     formikHelpers.resetForm();
+    setTimeout(() => {
+      setIsPhoneNumberButtonClicked(false);
+    }, 1000);
   };
 
   return (
     <Indentation>
       <div className={styles.forms}>
         <Formik
-          onSubmit={submitUsername}
-          initialValues={initialUsernameSchema}
-          validationSchema={validationUsernameSchema}
+          onSubmit={submitFullName}
+          initialValues={initialFullNameSchema}
+          validationSchema={validationFullNameSchema}
           className={styles.content}
         >
           {({
@@ -52,16 +70,16 @@ const UpdateUsername = () => {
           }) => (
             <form onSubmit={handleSubmit} className={styles.input__box}>
               <TextField
-                id="username"
-                name="username"
-                label="Update your username"
+                id="fullName"
+                name="fullName"
+                label="Update your full name"
                 type="text"
                 variant="standard"
-                value={values.username}
+                value={values.fullName}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={touched.username && Boolean(errors.username)}
-                helperText={touched.username && errors.username}
+                error={touched.fullName && Boolean(errors.fullName)}
+                helperText={touched.fullName && errors.fullName}
                 InputLabelProps={{
                   style: {
                     color: pickedTheme === "dark" ? "white" : "black",
@@ -77,8 +95,12 @@ const UpdateUsername = () => {
                   },
                 }}
               />
-              <SaveButton style={{ width: "10rem" }} type="submit">
-                Save
+              <SaveButton
+                isSucceed={isSucceed && isFullNameButtonClicked}
+                style={{ width: "10rem" }}
+                type="submit"
+              >
+                {isSucceed && isFullNameButtonClicked ? "Changed" : "Save"}
               </SaveButton>
             </form>
           )}
@@ -127,8 +149,12 @@ const UpdateUsername = () => {
                   },
                 }}
               />
-              <SaveButton style={{ width: "10rem" }} type="submit">
-                Save
+              <SaveButton
+                isSucceed={isSucceed && isPhoneNumberButtonClicked}
+                style={{ width: "10rem" }}
+                type="submit"
+              >
+                {isSucceed && isPhoneNumberButtonClicked ? "Changed" : "Save"}
               </SaveButton>
             </form>
           )}
@@ -138,4 +164,4 @@ const UpdateUsername = () => {
   );
 };
 
-export default UpdateUsername;
+export default UpdateData;

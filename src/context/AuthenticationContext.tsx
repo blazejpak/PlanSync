@@ -61,6 +61,7 @@ const initialData: InitialDataProps = {
   loading: false,
   error: "",
   currentUserData: initialCurrentUserData,
+  isSucceed: false,
 };
 
 const UserContext = createContext(initialData);
@@ -78,6 +79,7 @@ export const AuthenticationContextProvider = ({
   const [currentUserData, setCurrentUserData] = useState<PersonalDataProps>(
     initialData.currentUserData
   );
+  const [isSucceed, setIsSucceed] = useState(false);
 
   const navigate = useNavigate();
 
@@ -215,6 +217,10 @@ export const AuthenticationContextProvider = ({
 
   const UpdateUserData = async (data: PersonalDataProps) => {
     const userData = await updatePersonalData(data);
+    setIsSucceed(true);
+    setTimeout(() => {
+      setIsSucceed(false);
+    }, 1000);
     setCurrentUserData(userData);
   };
 
@@ -240,6 +246,7 @@ export const AuthenticationContextProvider = ({
     user: currentUser,
     loading: isAuthLoading,
     error: errorMessage,
+    isSucceed,
     SignIn,
     SignUp,
     SignOut,
