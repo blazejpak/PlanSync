@@ -3,7 +3,7 @@ import styles from "../Signin/SignIn.module.scss";
 import { useFormik } from "formik";
 import { validationSchema } from "./ValidationSchema";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { ROUTES } from "../../utils/routes";
 import { RotatingLines } from "react-loader-spinner";
@@ -11,6 +11,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [isClicked, setIsClicked] = useState(false);
 
   const { SignUp, user, loading, GoogleLogin, error } = useSafeUserContext();
 
@@ -28,6 +29,8 @@ const SignUp = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      setIsClicked(true);
+
       SignUp({ email: values.email, password: values.password });
     },
   });
@@ -37,6 +40,8 @@ const SignUp = () => {
   };
 
   const googleSignIn = () => {
+    setIsClicked(true);
+
     GoogleLogin();
     navigate(ROUTES.ROUTE_BOARD);
   };
@@ -130,7 +135,7 @@ const SignUp = () => {
           <FcGoogle size={24} />
         </div>
 
-        {loading && (
+        {loading && isClicked && (
           <div className={styles.loading}>
             <RotatingLines strokeColor="#4455cf" />
           </div>

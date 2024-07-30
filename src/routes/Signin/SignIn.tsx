@@ -15,6 +15,8 @@ import styles from "./SignIn.module.scss";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
   const navigate = useNavigate();
 
   const { SignIn, user, GoogleLogin, loading, error } = useSafeUserContext();
@@ -32,6 +34,7 @@ const SignIn = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      setIsClicked(true);
       SignIn({ email: values.email, password: values.password });
     },
   });
@@ -115,7 +118,7 @@ const SignIn = () => {
           </button>
           <FcGoogle size={24} />
         </div>
-        {loading && (
+        {loading && isClicked && (
           <div className={styles.loading}>
             <RotatingLines strokeColor="#4455cf" />
           </div>

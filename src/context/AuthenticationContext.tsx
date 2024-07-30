@@ -58,7 +58,7 @@ const initialData: InitialDataProps = {
   GoogleLogin: () => {},
   UpdateUserData: () => {},
   UpdateUserPassword: () => {},
-  loading: false,
+  loading: true,
   error: "",
   currentUserData: initialCurrentUserData,
   isSucceed: false,
@@ -228,15 +228,26 @@ export const AuthenticationContextProvider = ({
     const subscribe = onAuthStateChanged(
       firebaseAuth,
       async (currentUserFromWeb) => {
-        if (currentUserFromWeb) {
-          setCurrentUser(currentUserFromWeb);
-          const userData = await getPersonalData(currentUserFromWeb.uid);
-          setCurrentUserData(userData);
-          setErrorMessage("");
+        try {
+          setIsAuthLoading(true);
+          if (currentUserFromWeb) {
+            setCurrentUser(currentUserFromWeb);
+            const userData = await getPersonalData(currentUserFromWeb.uid);
+            setCurrentUserData(userData);
+            setErrorMessage("");
+          }
+        } catch (error: any) {
+          const errorCode = error.code as FirebaseErrorKey;
+          const message =
+            firebaseErrors[errorCode] ||
+            "Something went wrong. Please try again later.";
+          setErrorMessage(message);
+        } finally {
+          setIsAuthLoading(false);
         }
-        setIsAuthLoading(false);
       }
     );
+
     return () => {
       subscribe();
     };

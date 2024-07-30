@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { ModalContextProvider } from "../../context/ModalStates";
 import { useAppDispatch } from "../../store/hooks";
@@ -12,11 +12,13 @@ import { useSafeSettingsContext } from "../../context/Settings";
 import styles from "./Board.module.scss";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { getPersonalData } from "../../utils/firebase/AuthService";
+import Loading from "../Loading";
 
 const Board = () => {
   const { changeDarkTheme, changeFontFamily, changeFontSize } =
     useSafeSettingsContext();
   const { currentUserData } = useSafeUserContext();
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -35,6 +37,16 @@ const Board = () => {
     };
     getData();
   }, [currentUserData.userId]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <Loading />;
 
   return (
     <section className={styles.board}>
