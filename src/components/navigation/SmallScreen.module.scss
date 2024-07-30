@@ -1,5 +1,5 @@
-@use "../../../styles/variables";
-@use "../../../styles/mixins";
+@use "../../styles/variables";
+@use "../../styles/mixins";
 
 .navigation__links {
   display: flex;
@@ -43,7 +43,7 @@
 }
 
 .navigation__list {
-  background-color: variables.$bg-button;
+  background-color: var(--bg-button);
   position: absolute;
   padding: 0.8rem 1.4rem;
   display: flex;

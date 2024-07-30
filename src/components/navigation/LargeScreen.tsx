@@ -1,7 +1,7 @@
+import { categoryBoardNav } from "../../helpers/CategoryBoardNav";
+import { tasksBoardNav } from "../../helpers/TasksBoardNav";
+import ButtonBoardNav from "../UI/BoardNavButton";
 import styles from "./LargeScreen.module.scss";
-import ButtonBoardNav from "../../../components/UI/BoardNavButton";
-import { categoryBoardNav } from "../../../helpers/CategoryBoardNav";
-import { tasksBoardNav } from "../../../helpers/TasksBoardNav";
 
 const LargeScreen = () => {
   return (
@@ -13,6 +13,7 @@ const LargeScreen = () => {
             text={category.text}
             icon={category.icon}
             numberOfTasks={1}
+            key={category.text}
           />
         ))}
       </div>
@@ -25,6 +26,7 @@ const LargeScreen = () => {
             text={category.text}
             icon={category.icon}
             numberOfTasks={1}
+            key={category.text}
           />
         ))}
       </div>

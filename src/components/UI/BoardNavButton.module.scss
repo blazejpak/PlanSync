@@ -18,7 +18,7 @@
   }
 
   &:hover {
-    background-color: variables.$bg-button--hover;
+    background-color: var(--bg-button--hover);
   }
 
   .text {
@@ -28,13 +28,13 @@
 
   .icon {
     padding: 0.6rem;
-    background-color: variables.$bg-button--hover;
+    background-color: var(--bg-button--hover);
     border-radius: 3px;
   }
 
   .number__tasks {
     padding: 0.6rem;
-    background-color: variables.$bg-button--hover;
+    background-color: var(--bg-button--hover);
     border-radius: 3px;
     font-weight: bold;
   }

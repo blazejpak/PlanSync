@@ -1,8 +1,8 @@
-@use "../../../styles/variables";
-@use "../../../styles/mixins";
+@use "../../styles/variables";
+@use "../../styles/mixins";
 
 .container {
-  background-color: variables.$bg-button;
+  background-color: var(--bg-button);
   display: flex;
   flex-direction: column;
   user-select: none;
@@ -25,7 +25,7 @@
 
   .image {
     align-self: center;
-    background-color: variables.$bg-color;
+    background-color: var(--bg-color);
     border-bottom-left-radius: variables.$border-radius--md;
     border-bottom-right-radius: variables.$border-radius--md;
     padding: 1.6rem;
@@ -42,7 +42,7 @@
 
 .navigation {
   align-items: center;
-  background-color: variables.$bg-button;
+  background-color: var(--bg-button);
   color: white;
   display: flex;
   height: 100%;
@@ -64,7 +64,7 @@
 }
 
 .button {
-  background-color: variables.$bg-azure;
+  background-color: var(--bg-azure);
   border: none;
   border-radius: 16px;
   cursor: pointer;
@@ -77,6 +77,6 @@
   }
 
   &:hover {
-    background-color: variables.$bg-azure--hover;
+    background-color: var(--g-azure--hover);
   }
 }

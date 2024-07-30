@@ -1,10 +1,11 @@
-import logo from "../../../assets/logo.png";
-
-import styles from "./Navigation.module.scss";
-import Button from "../../../components/button/Button";
-import { useSafeModalContext } from "../../../context/ModalStates";
 import LargeScreen from "./LargeScreen";
 import SmallScreen from "./SmallScreen";
+import Button from "../button/Button";
+
+import { useSafeModalContext } from "../../context/ModalStates";
+
+import logo from "../../assets/logo.png";
+import styles from "./Navigation.module.scss";
 
 const Navigation = () => {
   const { setTaskModal } = useSafeModalContext();

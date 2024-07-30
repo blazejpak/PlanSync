@@ -1,10 +1,12 @@
-import styles from "./SmallScreen.module.scss";
-import ButtonBoardNav from "../../../components/UI/BoardNavButton";
-import { categoryBoardNav } from "../../../helpers/CategoryBoardNav";
-import { tasksBoardNav } from "../../../helpers/TasksBoardNav";
 import { useRef, useState } from "react";
+
+import { categoryBoardNav } from "../../helpers/CategoryBoardNav";
+import useClickOutside from "../../hooks/useClickOutside";
+import ButtonBoardNav from "../UI/BoardNavButton";
+import { tasksBoardNav } from "../../helpers/TasksBoardNav";
+
+import styles from "./SmallScreen.module.scss";
 import { FaArrowLeft, FaArrowDown } from "react-icons/fa";
-import useClickOutside from "../../../hooks/useClickOutside";
 
 const SmallScreen = () => {
   const [isCategoryFilterClicked, setIsCategoryFilterClicked] = useState(false);
