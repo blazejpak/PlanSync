@@ -2,11 +2,11 @@
 
 .modal__heading {
   font-weight: bold;
-  font-size: variables.$font-heading--2;
+  font-size: var(--font-heading--2);
 }
 
 .error {
-  color: variables.$bg-error;
+  color: var(--bg-error);
   font-size: 1.4rem;
 }
 
@@ -17,7 +17,7 @@
 
   .select {
     height: 4.8rem;
-    border-radius: variables.$border-radius--sm;
+    border-radius: var(--border-radius--sm);
     border: 1px solid rgba(0, 0, 0, 0.23);
     padding-left: 0.8rem;
     color: rgba(0, 0, 0, 0.87);
@@ -41,17 +41,17 @@
   }
   .subtask__add {
     background-color: transparent;
-    background-color: variables.$bg-grey;
+    background-color: var(--bg-grey);
     border: none;
-    border-radius: variables.$border-radius--sm;
+    border-radius: var(--border-radius--sm);
     cursor: pointer;
-    font-size: variables.$font-button;
+    font-size: var(--font-button);
     font-weight: bold;
     height: 4rem;
     transition: all 0.3s;
 
     &:hover {
-      background-color: variables.$bg-grey-dark;
+      background-color: var(--bg-grey-dark);
     }
   }
 }
@@ -62,7 +62,7 @@
   gap: 1.6rem;
 
   strong {
-    font-size: variables.$font-heading--3;
+    font-size: var(--font-heading--3);
   }
 
   .radio__selectors {

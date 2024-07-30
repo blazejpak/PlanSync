@@ -13,14 +13,14 @@
   }
 
   svg {
-    background-color: variables.$bg-grey-dark;
+    background-color: var(--bg-grey-dark);
     border-radius: 2px;
     cursor: pointer;
     padding: 0.4rem;
     transition: all 0.3s;
 
     &:hover {
-      background-color: variables.$bg-grey-dark--hover;
+      background-color: var(--bg-grey-dark--hover);
     }
   }
 

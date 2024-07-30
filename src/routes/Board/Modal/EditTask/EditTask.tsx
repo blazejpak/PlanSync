@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Formik, FormikHelpers } from "formik";
 
 import { useSafeModalContext } from "../../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { validationSchema } from "../AddTask/AddTaskValidationSchema";
-import { UserContext } from "../../../../context/AuthenticationContext";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 import {
   pickRangeDate,
   selectRangeDate,
@@ -23,7 +23,7 @@ import styles from "../AddTask/AddTask.module.scss";
 const EditTask = () => {
   const { taskModal, closeModal } = useSafeModalContext();
   const activeTask = taskModal.activeTaskData;
-  const { user } = useContext(UserContext);
+  const { user } = useSafeUserContext();
 
   const rangeData = useAppSelector(selectRangeDate);
   const dispatch = useAppDispatch();
@@ -117,10 +117,18 @@ const EditTask = () => {
             />
 
             <div>
-              <SaveButton type="submit" style={{ marginTop: "1.6rem" }}>
+              <SaveButton
+                isSucceed={null}
+                type="submit"
+                style={{ marginTop: "1.6rem" }}
+              >
                 Save
               </SaveButton>
-              <SaveButton type="button" style={{ marginTop: "1.6rem" }}>
+              <SaveButton
+                isSucceed={null}
+                type="button"
+                style={{ marginTop: "1.6rem" }}
+              >
                 Cancel
               </SaveButton>
             </div>
