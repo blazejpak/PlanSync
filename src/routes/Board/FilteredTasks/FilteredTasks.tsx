@@ -1,14 +1,14 @@
 import { Skeleton } from "@mui/material";
 
-import TaskItem from "./TaskItem";
+import TaskItem from "../TaskItem";
 
-import { Status } from "../../types/task";
-import { useSafeModalContext } from "../../context/ModalStates";
-import { useAppSelector } from "../../store/hooks";
+import { Status } from "../../../types/task";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import { useAppSelector } from "../../../store/hooks";
 import {
   selectDataFromTheCurrentDay,
   selectFetchStatus,
-} from "../../store/reducers/tasks";
+} from "../../../store/reducers/tasks";
 
 import styles from "./FilteredTasks.module.scss";
 

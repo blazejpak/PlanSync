@@ -28,6 +28,7 @@ const Navigation = () => {
         <LargeScreen />
 
         <Button
+          type="button"
           typeOfButton={null}
           className={styles.button}
           onClick={handleButtonClick}

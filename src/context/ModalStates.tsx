@@ -6,9 +6,11 @@ import {
   useContext,
   useState,
 } from "react";
-import { Task, TypeOfModal } from "../types/task";
+import { Category, Task, typeFilter, TypeOfModal } from "../types/task";
 
 interface ModalContextType {
+  typeCategory: Category;
+  typeTaskFilter: typeFilter;
   taskModal: {
     type: TypeOfModal;
     isActive: boolean;
@@ -24,9 +26,13 @@ interface ModalContextType {
     }>
   >;
   closeModal: () => void;
+  changeCategory: (type: Category) => void;
+  changeTypeFilter: (type: typeFilter) => void;
 }
 
 const initialData: ModalContextType = {
+  typeCategory: Category.ALL,
+  typeTaskFilter: typeFilter.ALL,
   taskModal: {
     type: "task",
     prop: null,
@@ -35,6 +41,8 @@ const initialData: ModalContextType = {
   },
   setTaskModal: () => {},
   closeModal: () => {},
+  changeCategory: () => {},
+  changeTypeFilter: () => {},
 };
 
 export const ModalContext = createContext<ModalContextType>(initialData);
@@ -47,6 +55,10 @@ export const ModalContextProvider = ({
   children,
 }: ChildrenContextProviderType) => {
   const [taskModal, setTaskModal] = useState(initialData.taskModal);
+  const [typeCategory, setTypeCategory] = useState(initialData.typeCategory);
+  const [typeTaskFilter, setTypeTaskFilter] = useState(
+    initialData.typeTaskFilter
+  );
 
   const closeModal = () => {
     setTaskModal({
@@ -57,12 +69,24 @@ export const ModalContextProvider = ({
     });
   };
 
+  const changeCategory = (type: Category) => {
+    setTypeCategory(type);
+  };
+
+  const changeTypeFilter = (type: typeFilter) => {
+    setTypeTaskFilter(type);
+  };
+
   return (
     <ModalContext.Provider
       value={{
+        typeTaskFilter,
+        typeCategory,
         taskModal,
         setTaskModal,
         closeModal,
+        changeCategory,
+        changeTypeFilter,
       }}
     >
       {children}

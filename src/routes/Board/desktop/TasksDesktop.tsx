@@ -1,6 +1,6 @@
 import { useSafeModalContext } from "../../../context/ModalStates";
 
-import FilteredTasks from "../FilteredTasks";
+import FilteredTasks from "../FilteredTasks/FilteredTasks";
 import ShowTask from "../Modal/ShowTask/ShowTask";
 import EditTask from "../Modal/EditTask/EditTask";
 import DeleteTask from "../Modal/DeleteTask/DeleteTask";
@@ -19,6 +19,8 @@ const TasksDesktop = () => {
       isActive: true,
     });
   };
+
+  console.log(taskModal);
 
   return (
     <div className={styles.tasks}>

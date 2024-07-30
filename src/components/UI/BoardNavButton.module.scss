@@ -21,6 +21,10 @@
     background-color: var(--bg-button--hover);
   }
 
+  &.active {
+    background-color: var(--bg-button--hover);
+  }
+
   .text {
     font-weight: bold;
     flex-grow: 1;

@@ -50,16 +50,16 @@ const Board = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <section className={styles.page}>
-      <Navigation />
-      <ModalContextProvider>
+    <ModalContextProvider>
+      <section className={styles.page}>
+        <Navigation />
         <div className={styles.board}>
           <CalendarPerDay />
           <TaskList />
         </div>
         {/* <Settings /> */}
-      </ModalContextProvider>
-    </section>
+      </section>
+    </ModalContextProvider>
   );
 };
 

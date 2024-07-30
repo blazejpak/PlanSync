@@ -5,7 +5,7 @@ import { selectDataFromTheCurrentDay } from "../../../store/reducers/tasks";
 import { Task } from "../../../types/task";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 
-import FilteredTasks from "../FilteredTasks";
+import FilteredTasks from "../FilteredTasks/FilteredTasks";
 
 import styles from "./TaskMobile.module.scss";
 

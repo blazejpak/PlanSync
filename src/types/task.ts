@@ -8,6 +8,7 @@ export interface Task {
   id: string;
   task: string;
   description: string;
+  category: string;
   subtasks: Subtask[];
   date: string;
   rangeDateFrom: string;
@@ -17,9 +18,18 @@ export interface Task {
   userId: string;
 }
 
-export interface TaskFilter extends Task {
-  CategoryFilter: "work" | "personal" | "family" | "all";
-  TypeTaskFilter: "todo" | "progress" | "done" | "all";
+export enum Category {
+  WORK = "work",
+  PERSONAL = "personal",
+  FAMILY = "family",
+  ALL = "all",
+}
+
+export enum typeFilter {
+  TODO = "todo",
+  PROGRESS = "progress",
+  DONE = "done",
+  ALL = "all",
 }
 
 export type TypeOfModal = "task" | "edit" | "delete" | "add" | null;

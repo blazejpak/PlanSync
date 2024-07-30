@@ -59,6 +59,7 @@ const EditTask = () => {
     const updatedTask = {
       id: activeTask.id,
       task: values.task,
+      category: "work",
       description: values.description || "",
       rangeDateFrom: rangeData.from,
       rangeDateTo: rangeData.to,
