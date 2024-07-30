@@ -24,7 +24,7 @@
       flex-grow: 1;
 
       .bar_background {
-        background-color: variables.$bg-color;
+        background-color: var(--bg-color);
         border-radius: 16px;
         height: 1.6rem;
         width: 100%;
@@ -37,13 +37,13 @@
         top: 0;
 
         &[data-set="todo"] {
-          background-color: variables.$bg-azure;
+          background-color: var(--bg-azure);
         }
         &[data-set="progress"] {
-          background-color: variables.$bg-yellow;
+          background-color: var(--bg-yellow);
         }
         &[data-set="done"] {
-          background-color: variables.$bg-pink;
+          background-color: var(--bg-pink);
         }
       }
     }

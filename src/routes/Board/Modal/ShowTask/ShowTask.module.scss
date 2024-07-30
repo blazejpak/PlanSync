@@ -7,7 +7,7 @@
   position: relative;
 
   &__text {
-    font-size: variables.$font-heading--2;
+    font-size: var(--font-heading--2);
     font-weight: bold;
   }
 
@@ -26,18 +26,18 @@
     padding-left: 1.2rem;
 
     &--edit {
-      color: variables.$bg-button;
+      color: var(--bg-button);
 
       &:hover {
-        color: variables.$bg-button--hover;
+        color: var(--bg-button--hover);
       }
     }
 
     &--delete {
-      color: variables.$bg-error;
+      color: var(--bg-error);
 
       &:hover {
-        color: variables.$bg-error--hover;
+        color: var(--bg-error--hover);
       }
     }
 
@@ -45,15 +45,15 @@
       background-color: transparent;
       border: none;
       cursor: pointer;
-      font-size: variables.$font-paragraph--smaller;
+      font-size: var(--font-paragraph--smaller);
       font-weight: bold;
       transition: all 0.3s;
     }
   }
 
   &__edit {
-    background-color: variables.$bg-grey;
-    border-radius: variables.$border-radius--sm;
+    background-color: var(--bg-grey);
+    border-radius: var(--border-radius--sm);
     height: 10rem;
     position: absolute;
     right: 3rem;
@@ -64,7 +64,7 @@
 }
 
 .description {
-  font-size: variables.$font-heading--3;
+  font-size: var(--font-heading--3);
 }
 
 .subtasks {
@@ -73,19 +73,19 @@
   gap: 1.6rem;
 
   .subtask {
-    background-color: variables.$bg-grey;
-    border-radius: variables.$border-radius--sm;
+    background-color: var(--bg-grey);
+    border-radius: var(--border-radius--sm);
     cursor: pointer;
     display: flex;
     gap: 1.6rem;
     padding: 0.8rem 1.6rem;
 
     &:hover .subtask__checkbox {
-      background-color: variables.$bg-button--hover;
+      background-color: var(--bg-button--hover);
     }
 
     &__text {
-      font-size: variables.$font-paragraph;
+      font-size: var(--font-paragraph);
     }
 
     &__text {
@@ -97,12 +97,12 @@
     }
 
     &__checkbox {
-      border: 1px solid variables.$bg-grey-dark;
+      border: 1px solid var(--bg-grey-dark);
       min-height: 1.6rem;
       min-width: 1.6rem;
 
       &.active {
-        background-color: variables.$bg-button;
+        background-color: var(--bg-button);
       }
     }
   }

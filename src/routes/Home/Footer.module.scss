@@ -74,7 +74,7 @@
   }
 
   svg:hover {
-    fill: variables.$bg-button--hover;
+    fill: var(--bg-button--hover);
     transition: all 0.3s;
   }
 }

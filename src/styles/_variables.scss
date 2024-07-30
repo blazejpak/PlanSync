@@ -4,29 +4,89 @@ $border-radius--md: 8px;
 $border-radius--lg: 16px;
 
 // TYPOGRAPHY
-$font-heading--1: 2.4rem;
-$font-heading--2: 2rem;
-$font-heading--3: 1.8rem;
+:root {
+  --font-heading--1: 2.4rem;
+  --font-heading--2: 2rem;
+  --font-heading--3: 1.8rem;
 
-$font-button: 1.8rem;
+  --font-button: 1.8rem;
 
-$font-paragraph: 1.6rem;
-$font-paragraph--smaller: 1.4rem;
+  --font-paragraph: 1.6rem;
+  --font-paragraph--smaller: 1.4rem;
+}
+
+body.small-font {
+  --font-heading--1: 2rem;
+  --font-heading--2: 1.8rem;
+  --font-heading--3: 1.6rem;
+
+  --font-button: 1.4rem;
+
+  --font-paragraph: 1.5rem;
+  --font-paragraph--smaller: 1.3rem;
+}
+
+body.medium-font {
+  --font-heading--1: 2.4rem;
+  --font-heading--2: 2rem;
+  --font-heading--3: 1.8rem;
+
+  --font-button: 1.6rem;
+
+  --font-paragraph: 1.6rem;
+  --font-paragraph--smaller: 1.4rem;
+}
+
+body.large-font {
+  --font-heading--1: 2.8rem;
+  --font-heading--2: 2.4rem;
+  --font-heading--3: 2rem;
+
+  --font-button: 2rem;
+
+  --font-paragraph: 1.7rem;
+  --font-paragraph--smaller: 1.5rem;
+}
+
 // COLORS
 // LIGHT THEME
-$bg-color: #eaeaf9;
-$bg-button: #4455cf;
-$bg-button--hover: #7a88f3;
-$bg-azure: #0ad2f7;
-$bg-azure--hover: #92e4f3f9;
-$bg-yellow: #f6a60d;
-$bg-yellow--hover: #f4bb51;
-$bg-pink: #de3c5f;
-$bg-pink--hover: rgb(252, 103, 135);
-$bg-grey: #e5e3f5;
-$bg-grey-dark: #d0d0dd;
-$bg-grey-dark--hover: #bcbcc4;
-$bg-error: #ce1818;
-$bg-error--hover: #df3a3a;
+:root {
+  --bg-color: #eaeaf9;
+  --bg-button: #4455cf;
+  --bg-button--hover: #7a88f3;
+  --bg-azure: #0ad2f7;
+  --bg-azure--hover: #92e4f3f9;
+  --bg-yellow: #f6a60d;
+  --bg-yellow--hover: #f4bb51;
+  --bg-pink: #de3c5f;
+  --bg-pink--hover: rgb(252, 103, 135);
+  --bg-grey: #e5e3f5;
+  --bg-grey-dark: #d0d0dd;
+  --bg-grey-dark--hover: #bcbcc4;
+  --bg-error: #ce1818;
+  --bg-error--hover: #df3a3a;
+  --bg-succeed: #4bb543;
+  --bg-succeed--hover: #6dc766;
+
+  --font-color: #2b2c37;
+}
 
 // DARK THEME
+body.dark {
+  --bg-color: #2b2c37;
+  --bg-button: #4455cf;
+  --bg-button--hover: #7a88f3;
+  --bg-azure: #0ad2f7;
+  --bg-azure--hover: #92e4f3f9;
+  --bg-yellow: #f6a60d;
+  --bg-yellow--hover: #f4bb51;
+  --bg-pink: #de3c5f;
+  --bg-pink--hover: rgb(252, 103, 135);
+  --bg-grey: #3e3f4e;
+  --bg-grey-dark: #828fa3;
+  --bg-grey-dark--hover: #e4ebfa;
+  --bg-error: #ce1818;
+  --bg-error--hover: #df3a3a;
+
+  --font-color: #f0f0f0;
+}

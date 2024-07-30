@@ -11,6 +11,7 @@ import Root from "./routes/Root";
 import Board from "./routes/Board/Board";
 
 import "./main.scss";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/board",
-        element: <Board />,
+        element: (
+          <ProtectedRoute>
+            <Board />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

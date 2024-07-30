@@ -1,0 +1,30 @@
+//   FONT-FAMILY
+.content__heading {
+  margin-bottom: 0.8rem;
+  font-size: var(--font-paragraph--smaller);
+}
+
+button {
+  font-size: var(--font-button);
+}
+
+.button__fonts {
+  align-items: center;
+  background-color: var(--bg-grey-dark);
+  border-radius: 8px;
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.8rem 1.6rem;
+  width: fit-content;
+
+  .button__font {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    &--active {
+      color: #4455cf;
+      font-weight: bold;
+    }
+  }
+}

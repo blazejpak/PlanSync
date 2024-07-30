@@ -23,15 +23,15 @@
     min-width: 30rem;
 
     .todo {
-      background-color: variables.$bg-azure;
+      background-color: var(--bg-azure);
     }
 
     .progress {
-      background-color: variables.$bg-yellow;
+      background-color: var(--bg-yellow);
     }
 
     .done {
-      background-color: variables.$bg-pink;
+      background-color: var(--bg-pink);
     }
   }
 
@@ -69,39 +69,39 @@
       width: 6.4rem;
 
       &[data-color="todo"] {
-        border: dotted 3px variables.$bg-azure;
+        border: dotted 3px var(--bg-azure);
         border-radius: 100%;
-        color: variables.$bg-azure;
+        color: var(--bg-azure);
       }
 
       &[data-color="progress"] {
-        border: dotted 3px variables.$bg-yellow;
+        border: dotted 3px var(--bg-yellow);
         border-radius: 100%;
-        color: variables.$bg-yellow;
+        color: var(--bg-yellow);
       }
 
       &[data-color="done"] {
-        border: dotted 3px variables.$bg-pink;
+        border: dotted 3px var(--bg-pink);
         border-radius: 100%;
-        color: variables.$bg-pink;
+        color: var(--bg-pink);
       }
     }
 
     &:hover p {
       transform: scale(1.05);
       &[data-color="todo"] {
-        border: dotted 3px variables.$bg-azure--hover;
-        color: variables.$bg-azure--hover;
+        border: dotted 3px var(--bg-azure--hover);
+        color: var(--bg-azure--hover);
       }
 
       &[data-color="progress"] {
-        border: dotted 3px variables.$bg-yellow--hover;
-        color: variables.$bg-yellow--hover;
+        border: dotted 3px var(--bg-yellow--hover);
+        color: var(--bg-yellow--hover);
       }
 
       &[data-color="done"] {
-        border: dotted 3px variables.$bg-pink--hover;
-        color: variables.$bg-pink--hover;
+        border: dotted 3px var(--bg-pink--hover);
+        color: var(--bg-pink--hover);
       }
     }
   }
