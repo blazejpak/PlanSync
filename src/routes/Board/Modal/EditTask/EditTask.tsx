@@ -117,10 +117,18 @@ const EditTask = () => {
             />
 
             <div>
-              <SaveButton type="submit" style={{ marginTop: "1.6rem" }}>
+              <SaveButton
+                isSucceed={null}
+                type="submit"
+                style={{ marginTop: "1.6rem" }}
+              >
                 Save
               </SaveButton>
-              <SaveButton type="button" style={{ marginTop: "1.6rem" }}>
+              <SaveButton
+                isSucceed={null}
+                type="button"
+                style={{ marginTop: "1.6rem" }}
+              >
                 Cancel
               </SaveButton>
             </div>

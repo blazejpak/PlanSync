@@ -4,7 +4,7 @@ import styles from "./SaveButton.module.scss";
 
 type SaveButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
-  isSucceed: boolean;
+  isSucceed: boolean | null;
 };
 
 const SaveButton = ({ children, isSucceed, ...props }: SaveButtonProps) => {

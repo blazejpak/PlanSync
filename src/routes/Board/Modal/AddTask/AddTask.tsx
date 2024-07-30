@@ -100,7 +100,11 @@ const AddTask = () => {
               handleBlur={handleBlur}
             />
 
-            <SaveButton type="submit" style={{ marginTop: "1.6rem" }}>
+            <SaveButton
+              isSucceed={null}
+              type="submit"
+              style={{ marginTop: "1.6rem" }}
+            >
               Add task
             </SaveButton>
           </form>
