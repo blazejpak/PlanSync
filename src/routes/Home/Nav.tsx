@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.webp";
 import { MdMenu } from "react-icons/md";
 
 import { ROUTES } from "../../utils/routes";

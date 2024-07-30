@@ -3,14 +3,18 @@
 
 .page {
   display: grid;
+  grid-template-rows: 8rem 1fr;
+  height: 100vh;
 
   @include mixins.responsive(md) {
+    gap: 3.2rem;
     grid-template-columns: 1fr;
     grid-template-rows: 10rem 1fr;
   }
   @include mixins.responsive(lg) {
     grid-template-columns: 23rem 1fr;
     grid-template-rows: 1fr;
+    align-items: center;
   }
 }
 
@@ -20,12 +24,11 @@
   padding: 3.2rem;
 
   @include mixins.responsive(md) {
+    height: 100%;
     width: 100dvw;
   }
 
   @include mixins.responsive(lg) {
-    margin-top: 80px;
-    margin-inline: 1.6rem;
-    max-width: calc(100vw - 26rem);
+    max-width: calc(100vw - 30rem);
   }
 }

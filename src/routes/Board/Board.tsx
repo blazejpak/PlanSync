@@ -53,8 +53,10 @@ const Board = () => {
     <section className={styles.page}>
       <Navigation />
       <ModalContextProvider>
-        <CalendarPerDay />
-        <TaskList />
+        <div className={styles.board}>
+          <CalendarPerDay />
+          <TaskList />
+        </div>
         {/* <Settings /> */}
       </ModalContextProvider>
     </section>

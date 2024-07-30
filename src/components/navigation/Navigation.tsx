@@ -4,7 +4,7 @@ import Button from "../button/Button";
 
 import { useSafeModalContext } from "../../context/ModalStates";
 
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.webp";
 import styles from "./Navigation.module.scss";
 
 const Navigation = () => {
@@ -21,9 +21,9 @@ const Navigation = () => {
 
   return (
     <section className={styles.container}>
-      <img alt="logo" src={logo} height={50} className={styles.image} />
-
       <nav className={styles.navigation}>
+        <img alt="logo" src={logo} height={50} className={styles.image} />
+
         <SmallScreen />
         <LargeScreen />
 
