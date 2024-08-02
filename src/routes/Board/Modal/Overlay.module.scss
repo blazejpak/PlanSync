@@ -23,14 +23,9 @@ html {
   padding: 2rem;
   padding-top: 4rem;
   position: relative;
-<<<<<<< HEAD
-  width: 30rem;
-  max-height: 45rem;
-=======
   min-width: 40rem;
   max-width: 66rem;
   height: 45rem;
->>>>>>> main
   overflow-y: auto;
 
   @include mixins.responsive(sm) {
