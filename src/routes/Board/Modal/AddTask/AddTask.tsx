@@ -15,6 +15,8 @@ import Overlay from "../Overlay";
 
 import { ValuesTypes } from "../ValuesType";
 import styles from "./AddTask.module.scss";
+import TypeTaskSelect from "../TypeTaskSelect";
+import CategoryPicker from "../CategoryPicker";
 
 const AddTask = () => {
   const { user } = useSafeUserContext();
@@ -93,6 +95,20 @@ const AddTask = () => {
               errors={errors}
               touched={touched}
               handleChange={handleChange}
+              setFieldValue={setFieldValue}
+            />
+
+            <TypeTaskSelect
+              values={values}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              setFieldValue={setFieldValue}
+            />
+
+            <CategoryPicker
+              values={values}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
               setFieldValue={setFieldValue}
             />
 

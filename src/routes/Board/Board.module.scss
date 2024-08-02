@@ -22,7 +22,6 @@
   background-color: var(--bg-grey);
   border-radius: variables.$border-radius--lg;
   padding: 3.2rem;
-<<<<<<< HEAD
 
   @include mixins.responsive(md) {
     height: 100%;
@@ -31,16 +30,5 @@
 
   @include mixins.responsive(lg) {
     max-width: calc(100vw - 30rem);
-=======
-  margin-top: 5%;
-  max-width: 140rem;
-
-  @include mixins.responsive(sm) {
-    margin-inline: 10%;
-  }
-
-  @include mixins.responsive(xl) {
-    margin-inline: auto;
->>>>>>> main
   }
 }
