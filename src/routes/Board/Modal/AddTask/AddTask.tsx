@@ -30,6 +30,7 @@ const AddTask = () => {
     subtasks: [{ title: "", isDone: false, id: Math.random() }],
     type: typeOfTask,
     pickedRadioDate: "today",
+    category: "work",
   };
 
   const submitAddTask = (

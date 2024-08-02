@@ -10,4 +10,5 @@ export interface ValuesTypes {
   subtasks: Subtask[];
   type: string;
   pickedRadioDate: string;
+  category: string;
 }
