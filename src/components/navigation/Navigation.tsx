@@ -4,7 +4,7 @@ import Button from "../button/Button";
 
 import { useSafeModalContext } from "../../context/ModalStates";
 
-import logo from "../../assets/logo.webp";
+import logo from "../../assets/logo-white.png";
 import styles from "./Navigation.module.scss";
 
 const Navigation = () => {

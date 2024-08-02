@@ -7,8 +7,13 @@ import { tasksBoardNav } from "../../helpers/TasksBoardNav";
 
 import styles from "./SmallScreen.module.scss";
 import { FaArrowLeft, FaArrowDown } from "react-icons/fa";
+import { useSafeModalContext } from "../../context/ModalStates";
+import { Category, typeFilter } from "../../types/task";
 
 const SmallScreen = () => {
+  const { changeCategory, changeTypeFilter, typeCategory, typeTaskFilter } =
+    useSafeModalContext();
+
   const [isCategoryFilterClicked, setIsCategoryFilterClicked] = useState(false);
   const [isTypeTaskFilterClicked, setIsTypeTaskFilterClicked] = useState(false);
 
@@ -24,6 +29,14 @@ const SmallScreen = () => {
     ref: typeTaskButtonRef,
     callback: () => setIsTypeTaskFilterClicked(false),
   });
+
+  const changeCategoryButton = (category: Category) => {
+    changeCategory(category);
+  };
+
+  const changeTypeTasksButton = (category: typeFilter) => {
+    changeTypeFilter(category);
+  };
 
   return (
     <div className={styles.navigation__links}>
@@ -48,9 +61,12 @@ const SmallScreen = () => {
           <div className={styles["navigation__list"]}>
             {categoryBoardNav.map((category) => (
               <ButtonBoardNav
+                changeCategory={() => changeCategoryButton(category.type)}
+                key={category.text}
                 text={category.text}
                 icon={category.icon}
                 numberOfTasks={1}
+                isActive={category.type === typeCategory}
               />
             ))}
           </div>
@@ -76,9 +92,12 @@ const SmallScreen = () => {
           <div className={styles["navigation__list"]}>
             {tasksBoardNav.map((category) => (
               <ButtonBoardNav
+                changeCategory={() => changeTypeTasksButton(category.type)}
+                key={category.text}
                 text={category.text}
                 icon={category.icon}
                 numberOfTasks={1}
+                isActive={category.type === typeTaskFilter}
               />
             ))}
           </div>

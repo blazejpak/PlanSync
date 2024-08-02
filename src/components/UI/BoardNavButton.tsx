@@ -6,6 +6,7 @@ type ButtonBoardNavProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon: any;
   isActive: Boolean;
   numberOfTasks: number;
+  changeCategory: () => void;
 };
 
 const ButtonBoardNav = ({
@@ -13,11 +14,13 @@ const ButtonBoardNav = ({
   isActive,
   icon,
   numberOfTasks,
+  changeCategory,
 }: ButtonBoardNavProps) => {
   return (
     <button
       className={`${styles.button} ${isActive && styles.active}`}
       type="button"
+      onClick={changeCategory}
     >
       <div className={styles.icon}>{icon}</div>
       <p className={styles.text}>{text}</p>

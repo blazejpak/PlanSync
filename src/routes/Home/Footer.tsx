@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.webp";
+import logo from "../../assets/logo.png";
 import { AiFillFacebook, AiFillInstagram } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 

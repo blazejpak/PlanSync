@@ -43,12 +43,13 @@
 }
 
 .navigation__list {
+  align-items: center;
   background-color: var(--bg-button);
-  position: absolute;
-  padding: 0.8rem 1.4rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  top: 100%;
+  gap: 0.8rem;
   left: 0;
+  position: absolute;
+  padding: 0.8rem 1.4rem;
+  top: 100%;
 }

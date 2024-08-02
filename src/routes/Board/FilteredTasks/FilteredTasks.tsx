@@ -2,7 +2,7 @@ import { Skeleton } from "@mui/material";
 
 import TaskItem from "../TaskItem";
 
-import { Status } from "../../../types/task";
+import { Status, typeFilter } from "../../../types/task";
 import { useSafeModalContext } from "../../../context/ModalStates";
 import { useAppSelector } from "../../../store/hooks";
 import {
@@ -13,7 +13,7 @@ import {
 import styles from "./FilteredTasks.module.scss";
 
 type FilteredTasksProps = {
-  typeOfTask: "todo" | "progress" | "done";
+  typeOfTask: Omit<typeFilter, "all">;
   typeOfDevice: "desktop" | "mobile";
 };
 
