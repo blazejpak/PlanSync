@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { selectCurrentDay } from "../../../store/reducers/calendar";
-import { selectDataFromTheCurrentDay } from "../../../store/reducers/tasks";
-import { Task } from "../../../types/task";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useSafeModalContext } from "../../../context/ModalStates";
 
+<<<<<<< HEAD
 import FilteredTasks from "../FilteredTasks/FilteredTasks";
+=======
+import FilteredTasks from "../FilteredTasks";
+import ShowTask from "../Modal/ShowTask/ShowTask";
+import EditTask from "../Modal/EditTask/EditTask";
+import DeleteTask from "../Modal/DeleteTask/DeleteTask";
+import AddTask from "../Modal/AddTask/AddTask";
+>>>>>>> main
 
 import styles from "./TaskMobile.module.scss";
 
@@ -13,18 +18,7 @@ const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(
     "todo"
   );
-  const [filteredData, setFilteredData] = useState<Task[]>([]);
-  // const { isTaskMobileActive, setIsTaskMobileActive, setActiveTaskData } =
-  //   useSafeModalContext();
-
-  const dispatch = useAppDispatch();
-  const data = useAppSelector(selectDataFromTheCurrentDay);
-  const day = useAppSelector(selectCurrentDay);
-
-  useEffect(() => {
-    const newData = data.filter((item) => item.typeOfTask === typeTasks);
-    setFilteredData(newData);
-  }, [day, typeTasks]);
+  const { taskModal } = useSafeModalContext();
 
   return (
     <div className={styles.container}>
@@ -57,7 +51,13 @@ const TaskMobile = () => {
       <ul className={styles.tasks}>
         <FilteredTasks typeOfDevice="mobile" typeOfTask={typeTasks} />
       </ul>
-      {/* {isTaskMobileActive && <DisplayModal />} */}
+      {taskModal.type === "task" && taskModal.isActive && <ShowTask />}
+
+      {taskModal.type === "edit" && taskModal.isActive && <EditTask />}
+
+      {taskModal.type === "delete" && taskModal.isActive && <DeleteTask />}
+
+      {taskModal.type === "add" && taskModal.isActive && <AddTask />}
     </div>
   );
 };

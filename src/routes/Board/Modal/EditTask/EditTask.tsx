@@ -10,13 +10,13 @@ import {
   selectRangeDate,
 } from "../../../../store/reducers/calendar";
 import { updateTask } from "../../../../store/reducers/tasks";
-import { ValuesTypes } from "../AddTask/ValuesType";
+import { ValuesTypes } from "../ValuesType";
 
 import SaveButton from "../../../../components/button/SaveButton";
 import Overlay from "../Overlay";
-import TaskFields from "../AddTask/TaskFields";
-import SubtasksFields from "../AddTask/SubtasksFields";
-import DateFields from "../AddTask/DateFields";
+import TaskFields from "../TaskFields";
+import SubtasksFields from "../SubtasksFields";
+import DateFields from "../DateFields";
 
 import styles from "../AddTask/AddTask.module.scss";
 
@@ -115,6 +115,7 @@ const EditTask = () => {
               values={values}
               handleChange={handleChange}
               handleBlur={handleBlur}
+              setFieldValue={setFieldValue}
             />
 
             <div>
