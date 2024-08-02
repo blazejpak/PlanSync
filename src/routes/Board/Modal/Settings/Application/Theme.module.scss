@@ -1,0 +1,50 @@
+//   THEME
+.content__heading {
+  font-size: var(--font-paragraph--smaller);
+  margin-bottom: 0.8rem;
+}
+
+button {
+  font-size: var(--font-button);
+}
+
+.button__theme {
+  align-items: center;
+  background-color: var(--bg-grey-dark);
+  border-radius: 8px;
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.8rem 1.6rem;
+  width: fit-content;
+
+  .button__box {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    align-items: center;
+    background-color: #4455cf;
+    border: 1px solid #d0d0dd;
+    border-radius: 16px;
+    display: flex;
+    height: 3.2rem;
+    justify-content: flex-start;
+    position: relative;
+    width: 7.2rem;
+
+    .button__ball {
+      position: absolute;
+      left: 0;
+      border-radius: 999px;
+      width: 1.6rem;
+      height: 1.6rem;
+      background-color: white;
+    }
+
+    &--active {
+      .button__ball {
+        right: 0;
+      }
+    }
+  }
+}

@@ -1,6 +1,10 @@
 @use "../../../styles/variables";
 @use "../../../styles/mixins";
 
+html {
+  overflow-y: hidden;
+}
+
 .modal-overlay {
   align-items: center;
   position: fixed;
@@ -11,7 +15,7 @@
 }
 
 .modal-content {
-  background: white;
+  background-color: var(--bg-grey);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -19,8 +23,14 @@
   padding: 2rem;
   padding-top: 4rem;
   position: relative;
+<<<<<<< HEAD
   width: 30rem;
   max-height: 45rem;
+=======
+  min-width: 40rem;
+  max-width: 66rem;
+  height: 45rem;
+>>>>>>> main
   overflow-y: auto;
 
   @include mixins.responsive(sm) {
@@ -33,6 +43,7 @@
     background-color: transparent;
     border: 0;
     cursor: pointer;
+    color: var(--font-color);
     position: absolute;
     right: 0.4rem;
     top: 0.4rem;

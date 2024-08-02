@@ -3,18 +3,19 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { MdMenu } from "react-icons/md";
 
-import styles from "./Nav.module.scss";
 import { ROUTES } from "../../utils/routes";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
-import { UserContext } from "../../context/AuthenticationContext";
+import { useSafeUserContext } from "../../context/AuthenticationContext";
+
+import styles from "./Nav.module.scss";
 
 const HomeNav = () => {
   const [menuActive, setMenuActive] = useState(false);
 
   const refMenu = useRef<HTMLDivElement>(null);
   useClickOutside({ ref: refMenu, callback: () => setMenuActive(false) });
-  const { user } = useContext(UserContext);
+  const { user } = useSafeUserContext();
 
   return (
     <header className={styles.header}>
