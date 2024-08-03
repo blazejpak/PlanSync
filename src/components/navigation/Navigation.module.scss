@@ -28,16 +28,20 @@
     border-bottom-left-radius: variables.$border-radius--md;
     border-bottom-right-radius: variables.$border-radius--md;
     padding: 1.6rem;
-    width: 5rem;
+    width: 6rem;
+
+    @include mixins.responsive(sm) {
+      width: 10rem;
+      height: 8rem;
+    }
 
     @include mixins.responsive(md) {
       width: 20rem;
-      height: 80px;
+      height: 8rem;
     }
 
     @include mixins.responsive(lg) {
       padding: 1.6rem;
-      padding: 0.8rem;
     }
   }
 }
@@ -60,7 +64,6 @@
   @include mixins.responsive(lg) {
     justify-content: space-between;
     flex-direction: column;
-    border-radius: 16px;
   }
 }
 
@@ -75,6 +78,9 @@
 
   @include mixins.responsive(sm) {
     padding: 1.6rem 3rem;
+  }
+  @include mixins.responsive(lg) {
+    margin-bottom: 1.6rem;
   }
 
   &:hover {
