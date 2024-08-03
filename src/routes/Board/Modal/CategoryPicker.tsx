@@ -1,8 +1,10 @@
 import { ChangeEvent, useState } from "react";
-import styles from "./TypeTaskSelect.module.scss";
-import { FaArrowDown, FaArrowLeft } from "react-icons/fa6";
-import { Subtask, ValuesTypes } from "./ValuesType";
 import { FormikErrors } from "formik";
+
+import { Subtask, ValuesTypes } from "./ValuesType";
+
+import { FaArrowDown, FaArrowLeft } from "react-icons/fa6";
+import styles from "./CategoryPicker.module.scss";
 
 type CategoryPickerProps = {
   values: ValuesTypes;
@@ -30,9 +32,9 @@ const CategoryPicker = ({
   const [isTypesSelectClicked, setIsTypesSelectClicked] = useState(false);
 
   const typesSelect = [
-    { value: "todo" },
-    { value: "progress" },
-    { value: "done" },
+    { value: "work" },
+    { value: "personal" },
+    { value: "family" },
   ];
 
   const handleTypesSelectValue = (value: string) => {
@@ -49,7 +51,10 @@ const CategoryPicker = ({
       >
         <div className={styles.select__container}>
           <p className={styles.select__label}>
-            {typesSelect.find((option) => option.value === values.type)?.value}
+            {
+              typesSelect.find((option) => option.value === values.category)
+                ?.value
+            }
           </p>
           {isTypesSelectClicked ? (
             <FaArrowDown size={16} />

@@ -54,7 +54,7 @@ const AddTask = () => {
           typeOfTask: typeOfTask,
           userId: user?.uid,
           subtasksDone: false,
-          category: "work",
+          category: values.category,
           date: rangeData.from,
         })
       );

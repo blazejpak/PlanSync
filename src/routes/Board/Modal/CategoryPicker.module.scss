@@ -28,6 +28,12 @@
     width: 100%;
   }
 
+  &__label {
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
   &__option {
     cursor: pointer;
     transition: color 0.3s;
