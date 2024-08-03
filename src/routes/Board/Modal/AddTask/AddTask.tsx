@@ -15,6 +15,8 @@ import Overlay from "../Overlay";
 
 import { ValuesTypes } from "../ValuesType";
 import styles from "./AddTask.module.scss";
+import TypeTaskSelect from "../TypeTaskSelect";
+import CategoryPicker from "../CategoryPicker";
 
 const AddTask = () => {
   const { user } = useSafeUserContext();
@@ -30,6 +32,7 @@ const AddTask = () => {
     subtasks: [{ title: "", isDone: false, id: Math.random() }],
     type: typeOfTask,
     pickedRadioDate: "today",
+    category: "work",
   };
 
   const submitAddTask = (
@@ -51,6 +54,7 @@ const AddTask = () => {
           typeOfTask: typeOfTask,
           userId: user?.uid,
           subtasksDone: false,
+          category: values.category,
           date: rangeData.from,
         })
       );
@@ -91,6 +95,20 @@ const AddTask = () => {
               errors={errors}
               touched={touched}
               handleChange={handleChange}
+              setFieldValue={setFieldValue}
+            />
+
+            <TypeTaskSelect
+              values={values}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              setFieldValue={setFieldValue}
+            />
+
+            <CategoryPicker
+              values={values}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
               setFieldValue={setFieldValue}
             />
 

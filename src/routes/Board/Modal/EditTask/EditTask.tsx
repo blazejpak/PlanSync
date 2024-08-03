@@ -19,6 +19,8 @@ import SubtasksFields from "../SubtasksFields";
 import DateFields from "../DateFields";
 
 import styles from "../AddTask/AddTask.module.scss";
+import TypeTaskSelect from "../TypeTaskSelect";
+import CategoryPicker from "../CategoryPicker";
 
 const EditTask = () => {
   const { taskModal, closeModal } = useSafeModalContext();
@@ -43,11 +45,12 @@ const EditTask = () => {
     activeTask?.rangeDateTo > activeTask?.rangeDateFrom ? "pickDate" : "today";
 
   const initialValue = {
-    task: activeTask.task,
+    category: activeTask.category,
     description: activeTask.description,
+    pickedRadioDate: typeOfCalendar,
     subtasks: activeTask.subtasks,
     type: activeTask.typeOfTask,
-    pickedRadioDate: typeOfCalendar,
+    task: activeTask.task,
   };
 
   const saveTask = (
@@ -59,6 +62,7 @@ const EditTask = () => {
     const updatedTask = {
       id: activeTask.id,
       task: values.task,
+      category: values.category,
       description: values.description || "",
       rangeDateFrom: rangeData.from,
       rangeDateTo: rangeData.to,
@@ -107,6 +111,20 @@ const EditTask = () => {
               errors={errors}
               touched={touched}
               handleChange={handleChange}
+              setFieldValue={setFieldValue}
+            />
+
+            <TypeTaskSelect
+              values={values}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              setFieldValue={setFieldValue}
+            />
+
+            <CategoryPicker
+              values={values}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
               setFieldValue={setFieldValue}
             />
 

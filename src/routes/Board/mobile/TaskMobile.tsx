@@ -2,13 +2,13 @@ import { useState } from "react";
 
 import { useSafeModalContext } from "../../../context/ModalStates";
 
-import FilteredTasks from "../FilteredTasks";
+import FilteredTasks from "../FilteredTasks/FilteredTasks";
+
+import styles from "./TaskMobile.module.scss";
 import ShowTask from "../Modal/ShowTask/ShowTask";
 import EditTask from "../Modal/EditTask/EditTask";
 import DeleteTask from "../Modal/DeleteTask/DeleteTask";
 import AddTask from "../Modal/AddTask/AddTask";
-
-import styles from "./TaskMobile.module.scss";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(

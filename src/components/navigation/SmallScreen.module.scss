@@ -1,0 +1,55 @@
+@use "../../styles/variables";
+@use "../../styles/mixins";
+
+.navigation__links {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+  height: 100%;
+
+  @include mixins.responsive(sm) {
+    gap: 3.2rem;
+  }
+
+  @include mixins.responsive(lg) {
+    display: none;
+  }
+}
+
+.navigation__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__category {
+  align-items: center;
+  background-color: inherit;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  gap: 0.8rem;
+
+  h2 {
+    font-weight: bold;
+    font-size: 1.4rem;
+
+    @include mixins.responsive(sm) {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.navigation__list {
+  align-items: center;
+  background-color: var(--bg-button);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  position: absolute;
+  padding: 0.8rem 1.4rem;
+  top: 100%;
+  width: fit-content;
+}

@@ -8,7 +8,6 @@ type SaveButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const SaveButton = ({ children, isSucceed, ...props }: SaveButtonProps) => {
-  console.log(isSucceed);
   return (
     <button
       {...props}

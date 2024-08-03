@@ -1,0 +1,41 @@
+@use "../../styles/variables";
+@use "../../styles/mixins";
+
+.button {
+  align-items: center;
+  background-color: inherit;
+  border: none;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  padding: 0.8rem 2.4rem;
+  transition: all 0.3s;
+  width: 20rem;
+
+  &:hover {
+    background-color: var(--bg-button--hover);
+  }
+
+  &.active {
+    background-color: var(--bg-button--hover);
+  }
+
+  .text {
+    font-weight: bold;
+    flex-grow: 1;
+  }
+
+  .icon {
+    padding: 0.6rem;
+    background-color: var(--bg-button--hover);
+    border-radius: 3px;
+  }
+
+  .number__tasks {
+    padding: 0.6rem;
+    background-color: var(--bg-button--hover);
+    border-radius: 3px;
+    font-weight: bold;
+  }
+}

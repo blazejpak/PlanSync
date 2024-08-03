@@ -1,19 +1,34 @@
 @use "../../styles/variables";
 @use "../../styles/mixins";
 
+.page {
+  display: grid;
+  grid-template-rows: 8rem 1fr;
+  height: 100vh;
+
+  @include mixins.responsive(md) {
+    gap: 3.2rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10rem 1fr;
+  }
+  @include mixins.responsive(lg) {
+    grid-template-columns: 23rem 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+  }
+}
+
 .board {
   background-color: var(--bg-grey);
   border-radius: variables.$border-radius--lg;
-  height: 100%;
   padding: 3.2rem;
-  margin-top: 5%;
-  max-width: 140rem;
 
-  @include mixins.responsive(sm) {
-    margin-inline: 10%;
+  @include mixins.responsive(md) {
+    height: 100%;
+    width: 100dvw;
   }
 
-  @include mixins.responsive(xl) {
-    margin-inline: auto;
+  @include mixins.responsive(lg) {
+    max-width: calc(100vw - 30rem);
   }
 }

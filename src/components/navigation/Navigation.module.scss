@@ -1,0 +1,89 @@
+@use "../../styles/variables";
+@use "../../styles/mixins";
+
+.container {
+  background-color: var(--bg-button);
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+
+  @include mixins.responsive(md) {
+    background-color: inherit;
+
+    flex-direction: row;
+    align-items: center;
+
+    width: 100dvw;
+    height: 10rem;
+  }
+  @include mixins.responsive(lg) {
+    flex-direction: column;
+
+    width: 240px;
+    height: 100%;
+  }
+
+  .image {
+    align-self: center;
+    border-bottom-left-radius: variables.$border-radius--md;
+    border-bottom-right-radius: variables.$border-radius--md;
+    padding: 1.6rem;
+    width: 6rem;
+
+    @include mixins.responsive(sm) {
+      width: 10rem;
+      height: 8rem;
+    }
+
+    @include mixins.responsive(md) {
+      width: 20rem;
+      height: 8rem;
+    }
+
+    @include mixins.responsive(lg) {
+      padding: 1.6rem;
+    }
+  }
+}
+
+.navigation {
+  align-items: center;
+  background-color: var(--bg-button);
+  color: white;
+  display: flex;
+  height: 100%;
+  padding-inline: 0.8rem;
+  justify-content: space-around;
+
+  @include mixins.responsive(md) {
+    justify-content: space-around;
+    padding-inline: 1.6rem;
+
+    width: 100%;
+  }
+  @include mixins.responsive(lg) {
+    justify-content: space-between;
+    flex-direction: column;
+  }
+}
+
+.button {
+  background-color: var(--bg-azure);
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0.8rem 1.6rem;
+  transition: all 0.3s;
+
+  @include mixins.responsive(sm) {
+    padding: 1.6rem 3rem;
+  }
+  @include mixins.responsive(lg) {
+    margin-bottom: 1.6rem;
+  }
+
+  &:hover {
+    background-color: var(--bg-azure--hover);
+  }
+}

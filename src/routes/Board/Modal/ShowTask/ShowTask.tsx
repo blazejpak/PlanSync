@@ -118,7 +118,9 @@ const ShowTask = () => {
           </li>
         ))}
       </ul>
-      <SaveButton onClick={saveTask}>Save Task</SaveButton>
+      <SaveButton isSucceed={null} onClick={saveTask}>
+        Save Task
+      </SaveButton>
     </Overlay>
   );
 };

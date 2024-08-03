@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import { ModalContextProvider } from "../../context/ModalStates";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchAllTasks } from "../../store/reducers/tasks";
+import { useSafeSettingsContext } from "../../context/Settings";
 
 import TaskList from "./TaskList";
 import CalendarPerDay from "../../components/dates/CalendarPerDay";
 import Settings from "./Modal/Settings/Settings";
-import { useSafeSettingsContext } from "../../context/Settings";
 
 import styles from "./Board.module.scss";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { getPersonalData } from "../../utils/firebase/AuthService";
 import Loading from "../Loading";
+import Navigation from "../../components/navigation/Navigation";
 
 const Board = () => {
   const { changeDarkTheme, changeFontFamily, changeFontSize } =
@@ -49,13 +50,16 @@ const Board = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <section className={styles.board}>
-      <ModalContextProvider>
-        <CalendarPerDay />
-        <TaskList />
-        <Settings />
-      </ModalContextProvider>
-    </section>
+    <ModalContextProvider>
+      <section className={styles.page}>
+        <Navigation />
+        <div className={styles.board}>
+          <CalendarPerDay />
+          <TaskList />
+        </div>
+        {/* <Settings /> */}
+      </section>
+    </ModalContextProvider>
   );
 };
 
