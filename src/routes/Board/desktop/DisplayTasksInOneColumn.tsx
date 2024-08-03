@@ -3,9 +3,9 @@ import { useSafeModalContext } from "../../../context/ModalStates";
 import { typeFilter } from "../../../types/task";
 import FilteredTasks from "../FilteredTasks/FilteredTasks";
 
-import styles from "./DisplayTasksWithFilterType.module.scss";
+import styles from "./DisplayTasksInOneColumn.module.scss";
 
-const DisplayTasksWithFilterType = () => {
+const DisplayTasksInOneColumn = () => {
   const { setTaskModal, typeTaskFilter } = useSafeModalContext();
   const [title, setTitle] = useState("");
 
@@ -30,8 +30,6 @@ const DisplayTasksWithFilterType = () => {
     return "";
   };
 
-  console.log(typeTaskFilter);
-
   return (
     <>
       <div className={styles.column}>
@@ -51,4 +49,4 @@ const DisplayTasksWithFilterType = () => {
   );
 };
 
-export default DisplayTasksWithFilterType;
+export default DisplayTasksInOneColumn;

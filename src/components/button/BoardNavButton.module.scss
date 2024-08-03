@@ -11,11 +11,7 @@
   display: flex;
   padding: 0.8rem 2.4rem;
   transition: all 0.3s;
-  width: 16rem;
-
-  @include mixins.responsive(lg) {
-    width: 20rem;
-  }
+  width: 20rem;
 
   &:hover {
     background-color: var(--bg-button--hover);

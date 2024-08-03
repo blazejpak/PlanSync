@@ -5,10 +5,13 @@ import Button from "../button/Button";
 import { useSafeModalContext } from "../../context/ModalStates";
 
 import logo from "../../assets/logo-white.png";
+import logoMobile from "../../assets/logo-mobile.png";
 import styles from "./Navigation.module.scss";
+import { useSafeResponsiveContext } from "../../context/responsive";
 
 const Navigation = () => {
   const { setTaskModal } = useSafeModalContext();
+  const { isMobile } = useSafeResponsiveContext();
 
   const handleButtonClick = () => {
     setTaskModal({
@@ -22,7 +25,16 @@ const Navigation = () => {
   return (
     <section className={styles.container}>
       <nav className={styles.navigation}>
-        <img alt="logo" src={logo} height={50} className={styles.image} />
+        {isMobile ? (
+          <img
+            alt="logo"
+            src={logoMobile}
+            height={50}
+            className={styles.image}
+          />
+        ) : (
+          <img alt="logo" src={logo} height={50} className={styles.image} />
+        )}
 
         <SmallScreen />
         <LargeScreen />
@@ -33,7 +45,7 @@ const Navigation = () => {
           className={styles.button}
           onClick={handleButtonClick}
         >
-          + Add new task
+          {isMobile ? "+" : "Add new task"}
         </Button>
       </nav>
     </section>

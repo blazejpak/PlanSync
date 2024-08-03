@@ -2,15 +2,19 @@ import { useRef, useState } from "react";
 
 import { categoryBoardNav } from "../../helpers/CategoryBoardNav";
 import useClickOutside from "../../hooks/useClickOutside";
-import ButtonBoardNav from "../UI/BoardNavButton";
+import ButtonBoardNav from "../button/BoardNavButton";
 import { tasksBoardNav } from "../../helpers/TasksBoardNav";
 
 import styles from "./SmallScreen.module.scss";
 import { FaArrowLeft, FaArrowDown } from "react-icons/fa";
 import { useSafeModalContext } from "../../context/ModalStates";
 import { Category, typeFilter } from "../../types/task";
+import { useAppSelector } from "../../store/hooks";
+import { selectDataFromTheCurrentDay } from "../../store/reducers/tasks";
 
 const SmallScreen = () => {
+  const data = useAppSelector(selectDataFromTheCurrentDay);
+
   const { changeCategory, changeTypeFilter, typeCategory, typeTaskFilter } =
     useSafeModalContext();
 
@@ -59,16 +63,26 @@ const SmallScreen = () => {
 
         {isCategoryFilterClicked && (
           <div className={styles["navigation__list"]}>
-            {categoryBoardNav.map((category) => (
-              <ButtonBoardNav
-                changeCategory={() => changeCategoryButton(category.type)}
-                key={category.text}
-                text={category.text}
-                icon={category.icon}
-                numberOfTasks={1}
-                isActive={category.type === typeCategory}
-              />
-            ))}
+            {categoryBoardNav.map((category) => {
+              let numberOfTasksWithCategory;
+              if (category.type === Category.ALL) {
+                numberOfTasksWithCategory = data.length;
+              } else {
+                numberOfTasksWithCategory = data.filter(
+                  (item) => item.category === category.type
+                ).length;
+              }
+              return (
+                <ButtonBoardNav
+                  changeCategory={() => changeCategoryButton(category.type)}
+                  key={category.text}
+                  text={category.text}
+                  icon={category.icon}
+                  numberOfTasks={numberOfTasksWithCategory}
+                  isActive={category.type === typeCategory}
+                />
+              );
+            })}
           </div>
         )}
       </div>
@@ -90,16 +104,26 @@ const SmallScreen = () => {
         </button>
         {isTypeTaskFilterClicked && (
           <div className={styles["navigation__list"]}>
-            {tasksBoardNav.map((category) => (
-              <ButtonBoardNav
-                changeCategory={() => changeTypeTasksButton(category.type)}
-                key={category.text}
-                text={category.text}
-                icon={category.icon}
-                numberOfTasks={1}
-                isActive={category.type === typeTaskFilter}
-              />
-            ))}
+            {tasksBoardNav.map((typeTask) => {
+              let numberOfTasksWithTypeTask;
+              if (typeTask.type === typeFilter.ALL) {
+                numberOfTasksWithTypeTask = data.length;
+              } else {
+                numberOfTasksWithTypeTask = data.filter(
+                  (item) => item.typeOfTask === typeTask.type
+                ).length;
+              }
+              return (
+                <ButtonBoardNav
+                  changeCategory={() => changeTypeTasksButton(typeTask.type)}
+                  key={typeTask.text}
+                  text={typeTask.text}
+                  icon={typeTask.icon}
+                  numberOfTasks={numberOfTasksWithTypeTask}
+                  isActive={typeTask.type === typeTaskFilter}
+                />
+              );
+            })}
           </div>
         )}
       </div>
