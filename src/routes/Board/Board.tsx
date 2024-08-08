@@ -7,13 +7,13 @@ import { useSafeSettingsContext } from "../../context/Settings";
 
 import TaskList from "./TaskList";
 import CalendarPerDay from "../../components/dates/CalendarPerDay";
-import Settings from "./Modal/Settings/Settings";
 
 import styles from "./Board.module.scss";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { getPersonalData } from "../../utils/firebase/AuthService";
 import Loading from "../Loading";
 import Navigation from "../../components/navigation/Navigation";
+import Settings from "../../components/Modals/Settings/Settings";
 
 const Board = () => {
   const { changeDarkTheme, changeFontFamily, changeFontSize } =
@@ -57,7 +57,7 @@ const Board = () => {
           <CalendarPerDay />
           <TaskList />
         </div>
-        {/* <Settings /> */}
+        <Settings />
       </section>
     </ModalContextProvider>
   );

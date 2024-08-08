@@ -1,5 +1,6 @@
-import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
-import { useSafeSettingsContext } from "../../../../../context/Settings";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+import { useSafeSettingsContext } from "../../../../context/Settings";
+
 import Indentation from "../Indentation";
 import styles from "./FontFamily.module.scss";
 

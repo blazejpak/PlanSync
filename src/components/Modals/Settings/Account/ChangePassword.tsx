@@ -3,10 +3,10 @@ import { useFormik } from "formik";
 import { RotatingLines } from "react-loader-spinner";
 
 import Indentation from "../Indentation";
-import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
 import { validationSchema } from "./ChangePasswordValidation";
 
 import styles from "./ChangePassword.module.scss";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 
 const ChangePassword = () => {
   const { loading, error, UpdateUserPassword } = useSafeUserContext();

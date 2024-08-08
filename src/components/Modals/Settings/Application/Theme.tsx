@@ -1,10 +1,11 @@
+import { motion } from "framer-motion";
+
+import { useSafeSettingsContext } from "../../../../context/Settings";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+
 import { FaMoon, FaSun } from "react-icons/fa";
 import styles from "./Theme.module.scss";
-
-import { motion } from "framer-motion";
-import { useSafeSettingsContext } from "../../../../../context/Settings";
 import Indentation from "../Indentation";
-import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
 
 const Theme = () => {
   const { changeDarkTheme, pickedTheme } = useSafeSettingsContext();

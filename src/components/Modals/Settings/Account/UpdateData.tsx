@@ -1,16 +1,18 @@
+import { useState } from "react";
 import { Formik, FormikHelpers } from "formik";
-import SaveButton from "../../../../../components/button/SaveButton";
-import Indentation from "../Indentation";
+import { TextField } from "@mui/material";
 
-import styles from "./UpdateData.module.scss";
+import SaveButton from "../../../button/SaveButton";
+
 import {
   validationPhoneSchema,
   validationFullNameSchema,
 } from "./AccountValidation";
-import { TextField } from "@mui/material";
-import { useSafeSettingsContext } from "../../../../../context/Settings";
-import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
-import { useState } from "react";
+import { useSafeSettingsContext } from "../../../../context/Settings";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+
+import Indentation from "../Indentation";
+import styles from "./UpdateData.module.scss";
 
 const UpdateData = () => {
   const { pickedTheme } = useSafeSettingsContext();

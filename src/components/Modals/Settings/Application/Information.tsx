@@ -1,4 +1,5 @@
-import { useSafeSettingsContext } from "../../../../../context/Settings";
+import { useSafeSettingsContext } from "../../../../context/Settings";
+
 import Indentation from "../Indentation";
 import styles from "./Information.module.scss";
 

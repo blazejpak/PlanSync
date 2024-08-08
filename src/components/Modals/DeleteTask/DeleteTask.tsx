@@ -1,9 +1,9 @@
-import { useSafeModalContext } from "../../../../context/ModalStates";
-import { useAppDispatch } from "../../../../store/hooks";
-import { deleteTask } from "../../../../store/reducers/tasks";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import { useAppDispatch } from "../../../store/hooks";
+import { deleteTask } from "../../../store/reducers/tasks";
 
+import Button from "../../button/Button";
 import Overlay from "../Overlay";
-import Button from "../../../../components/button/Button";
 
 import styles from "./DeleteTask.module.scss";
 

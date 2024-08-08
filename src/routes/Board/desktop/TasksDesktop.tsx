@@ -1,13 +1,13 @@
 import { useSafeModalContext } from "../../../context/ModalStates";
 
-import ShowTask from "../Modal/ShowTask/ShowTask";
-import EditTask from "../Modal/EditTask/EditTask";
-import DeleteTask from "../Modal/DeleteTask/DeleteTask";
-import AddTask from "../Modal/AddTask/AddTask";
-
-import styles from "./TasksDesktop.module.scss";
 import DisplayTasksWithoutFilterType from "./DisplayTasksWithoutFilterType";
 import DisplayTasksWithFilterType from "./DisplayTasksInOneColumn";
+import ShowTask from "../../../components/Modals/ShowTask/ShowTask";
+import EditTask from "../../../components/Modals/EditTask/EditTask";
+import DeleteTask from "../../../components/Modals/DeleteTask/DeleteTask";
+import AddTask from "../../../components/Modals/AddTask/AddTask";
+
+import styles from "./TasksDesktop.module.scss";
 
 const TasksDesktop = () => {
   const { taskModal, typeTaskFilter } = useSafeModalContext();

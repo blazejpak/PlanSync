@@ -1,4 +1,5 @@
-import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+
 import Indentation from "../Indentation";
 import styles from "./PersonalData.module.scss";
 

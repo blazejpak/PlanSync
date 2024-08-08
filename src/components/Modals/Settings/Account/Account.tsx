@@ -4,7 +4,7 @@ import ChangePassword from "./ChangePassword";
 import PersonalData from "./PersonalData";
 import UpdateData from "./UpdateData";
 
-import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 
 import { FaArrowDown, FaArrowLeft } from "react-icons/fa";
 import styles from "./Account.module.scss";

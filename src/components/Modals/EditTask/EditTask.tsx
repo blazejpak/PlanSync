@@ -1,26 +1,26 @@
 import { useEffect } from "react";
 import { Formik, FormikHelpers } from "formik";
 
-import { useSafeModalContext } from "../../../../context/ModalStates";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { validationSchema } from "../AddTask/AddTaskValidationSchema";
-import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+import { ValuesTypes } from "../ValuesType";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import { useSafeUserContext } from "../../../context/AuthenticationContext";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   pickRangeDate,
   selectRangeDate,
-} from "../../../../store/reducers/calendar";
-import { updateTask } from "../../../../store/reducers/tasks";
-import { ValuesTypes } from "../ValuesType";
+} from "../../../store/reducers/calendar";
+import { updateTask } from "../../../store/reducers/tasks";
+import TypeTaskSelect from "../TypeTaskSelect";
+import CategoryPicker from "../CategoryPicker";
 
-import SaveButton from "../../../../components/button/SaveButton";
 import Overlay from "../Overlay";
 import TaskFields from "../TaskFields";
 import SubtasksFields from "../SubtasksFields";
 import DateFields from "../DateFields";
+import SaveButton from "../../button/SaveButton";
 
 import styles from "../AddTask/AddTask.module.scss";
-import TypeTaskSelect from "../TypeTaskSelect";
-import CategoryPicker from "../CategoryPicker";
 
 const EditTask = () => {
   const { taskModal, closeModal } = useSafeModalContext();

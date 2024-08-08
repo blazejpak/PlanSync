@@ -1,10 +1,10 @@
 import { MouseEvent, useState } from "react";
 
-import { useAppDispatch } from "../../../../store/hooks";
-import { useSafeModalContext } from "../../../../context/ModalStates";
-import { updateTask } from "../../../../store/reducers/tasks";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import { useAppDispatch } from "../../../store/hooks";
+import { updateTask } from "../../../store/reducers/tasks";
 
-import SaveButton from "../../../../components/button/SaveButton";
+import SaveButton from "../../button/SaveButton";
 import Overlay from "../Overlay";
 
 import { HiDotsVertical } from "react-icons/hi";

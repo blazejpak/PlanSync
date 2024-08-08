@@ -1,22 +1,22 @@
 import { Formik, FormikHelpers } from "formik";
 
-import { useSafeModalContext } from "../../../../context/ModalStates";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { selectRangeDate } from "../../../../store/reducers/calendar";
-import { useSafeUserContext } from "../../../../context/AuthenticationContext";
-import { addTask } from "../../../../store/reducers/tasks";
-
-import SaveButton from "../../../../components/button/SaveButton";
 import { validationSchema } from "./AddTaskValidationSchema";
 import TaskFields from "../TaskFields";
 import SubtasksFields from "../SubtasksFields";
 import DateFields from "../DateFields";
 import Overlay from "../Overlay";
 
+import { useSafeUserContext } from "../../../context/AuthenticationContext";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { selectRangeDate } from "../../../store/reducers/calendar";
+
 import { ValuesTypes } from "../ValuesType";
 import styles from "./AddTask.module.scss";
 import TypeTaskSelect from "../TypeTaskSelect";
 import CategoryPicker from "../CategoryPicker";
+import { addTask } from "../../../store/reducers/tasks";
+import SaveButton from "../../button/SaveButton";
 
 const AddTask = () => {
   const { user } = useSafeUserContext();
