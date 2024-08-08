@@ -7,14 +7,18 @@
   height: 100vh;
 
   @include mixins.responsive(md) {
-    gap: 3.2rem;
+    // gap: 3.2rem;
     grid-template-columns: 1fr;
-    grid-template-rows: 10rem 1fr;
+    grid-template-rows: 10rem 1fr 30rem;
   }
   @include mixins.responsive(lg) {
-    grid-template-columns: 23rem 1fr;
+    grid-template-columns: 24rem 1fr 20rem;
     grid-template-rows: 1fr;
     align-items: center;
+  }
+
+  @include mixins.responsive(xl) {
+    grid-template-columns: 24rem 1fr 30rem;
   }
 }
 
@@ -29,6 +33,10 @@
   }
 
   @include mixins.responsive(lg) {
-    max-width: calc(100vw - 30rem);
+    max-width: calc(100vw - 50rem);
+  }
+
+  @include mixins.responsive(xl) {
+    max-width: calc(100vw - 60rem);
   }
 }

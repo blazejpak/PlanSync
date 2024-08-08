@@ -2,10 +2,10 @@ import { useSafeModalContext } from "../../../context/ModalStates";
 
 import DisplayTasksWithoutFilterType from "./DisplayTasksWithoutFilterType";
 import DisplayTasksWithFilterType from "./DisplayTasksInOneColumn";
-import ShowTask from "../../../components/Modals/ShowTask/ShowTask";
-import EditTask from "../../../components/Modals/EditTask/EditTask";
-import DeleteTask from "../../../components/Modals/DeleteTask/DeleteTask";
-import AddTask from "../../../components/Modals/AddTask/AddTask";
+import ShowTask from "../../../components/modals/ShowTask/ShowTask";
+import EditTask from "../../../components/modals/EditTask/EditTask";
+import DeleteTask from "../../../components/modals/DeleteTask/DeleteTask";
+import AddTask from "../../../components/modals/AddTask/AddTask";
 
 import styles from "./TasksDesktop.module.scss";
 

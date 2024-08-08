@@ -13,7 +13,8 @@ import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { getPersonalData } from "../../utils/firebase/AuthService";
 import Loading from "../Loading";
 import Navigation from "../../components/navigation/Navigation";
-import Settings from "../../components/Modals/Settings/Settings";
+import Settings from "../../components/modals/Settings/Settings";
+import Statistics from "../../components/navigation/Statistics";
 
 const Board = () => {
   const { changeDarkTheme, changeFontFamily, changeFontSize } =
@@ -53,11 +54,11 @@ const Board = () => {
     <ModalContextProvider>
       <section className={styles.page}>
         <Navigation />
-        <div className={styles.board}>
+        <section className={styles.board}>
           <CalendarPerDay />
           <TaskList />
-        </div>
-        <Settings />
+        </section>
+        <Statistics />
       </section>
     </ModalContextProvider>
   );
