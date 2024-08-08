@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { ModalContextProvider } from "../../context/ModalStates";
+import {
+  ModalContextProvider,
+  useSafeModalContext,
+} from "../../context/ModalStates";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchAllTasks } from "../../store/reducers/tasks";
 import { useSafeSettingsContext } from "../../context/Settings";
@@ -13,12 +16,20 @@ import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { getPersonalData } from "../../utils/firebase/AuthService";
 import Loading from "../Loading";
 import Navigation from "../../components/navigation/Navigation";
-import Settings from "../../components/modals/Settings/Settings";
 import Statistics from "../../components/navigation/Statistics";
 
+import { RiLogoutCircleLine } from "react-icons/ri";
+import { IoMdSettings } from "react-icons/io";
+import { useSafeResponsiveContext } from "../../context/responsive";
+import Mobile from "./mobile/Mobile";
+import Desktop from "./desktop/Desktop";
+
 const Board = () => {
+  const { isMobile } = useSafeResponsiveContext();
+
   const { changeDarkTheme, changeFontFamily, changeFontSize } =
     useSafeSettingsContext();
+
   const { currentUserData } = useSafeUserContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -52,14 +63,7 @@ const Board = () => {
 
   return (
     <ModalContextProvider>
-      <section className={styles.page}>
-        <Navigation />
-        <section className={styles.board}>
-          <CalendarPerDay />
-          <TaskList />
-        </section>
-        <Statistics />
-      </section>
+      {isMobile ? <Mobile /> : <Desktop />}
     </ModalContextProvider>
   );
 };
