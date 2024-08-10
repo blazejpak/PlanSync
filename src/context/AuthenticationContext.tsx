@@ -181,6 +181,8 @@ export const AuthenticationContextProvider = ({
       await SignOutUser();
 
       setCurrentUserData(initialCurrentUserData);
+      window.location.reload();
+      navigate(ROUTES.ROUTE_HOME, { replace: true });
     } catch (error: any) {
       const errorCode = error.code as FirebaseErrorKey;
       const message =
@@ -235,6 +237,9 @@ export const AuthenticationContextProvider = ({
             const userData = await getPersonalData(currentUserFromWeb.uid);
             setCurrentUserData(userData);
             setErrorMessage("");
+          } else {
+            navigate(ROUTES.ROUTE_HOME, { replace: true });
+            setCurrentUserData(initialCurrentUserData);
           }
         } catch (error: any) {
           const errorCode = error.code as FirebaseErrorKey;

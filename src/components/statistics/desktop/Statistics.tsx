@@ -4,21 +4,23 @@ import {
   selectIsStatisticsOpen,
   statisticsOpen,
 } from "../../../store/reducers/statistics";
-import profileImg from "../../../assets/profile-icon.png";
-
-import styles from "./Statistics.module.scss";
-import { IoLogOut, IoSettings, IoEye, IoEyeOff } from "react-icons/io5";
 import { useSafeSettingsContext } from "../../../context/Settings";
 import Settings from "../../modals/Settings/Settings";
 
+import { IoLogOut, IoSettings, IoEye, IoEyeOff } from "react-icons/io5";
+import profileImg from "../../../assets/profile-icon.png";
+import styles from "./Statistics.module.scss";
+
 const Statistics = () => {
-  const { user } = useSafeUserContext();
+  const { user, SignOut } = useSafeUserContext();
   const dispatch = useAppDispatch();
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
   const { changeSettingsModalActive, isModalSettingsOpen } =
     useSafeSettingsContext();
 
-  console.log(isModalSettingsOpen);
+  const logout = () => {
+    SignOut();
+  };
 
   return (
     <section className={styles.container}>
@@ -30,7 +32,7 @@ const Statistics = () => {
       </button>
 
       <div className={styles.buttons}>
-        <button className={styles.profile__button}>
+        <button className={styles.profile__icon}>
           {user.photoURL ? (
             <img src={user.photoURL} alt="Profile Icon" />
           ) : (
@@ -41,10 +43,10 @@ const Statistics = () => {
           className={styles.profile__button}
           onClick={() => changeSettingsModalActive(true)}
         >
-          <IoSettings size={30} />
+          <IoSettings size={24} />
         </button>
-        <button className={styles.profile__button}>
-          <IoLogOut size={30} />
+        <button className={styles.profile__button} onClick={logout}>
+          <IoLogOut size={24} />
         </button>
       </div>
 

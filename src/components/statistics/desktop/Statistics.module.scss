@@ -23,20 +23,38 @@
     }
   }
   .buttons {
+    align-items: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 0.8rem;
+    margin-top: 1.6rem;
+
+    .profile__icon {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      img {
+        border-radius: 999px;
+        width: 3.6rem;
+      }
+    }
 
     .profile__button {
       border: none;
       background-color: transparent;
       cursor: pointer;
 
-      transition: color 0.3s;
+      background-color: var(--bg-grey);
+      border-radius: 999px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.8rem;
+      width: fit-content;
 
-      img {
-        width: 3.6rem;
-      }
+      transition: color 0.3s;
 
       &:hover {
         color: var(--bg-button--hover);
