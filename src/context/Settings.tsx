@@ -7,7 +7,7 @@ interface initialValueProps {
   pickedFont: PickedFont;
   pickedFontSize: PickedFontSize;
 
-  switchSettingsModalActive: () => void;
+  changeSettingsModalActive: (value: true | false) => void;
   changeDarkTheme: (values: PickedTheme) => void;
   changeFontFamily: (values: PickedFont) => void;
   changeFontSize: (values: PickedFontSize) => void;
@@ -20,7 +20,7 @@ const initialValue: initialValueProps = {
   pickedFont: "Rubik",
   pickedFontSize: "medium",
 
-  switchSettingsModalActive: () => {},
+  changeSettingsModalActive: () => {},
   changeDarkTheme: () => {},
   changeFontFamily: () => {},
   changeFontSize: () => {},
@@ -49,8 +49,8 @@ export const SettingsContextProvider = ({
     initialValue.pickedFontSize
   );
 
-  const switchSettingsModalActive = () => {
-    setIsModalSettingsOpen(!isModalSettingsOpen);
+  const changeSettingsModalActive = (value: true | false) => {
+    setIsModalSettingsOpen(value);
   };
 
   const changeDarkTheme = (theme: PickedTheme) => {
@@ -77,7 +77,7 @@ export const SettingsContextProvider = ({
   return (
     <SettingsContext.Provider
       value={{
-        switchSettingsModalActive,
+        changeSettingsModalActive,
         changeDarkTheme,
         changeFontFamily,
         changeFontSize,

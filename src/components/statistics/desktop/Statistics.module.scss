@@ -1,0 +1,46 @@
+@use "../../../styles/mixins";
+
+.container {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+
+  .button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    font-size: var(--font-heading--1);
+    position: absolute;
+
+    @include mixins.responsive(lg) {
+      bottom: 0;
+      transition: color 0.3s;
+
+      &:hover {
+        color: var(--bg-button--hover);
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    .profile__button {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      transition: color 0.3s;
+
+      img {
+        width: 3.6rem;
+      }
+
+      &:hover {
+        color: var(--bg-button--hover);
+      }
+    }
+  }
+}

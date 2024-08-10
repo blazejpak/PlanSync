@@ -11,19 +11,22 @@
     grid-template-rows: 10rem 1fr 30rem;
   }
   @include mixins.responsive(lg) {
-    grid-template-columns: 24rem 1fr 10rem;
+    grid-template-columns: 24rem 1fr 5rem;
     grid-template-rows: 1fr;
     align-items: center;
 
-    .open {
-      grid-template-columns: 24rem 1fr 20rem;
+    &.open {
+      display: grid;
+      grid-template-columns: 24rem 1fr 30rem;
     }
   }
 
   @include mixins.responsive(xl) {
-    grid-template-columns: 24rem 1fr 10rem;
+    grid-template-columns: 24rem 1fr 5rem;
 
-    .open {
+    &.open {
+      display: grid;
+
       grid-template-columns: 24rem 1fr 30rem;
     }
   }
@@ -36,22 +39,22 @@
 
   @include mixins.responsive(md) {
     height: 100%;
-    width: 100dvw;
+    width: 100vw;
   }
 
   @include mixins.responsive(lg) {
-    max-width: calc(100vw - 40rem);
+    max-width: calc(100vw - 29rem);
 
-    .open {
-      max-width: calc(100vw - 50rem);
+    &.open {
+      max-width: calc(100vw - 54rem);
     }
   }
 
   @include mixins.responsive(xl) {
-    max-width: calc(100vw - 40rem);
+    max-width: calc(100vw - 29rem);
 
-    .open {
-      max-width: calc(100vw - 60rem);
+    &.open {
+      max-width: calc(100vw - 54rem);
     }
   }
 }

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Navigation from "../../../components/navigation/Navigation";
 import CalendarPerDay from "../../../components/dates/CalendarPerDay";
 import TaskList from "../TaskList";
-import Statistics from "../../../components/navigation/Statistics";
+import StatisticsMobile from "../../../components/statistics/StatisticsMobile";
 
 import styles from "./Mobile.module.scss";
 
@@ -17,7 +17,7 @@ const Mobile = () => {
         <CalendarPerDay />
         <TaskList />
       </section>
-      <Statistics />
+      <StatisticsMobile />
     </section>
   );
 };

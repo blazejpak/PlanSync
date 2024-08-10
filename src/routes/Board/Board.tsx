@@ -1,25 +1,14 @@
 import { useEffect, useState } from "react";
 
-import {
-  ModalContextProvider,
-  useSafeModalContext,
-} from "../../context/ModalStates";
+import { ModalContextProvider } from "../../context/ModalStates";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchAllTasks } from "../../store/reducers/tasks";
 import { useSafeSettingsContext } from "../../context/Settings";
 
-import TaskList from "./TaskList";
-import CalendarPerDay from "../../components/dates/CalendarPerDay";
-
-import styles from "./Board.module.scss";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { getPersonalData } from "../../utils/firebase/AuthService";
 import Loading from "../Loading";
-import Navigation from "../../components/navigation/Navigation";
-import Statistics from "../../components/navigation/Statistics";
 
-import { RiLogoutCircleLine } from "react-icons/ri";
-import { IoMdSettings } from "react-icons/io";
 import { useSafeResponsiveContext } from "../../context/responsive";
 import Mobile from "./mobile/Mobile";
 import Desktop from "./desktop/Desktop";
