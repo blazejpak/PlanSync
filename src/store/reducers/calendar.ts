@@ -10,7 +10,7 @@ type InitialStateProps = {
 };
 
 const initialState: InitialStateProps = {
-  currentDay: "",
+  currentDay: time,
   rangeDate: { from: time, to: time },
 };
 

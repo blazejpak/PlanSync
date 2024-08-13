@@ -10,28 +10,32 @@ import Settings from "../../modals/Settings/Settings";
 import { IoLogOut, IoSettings, IoEye, IoEyeOff } from "react-icons/io5";
 import profileImg from "../../../assets/profile-icon.png";
 import styles from "./Statistics.module.scss";
+import CalendarMonth from "../../dates/CalendarMonth";
 
 const Statistics = () => {
   const { user, SignOut } = useSafeUserContext();
   const dispatch = useAppDispatch();
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
-  const { changeSettingsModalActive, isModalSettingsOpen } =
+  const { changeSettingsModalActive, isModalSettingsOpen, pickedTheme } =
     useSafeSettingsContext();
 
   const logout = () => {
     SignOut();
   };
 
+  const iconColor = pickedTheme === "dark" ? "white" : "black";
+
   return (
     <section className={styles.container}>
       <button
         className={styles.button}
+        style={{ color: iconColor }}
         onClick={() => dispatch(statisticsOpen(!isStatisticsOpen))}
       >
         {isStatisticsOpen ? <IoEyeOff size={36} /> : <IoEye size={36} />}
       </button>
 
-      <div className={styles.buttons}>
+      <div className={`${styles.buttons} ${isStatisticsOpen && styles.open}`}>
         <button className={styles.profile__icon}>
           {user.photoURL ? (
             <img src={user.photoURL} alt="Profile Icon" />
@@ -42,13 +46,24 @@ const Statistics = () => {
         <button
           className={styles.profile__button}
           onClick={() => changeSettingsModalActive(true)}
+          style={{ color: iconColor }}
         >
           <IoSettings size={24} />
         </button>
-        <button className={styles.profile__button} onClick={logout}>
+        <button
+          className={styles.profile__button}
+          onClick={logout}
+          style={{ color: iconColor }}
+        >
           <IoLogOut size={24} />
         </button>
       </div>
+
+      {isStatisticsOpen && (
+        <div>
+          <CalendarMonth />
+        </div>
+      )}
 
       {isModalSettingsOpen && <Settings />}
     </section>
