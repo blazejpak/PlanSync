@@ -25,11 +25,14 @@ const ShowTask = () => {
     );
 
     if (changedSubtasks) {
+      const isEverySubtasksDone = changedSubtasks.every((item) => item.isDone);
+
       setTaskModal({
         type: taskModal.type,
         prop: taskModal.prop,
         activeTaskData: {
           ...activeTask,
+          subtasksDone: isEverySubtasksDone,
           subtasks: changedSubtasks,
         },
         isActive: true,
