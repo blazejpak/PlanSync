@@ -11,6 +11,7 @@ import { IoLogOut, IoSettings, IoEye, IoEyeOff } from "react-icons/io5";
 import profileImg from "../../../assets/profile-icon.png";
 import styles from "./Statistics.module.scss";
 import CalendarMonth from "../../dates/CalendarMonth";
+import Clock from "../../dates/Clock";
 
 const Statistics = () => {
   const { user, SignOut } = useSafeUserContext();
@@ -58,6 +59,12 @@ const Statistics = () => {
           <IoLogOut size={24} />
         </button>
       </div>
+
+      {isStatisticsOpen && (
+        <div>
+          <Clock />
+        </div>
+      )}
 
       {isStatisticsOpen && (
         <div>

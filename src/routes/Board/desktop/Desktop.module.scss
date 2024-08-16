@@ -30,7 +30,7 @@
 
 .board {
   background-color: var(--bg-grey);
-  border-radius: variables.$border-radius--lg;
+  border-radius: var(--border-radius--lg);
   padding: 3.2rem;
 
   @include mixins.responsive(md) {

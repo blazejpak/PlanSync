@@ -1,0 +1,10 @@
+.clock {
+  background-color: var(--bg-grey);
+  padding: 1.6rem;
+  border-radius: var(--border-radius--md);
+  width: fit-content;
+
+  &__text {
+    font-size: var(--font-heading--1);
+  }
+}

@@ -19,7 +19,7 @@ const CalendarMonth = () => {
   const [pickedDay, setPickedDay] = useState("");
 
   const [monthCalendar, setMonthCalendar] = useState(
-    DateTime.fromISO(rangeTaskDate.from)
+    DateTime.fromISO(rangeTaskDate.from).setLocale("en-GB")
   );
 
   const startMonth = monthCalendar.startOf("month");
