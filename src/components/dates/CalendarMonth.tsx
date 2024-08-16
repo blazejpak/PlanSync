@@ -2,7 +2,11 @@ import { DateTime, Interval } from "luxon";
 import { useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { pickCurrentDay, selectRangeDate } from "../../store/reducers/calendar";
+import {
+  pickCurrentDay,
+  selectCurrentDay,
+  selectRangeDate,
+} from "../../store/reducers/calendar";
 
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -11,6 +15,7 @@ import styles from "./CalendarMonth.module.scss";
 const CalendarMonth = () => {
   const dispatch = useAppDispatch();
   const rangeTaskDate = useAppSelector(selectRangeDate);
+  const currentDay = useAppSelector(selectCurrentDay);
   const [pickedDay, setPickedDay] = useState("");
 
   const [monthCalendar, setMonthCalendar] = useState(
@@ -64,9 +69,9 @@ const CalendarMonth = () => {
               <p
                 key={day}
                 onClick={() => pickDay(day)}
-                className={` ${pickedDay === day && styles.active__picked} ${
-                  isToday && styles.active__today
-                } `}
+                className={`${currentDay === day && styles.active__picked} ${
+                  pickedDay === day && styles.active__picked
+                } ${isToday && styles.active__today} `}
               >
                 {day?.slice(-2)}
               </p>
