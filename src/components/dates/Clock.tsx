@@ -1,20 +1,14 @@
 import { DateTime } from "luxon";
 
-import { DatesZones } from "../../types/dates";
-
 import styles from "./Clock.module.scss";
 import { useEffect, useMemo, useState } from "react";
 
 const Clock = () => {
-  const [time, setTime] = useState(
-    DateTime.now().setZone(DatesZones.ZONE).setLocale(DatesZones.LOCALE)
-  );
+  const [time, setTime] = useState(DateTime.now());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(
-        DateTime.now().setZone(DatesZones.ZONE).setLocale(DatesZones.LOCALE)
-      );
+      setTime(DateTime.now());
     }, 5000);
 
     return () => clearInterval(interval); // Clean up on unmount

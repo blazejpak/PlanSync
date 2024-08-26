@@ -12,6 +12,7 @@ import profileImg from "../../../assets/profile-icon.png";
 import styles from "./Statistics.module.scss";
 import CalendarMonth from "../../dates/CalendarMonth";
 import Clock from "../../dates/Clock";
+import TasksWeek from "./TasksWeek";
 
 const Statistics = () => {
   const { user, SignOut } = useSafeUserContext();
@@ -71,6 +72,8 @@ const Statistics = () => {
           <CalendarMonth />
         </div>
       )}
+
+      <TasksWeek />
 
       {isModalSettingsOpen && <Settings />}
     </section>
