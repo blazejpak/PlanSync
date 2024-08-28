@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  gap: 1.6rem;
+  padding: 1.6rem;
+  flex-direction: column;
+  .progress {
+    display: flex;
+    gap: 0.8rem;
+    width: 100%;
+  }
+}

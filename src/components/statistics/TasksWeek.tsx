@@ -6,9 +6,7 @@ import { DateTime, Interval } from "luxon";
 
 import styles from "./TasksWeek.module.scss";
 import { CircularProgress } from "@mui/material";
-
-const today = DateTime.now().endOf("day");
-const sevenDaysAgo = today.minus({ days: 7 });
+import { WeekData } from "../../helpers/WeekData";
 
 const TasksWeek = () => {
   const [weekData, setWeekData] = useState<Task[]>([]);
@@ -18,13 +16,7 @@ const TasksWeek = () => {
   useEffect(() => {
     if (data.length <= 0) return;
 
-    const newData = data.filter((item) => {
-      const dateFrom = DateTime.fromISO(item.rangeDateFrom).startOf("day");
-      const dateTo = DateTime.fromISO(item.rangeDateTo).endOf("day");
-      const interval = Interval.fromDateTimes(dateFrom, dateTo);
-
-      return interval.overlaps(Interval.fromDateTimes(sevenDaysAgo, today));
-    });
+    const newData = WeekData(data) as Task[];
 
     setWeekData(newData);
   }, [data]);

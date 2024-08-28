@@ -13,6 +13,7 @@ import styles from "./Statistics.module.scss";
 import CalendarMonth from "../../dates/CalendarMonth";
 import Clock from "../../dates/Clock";
 import TasksWeek from "../TasksWeek";
+import ComplexWeek from "../ComplexWeek";
 
 const Statistics = () => {
   const { user, SignOut } = useSafeUserContext();
@@ -76,6 +77,12 @@ const Statistics = () => {
       {isStatisticsOpen && (
         <div>
           <TasksWeek />
+        </div>
+      )}
+
+      {isStatisticsOpen && (
+        <div>
+          <ComplexWeek />
         </div>
       )}
 
