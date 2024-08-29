@@ -6,6 +6,7 @@ import { Task, typeFilter } from "../../types/task";
 import { LinearProgress } from "@mui/material";
 
 import styles from "./ComplexWeek.module.scss";
+import { colors } from "../../helpers/colors";
 
 const ComplexWeek = () => {
   const [weekData, setWeekData] = useState<{
@@ -52,37 +53,67 @@ const ComplexWeek = () => {
   return (
     <div className={styles.container}>
       <div className={styles.progress}>
-        <LinearProgress
-          value={countTodoTasks}
-          variant="determinate"
-          style={{
-            height: "2rem",
-            width: "100%",
-            borderRadius: "16px",
-          }}
-        />
-        <p>{`${countTodoTasks}%`}</p>
+        <p>Todo</p>
+        <div className={styles.progress__bar}>
+          <LinearProgress
+            sx={{
+              backgroundColor: "white",
+              ".MuiLinearProgress-bar": {
+                backgroundColor: colors.todo,
+              },
+            }}
+            value={countTodoTasks}
+            variant="determinate"
+            style={{
+              height: "2rem",
+              width: "100%",
+              borderRadius: "16px",
+            }}
+          />
+          <p>{`${countTodoTasks}%`}</p>
+        </div>
       </div>
-      <div className={styles.progress}>
-        <LinearProgress
-          value={countProgressTasks}
-          variant="determinate"
-          style={{ height: "2rem", width: "100%", borderRadius: "16px" }}
-        />
-        <p>{`${countProgressTasks}%`}</p>
-      </div>
-      <div className={styles.progress}>
-        <LinearProgress
-          value={countDoneTasks}
-          variant="determinate"
-          style={{
-            height: "2rem",
-            width: "100%",
-            borderRadius: "16px",
-          }}
-        />
 
-        <p>{`${countDoneTasks}%`}</p>
+      <div className={styles.progress}>
+        <p>In Progress</p>
+        <div className={styles.progress__bar}>
+          <LinearProgress
+            sx={{
+              backgroundColor: "white",
+              ".MuiLinearProgress-bar": {
+                backgroundColor: colors.progress,
+              },
+            }}
+            value={countProgressTasks}
+            variant="determinate"
+            style={{ height: "2rem", width: "100%", borderRadius: "16px" }}
+          />
+          <p>{`${countProgressTasks}%`}</p>
+        </div>
+      </div>
+
+      <div className={styles.progress}>
+        <p>Done</p>
+
+        <div className={styles.progress__bar}>
+          <LinearProgress
+            sx={{
+              backgroundColor: "white",
+              ".MuiLinearProgress-bar": {
+                backgroundColor: colors.done,
+              },
+            }}
+            value={countDoneTasks}
+            variant="determinate"
+            style={{
+              height: "2rem",
+              width: "100%",
+              borderRadius: "16px",
+            }}
+          />
+
+          <p>{`${countDoneTasks}%`}</p>
+        </div>
       </div>
     </div>
   );

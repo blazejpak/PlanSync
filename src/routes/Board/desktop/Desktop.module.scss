@@ -13,7 +13,6 @@
   @include mixins.responsive(lg) {
     grid-template-columns: 24rem 1fr 10rem;
     grid-template-rows: 1fr;
-    align-items: center;
 
     &.open {
       grid-template-columns: 24rem 1fr 30rem;
@@ -21,9 +20,8 @@
   }
 
   @include mixins.responsive(xl) {
-    gap: 2rem;
     &.open {
-      grid-template-columns: 24rem 1fr 30rem;
+      grid-template-columns: 24rem 1fr 40rem;
     }
   }
 }
@@ -50,7 +48,7 @@
     max-width: calc(100vw - 38rem);
 
     &.open {
-      max-width: calc(100vw - 54rem);
+      max-width: calc(100vw - 64rem);
     }
   }
 }

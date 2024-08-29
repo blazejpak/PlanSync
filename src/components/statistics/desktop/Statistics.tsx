@@ -30,14 +30,6 @@ const Statistics = () => {
 
   return (
     <section className={styles.container}>
-      <button
-        className={styles.button}
-        style={{ color: iconColor }}
-        onClick={() => dispatch(statisticsOpen(!isStatisticsOpen))}
-      >
-        {isStatisticsOpen ? <IoEyeOff size={36} /> : <IoEye size={36} />}
-      </button>
-
       <div className={`${styles.buttons} ${isStatisticsOpen && styles.open}`}>
         <button className={styles.profile__icon}>
           {user.photoURL ? (
@@ -62,31 +54,23 @@ const Statistics = () => {
         </button>
       </div>
 
-      {isStatisticsOpen && (
-        <div>
-          <Clock />
-        </div>
-      )}
+      {isStatisticsOpen && <Clock />}
 
-      {isStatisticsOpen && (
-        <div>
-          <CalendarMonth />
-        </div>
-      )}
+      {isStatisticsOpen && <CalendarMonth />}
 
-      {isStatisticsOpen && (
-        <div>
-          <TasksWeek />
-        </div>
-      )}
+      {isStatisticsOpen && <TasksWeek />}
 
-      {isStatisticsOpen && (
-        <div>
-          <ComplexWeek />
-        </div>
-      )}
+      {isStatisticsOpen && <ComplexWeek />}
 
       {isModalSettingsOpen && <Settings />}
+
+      <button
+        className={styles.button}
+        style={{ color: iconColor }}
+        onClick={() => dispatch(statisticsOpen(!isStatisticsOpen))}
+      >
+        {isStatisticsOpen ? <IoEyeOff size={36} /> : <IoEye size={36} />}
+      </button>
     </section>
   );
 };
