@@ -27,8 +27,7 @@
 }
 
 .board {
-  background-color: var(--bg-grey);
-  border-radius: var(--border-radius--lg);
+  background-color: var(--primary-color);
   padding: 3.2rem;
 
   @include mixins.responsive(md) {

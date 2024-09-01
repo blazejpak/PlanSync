@@ -46,7 +46,13 @@ body.large-font {
 // COLORS
 // LIGHT THEME
 :root {
-  --bg-color: #eaeaf9;
+  --primary-color: #f4f7fd;
+  --secondary-color: #ffffff;
+  --primary-color--300: #dbdfe7;
+  --primary-color--400: #e0e4ea;
+  --primary-color--500: #e5e8ee;
+  --primary-color--600: #eff1f4;
+
   --bg-button: #4455cf;
   --bg-button--hover: #7a88f3;
   --bg-azure: #0ad2f7;
@@ -64,6 +70,7 @@ body.large-font {
   --bg-succeed--hover: #6dc766;
 
   --font-color: #2b2c37;
+  --font-color--darkBg: #ffffff;
 
   // RADIUS
   --border-radius--sm: 4px;
@@ -73,7 +80,13 @@ body.large-font {
 
 // DARK THEME
 body.dark {
-  --bg-color: #2b2c37;
+  --primary-color: #20212c;
+  --secondary-color: #2b2c37;
+  --primary-color--300: #4b4c55;
+  --primary-color--400: #62636b;
+  --primary-color--500: #7a7b82;
+  --primary-color--600: #93949a;
+
   --bg-button: #4455cf;
   --bg-button--hover: #7a88f3;
   --bg-azure: #0ad2f7;
