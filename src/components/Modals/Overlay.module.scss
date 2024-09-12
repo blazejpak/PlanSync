@@ -12,6 +12,7 @@ html {
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
+  z-index: 90;
 }
 
 .modal-content {
@@ -27,6 +28,7 @@ html {
   max-width: 66rem;
   height: 45rem;
   overflow-y: auto;
+  z-index: 100;
 
   @include mixins.responsive(sm) {
     padding: 4rem;

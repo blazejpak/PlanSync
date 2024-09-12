@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { DateTime, Interval } from "luxon";
 
 import { dailyData, selectAllData } from "../../store/reducers/tasks";
