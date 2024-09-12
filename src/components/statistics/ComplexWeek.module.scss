@@ -1,3 +1,5 @@
+@use "../../styles/mixins";
+
 .container {
   background-color: var(--bg-button);
   border-radius: var(--border-radius--lg);
@@ -7,6 +9,9 @@
   padding: 1.6rem;
   flex-direction: column;
   width: 90%;
+  @include mixins.responsive(lg) {
+    width: 90%;
+  }
 
   .progress {
     display: flex;

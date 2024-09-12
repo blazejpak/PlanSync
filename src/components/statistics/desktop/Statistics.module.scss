@@ -13,34 +13,70 @@
   position: relative;
   width: 100%;
 
+  &.open {
+    padding: 0.8rem;
+  }
+
+  @include mixins.responsive(md) {
+    flex-direction: row;
+  }
+
+  @include mixins.responsive(lg) {
+    height: 100%;
+    flex-direction: column;
+    padding: 0;
+
+    &.open {
+      padding: 1.6rem;
+    }
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    align-items: center;
+
+    @include mixins.responsive(lg) {
+      gap: 1.6rem;
+    }
+  }
+
   .button {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    margin-block: auto;
+    margin-left: auto;
+    margin-right: 1.6rem;
 
-    font-size: var(--font-heading--1);
-    margin-top: auto;
+    &:hover {
+      transition: color 0.3s;
+      color: var(--bg-button--hover) !important;
+    }
 
     @include mixins.responsive(lg) {
-      transition: color 0.3s;
-
-      &:hover {
-        color: var(--bg-button--hover) !important;
-      }
+      margin: 0;
+      margin-top: auto;
     }
   }
   .buttons {
     align-items: center;
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: row;
     gap: 0.8rem;
-    margin-top: 1.6rem;
 
     &.open {
-      justify-content: flex-end;
+      flex-direction: column;
+    }
+
+    @include mixins.responsive(lg) {
+      flex-direction: column;
+    }
+
+    &.open {
       flex-direction: row;
-      margin-right: 0.8rem;
     }
 
     .profile__icon {

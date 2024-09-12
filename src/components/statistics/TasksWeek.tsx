@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../../store/hooks";
 import { selectAllData } from "../../store/reducers/tasks";
 import { Task } from "../../types/task";
-import { DateTime, Interval } from "luxon";
 
 import styles from "./TasksWeek.module.scss";
 import { CircularProgress } from "@mui/material";
@@ -28,7 +27,9 @@ const TasksWeek = () => {
     <div className={styles.container}>
       <div className={styles.result}>
         <strong className={styles.score}>
-          {countDoneTasks !== Infinity ? `${countDoneTasks}%` : 0}
+          {countDoneTasks !== Infinity && !Number.isNaN(countDoneTasks)
+            ? `${countDoneTasks}%`
+            : 0}
         </strong>
         <div className={styles.inner}>
           <CircularProgress

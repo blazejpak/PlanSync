@@ -29,34 +29,40 @@ const Statistics = () => {
   const iconColor = pickedTheme === "dark" ? "white" : "black";
 
   return (
-    <section className={styles.container}>
-      <div className={`${styles.buttons} ${isStatisticsOpen && styles.open}`}>
-        <button className={styles.profile__icon}>
-          {user.photoURL ? (
-            <img src={user.photoURL} alt="Profile Icon" />
-          ) : (
-            <img src={profileImg} alt="Profile Icon" />
-          )}
-        </button>
-        <button
-          className={styles.profile__button}
-          onClick={() => changeSettingsModalActive(true)}
-          style={{ color: iconColor }}
-        >
-          <IoSettings size={24} />
-        </button>
-        <button
-          className={styles.profile__button}
-          onClick={logout}
-          style={{ color: iconColor }}
-        >
-          <IoLogOut size={24} />
-        </button>
+    <section
+      className={`${styles.container} ${isStatisticsOpen && styles.open}`}
+    >
+      <div>
+        <div className={styles.controls}>
+          <div
+            className={`${styles.buttons} ${isStatisticsOpen && styles.open}`}
+          >
+            <button className={styles.profile__icon}>
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="Profile Icon" />
+              ) : (
+                <img src={profileImg} alt="Profile Icon" />
+              )}
+            </button>
+            <button
+              className={styles.profile__button}
+              onClick={() => changeSettingsModalActive(true)}
+              style={{ color: iconColor }}
+            >
+              <IoSettings size={24} />
+            </button>
+            <button
+              className={styles.profile__button}
+              onClick={logout}
+              style={{ color: iconColor }}
+            >
+              <IoLogOut size={24} />
+            </button>
+          </div>
+          {isStatisticsOpen && <Clock />}
+        </div>
+        {isStatisticsOpen && <CalendarMonth />}
       </div>
-
-      {isStatisticsOpen && <Clock />}
-
-      {isStatisticsOpen && <CalendarMonth />}
 
       {isStatisticsOpen && <TasksWeek />}
 
@@ -65,7 +71,7 @@ const Statistics = () => {
       {isModalSettingsOpen && <Settings />}
 
       <button
-        className={styles.button}
+        className={`${styles.button} ${isStatisticsOpen && styles.open}`}
         style={{ color: iconColor }}
         onClick={() => dispatch(statisticsOpen(!isStatisticsOpen))}
       >

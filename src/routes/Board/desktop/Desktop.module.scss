@@ -8,14 +8,19 @@
 
   @include mixins.responsive(md) {
     grid-template-columns: 1fr;
-    grid-template-rows: 10rem 1fr 30rem;
+    grid-template-rows: 10rem 1fr 5rem;
+
+    &.open {
+      grid-template-rows: 10rem 1fr 30rem;
+    }
   }
   @include mixins.responsive(lg) {
-    grid-template-columns: 24rem 1fr 10rem;
+    grid-template-columns: 24rem 1fr 5rem;
     grid-template-rows: 1fr;
 
     &.open {
       grid-template-columns: 24rem 1fr 30rem;
+      grid-template-rows: 1fr;
     }
   }
 
@@ -36,7 +41,7 @@
   }
 
   @include mixins.responsive(lg) {
-    max-width: calc(100vw - 34rem);
+    max-width: calc(100vw - 29rem);
 
     &.open {
       max-width: calc(100vw - 54rem);
@@ -44,8 +49,6 @@
   }
 
   @include mixins.responsive(xl) {
-    max-width: calc(100vw - 38rem);
-
     &.open {
       max-width: calc(100vw - 64rem);
     }
