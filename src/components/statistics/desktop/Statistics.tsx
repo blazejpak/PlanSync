@@ -14,6 +14,7 @@ import CalendarMonth from "../../dates/CalendarMonth";
 import Clock from "../../dates/Clock";
 import TasksWeek from "../TasksWeek";
 import ComplexWeek from "../ComplexWeek";
+import { useEffect, useState } from "react";
 
 const Statistics = () => {
   const { user, SignOut } = useSafeUserContext();
@@ -22,9 +23,31 @@ const Statistics = () => {
   const { changeSettingsModalActive, isModalSettingsOpen, pickedTheme } =
     useSafeSettingsContext();
 
+  const [profilePhoto, setProfilePhoto] = useState(profileImg); // Ustawienie domyślnego zdjęcia
+
+  useEffect(() => {
+    const loadProfilePhoto = async () => {
+      // Sprawdzenie, czy photoURL istnieje i jest typu string
+      if (user?.photoURL && typeof user.photoURL === "string") {
+        try {
+          setProfilePhoto(user.photoURL as string); // Asercja typu
+        } catch (error) {
+          console.error("Błąd ładowania zdjęcia:", error);
+          setProfilePhoto(profileImg); // Fallback do domyślnej ikony w przypadku błędu
+        }
+      } else {
+        setProfilePhoto(profileImg); // Fallback, jeśli photoURL nie istnieje lub nie jest stringiem
+      }
+    };
+
+    loadProfilePhoto();
+  }, [user]);
+
   const logout = () => {
     SignOut();
   };
+
+  console.log(user.photoURL);
 
   const iconColor = pickedTheme === "dark" ? "white" : "black";
 
@@ -38,11 +61,11 @@ const Statistics = () => {
             className={`${styles.buttons} ${isStatisticsOpen && styles.open}`}
           >
             <button className={styles.profile__icon}>
-              {user.photoURL ? (
-                <img src={user.photoURL} alt="Profile Icon" />
-              ) : (
-                <img src={profileImg} alt="Profile Icon" />
-              )}
+              <img
+                src={profilePhoto}
+                alt="Profile Icon"
+                referrerPolicy="no-referrer"
+              />
             </button>
             <button
               className={styles.profile__button}

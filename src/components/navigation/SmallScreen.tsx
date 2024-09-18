@@ -86,7 +86,10 @@ const SmallScreen = () => {
           </div>
         )}
       </div>
-      <div className={styles.navigation__container} ref={typeTaskButtonRef}>
+      <div
+        className={`${styles.navigation__container} ${styles["navigation__container_tasks"]}`}
+        ref={typeTaskButtonRef}
+      >
         <button
           type="button"
           className={styles["navigation__category"]}

@@ -21,6 +21,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &_tasks {
+    display: none;
+
+    @include mixins.responsive(md) {
+      display: flex;
+    }
+  }
 }
 
 .navigation__category {

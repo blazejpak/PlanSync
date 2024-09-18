@@ -3,55 +3,13 @@
 
 .page {
   display: grid;
-  grid-template-rows: 8rem 1fr;
+  grid-template-rows: 8rem 10rem 1fr;
   height: 100vh;
-
-  @include mixins.responsive(md) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 10rem 1fr 30rem;
-  }
-  @include mixins.responsive(lg) {
-    grid-template-columns: 24rem 1fr 10rem;
-    grid-template-rows: 1fr;
-    align-items: center;
-
-    .open {
-      grid-template-columns: 24rem 1fr 20rem;
-    }
-  }
-
-  @include mixins.responsive(xl) {
-    grid-template-columns: 24rem 1fr 10rem;
-
-    .open {
-      grid-template-columns: 24rem 1fr 30rem;
-    }
-  }
 }
 
 .board {
   background-color: var(--bg-grey);
-  border-radius: var(--border-radius--lg);
   padding: 3.2rem;
 
-  @include mixins.responsive(md) {
-    height: 100%;
-    width: 100dvw;
-  }
-
-  @include mixins.responsive(lg) {
-    max-width: calc(100vw - 40rem);
-
-    .open {
-      max-width: calc(100vw - 50rem);
-    }
-  }
-
-  @include mixins.responsive(xl) {
-    max-width: calc(100vw - 40rem);
-
-    .open {
-      max-width: calc(100vw - 60rem);
-    }
-  }
+  grid-row-start: 3;
 }
