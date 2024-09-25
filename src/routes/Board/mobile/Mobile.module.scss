@@ -2,9 +2,11 @@
 @use "../../../styles/mixins";
 
 .page {
+  background-color: var(--primary-color);
   display: grid;
-  grid-template-rows: 8rem 20rem 1fr 10rem;
+  grid-template-rows: 15rem 20rem 1fr 10rem;
   height: 100vh;
+  padding-inline: 1.2rem;
 }
 
 .board {
