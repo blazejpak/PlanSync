@@ -5,7 +5,7 @@ import { Task } from "../../types/task";
 
 import styles from "./TasksWeek.module.scss";
 import { CircularProgress } from "@mui/material";
-import { WeekData } from "../../helpers/WeekData";
+import { WeekData } from "../../helpers/DaysData";
 
 const TasksWeek = () => {
   const [weekData, setWeekData] = useState<Task[]>([]);

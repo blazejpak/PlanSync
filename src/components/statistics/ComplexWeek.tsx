@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAppSelector } from "../../store/hooks";
 import { selectAllData } from "../../store/reducers/tasks";
-import { WeekData } from "../../helpers/WeekData";
+import { WeekData } from "../../helpers/DaysData";
 import { Task, typeFilter } from "../../types/task";
 import { LinearProgress } from "@mui/material";
 
