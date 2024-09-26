@@ -7,13 +7,16 @@
   grid-template-rows: 15rem 20rem 1fr 10rem;
   height: 100vh;
   padding-inline: 1.2rem;
-  max-width: 100%;
-}
+  max-width: 100vw;
+  width: 100%;
 
-.board {
-  background-color: var(--bg-grey);
-  padding: 3.2rem;
+  .board {
+    background-color: var(--bg-grey);
+    padding: 3.2rem;
+    width: 100%;
 
-  grid-row-start: 3;
-  width: 90vw;
+    grid-row-start: 3;
+
+    overflow: hidden;
+  }
 }
