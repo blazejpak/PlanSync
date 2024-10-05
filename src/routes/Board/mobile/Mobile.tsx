@@ -1,4 +1,3 @@
-import CalendarPerDay from "../../../components/dates/CalendarPerDay";
 import TaskList from "../TaskList";
 import StatisticsMobile from "../../../components/statistics/mobile/StatisticsMobile";
 import NavigationMobile from "../../../components/navigation/NavigationMobile";
@@ -17,7 +16,7 @@ const Mobile = () => {
       <Header />
       <StatisticsMobile />
       <section className={`${styles.board} ${isStatisticsOpen ? "open" : ""}`}>
-        <CalendarPerDay />
+        <strong className={styles.heading}>Task overview </strong>
         <TaskList />
       </section>
       <NavigationMobile />

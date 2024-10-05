@@ -1,15 +1,15 @@
 .result {
+  align-items: center;
+  display: flex;
+  height: 7rem;
+  justify-content: center;
   position: relative;
-  height: 9rem;
   width: 9rem;
+
   .score {
     color: var(--font-color--darkBg);
     font-weight: 600;
     font-size: 2rem;
-    left: 45%;
-    position: absolute;
-    top: 3rem;
-    transform: translateX(-50%);
   }
 
   .inner {

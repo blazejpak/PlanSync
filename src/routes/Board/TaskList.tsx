@@ -6,11 +6,14 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectCurrentDay } from "../../store/reducers/calendar";
 
 import TaskMobile from "./mobile/TaskMobile";
+import { useSafeResponsiveContext } from "../../context/responsive";
+import TasksDesktop from "./desktop/TasksDesktop";
 
 const TaskList = () => {
   const dispatch = useAppDispatch();
   const day = useAppSelector(selectCurrentDay);
   const getData = useAppSelector(selectAllData);
+  const { isMobile } = useSafeResponsiveContext();
 
   useEffect(() => {
     if (getData.length <= 0) return;
@@ -25,7 +28,7 @@ const TaskList = () => {
     dispatch(dailyData(newData));
   }, [getData, day]);
 
-  return <TaskMobile />;
+  return <>{isMobile ? <TaskMobile /> : <TasksDesktop />}</>;
 };
 
 export default TaskList;

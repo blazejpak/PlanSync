@@ -19,14 +19,14 @@ const TodayProgress = ({ countDoneTasks }: TodayProgressProps) => {
           <CircularProgress
             color="inherit"
             variant="determinate"
-            size={80}
+            size={60}
             value={100}
           />
         </div>
         <div className={styles.outer}>
           <CircularProgress
             variant="determinate"
-            size={80}
+            size={60}
             value={countDoneTasks}
           />
         </div>

@@ -4,19 +4,21 @@
 .page {
   background-color: var(--primary-color);
   display: grid;
-  grid-template-rows: 15rem 20rem 1fr 10rem;
+  grid-template-rows: 15rem 15rem 1fr 10rem;
   height: 100vh;
-  padding-inline: 1.2rem;
   max-width: 100vw;
+  padding-inline: 1.2rem;
   width: 100%;
 
   .board {
-    background-color: var(--bg-grey);
-    padding: 3.2rem;
+    padding: 0.8rem;
+    margin-top: 1.2rem;
+    overflow: hidden;
     width: 100%;
 
-    grid-row-start: 3;
-
-    overflow: hidden;
+    .heading {
+      font-size: var(--font-heading--3);
+      font-weight: 500;
+    }
   }
 }

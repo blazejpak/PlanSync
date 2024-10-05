@@ -4,9 +4,14 @@
   gap: 1.6rem;
 
   .icons {
+    align-items: center;
     display: flex;
     margin-top: 1.6rem;
     justify-content: space-between;
+
+    strong {
+      font-size: var(--font-heading--3);
+    }
 
     .button {
       border: none;

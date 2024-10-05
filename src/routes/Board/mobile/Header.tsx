@@ -3,10 +3,13 @@ import { useSafeUserContext } from "../../../context/AuthenticationContext";
 import { ProfilePhoto } from "../../../helpers/ProfilePhoto";
 import styles from "./Header.module.scss";
 import { useSafeSettingsContext } from "../../../context/Settings";
+import { useAppSelector } from "../../../store/hooks";
+import { selectCurrentDay } from "../../../store/reducers/calendar";
 
 const Header = () => {
   const { user, SignOut } = useSafeUserContext();
   const { pickedTheme } = useSafeSettingsContext();
+  const currentDay = useAppSelector(selectCurrentDay);
 
   const name = user.displayName?.split(" ")[0];
 
@@ -22,6 +25,7 @@ const Header = () => {
         <button className={styles.button}>
           <ProfilePhoto />
         </button>
+        <strong>{currentDay}</strong>
         <button
           className={styles.button}
           onClick={logout}
