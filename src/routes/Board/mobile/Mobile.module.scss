@@ -4,11 +4,15 @@
 .page {
   background-color: var(--primary-color);
   display: grid;
-  grid-template-rows: 15rem 15rem 1fr 10rem;
+  grid-template-rows: 15rem 15rem 1fr 7rem;
   height: 100vh;
   max-width: 100vw;
   padding-inline: 1.2rem;
   width: 100%;
+
+  @include mixins.responsive(sm) {
+    grid-template-rows: 15rem 15rem 1fr 10rem;
+  }
 
   .board {
     padding: 0.8rem;

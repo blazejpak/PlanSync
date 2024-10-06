@@ -2,22 +2,30 @@ import {
   IoSettingsOutline,
   IoCalendarClearOutline,
   IoHomeOutline,
-  IoAddCircleOutline,
 } from "react-icons/io5";
+import { FaPlus, FaRegMessage } from "react-icons/fa6";
 
 import styles from "./NavigationMobile.module.scss";
 
 const NavigationMobile = () => {
+  const handleSettings = () => {};
+
   return (
     <footer className={styles.footer}>
       <button>
-        <IoSettingsOutline />
+        <IoHomeOutline />
       </button>
       <button>
         <IoCalendarClearOutline />
       </button>
+      <button className={styles.add__task}>
+        <FaPlus />
+      </button>
       <button>
-        <IoHomeOutline />
+        <IoSettingsOutline />
+      </button>
+      <button>
+        <FaRegMessage />
       </button>
     </footer>
   );
