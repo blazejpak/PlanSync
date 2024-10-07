@@ -1,6 +1,14 @@
+@use "../../../styles/mixins";
+
 .container {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 15rem);
+
+  @include mixins.responsive(md) {
+    max-height: 100%;
+  }
 
   .heading {
     font-size: var(--font-heading--1);

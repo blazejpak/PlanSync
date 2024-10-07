@@ -1,27 +1,12 @@
-import TaskList from "../TaskList";
-import StatisticsMobile from "../../../components/statistics/mobile/StatisticsMobile";
-import NavigationMobile from "../../../components/navigation/NavigationMobile";
+import { useSafeMobileContext } from "../../../context/MobileStates";
 
-import { useAppSelector } from "../../../store/hooks";
-import { selectIsStatisticsOpen } from "../../../store/reducers/statistics";
-
-import styles from "./Mobile.module.scss";
-import Header from "./Header";
+import MobileHome from "./MobileHome";
+import MobileModal from "./MobileModal";
 
 const Mobile = () => {
-  const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
+  const { typeOfPage } = useSafeMobileContext();
 
-  return (
-    <section className={`${styles.page} ${isStatisticsOpen ? "open" : ""}`}>
-      <Header />
-      <StatisticsMobile />
-      <section className={`${styles.board} ${isStatisticsOpen ? "open" : ""}`}>
-        <strong className={styles.heading}>Task overview </strong>
-        <TaskList />
-      </section>
-      <NavigationMobile />
-    </section>
-  );
+  return typeOfPage === "home" ? <MobileHome /> : <MobileModal />;
 };
 
 export default Mobile;

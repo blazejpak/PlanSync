@@ -8,19 +8,11 @@
   padding-inline: 1.2rem;
   width: 100%;
 
-  &.home {
-    display: grid;
-    grid-template-rows: 15rem 15rem 1fr 7rem;
+  display: grid;
+  grid-template-rows: 15rem 15rem 1fr 7rem;
 
-    @include mixins.responsive(sm) {
-      grid-template-rows: 15rem 15rem 1fr 10rem;
-    }
-  }
-
-  .modal {
-    // display: grid;
-
-    grid-template-rows: 100% 7rem;
+  @include mixins.responsive(sm) {
+    grid-template-rows: 15rem 15rem 1fr 10rem;
   }
 
   .board {

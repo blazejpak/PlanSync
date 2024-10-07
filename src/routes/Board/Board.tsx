@@ -12,6 +12,7 @@ import Loading from "../Loading";
 import { useSafeResponsiveContext } from "../../context/responsive";
 import Mobile from "./mobile/Mobile";
 import Desktop from "./desktop/Desktop";
+import { MobileStatesProvider } from "../../context/MobileStates";
 
 const Board = () => {
   const { isMobile } = useSafeResponsiveContext();
@@ -52,7 +53,13 @@ const Board = () => {
 
   return (
     <ModalContextProvider>
-      {isMobile ? <Mobile /> : <Desktop />}
+      {isMobile ? (
+        <MobileStatesProvider>
+          <Mobile />
+        </MobileStatesProvider>
+      ) : (
+        <Desktop />
+      )}
     </ModalContextProvider>
   );
 };

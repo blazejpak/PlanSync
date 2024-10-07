@@ -13,7 +13,7 @@ const Settings = () => {
   const [isAccountOptionsActive, setIsAccountOptionsActive] = useState(false);
 
   return (
-    <Overlay>
+    <section>
       <div className={styles.container}>
         <strong className={styles.heading}>Settings</strong>
         <div>
@@ -48,7 +48,7 @@ const Settings = () => {
           {isAccountOptionsActive && <Account />}
         </div>
       </div>
-    </Overlay>
+    </section>
   );
 };
 

@@ -2,7 +2,7 @@
 
 .footer {
   align-items: center;
-  background-color: var(--primary-color--300);
+  background-color: var(--secondary-color);
   border-radius: var(--border-radius--lg);
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,11 @@
     border-radius: 999px;
 
     svg {
-      color: var(--primary-color--700);
+      color: white;
+    }
+
+    svg:hover {
+      color: white;
     }
   }
 
@@ -30,14 +34,19 @@
     cursor: pointer;
 
     svg {
-      color: var(--primary-color--100);
+      color: var(--primary-color--400);
       height: 2.4rem;
       width: 2.4rem;
     }
 
     svg:hover {
-      color: var(--primary-color--700);
+      color: var(--primary-color--200);
       transition: color 0.3s;
+    }
+
+    &.active svg {
+      color: var(--primary-color--100);
+      scale: 1.1;
     }
 
     @include mixins.responsive(sm) {

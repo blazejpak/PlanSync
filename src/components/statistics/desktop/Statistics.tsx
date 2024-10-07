@@ -15,6 +15,7 @@ import ComplexWeek from "../ComplexWeek";
 import { ProfilePhoto } from "../../../helpers/ProfilePhoto";
 
 import styles from "./Statistics.module.scss";
+import Overlay from "../../modals/Overlay";
 
 const Statistics = () => {
   const { SignOut } = useSafeUserContext();
@@ -65,7 +66,11 @@ const Statistics = () => {
 
       {isStatisticsOpen && <ComplexWeek />}
 
-      {isModalSettingsOpen && <Settings />}
+      {isModalSettingsOpen && (
+        <Overlay>
+          <Settings />
+        </Overlay>
+      )}
 
       <button
         className={`${styles.button} ${isStatisticsOpen && styles.open}`}

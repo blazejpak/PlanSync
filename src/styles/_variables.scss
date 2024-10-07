@@ -48,13 +48,13 @@ body.large-font {
 :root {
   --primary-color: #f4f7fd;
   --secondary-color: #ffffff;
-  --primary-color--100: #84878d;
-  --primary-color--200: #989ca2;
-  --primary-color--300: #afb4bc;
-  --primary-color--400: #dcdfe2;
+  --primary-color--100: #adaeb5;
+  --primary-color--200: #b1b6be;
+  --primary-color--300: #c1c5cd;
+  --primary-color--400: #d6dbdf;
   --primary-color--500: #e5e8ee;
-  --primary-color--600: #e0e4ea;
-  --primary-color--700: #dbdfe7;
+  --primary-color--600: #ebeef2;
+  --primary-color--700: #f4f4f4;
 
   --bg-button: #4455cf;
   --bg-button--hover: #7a88f3;
@@ -85,13 +85,13 @@ body.large-font {
 body.dark {
   --primary-color: #20212c;
   --secondary-color: #2b2c37;
-  --primary-color--100: #20212c;
-  --primary-color--200: #2b2c37;
-  --primary-color--300: #404044;
+  --primary-color--700: #20212c;
+  --primary-color--600: #2b2c37;
+  --primary-color--500: #404044;
   --primary-color--400: #62636b;
-  --primary-color--500: #7a7b82;
-  --primary-color--600: #93949a;
-  --primary-color--700: #a6a7ad;
+  --primary-color--300: #7a7b82;
+  --primary-color--200: #93949a;
+  --primary-color--100: #a6a7ad;
 
   --bg-button: #4455cf;
   --bg-button--hover: #7a88f3;
