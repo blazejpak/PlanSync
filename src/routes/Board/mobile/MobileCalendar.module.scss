@@ -1,35 +1,73 @@
+@use "../../../styles/mixins";
+
 .calendar {
-  align-items: center;
   background-color: var(--bg-grey);
-  margin-top: 0.8rem;
+  height: fit-content;
+  margin-top: 0.4rem;
   padding: 0.8rem;
-  width: 25rem;
+  width: 100%;
+
+  @include mixins.responsive(sm) {
+    padding: 1.6rem;
+    margin-top: 0.8rem;
+  }
 
   &__month {
     align-items: center;
     display: flex;
+    font-size: var(--font-heading--1);
     justify-content: space-between;
-    margin-bottom: 0.4rem;
+    margin-bottom: 3.2rem;
+
+    @include mixins.responsive(sm) {
+      margin-bottom: 6.4rem;
+    }
 
     button {
-      display: flex;
       align-items: center;
+      cursor: pointer;
+      display: flex;
+      height: 4.8rem;
       justify-content: center;
+      width: 4.8rem;
     }
+  }
+
+  &__weekdays {
+    display: flex;
+
+    .weekday {
+      text-align: center;
+      font-weight: bold;
+      width: 100%;
+    }
+  }
+
+  &__week {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
   &__days {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 
     p {
       border-left: 3px solid transparent;
       border-right: 3px solid transparent;
       cursor: pointer;
-      font-size: var(--font-paragraph);
+      font-size: var(--font-heading--1);
       padding: 0.4rem;
-      margin-block: 0.2rem;
-      width: 3.2rem;
+      margin-block: 0.4rem;
+      width: 100%;
+      text-align: center;
+
+      @include mixins.responsive(sm) {
+        margin-block: 0.8rem;
+        padding: 1.2rem;
+      }
 
       &:hover {
         color: var(--bg-button);
@@ -46,8 +84,7 @@
 
     .active__picked {
       background-color: var(--bg-button--hover);
-      border-top-left-radius: var(--border-radius--lg);
-      border-bottom-left-radius: var(--border-radius--lg);
+      border-radius: var(--border-radius--lg);
 
       &:hover {
         color: white;
