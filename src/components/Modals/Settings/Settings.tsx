@@ -1,12 +1,10 @@
-import Overlay from "../Overlay";
-
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowDown } from "react-icons/fa";
-import Application from "./Application/Application";
-import Account from "./Account/Account";
 import { useState } from "react";
 
 import styles from "./Settings.module.scss";
+import Application from "./Application/Application";
+import Account from "./Account/Account";
 
 const Settings = () => {
   const [isAppOptionsActive, setIsAppOptionsActive] = useState(false);
