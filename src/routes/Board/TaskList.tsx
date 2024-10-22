@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { DateTime, Interval } from "luxon";
 
 import { dailyData, selectAllData } from "../../store/reducers/tasks";
@@ -6,8 +6,8 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectCurrentDay } from "../../store/reducers/calendar";
 
 import TaskMobile from "./mobile/TaskMobile";
-import TasksDesktop from "./desktop/TasksDesktop";
 import { useSafeResponsiveContext } from "../../context/responsive";
+import TasksDesktop from "./desktop/TasksDesktop";
 
 const TaskList = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ const TaskList = () => {
     dispatch(dailyData(newData));
   }, [getData, day]);
 
-  return isMobile ? <TaskMobile /> : <TasksDesktop />;
+  return <>{isMobile ? <TaskMobile /> : <TasksDesktop />}</>;
 };
 
 export default TaskList;

@@ -1,0 +1,24 @@
+.result {
+  align-items: center;
+  display: flex;
+  height: 7rem;
+  justify-content: center;
+  position: relative;
+  width: 9rem;
+
+  .score {
+    color: var(--font-color--darkBg);
+    font-weight: 600;
+    font-size: 2rem;
+  }
+
+  .inner {
+    position: absolute;
+    z-index: 10;
+  }
+
+  .outer {
+    position: absolute;
+    z-index: 20;
+  }
+}

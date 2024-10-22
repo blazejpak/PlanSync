@@ -1,0 +1,29 @@
+.container {
+  background-color: var(--bg-button);
+  border-radius: var(--border-radius--lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+  strong {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+  }
+
+  .bars {
+    display: flex;
+    justify-content: space-around;
+
+    .bar {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+
+      p {
+        color: white;
+        font-size: var(--font-paragraph--smaller);
+      }
+    }
+  }
+}

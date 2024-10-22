@@ -1,34 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { DateTime } from "luxon";
 
-import { pickCurrentDay, pickRangeDate } from "../../store/reducers/calendar";
-import { useAppDispatch } from "../../store/hooks";
+import {
+  pickCurrentDay,
+  pickRangeDate,
+  selectCurrentDay,
+} from "../../store/reducers/calendar";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import styles from "./CalendarPerDay.module.scss";
 
 const CalendarPerDay = () => {
-  const time = DateTime.now().setLocale("en-GB");
+  const curDay = useAppSelector(selectCurrentDay);
 
-  const [date, setDate] = useState(time);
+  const time = DateTime.fromISO(curDay).setLocale("en-GB") as DateTime<true>;
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const dataISO = date.toISO().slice(0, 10);
-    dispatch(pickCurrentDay(dataISO));
-
-    dispatch(pickRangeDate({ from: dataISO, to: dataISO }));
-  }, [date]);
+    dispatch(pickRangeDate({ from: curDay, to: curDay }));
+  }, [curDay]);
 
   const previousDay = () => {
-    const value = date.minus({ days: 1 });
-    setDate(value);
+    const value = time.minus({ days: 1 }).toISO().slice(0, 10);
+    dispatch(pickCurrentDay(value));
   };
 
   const nextDay = () => {
-    const value = date.plus({ days: 1 });
-    setDate(value);
+    const value = time.plus({ days: 1 }).toISO().slice(0, 10);
+    dispatch(pickCurrentDay(value));
   };
 
   return (
@@ -39,10 +41,10 @@ const CalendarPerDay = () => {
       <div className={styles.text}>
         {
           <strong>
-            {date.monthLong}, {date.day}
+            {time.monthLong}, {time.day}
           </strong>
         }
-        <p>{date.weekdayLong}</p>
+        <p>{time.weekdayLong}</p>
       </div>
       <button onClick={nextDay}>
         <FaArrowRight size={30} />

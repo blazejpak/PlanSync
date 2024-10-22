@@ -1,0 +1,55 @@
+@use "../../styles/mixins";
+
+.container {
+  align-items: center;
+  background-color: var(--bg-button);
+  border-radius: var(--border-radius--lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  justify-content: space-around;
+  padding-block: 1.2rem;
+
+  width: 90%;
+  @include mixins.responsive(lg) {
+    width: 90%;
+  }
+
+  .result {
+    position: relative;
+    height: 9rem;
+    width: 9rem;
+    .score {
+      color: var(--font-color--darkBg);
+      font-weight: 600;
+      font-size: 2rem;
+      left: 45%;
+      position: absolute;
+      top: 3rem;
+      transform: translateX(-50%);
+    }
+
+    .inner {
+      position: absolute;
+      z-index: 10;
+    }
+
+    .outer {
+      position: absolute;
+      z-index: 20;
+    }
+  }
+
+  .description {
+    color: var(--font-color--darkBg);
+    font-size: var(--font-paragraph);
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .performance {
+    color: var(--bg-azure);
+    font-size: var(--font-paragraph--smaller);
+    text-align: center;
+  }
+}

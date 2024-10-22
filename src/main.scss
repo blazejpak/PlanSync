@@ -7,12 +7,11 @@
 html {
   font-size: 62.5%;
   font-family: "Rubik";
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(--primary-color--100);
   color: var(--font-color);
   font-size: var(--font-paragraph);
 }

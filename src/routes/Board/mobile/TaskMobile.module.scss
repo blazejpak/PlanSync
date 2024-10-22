@@ -3,22 +3,23 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+  gap: 1.6rem;
+  margin-top: 1.2rem;
 
   .group {
     display: flex;
-    gap: 1.6rem;
+    gap: 0.8rem;
 
     .type__task {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.6rem;
+      padding: 0.8rem;
     }
     .todo {
       background-color: var(--bg-azure--hover);
       border: 3px solid var(--bg-azure);
-      border-radius: 16px;
+      border-radius: var(--border-radius--md);
       cursor: pointer;
 
       &--active {
@@ -29,7 +30,7 @@
     .progress {
       background-color: var(--bg-yellow--hover);
       border: 3px solid var(--bg-yellow);
-      border-radius: 16px;
+      border-radius: var(--border-radius--md);
       cursor: pointer;
 
       &--active {
@@ -40,7 +41,7 @@
     .done {
       background-color: var(--bg-pink--hover);
       border: 3px solid var(--bg-pink);
-      border-radius: 16px;
+      border-radius: var(--border-radius--md);
       cursor: pointer;
 
       &--active {
@@ -52,8 +53,8 @@
   .tasks {
     display: flex;
     gap: 1.6rem;
-    max-width: 55rem;
-    padding-bottom: 3.2rem;
+    padding-bottom: 0.8rem;
+    max-width: 100vw;
     overflow-x: auto;
   }
 }

@@ -1,0 +1,32 @@
+@use "../../styles/mixins";
+
+.container {
+  background-color: var(--bg-button);
+  border-radius: var(--border-radius--lg);
+  color: var(--font-color--darkBg);
+  display: flex;
+  gap: 1.6rem;
+  padding: 1.6rem;
+  flex-direction: column;
+  width: 90%;
+  @include mixins.responsive(lg) {
+    width: 90%;
+  }
+
+  .progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    &__bar {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: space-between;
+
+      p {
+        font-weight: 700;
+        width: 5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+@use "../../../styles/variables";
+@use "../../../styles/mixins";
+
+.page {
+  display: grid;
+  grid-template-rows: 8rem 1fr;
+  height: 100vh;
+
+  @include mixins.responsive(md) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 10rem 1fr 5rem;
+
+    &.open {
+      grid-template-rows: 10rem 1fr 30rem;
+    }
+  }
+  @include mixins.responsive(lg) {
+    grid-template-columns: 24rem 1fr 5rem;
+    grid-template-rows: 1fr;
+
+    &.open {
+      grid-template-columns: 24rem 1fr 30rem;
+      grid-template-rows: 1fr;
+    }
+  }
+
+  @include mixins.responsive(xl) {
+    &.open {
+      grid-template-columns: 24rem 1fr 40rem;
+    }
+  }
+}
+
+.board {
+  background-color: var(--primary-color);
+  padding: 3.2rem;
+
+  @include mixins.responsive(md) {
+    height: 100%;
+    width: 100vw;
+  }
+
+  @include mixins.responsive(lg) {
+    max-width: calc(100vw - 29rem);
+
+    &.open {
+      max-width: calc(100vw - 54rem);
+    }
+  }
+
+  @include mixins.responsive(xl) {
+    &.open {
+      max-width: calc(100vw - 64rem);
+    }
+  }
+}

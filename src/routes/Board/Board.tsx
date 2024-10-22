@@ -5,19 +5,21 @@ import { useAppDispatch } from "../../store/hooks";
 import { fetchAllTasks } from "../../store/reducers/tasks";
 import { useSafeSettingsContext } from "../../context/Settings";
 
-import TaskList from "./TaskList";
-import CalendarPerDay from "../../components/dates/CalendarPerDay";
-import Settings from "./Modal/Settings/Settings";
-
-import styles from "./Board.module.scss";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { getPersonalData } from "../../utils/firebase/AuthService";
 import Loading from "../Loading";
-import Navigation from "../../components/navigation/Navigation";
+
+import { useSafeResponsiveContext } from "../../context/responsive";
+import Mobile from "./mobile/Mobile";
+import Desktop from "./desktop/Desktop";
+import { MobileStatesProvider } from "../../context/MobileStates";
 
 const Board = () => {
+  const { isMobile } = useSafeResponsiveContext();
+
   const { changeDarkTheme, changeFontFamily, changeFontSize } =
     useSafeSettingsContext();
+
   const { currentUserData } = useSafeUserContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -51,14 +53,13 @@ const Board = () => {
 
   return (
     <ModalContextProvider>
-      <section className={styles.page}>
-        <Navigation />
-        <div className={styles.board}>
-          <CalendarPerDay />
-          <TaskList />
-        </div>
-        {/* <Settings /> */}
-      </section>
+      {isMobile ? (
+        <MobileStatesProvider>
+          <Mobile />
+        </MobileStatesProvider>
+      ) : (
+        <Desktop />
+      )}
     </ModalContextProvider>
   );
 };

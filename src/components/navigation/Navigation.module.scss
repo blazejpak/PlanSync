@@ -18,15 +18,14 @@
   }
   @include mixins.responsive(lg) {
     flex-direction: column;
-
-    width: 240px;
     height: 100%;
+    width: 240px;
   }
 
   .image {
     align-self: center;
-    border-bottom-left-radius: variables.$border-radius--md;
-    border-bottom-right-radius: variables.$border-radius--md;
+    border-bottom-left-radius: var(--border-radius--md);
+    border-bottom-right-radius: var(--border-radius--md);
     padding: 1.6rem;
     width: 6rem;
 
@@ -64,6 +63,10 @@
   @include mixins.responsive(lg) {
     justify-content: space-between;
     flex-direction: column;
+    height: 100%;
+    max-height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 
@@ -80,7 +83,7 @@
     padding: 1.6rem 3rem;
   }
   @include mixins.responsive(lg) {
-    margin-bottom: 1.6rem;
+    margin-block: 1.6rem;
   }
 
   &:hover {
