@@ -6,10 +6,17 @@ import { useSafeSettingsContext } from "../../../context/Settings";
 import { useAppSelector } from "../../../store/hooks";
 import { selectCurrentDay } from "../../../store/reducers/calendar";
 
+import { FaArrowLeft, FaArrowDown } from "react-icons/fa";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import { useState } from "react";
+
 const Header = () => {
   const { user, SignOut } = useSafeUserContext();
   const { pickedTheme } = useSafeSettingsContext();
+  const { typeCategory } = useSafeModalContext();
   const currentDay = useAppSelector(selectCurrentDay);
+
+  const [isCategorySectionOpen, setIsCategorySectionOpen] = useState(false);
 
   const name = user.displayName?.split(" ")[0];
 
@@ -35,11 +42,24 @@ const Header = () => {
         </button>
       </div>
 
-      <div className={styles.text}>
-        <h1 className={styles.heading}>Hello {name}!</h1>
-        <p className={styles.paragraph}>
-          Let's make a plan of your tasks today.
-        </p>
+      <div className={styles.container}>
+        <div className={styles.text}>
+          <h1 className={styles.heading}>Hello {name}!</h1>
+          <p className={styles.paragraph}>
+            Let's make a plan of your tasks today.
+          </p>
+        </div>
+
+        <div className={styles.category}>
+          <button
+            className={styles["category__button"]}
+            onClick={() => setIsCategorySectionOpen((prev) => !prev)}
+          >
+            <p>{typeCategory}</p>
+            {isCategorySectionOpen ? <FaArrowDown /> : <FaArrowLeft />}
+          </button>
+          <div></div>
+        </div>
       </div>
     </section>
   );

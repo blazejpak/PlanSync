@@ -3,6 +3,32 @@
   flex-direction: column;
   gap: 1.6rem;
 
+  .container {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .category {
+      justify-self: center;
+      background-color: transparent;
+      border: none;
+
+      &__button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        align-items: center;
+        border-bottom: 1px solid var(--primary-color--100);
+        color: var(--font-color);
+        padding-bottom: 1.2rem;
+        display: flex;
+        gap: 0.8rem;
+        justify-content: center;
+        min-width: 10rem;
+      }
+    }
+  }
   .icons {
     align-items: center;
     display: flex;
