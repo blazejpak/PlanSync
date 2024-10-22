@@ -10,7 +10,7 @@
 
   &.home {
     display: grid;
-    grid-template-rows: 15rem 15rem 1fr 7rem;
+    grid-template-rows: 15rem 15rem 1fr 10rem;
 
     @include mixins.responsive(sm) {
       grid-template-rows: 15rem 15rem 1fr 10rem;

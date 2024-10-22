@@ -9,12 +9,15 @@ import { DateTime, Interval } from "luxon";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 import styles from "./MobileCalendar.module.scss";
+import { useSafeMobileContext } from "../../../context/MobileStates";
 
 const MobileCalendar = () => {
   const dispatch = useAppDispatch();
   const rangeTaskDate = useAppSelector(selectRangeDate);
   const currentDay = useAppSelector(selectCurrentDay);
   const [pickedDay, setPickedDay] = useState("");
+
+  const { changeTypeOfPage } = useSafeMobileContext();
 
   const [monthCalendar, setMonthCalendar] = useState(
     DateTime.fromISO(rangeTaskDate.from).setLocale("en-GB")
@@ -32,6 +35,7 @@ const MobileCalendar = () => {
   const pickDay = (day: string) => {
     dispatch(pickCurrentDay(day));
     setPickedDay(day);
+    changeTypeOfPage("home");
   };
 
   const previousMonth = () => {
