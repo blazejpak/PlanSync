@@ -28,7 +28,7 @@ const DeleteTask = () => {
   };
 
   return (
-    <Overlay>
+    <section>
       <strong>Are you sure you want to delete this task?</strong>
       <div className={styles.buttons}>
         <Button
@@ -42,7 +42,7 @@ const DeleteTask = () => {
           Cancel
         </Button>
       </div>
-    </Overlay>
+    </section>
   );
 };
 

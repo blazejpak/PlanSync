@@ -1,4 +1,6 @@
 @use "../../styles/variables";
+@use "../../styles/mixins";
+
 .container {
   .button__container {
     display: flex;
@@ -11,7 +13,11 @@
     background-color: transparent;
     cursor: pointer;
     padding: 0.8rem 1.6rem;
-    width: fit-content;
+    width: 100%;
+
+    @include mixins.responsive(md) {
+      width: 100px;
+    }
   }
   .calendar {
     align-items: center;

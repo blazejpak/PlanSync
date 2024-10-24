@@ -7,6 +7,7 @@ import { selectIsStatisticsOpen } from "../../../store/reducers/statistics";
 import styles from "./MobileModal.module.scss";
 import { useSafeMobileContext } from "../../../context/MobileStates";
 import MobileCalendar from "./MobileCalendar";
+import AddTask from "../../../components/modals/AddTask/AddTask";
 
 const MobileModal = () => {
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
@@ -16,7 +17,7 @@ const MobileModal = () => {
     <section className={`${styles.page} ${isStatisticsOpen ? "open" : ""} `}>
       {typeOfPage === "settings" && <Settings />}
       {typeOfPage === "calendar" && <MobileCalendar />}
-      {typeOfPage === "newTask" && <Settings />}
+      {typeOfPage === "newTask" && <AddTask />}
       {typeOfPage === "messages" && <Settings />}
 
       <NavigationMobile />

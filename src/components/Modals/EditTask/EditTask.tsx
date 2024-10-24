@@ -80,7 +80,7 @@ const EditTask = () => {
   };
 
   return (
-    <Overlay>
+    <section>
       <strong className={styles.modal__heading}>Edit task</strong>
 
       <Formik
@@ -154,7 +154,7 @@ const EditTask = () => {
           </form>
         )}
       </Formik>
-    </Overlay>
+    </section>
   );
 };
 

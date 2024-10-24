@@ -1,0 +1,39 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.label {
+  font-weight: 500;
+  font-size: var(--font-heading--3);
+}
+
+.input {
+  border: none;
+  outline: none;
+
+  background-color: transparent;
+  border: 1px solid var(--primary-color--100);
+  border-radius: var(--border-radius--md);
+  color: var(--primary-color--100);
+  cursor: pointer;
+  padding: 1.6rem;
+  min-height: 5rem;
+  max-height: 15rem;
+  width: 100%;
+
+  resize: vertical;
+
+  &:focus {
+    border: 1px solid var(--bg-button);
+  }
+
+  &:hover {
+    border: 1px solid var(--bg-button);
+  }
+
+  &::placeholder {
+    opacity: 0.5;
+  }
+}

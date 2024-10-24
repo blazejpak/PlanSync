@@ -10,6 +10,7 @@ import ShowTask from "../../../components/modals/ShowTask/ShowTask";
 import EditTask from "../../../components/modals/EditTask/EditTask";
 import DeleteTask from "../../../components/modals/DeleteTask/DeleteTask";
 import AddTask from "../../../components/modals/AddTask/AddTask";
+import Overlay from "../../../components/modals/Overlay";
 
 const Desktop = () => {
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
@@ -28,13 +29,29 @@ const Desktop = () => {
       </section>
       <Statistics />
 
-      {taskModal.type === "task" && taskModal.isActive && <ShowTask />}
+      {taskModal.type === "task" && taskModal.isActive && (
+        <Overlay>
+          <ShowTask />
+        </Overlay>
+      )}
 
-      {taskModal.type === "edit" && taskModal.isActive && <EditTask />}
+      {taskModal.type === "edit" && taskModal.isActive && (
+        <Overlay>
+          <EditTask />
+        </Overlay>
+      )}
 
-      {taskModal.type === "delete" && taskModal.isActive && <DeleteTask />}
+      {taskModal.type === "delete" && taskModal.isActive && (
+        <Overlay>
+          <DeleteTask />
+        </Overlay>
+      )}
 
-      {taskModal.type === "add" && taskModal.isActive && <AddTask />}
+      {taskModal.type === "add" && taskModal.isActive && (
+        <Overlay>
+          <AddTask />
+        </Overlay>
+      )}
     </section>
   );
 };
