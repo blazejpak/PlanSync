@@ -1,0 +1,70 @@
+.subtasks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  .subtask {
+    display: flex;
+    justify-content: center;
+
+    .subtask__remove {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--primary-color--100);
+
+      &:hover svg {
+        transition: color 0.3s;
+        color: var(--bg-button);
+      }
+    }
+  }
+  .subtask__add {
+    background-color: var(--primary-color--300);
+    border: none;
+    border-radius: var(--border-radius--sm);
+    cursor: pointer;
+    font-size: var(--font-button);
+    font-weight: bold;
+    height: 4rem;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: var(--primary-color--100);
+    }
+  }
+}
+
+.input {
+  border: none;
+  outline: none;
+
+  background-color: transparent;
+  border: 1px solid var(--primary-color--100);
+  border-radius: var(--border-radius--md);
+  color: var(--font-color);
+  cursor: pointer;
+  padding: 1.6rem;
+  min-height: 5rem;
+  max-height: 15rem;
+  width: 100%;
+
+  resize: vertical;
+
+  &:focus {
+    border: 1px solid var(--bg-button);
+  }
+
+  &:hover {
+    border: 1px solid var(--bg-button);
+  }
+
+  &::placeholder {
+    opacity: 0.5;
+  }
+}
+
+.error {
+  color: var(--bg-error);
+  font-size: 1.4rem;
+}

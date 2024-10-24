@@ -83,7 +83,7 @@ const AddTask = () => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <div>
+            <div className={styles.inputs}>
               <Input
                 id="task"
                 name="task"

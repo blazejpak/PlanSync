@@ -35,6 +35,8 @@ const TypeTaskSelect = ({
     { label: "Done", value: "done" },
   ];
 
+  console.log(values);
+
   const handleTypesSelectValue = (value: string) => {
     setFieldValue("type", value);
     setIsTypesSelectClicked(false);
@@ -49,7 +51,10 @@ const TypeTaskSelect = ({
       >
         <div className={styles.select__container}>
           <p className={styles.select__label}>
-            {typesSelect.find((option) => option.value === values.type)?.label}
+            {values.type
+              ? typesSelect.find((option) => option.value === values.type)
+                  ?.label
+              : "todo"}
           </p>
           {isTypesSelectClicked ? (
             <FaArrowDown size={16} />
