@@ -3,8 +3,7 @@
 .calendar {
   background-color: var(--bg-grey);
   height: fit-content;
-  margin-top: 0.4rem;
-  padding: 0.8rem;
+  margin-top: 0.8rem;
   width: 100%;
 
   @include mixins.responsive(sm) {
