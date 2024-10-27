@@ -99,12 +99,7 @@ const EditTask = () => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <TaskFields
-              values={values}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-            />
+            <TaskFields handleChange={handleChange} />
 
             <SubtasksFields
               values={values}

@@ -1,22 +1,28 @@
-import { IoLogOut } from "react-icons/io5";
-import { useSafeUserContext } from "../../../context/AuthenticationContext";
+import { useState } from "react";
 import { ProfilePhoto } from "../../../helpers/ProfilePhoto";
-import styles from "./Header.module.scss";
+
+import { useSafeUserContext } from "../../../context/AuthenticationContext";
 import { useSafeSettingsContext } from "../../../context/Settings";
 import { useAppSelector } from "../../../store/hooks";
 import { selectCurrentDay } from "../../../store/reducers/calendar";
-
-import { FaArrowLeft, FaArrowDown } from "react-icons/fa";
+import { categoryBoardNav } from "../../../helpers/CategoryBoardNav";
 import { useSafeModalContext } from "../../../context/ModalStates";
-import { useState } from "react";
+
+import { IoLogOut } from "react-icons/io5";
+import { MdMenu } from "react-icons/md";
+import styles from "./Header.module.scss";
+import { CgClose } from "react-icons/cg";
+import { Category } from "../../../types/task";
+import Loading from "../../Loading";
 
 const Header = () => {
   const { user, SignOut } = useSafeUserContext();
   const { pickedTheme } = useSafeSettingsContext();
-  const { typeCategory } = useSafeModalContext();
+  const { typeCategory, changeCategory } = useSafeModalContext();
   const currentDay = useAppSelector(selectCurrentDay);
 
   const [isCategorySectionOpen, setIsCategorySectionOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const name = user.displayName?.split(" ")[0];
 
@@ -25,6 +31,16 @@ const Header = () => {
   };
 
   const iconColor = pickedTheme === "dark" ? "white" : "black";
+
+  const handleCategory = (link: Category) => {
+    changeCategory(link);
+    setIsCategorySectionOpen(false);
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  };
 
   return (
     <section className={styles.header}>
@@ -53,14 +69,33 @@ const Header = () => {
         <div className={styles.category}>
           <button
             className={styles["category__button"]}
-            onClick={() => setIsCategorySectionOpen((prev) => !prev)}
+            onClick={() => setIsCategorySectionOpen(true)}
           >
             <p>{typeCategory}</p>
-            {isCategorySectionOpen ? <FaArrowDown /> : <FaArrowLeft />}
+            {!isCategorySectionOpen && <MdMenu />}
           </button>
-          <div></div>
+          {isCategorySectionOpen && (
+            <ul className={styles["category__links"]}>
+              <button
+                className={styles["category__close"]}
+                onClick={() => setIsCategorySectionOpen(false)}
+              >
+                <CgClose size={48} />
+              </button>
+              {categoryBoardNav.map((category) => (
+                <li
+                  className={styles["category__link"]}
+                  onClick={() => handleCategory(category.type)}
+                >
+                  {category.text}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
+
+      {isLoading && <Loading />}
     </section>
   );
 };

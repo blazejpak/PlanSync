@@ -83,27 +83,7 @@ const AddTask = () => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.inputs}>
-              <Input
-                id="task"
-                name="task"
-                label="Task"
-                onChange={handleChange}
-                required={true}
-                placeholder="e.g. Take coffee break"
-                type="text"
-              />
-
-              <Input
-                id="description"
-                name="description"
-                label="Description"
-                onChange={handleChange}
-                required={false}
-                placeholder="Brief pause during work or daily activities"
-                type="textarea"
-              />
-            </div>
+            <TaskFields handleChange={handleChange} />
 
             <SubtasksFields
               values={values}

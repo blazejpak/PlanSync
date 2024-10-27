@@ -1,5 +1,12 @@
 @use "../../../styles/variables";
 
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .buttons {
   display: flex;
   gap: 1.6rem;
