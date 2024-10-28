@@ -84,6 +84,7 @@ const Header = () => {
               </button>
               {categoryBoardNav.map((category) => (
                 <li
+                  key={category.type}
                   className={styles["category__link"]}
                   onClick={() => handleCategory(category.type)}
                 >
