@@ -80,7 +80,7 @@ const EditTask = () => {
   };
 
   return (
-    <Overlay>
+    <section>
       <strong className={styles.modal__heading}>Edit task</strong>
 
       <Formik
@@ -99,12 +99,7 @@ const EditTask = () => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <TaskFields
-              values={values}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-            />
+            <TaskFields handleChange={handleChange} />
 
             <SubtasksFields
               values={values}
@@ -154,7 +149,7 @@ const EditTask = () => {
           </form>
         )}
       </Formik>
-    </Overlay>
+    </section>
   );
 };
 

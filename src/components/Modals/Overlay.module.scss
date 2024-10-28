@@ -21,19 +21,17 @@ html {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
-  padding: 2rem;
-  padding-top: 4rem;
+  padding-block: 4rem;
+  padding-inline: 0.8rem;
   position: relative;
-  min-width: 40rem;
-  max-width: 66rem;
-  height: 45rem;
+  width: 40rem;
+  height: fit-content;
+  max-height: 45rem;
   overflow-y: auto;
   z-index: 100;
 
   @include mixins.responsive(sm) {
-    padding: 4rem;
-    min-width: 40rem;
-    max-width: 66rem;
+    width: 50rem;
   }
 
   .icon {

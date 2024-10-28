@@ -7,11 +7,21 @@
 .select {
   cursor: pointer;
   background-color: transparent;
-  border-radius: var(--border-radius--sm);
+  border-radius: var(--border-radius--md);
   border: 1px solid var(--bg-grey-dark);
+  color: var(--font-color);
   padding: 1.6rem;
   margin-top: 1.6rem;
+  margin-bottom: 0.4rem;
   width: 100%;
+
+  &:focus {
+    border: 1px solid var(--bg-button);
+  }
+
+  &:hover {
+    border: 1px solid var(--bg-button);
+  }
 
   &__container {
     align-items: center;

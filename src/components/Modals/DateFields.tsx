@@ -39,11 +39,7 @@ const DateFields = ({ values }: SubtasksFieldsProps) => {
             date
           </label>
         </Stack>
-        {values.pickedRadioDate === "pickDate" && (
-          <Stack flexDirection="row">
-            <Calendar />
-          </Stack>
-        )}
+        {values.pickedRadioDate === "pickDate" && <Calendar />}
       </Stack>
     </>
   );

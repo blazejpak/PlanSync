@@ -10,12 +10,16 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 import styles from "./MobileCalendar.module.scss";
 import { useSafeMobileContext } from "../../../context/MobileStates";
+import Loading from "../../Loading";
+import { selectAllData } from "../../../store/reducers/tasks";
 
 const MobileCalendar = () => {
   const dispatch = useAppDispatch();
   const rangeTaskDate = useAppSelector(selectRangeDate);
   const currentDay = useAppSelector(selectCurrentDay);
   const [pickedDay, setPickedDay] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const data = useAppSelector(selectAllData);
 
   const { changeTypeOfPage } = useSafeMobileContext();
 
@@ -35,7 +39,11 @@ const MobileCalendar = () => {
   const pickDay = (day: string) => {
     dispatch(pickCurrentDay(day));
     setPickedDay(day);
-    changeTypeOfPage("home");
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      changeTypeOfPage("home");
+    }, 500);
   };
 
   const previousMonth = () => {
@@ -111,6 +119,11 @@ const MobileCalendar = () => {
               const today = DateTime.now().toISO().slice(0, 10);
               const isToday = day === today;
 
+              const dataByDay = data.find((tasks) => tasks.date === day);
+              // console.log(dataByDay);
+              // console.log(day);
+              console.log(data);
+
               return (
                 <p
                   key={day}
@@ -126,6 +139,8 @@ const MobileCalendar = () => {
           </div>
         ))}
       </div>
+
+      {isLoading && <Loading />}
     </div>
   );
 };

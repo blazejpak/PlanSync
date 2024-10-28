@@ -4,8 +4,11 @@ import { validationSchema } from "./AddTaskValidationSchema";
 import TaskFields from "../TaskFields";
 import SubtasksFields from "../SubtasksFields";
 import DateFields from "../DateFields";
-import Overlay from "../Overlay";
+import TypeTaskSelect from "../TypeTaskSelect";
+import CategoryPicker from "../CategoryPicker";
+import SaveButton from "../../button/SaveButton";
 
+import { addTask } from "../../../store/reducers/tasks";
 import { useSafeUserContext } from "../../../context/AuthenticationContext";
 import { useSafeModalContext } from "../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -13,10 +16,7 @@ import { selectRangeDate } from "../../../store/reducers/calendar";
 
 import { ValuesTypes } from "../ValuesType";
 import styles from "./AddTask.module.scss";
-import TypeTaskSelect from "../TypeTaskSelect";
-import CategoryPicker from "../CategoryPicker";
-import { addTask } from "../../../store/reducers/tasks";
-import SaveButton from "../../button/SaveButton";
+import Input from "../../form/Input";
 
 const AddTask = () => {
   const { user } = useSafeUserContext();
@@ -65,7 +65,7 @@ const AddTask = () => {
   };
 
   return (
-    <Overlay>
+    <section className={styles.section}>
       <strong className={styles.modal__heading}>Add new task</strong>
       <Formik
         initialValues={initialValues}
@@ -83,12 +83,7 @@ const AddTask = () => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <TaskFields
-              values={values}
-              errors={errors}
-              touched={touched}
-              handleChange={handleChange}
-            />
+            <TaskFields handleChange={handleChange} />
 
             <SubtasksFields
               values={values}
@@ -129,7 +124,7 @@ const AddTask = () => {
           </form>
         )}
       </Formik>
-    </Overlay>
+    </section>
   );
 };
 

@@ -5,7 +5,7 @@ import { FormikErrors, FormikTouched, FieldArray } from "formik";
 import { Subtask, ValuesTypes } from "./ValuesType";
 
 import { CgClose } from "react-icons/cg";
-import styles from "./AddTask/AddTask.module.scss";
+import styles from "./SubtasksFields.module.scss";
 
 interface SubtasksFieldsProps {
   values: ValuesTypes;
@@ -29,54 +29,26 @@ const SubtasksFields = ({
   const [subtaskError, setSubtaskError] = useState(false);
 
   return (
-    <Stack>
+    <Stack gap={1}>
+      <label>Subtasks*</label>
       <FieldArray
         name="subtasks"
         render={({ push, remove }) => (
           <div className={styles.subtasks}>
             {values.subtasks.length > 0 &&
               values.subtasks.map((subtask, index) => (
-                <div className={styles.subtask} key={subtask.id}>
-                  <TextField
-                    name={`subtasks.${index}.title`}
-                    label={`Subtask ${index + 1}`}
+                <div key={subtask.id} className={styles.subtask}>
+                  <input
                     type="text"
+                    name={`subtasks.${index}.title`}
+                    placeholder={`Subtask ${index + 1}`}
                     value={subtask.title}
+                    required
                     onChange={(e) => {
                       handleChange(e);
                       setSubtaskError(false);
                     }}
-                    style={{ flex: 1 }}
-                    error={Boolean(
-                      (
-                        errors.subtasks as FormikErrors<Subtask>[] | undefined
-                      )?.[index]?.title &&
-                        (
-                          touched.subtasks as
-                            | FormikTouched<Subtask>[]
-                            | undefined
-                        )?.[index]?.title
-                    )}
-                    helperText={
-                      (
-                        errors.subtasks as FormikErrors<Subtask>[] | undefined
-                      )?.[index]?.title &&
-                      (
-                        touched.subtasks as FormikTouched<Subtask>[] | undefined
-                      )?.[index]?.title
-                        ? (errors.subtasks as FormikErrors<Subtask>[])[index]
-                            ?.title
-                        : ""
-                    }
-                    InputLabelProps={{
-                      style: {
-                        fontSize: 14,
-                        width: "8rem",
-                        backgroundColor: "white",
-                      },
-                    }}
-                    inputProps={{ style: { fontSize: 16 } }}
-                    required
+                    className={styles.input}
                   />
 
                   <button
@@ -92,7 +64,7 @@ const SubtasksFields = ({
                       remove(index);
                     }}
                   >
-                    <CgClose size={24} />
+                    <CgClose size={24} className={styles.icon} />
                   </button>
                 </div>
               ))}

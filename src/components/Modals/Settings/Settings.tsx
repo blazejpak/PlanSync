@@ -11,40 +11,38 @@ const Settings = () => {
   const [isAccountOptionsActive, setIsAccountOptionsActive] = useState(false);
 
   return (
-    <section>
-      <div className={styles.container}>
-        <strong className={styles.heading}>Settings</strong>
-        <div>
-          <button
-            type="button"
-            onClick={() => setIsAppOptionsActive(!isAppOptionsActive)}
-            className={styles.button}
-          >
-            <p>Application</p>
-            {isAppOptionsActive ? (
-              <FaArrowDown size={16} />
-            ) : (
-              <FaArrowLeft size={16} />
-            )}
-          </button>
-          {isAppOptionsActive && <Application />}
-        </div>
+    <section className={styles.container}>
+      <strong className={styles.heading}>Settings</strong>
+      <div>
+        <button
+          type="button"
+          onClick={() => setIsAppOptionsActive(!isAppOptionsActive)}
+          className={styles.button}
+        >
+          <p>Application</p>
+          {isAppOptionsActive ? (
+            <FaArrowDown size={16} />
+          ) : (
+            <FaArrowLeft size={16} />
+          )}
+        </button>
+        {isAppOptionsActive && <Application />}
+      </div>
 
-        <div>
-          <button
-            type="button"
-            onClick={() => setIsAccountOptionsActive(!isAccountOptionsActive)}
-            className={styles.button}
-          >
-            <p>Account</p>
-            {isAccountOptionsActive ? (
-              <FaArrowDown size={16} />
-            ) : (
-              <FaArrowLeft size={16} />
-            )}
-          </button>
-          {isAccountOptionsActive && <Account />}
-        </div>
+      <div>
+        <button
+          type="button"
+          onClick={() => setIsAccountOptionsActive(!isAccountOptionsActive)}
+          className={styles.button}
+        >
+          <p>Account</p>
+          {isAccountOptionsActive ? (
+            <FaArrowDown size={16} />
+          ) : (
+            <FaArrowLeft size={16} />
+          )}
+        </button>
+        {isAccountOptionsActive && <Account />}
       </div>
     </section>
   );
