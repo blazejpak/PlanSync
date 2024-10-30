@@ -12,6 +12,9 @@ import styles from "./MobileCalendar.module.scss";
 import { useSafeMobileContext } from "../../../context/MobileStates";
 import Loading from "../../Loading";
 import { selectAllData } from "../../../store/reducers/tasks";
+import StatusDots from "./StatusDots";
+import { useSafeModalContext } from "../../../context/ModalStates";
+import { Category } from "../../../types/task";
 
 const MobileCalendar = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +25,7 @@ const MobileCalendar = () => {
   const data = useAppSelector(selectAllData);
 
   const { changeTypeOfPage } = useSafeMobileContext();
+  const { typeCategory } = useSafeModalContext();
 
   const [monthCalendar, setMonthCalendar] = useState(
     DateTime.fromISO(rangeTaskDate.from).setLocale("en-GB")
@@ -109,31 +113,38 @@ const MobileCalendar = () => {
             {week.map((day, dayIndex) => {
               if (day === null) {
                 return (
-                  <p
-                    key={`empty-${dayIndex}`}
-                    className={styles.empty__day}
-                  ></p>
+                  <div className={styles.day}>
+                    <p key={`empty-${dayIndex}`}></p>
+                  </div>
                 );
               }
 
               const today = DateTime.now().toISO().slice(0, 10);
               const isToday = day === today;
 
-              const dataByDay = data.find((tasks) => tasks.date === day);
-              // console.log(dataByDay);
-              // console.log(day);
-              console.log(data);
+              const dataByDay = data.filter((task) => {
+                if (typeCategory !== Category.ALL) {
+                  return (
+                    task.rangeDateFrom <= day &&
+                    task.rangeDateTo >= day &&
+                    task.category === typeCategory
+                  );
+                } else {
+                  return task.rangeDateFrom <= day && task.rangeDateTo >= day;
+                }
+              });
 
               return (
-                <p
-                  key={day}
-                  onClick={() => pickDay(day)}
+                <div
                   className={`${currentDay === day && styles.active__picked} ${
                     pickedDay === day && styles.active__picked
-                  } ${isToday && styles.active__today} `}
+                  } ${isToday && styles.active__today} ${styles.day}`}
                 >
-                  {day?.slice(-2)}
-                </p>
+                  <p key={day} onClick={() => pickDay(day)}>
+                    {day?.slice(-2)}
+                  </p>
+                  <StatusDots data={dataByDay} day={day} />
+                </div>
               );
             })}
           </div>
