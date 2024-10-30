@@ -1,0 +1,36 @@
+.dots {
+  align-items: center;
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+
+  div {
+    border-radius: 999px;
+    height: 0.8rem;
+    width: 0.8rem;
+  }
+}
+
+.todo {
+  border: 1px solid var(--bg-azure);
+
+  &.active {
+    background-color: var(--bg-azure);
+  }
+}
+
+.progress {
+  border: 1px solid var(--bg-yellow);
+
+  &.active {
+    background-color: var(--bg-yellow);
+  }
+}
+
+.done {
+  border: 1px solid var(--bg-pink);
+
+  &.active {
+    background-color: var(--bg-pink);
+  }
+}
