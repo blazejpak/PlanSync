@@ -89,7 +89,7 @@ const MobileCalendar = () => {
   };
 
   return (
-    <div className={styles.calendar}>
+    <section className={styles.calendar}>
       <div className={styles.calendar__month}>
         <button type="button" onClick={previousMonth}>
           <FaArrowLeft size={16} />
@@ -113,8 +113,8 @@ const MobileCalendar = () => {
             {week.map((day, dayIndex) => {
               if (day === null) {
                 return (
-                  <div className={styles.day}>
-                    <p key={`empty-${dayIndex}`}></p>
+                  <div className={styles.day} key={`empty-${dayIndex}`}>
+                    <p></p>
                   </div>
                 );
               }
@@ -136,13 +136,12 @@ const MobileCalendar = () => {
 
               return (
                 <div
+                  key={day}
                   className={`${currentDay === day && styles.active__picked} ${
                     pickedDay === day && styles.active__picked
                   } ${isToday && styles.active__today} ${styles.day}`}
                 >
-                  <p key={day} onClick={() => pickDay(day)}>
-                    {day?.slice(-2)}
-                  </p>
+                  <p onClick={() => pickDay(day)}>{day?.slice(-2)}</p>
                   <StatusDots data={dataByDay} day={day} />
                 </div>
               );
@@ -152,7 +151,7 @@ const MobileCalendar = () => {
       </div>
 
       {isLoading && <Loading />}
-    </div>
+    </section>
   );
 };
 

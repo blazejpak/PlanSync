@@ -1,13 +1,14 @@
 import NavigationMobile from "../../../components/navigation/NavigationMobile";
 import Settings from "../../../components/modals/Settings/Settings";
+import MobileCalendar from "./MobileCalendar";
+import AddTask from "../../../components/modals/AddTask/AddTask";
+import Messages from "./Messages";
 
 import { useAppSelector } from "../../../store/hooks";
 import { selectIsStatisticsOpen } from "../../../store/reducers/statistics";
+import { useSafeMobileContext } from "../../../context/MobileStates";
 
 import styles from "./MobileModal.module.scss";
-import { useSafeMobileContext } from "../../../context/MobileStates";
-import MobileCalendar from "./MobileCalendar";
-import AddTask from "../../../components/modals/AddTask/AddTask";
 
 const MobileModal = () => {
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
@@ -18,7 +19,7 @@ const MobileModal = () => {
       {typeOfPage === "settings" && <Settings />}
       {typeOfPage === "calendar" && <MobileCalendar />}
       {typeOfPage === "newTask" && <AddTask />}
-      {typeOfPage === "messages" && <Settings />}
+      {typeOfPage === "messages" && <Messages />}
 
       <NavigationMobile />
     </section>
