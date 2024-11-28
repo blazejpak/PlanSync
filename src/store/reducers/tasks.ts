@@ -5,11 +5,11 @@ import { RootState } from "../store";
 
 import { taskService } from "../../services/taskService";
 
-export const fetchAllTasks = createAsyncThunk(
+export const fetchAllTasksByUser = createAsyncThunk(
   "tasks/fetchAllTasks",
-  async (_, { rejectWithValue }) => {
+  async (id: string, { rejectWithValue }) => {
     try {
-      const tasks = await taskService.fetchAll();
+      const tasks = await taskService.fetchTasksByUserId(id);
 
       return tasks;
     } catch (error: any) {
@@ -60,9 +60,11 @@ type InitialStateProps = {
   addStatus: Status;
   deleteStatus: Status;
   updateStatus: Status;
+  areTasksLoaded: Boolean;
   error: string;
   data: Task[];
   currentDayData: Task[];
+  workData: Task[];
 };
 
 const initialState: InitialStateProps = {
@@ -70,9 +72,11 @@ const initialState: InitialStateProps = {
   addStatus: Status.IDLE,
   deleteStatus: Status.IDLE,
   updateStatus: Status.IDLE,
+  areTasksLoaded: false,
   error: "",
   data: [],
   currentDayData: [],
+  workData: [],
 };
 
 export const tasksSlice = createSlice({
@@ -82,20 +86,24 @@ export const tasksSlice = createSlice({
     dailyData: (state, action: PayloadAction<Task[]>) => {
       state.currentDayData = action.payload;
     },
+    workData: (state, action: PayloadAction<Task[]>) => {
+      state.workData = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllTasks.pending, (state) => {
+      .addCase(fetchAllTasksByUser.pending, (state) => {
         state.fetchStatus = Status.LOADING;
         state.error = "";
       })
-      .addCase(fetchAllTasks.fulfilled, (state, action) => {
+      .addCase(fetchAllTasksByUser.fulfilled, (state, action) => {
         state.fetchStatus = Status.SUCCEEDED;
         state.data = action.payload;
         state.error = "";
+        state.areTasksLoaded = true;
       })
-      .addCase(fetchAllTasks.rejected, (state, action) => {
+      .addCase(fetchAllTasksByUser.rejected, (state, action) => {
         state.fetchStatus = Status.FAILED;
         state.error = action.payload as string;
       })
@@ -152,6 +160,8 @@ export const selectDataFromTheCurrentDay = (state: RootState) =>
   state.tasks.currentDayData;
 
 export const selectFetchStatus = (state: RootState) => state.tasks.fetchStatus;
+export const selectAreTasksLoaded = (state: RootState) =>
+  state.tasks.areTasksLoaded;
 export const selectAddStatus = (state: RootState) => state.tasks.addStatus;
 export const selectDeleteStatus = (state: RootState) =>
   state.tasks.deleteStatus;
@@ -160,6 +170,6 @@ export const selectUpdateStatus = (state: RootState) =>
 
 export const selectTasksSlice = (state: RootState) => state.tasks;
 
-export const { dailyData } = tasksSlice.actions;
+export const { dailyData, workData } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

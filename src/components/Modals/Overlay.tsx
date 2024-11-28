@@ -6,6 +6,8 @@ import useClickOutside from "../../hooks/useClickOutside";
 
 import { IoMdClose } from "react-icons/io";
 import styles from "./Overlay.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../types/routes";
 
 type OverlayProps = {
   children: ReactNode;
@@ -14,18 +16,17 @@ type OverlayProps = {
 const Overlay = ({ children }: OverlayProps) => {
   const { setTaskModal, closeModal } = useSafeModalContext();
   const { closeSettingsModal } = useSafeSettingsContext();
+  const { boardId } = useParams<{ boardId: string }>();
 
   const modalRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useClickOutside({
     ref: modalRef,
     callback: () => {
-      setTaskModal({
-        isActive: false,
-        prop: null,
-        activeTaskData: null,
-        type: null,
-      });
+      if (boardId) {
+        navigate(ROUTES.ROUTE_BOARD(boardId));
+      }
     },
   });
 
@@ -37,6 +38,10 @@ const Overlay = ({ children }: OverlayProps) => {
           onClick={() => {
             closeModal();
             closeSettingsModal();
+
+            if (boardId) {
+              navigate(ROUTES.ROUTE_BOARD(boardId));
+            }
           }}
         >
           <IoMdClose size={24} />

@@ -12,15 +12,13 @@ const MobileHome = () => {
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
 
   return (
-    <section className={`${styles.page} ${isStatisticsOpen ? "open" : ""} `}>
+    <section className={`${styles.page}`}>
       <Header />
       <StatisticsMobile />
       <section className={`${styles.board} ${isStatisticsOpen ? "open" : ""}`}>
         <strong className={styles.heading}>Task overview </strong>
         <TaskList />
       </section>
-
-      <NavigationMobile />
     </section>
   );
 };

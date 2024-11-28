@@ -16,13 +16,16 @@ import { ProfilePhoto } from "../../../helpers/ProfilePhoto";
 
 import styles from "./Statistics.module.scss";
 import Overlay from "../../modals/Overlay";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../../types/routes";
 
 const Statistics = () => {
   const { SignOut } = useSafeUserContext();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { boardId } = useParams<{ boardId: string }>();
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
-  const { changeSettingsModalActive, isModalSettingsOpen, pickedTheme } =
-    useSafeSettingsContext();
+  const { isModalSettingsOpen, pickedTheme } = useSafeSettingsContext();
 
   const logout = () => {
     SignOut();
@@ -44,7 +47,11 @@ const Statistics = () => {
             </button>
             <button
               className={styles.profile__button}
-              onClick={() => changeSettingsModalActive(true)}
+              onClick={() => {
+                if (boardId) {
+                  navigate(ROUTES.ROUTE_SETTINGS(boardId));
+                }
+              }}
               style={{ color: iconColor }}
             >
               <IoSettings size={24} />

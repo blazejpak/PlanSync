@@ -19,6 +19,7 @@
 
   .header__edit {
     align-items: flex-start;
+    border: 1px solid var(--primary-color--400);
     display: flex;
     flex-direction: column;
     gap: 1.6rem;

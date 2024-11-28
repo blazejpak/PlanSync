@@ -4,13 +4,32 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import db from "../utils/firebase/firebase";
 import { Task } from "../types/task";
 
 export const fetchAll = async () => {
   const tasksSnapshot = await getDocs(collection(db, "Tasks"));
+  return tasksSnapshot.docs.map((doc) => {
+    const data = doc.data();
+
+    return {
+      id: doc.id,
+      ...data,
+    } as Task;
+  });
+};
+
+export const fetchTasksByUserId = async (userId: string): Promise<Task[]> => {
+  const tasksRef = collection(db, "Tasks");
+
+  const tasksQuery = query(tasksRef, where("userId", "array-contains", userId));
+
+  const tasksSnapshot = await getDocs(tasksQuery);
+
   return tasksSnapshot.docs.map((doc) => {
     const data = doc.data();
 
@@ -38,6 +57,7 @@ export const update = async (updatedTask: Task) => {
 
 export const taskService = {
   fetchAll,
+  fetchTasksByUserId,
   add,
   remove,
   update,

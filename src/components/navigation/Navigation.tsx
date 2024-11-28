@@ -8,18 +8,22 @@ import logo from "../../assets/logo-white.png";
 import logoMobile from "../../assets/logo-mobile.png";
 import styles from "./Navigation.module.scss";
 import { useSafeResponsiveContext } from "../../context/responsive";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const { setTaskModal } = useSafeModalContext();
   const { isMobile } = useSafeResponsiveContext();
+  const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    setTaskModal({
-      type: "add",
-      prop: "todo",
-      activeTaskData: null,
-      isActive: true,
-    });
+    // setTaskModal({
+    //   type: "add",
+    //   prop: "todo",
+    //   activeTaskData: null,
+    //   isActive: true,
+    // });
+
+    navigate("add-task");
   };
 
   return (

@@ -29,13 +29,16 @@ import {
   updatePersonalData,
 } from "../utils/firebase/AuthService";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../utils/routes";
+import { ROUTES } from "../types/routes";
 import { firebaseErrors } from "../utils/firebase/Errors";
 import { doc, getDoc } from "firebase/firestore";
+import { DateTime } from "luxon";
+import { DatesZones } from "../types/dates";
 
 type FirebaseErrorKey = keyof typeof firebaseErrors;
 
 const googleProvider = new GoogleAuthProvider();
+const time = DateTime.now().setLocale(DatesZones.LOCALE).toISODate();
 
 const initialCurrentUserData: PersonalDataProps = {
   userId: "",
@@ -107,7 +110,7 @@ export const AuthenticationContextProvider = ({
           });
           setCurrentUserData(userData);
         }
-        navigate(ROUTES.ROUTE_BOARD, { replace: true });
+        navigate(ROUTES.ROUTE_BOARD(time), { replace: true });
       }
     } catch (error: any) {
       const errorCode = error.code as FirebaseErrorKey;
@@ -135,7 +138,7 @@ export const AuthenticationContextProvider = ({
             fullName: user.displayName || "",
           });
           setCurrentUserData(userData);
-          navigate(ROUTES.ROUTE_BOARD, { replace: true });
+          navigate(ROUTES.ROUTE_BOARD(time), { replace: true });
         } else {
           setIsAuthLoading(false);
         }
@@ -161,7 +164,7 @@ export const AuthenticationContextProvider = ({
         setCurrentUser(user);
         const userData = await getPersonalData(user.uid);
         setCurrentUserData(userData);
-        navigate(ROUTES.ROUTE_BOARD, { replace: true });
+        navigate(ROUTES.ROUTE_BOARD(time), { replace: true });
       } else {
         setIsAuthLoading(false);
       }

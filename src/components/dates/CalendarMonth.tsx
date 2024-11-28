@@ -1,9 +1,8 @@
 import { DateTime, Interval } from "luxon";
 import { useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "../../store/hooks";
 import {
-  pickCurrentDay,
   selectCurrentDay,
   selectRangeDate,
 } from "../../store/reducers/calendar";
@@ -11,12 +10,13 @@ import {
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import styles from "./CalendarMonth.module.scss";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../types/routes";
 
 const CalendarMonth = () => {
-  const dispatch = useAppDispatch();
   const rangeTaskDate = useAppSelector(selectRangeDate);
   const currentDay = useAppSelector(selectCurrentDay);
-  const [pickedDay, setPickedDay] = useState("");
+  const navigate = useNavigate();
 
   const [monthCalendar, setMonthCalendar] = useState(
     DateTime.fromISO(rangeTaskDate.from).setLocale("en-GB")
@@ -32,8 +32,7 @@ const CalendarMonth = () => {
     .map((date: Interval) => date.start?.toISODate());
 
   const pickDay = (day: string) => {
-    dispatch(pickCurrentDay(day));
-    setPickedDay(day);
+    navigate(ROUTES.ROUTE_BOARD(day));
   };
 
   const previousMonth = () => {
@@ -69,9 +68,9 @@ const CalendarMonth = () => {
               <p
                 key={day}
                 onClick={() => pickDay(day)}
-                className={`${currentDay === day && styles.active__picked} ${
-                  pickedDay === day && styles.active__picked
-                } ${isToday && styles.active__today} `}
+                className={`${currentDay === day && styles.active__picked}  ${
+                  isToday && styles.active__today
+                } `}
               >
                 {day?.slice(-2)}
               </p>

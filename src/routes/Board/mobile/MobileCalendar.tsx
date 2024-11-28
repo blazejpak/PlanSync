@@ -9,22 +9,27 @@ import { DateTime, Interval } from "luxon";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 import styles from "./MobileCalendar.module.scss";
-import { useSafeMobileContext } from "../../../context/MobileStates";
-import Loading from "../../Loading";
 import { selectAllData } from "../../../store/reducers/tasks";
 import StatusDots from "./StatusDots";
 import { useSafeModalContext } from "../../../context/ModalStates";
 import { Category } from "../../../types/task";
+import { useSafeResponsiveContext } from "../../../context/responsive";
+import { ROUTES } from "../../../types/routes";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const MobileCalendar = () => {
+  const currentDay = useAppSelector(selectCurrentDay);
+
+  const { isMobile } = useSafeResponsiveContext();
+  if (!isMobile)
+    return <Navigate to={ROUTES.ROUTE_BOARD(currentDay)} replace={true} />;
+
   const dispatch = useAppDispatch();
   const rangeTaskDate = useAppSelector(selectRangeDate);
-  const currentDay = useAppSelector(selectCurrentDay);
   const [pickedDay, setPickedDay] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const data = useAppSelector(selectAllData);
+  const navigate = useNavigate();
 
-  const { changeTypeOfPage } = useSafeMobileContext();
   const { typeCategory } = useSafeModalContext();
 
   const [monthCalendar, setMonthCalendar] = useState(
@@ -41,13 +46,8 @@ const MobileCalendar = () => {
     .map((date: Interval) => date.start?.toISODate());
 
   const pickDay = (day: string) => {
-    dispatch(pickCurrentDay(day));
+    navigate(ROUTES.ROUTE_BOARD(day));
     setPickedDay(day);
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      changeTypeOfPage("home");
-    }, 500);
   };
 
   const previousMonth = () => {
@@ -150,7 +150,7 @@ const MobileCalendar = () => {
         ))}
       </div>
 
-      {isLoading && <Loading />}
+      {/* {isLoading && <Loading />} */}
     </section>
   );
 };

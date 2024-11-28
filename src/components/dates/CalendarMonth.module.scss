@@ -46,8 +46,7 @@
 
     .active__picked {
       background-color: var(--bg-button--hover);
-      border-top-left-radius: var(--border-radius--lg);
-      border-bottom-left-radius: var(--border-radius--lg);
+      border-radius: var(--border-radius--lg);
 
       &:hover {
         color: white;

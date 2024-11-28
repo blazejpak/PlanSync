@@ -6,6 +6,7 @@ import { Status, Task, typeFilter } from "../../../types/task";
 import { useSafeModalContext } from "../../../context/ModalStates";
 import { useAppSelector } from "../../../store/hooks";
 import {
+  selectAllData,
   selectDataFromTheCurrentDay,
   selectFetchStatus,
 } from "../../../store/reducers/tasks";
@@ -13,6 +14,8 @@ import {
 import styles from "./FilteredTasks.module.scss";
 import { useEffect, useState } from "react";
 import { selectCurrentDay } from "../../../store/reducers/calendar";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../../types/routes";
 
 type FilteredTasksProps = {
   typeOfTask: Omit<typeFilter, "all">;
@@ -21,6 +24,8 @@ type FilteredTasksProps = {
 
 const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
   const { setTaskModal, typeCategory } = useSafeModalContext();
+  const navigate = useNavigate();
+  const { boardId } = useParams<{ boardId: string }>();
 
   const data = useAppSelector(selectDataFromTheCurrentDay);
   const dataStatus = useAppSelector(selectFetchStatus);
@@ -58,12 +63,9 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
         className={`${typeOfDevice === "mobile" && styles.task}`}
         key={task.id}
         onClick={() => {
-          setTaskModal({
-            type: "task",
-            prop: null,
-            activeTaskData: task,
-            isActive: true,
-          });
+          if (boardId) {
+            navigate(ROUTES.ROUTE_TASK(boardId, task.id));
+          }
         }}
       >
         <TaskItem data={task} />

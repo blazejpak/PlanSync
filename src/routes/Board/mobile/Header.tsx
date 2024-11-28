@@ -13,7 +13,6 @@ import { MdMenu } from "react-icons/md";
 import styles from "./Header.module.scss";
 import { CgClose } from "react-icons/cg";
 import { Category } from "../../../types/task";
-import Loading from "../../Loading";
 
 const Header = () => {
   const { user, SignOut } = useSafeUserContext();
@@ -22,7 +21,6 @@ const Header = () => {
   const currentDay = useAppSelector(selectCurrentDay);
 
   const [isCategorySectionOpen, setIsCategorySectionOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const name = user.displayName?.split(" ")[0];
 
@@ -35,11 +33,6 @@ const Header = () => {
   const handleCategory = (link: Category) => {
     changeCategory(link);
     setIsCategorySectionOpen(false);
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
   };
 
   return (
@@ -79,6 +72,7 @@ const Header = () => {
               <button
                 className={styles["category__close"]}
                 onClick={() => setIsCategorySectionOpen(false)}
+                style={{ color: iconColor }}
               >
                 <CgClose size={48} />
               </button>
@@ -95,8 +89,6 @@ const Header = () => {
           )}
         </div>
       </div>
-
-      {isLoading && <Loading />}
     </section>
   );
 };

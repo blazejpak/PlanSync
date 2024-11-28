@@ -8,10 +8,17 @@ import { FaPlus, FaRegMessage } from "react-icons/fa6";
 import styles from "./NavigationMobile.module.scss";
 import { typeOfPageProps } from "../../types/mobile";
 import { useSafeMobileContext } from "../../context/MobileStates";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../types/routes";
 
 const NavigationMobile = () => {
+  const path = useLocation().pathname;
+
   const { changeTypeOfPage } = useSafeMobileContext();
   const { typeOfPage } = useSafeMobileContext();
+  const navigate = useNavigate();
+  const { boardId } = useParams<{ boardId: string }>();
+  if (!boardId) return null;
 
   const handleSettings = (value: typeOfPageProps) => {
     changeTypeOfPage(value);
@@ -20,34 +27,40 @@ const NavigationMobile = () => {
   return (
     <footer className={styles.footer}>
       <button
-        onClick={() => handleSettings("home")}
-        className={`${typeOfPage === "home" && styles.active}`}
+        onClick={() => navigate(ROUTES.ROUTE_BOARD(boardId))}
+        className={`${path === ROUTES.ROUTE_BOARD(boardId) && styles.active}`}
       >
         <IoHomeOutline />
       </button>
       <button
-        onClick={() => handleSettings("calendar")}
-        className={`${typeOfPage === "calendar" && styles.active}`}
+        onClick={() => navigate(ROUTES.ROUTE_CALENDAR(boardId))}
+        className={`${
+          path === ROUTES.ROUTE_CALENDAR(boardId) && styles.active
+        }`}
       >
         <IoCalendarClearOutline />
       </button>
       <button
+        onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
         className={`${styles.add__task} ${
-          typeOfPage === "newTask" && styles.active
+          path === ROUTES.ROUTE_ADD_TASK(boardId) && styles.active
         }`}
-        onClick={() => handleSettings("newTask")}
       >
         <FaPlus />
       </button>
       <button
-        onClick={() => handleSettings("settings")}
-        className={`${typeOfPage === "settings" && styles.active}`}
+        onClick={() => navigate(ROUTES.ROUTE_SETTINGS(boardId))}
+        className={`${
+          path === ROUTES.ROUTE_SETTINGS(boardId) && styles.active
+        }`}
       >
         <IoSettingsOutline />
       </button>
       <button
-        onClick={() => handleSettings("messages")}
-        className={`${typeOfPage === "messages" && styles.active}`}
+        onClick={() => navigate(ROUTES.ROUTE_MESSAGES(boardId))}
+        className={`${
+          path === ROUTES.ROUTE_MESSAGES(boardId) && styles.active
+        }`}
       >
         <FaRegMessage />
       </button>

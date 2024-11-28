@@ -1,84 +1,100 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 
 import { useSafeModalContext } from "../../../context/ModalStates";
-import { useAppDispatch } from "../../../store/hooks";
-import { updateTask } from "../../../store/reducers/tasks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import {
+  selectAllData,
+  selectFetchStatus,
+  updateTask,
+} from "../../../store/reducers/tasks";
 
 import SaveButton from "../../button/SaveButton";
 import Overlay from "../Overlay";
 
 import { HiDotsVertical } from "react-icons/hi";
 import styles from "./ShowTask.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
+import { Status, Task } from "../../../types/task";
+import { useSafeSettingsContext } from "../../../context/Settings";
+import { ROUTES } from "../../../types/routes";
+import Loading from "../../../routes/Loading";
 
 const ShowTask = () => {
-  const { taskModal, setTaskModal, closeModal } = useSafeModalContext();
-  const activeTask = taskModal.activeTaskData;
+  const data = useAppSelector(selectAllData);
+  const status = useAppSelector(selectFetchStatus);
+  const { pickedTheme } = useSafeSettingsContext();
+
+  const { boardId, taskId } = useParams<{ boardId: string; taskId: string }>();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [isEditTaskActive, setIsEditTaskActive] = useState(false);
+  const [taskData, setTaskData] = useState<Task | null>(null);
 
-  if (!activeTask) return null;
+  useEffect(() => {
+    if (status === Status.SUCCEEDED && taskId) {
+      const task = data.find((item) => item.id === taskId) || null;
+      setTaskData(task);
+    }
+  }, [status, taskId, data]);
+
+  if (status !== Status.SUCCEEDED) {
+    return <Loading />;
+  }
+  if (!taskData) {
+    return <div>Task not found or invalid URL.</div>;
+  }
 
   const changeDoneSubtasks = (id: number) => {
-    const changedSubtasks = activeTask.subtasks.map((subtask) =>
+    const changedSubtasks = taskData.subtasks.map((subtask) =>
       subtask.id === id ? { ...subtask, isDone: !subtask.isDone } : subtask
     );
 
     if (changedSubtasks) {
       const isEverySubtasksDone = changedSubtasks.every((item) => item.isDone);
 
-      setTaskModal({
-        type: taskModal.type,
-        prop: taskModal.prop,
-        activeTaskData: {
-          ...activeTask,
-          subtasksDone: isEverySubtasksDone,
-          subtasks: changedSubtasks,
-        },
-        isActive: true,
+      setTaskData({
+        ...taskData,
+        subtasksDone: isEverySubtasksDone,
+        subtasks: changedSubtasks,
       });
     }
   };
 
   const editTaskHandler = () => {
-    setIsEditTaskActive(false);
-
-    setTaskModal({
-      ...taskModal,
-      type: "edit",
-      prop: null,
-      isActive: true,
-    });
+    if (boardId && taskId) {
+      navigate(ROUTES.ROUTE_EDIT_TASK(boardId, taskId));
+    }
   };
 
   const deleteTaskHandler = () => {
-    setIsEditTaskActive(false);
-
-    setTaskModal({
-      ...taskModal,
-      type: "delete",
-      prop: null,
-      isActive: true,
-    });
+    if (boardId && taskId) {
+      navigate(ROUTES.ROUTE_DELETE_TASK(boardId, taskId));
+    }
   };
 
   const saveTask = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    dispatch(updateTask(activeTask));
-    closeModal();
+    dispatch(updateTask(taskData));
+    if (boardId) {
+      navigate(ROUTES.ROUTE_BOARD(boardId));
+    }
   };
 
   return (
-    <Overlay>
+    <section>
       <div className={styles.header}>
-        <strong className={styles.header__text}>{activeTask.task}</strong>
+        <strong className={styles.header__text}>{taskData.task}</strong>
 
         <button
           className={styles.header__button}
           onClick={() => setIsEditTaskActive((prev) => !prev)}
         >
-          <HiDotsVertical size={30} />
+          <HiDotsVertical
+            size={30}
+            color={`${pickedTheme === "dark" ? "white" : "black"}`}
+          />
         </button>
 
         {isEditTaskActive && (
@@ -98,9 +114,9 @@ const ShowTask = () => {
           </div>
         )}
       </div>
-      <p className={styles.description}>{activeTask.description}</p>
+      <p className={styles.description}>{taskData.description}</p>
       <ul className={styles.subtasks}>
-        {activeTask.subtasks.map((subtask) => (
+        {taskData.subtasks.map((subtask) => (
           <li
             key={subtask.id}
             className={styles.subtask}
@@ -124,7 +140,7 @@ const ShowTask = () => {
       <SaveButton isSucceed={null} onClick={saveTask}>
         Save Task
       </SaveButton>
-    </Overlay>
+    </section>
   );
 };
 

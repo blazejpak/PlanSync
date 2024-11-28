@@ -3,15 +3,18 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { MdMenu } from "react-icons/md";
 
-import { ROUTES } from "../../utils/routes";
+import { ROUTES } from "../../types/routes";
 import { useRef, useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 
 import styles from "./Nav.module.scss";
+import { DateTime } from "luxon";
+import { DatesZones } from "../../types/dates";
 
 const HomeNav = () => {
   const [menuActive, setMenuActive] = useState(false);
+  const time = DateTime.now().setLocale(DatesZones.LOCALE).toISO().slice(0, 10);
 
   const refMenu = useRef<HTMLDivElement>(null);
   useClickOutside({ ref: refMenu, callback: () => setMenuActive(false) });
@@ -25,7 +28,7 @@ const HomeNav = () => {
         </NavLink>
 
         {user?.email ? (
-          <NavLink to={ROUTES.ROUTE_BOARD} className={styles.button}>
+          <NavLink to={ROUTES.ROUTE_BOARD(time)} className={styles.button}>
             Check your planner
           </NavLink>
         ) : (

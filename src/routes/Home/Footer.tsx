@@ -4,7 +4,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 import styles from "./Footer.module.scss";
 import { Link } from "react-router-dom";
-import { ROUTES } from "../../utils/routes";
+import { ROUTES } from "../../types/routes";
 
 const HomeFooter = () => {
   const logoLink = () => {

@@ -16,12 +16,12 @@ const MobileModal = () => {
 
   return (
     <section className={`${styles.page} ${isStatisticsOpen ? "open" : ""} `}>
-      {typeOfPage === "settings" && <Settings />}
+      {/* {typeOfPage === "settings" && <Settings />}
       {typeOfPage === "calendar" && <MobileCalendar />}
       {typeOfPage === "newTask" && <AddTask />}
-      {typeOfPage === "messages" && <Messages />}
+      {typeOfPage === "messages" && <Messages />} */}
 
-      <NavigationMobile />
+      {/* <NavigationMobile /> */}
     </section>
   );
 };
