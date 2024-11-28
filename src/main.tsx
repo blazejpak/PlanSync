@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Home from "./routes/Home/Home";
 import SignIn from "./routes/Signin/SignIn";
@@ -16,12 +16,13 @@ import Overlay from "./components/modals/Overlay";
 import BoardWrapper from "./routes/Board/BoardWrapper";
 import EditTask from "./components/modals/EditTask/EditTask";
 import DeleteTask from "./components/modals/DeleteTask/DeleteTask";
-import MobileCalendar from "./routes/Board/mobile/MobileCalendar";
+import MobileCalendar from "./routes/Board/mobile/calendar/MobileCalendar";
 import Settings from "./components/modals/Settings/Settings";
-import Messages from "./routes/Board/mobile/Messages";
+import Messages from "./routes/Board/mobile/message/Messages";
 import ShowTask from "./components/modals/ShowTask/ShowTask";
 import Board from "./routes/Board/Board";
 import ErrorBoundary from "./routes/ErrorBoundary";
+import NewMessage from "./routes/Board/mobile/message/NewMessage";
 
 const router = createBrowserRouter([
   {
@@ -96,12 +97,13 @@ const router = createBrowserRouter([
             path: "settings",
             element: <Settings />,
           },
-          {
-            path: "messages",
-            element: <Messages />,
-          },
         ],
       },
+      {
+        path: "messages",
+        element: <Messages />,
+      },
+      { path: "messages/new-message", element: <NewMessage /> },
     ],
   },
 ]);

@@ -12,5 +12,6 @@ export const ROUTES = {
     `/board/${boardId}/t/${taskId}/delete-task`,
   ROUTE_SETTINGS: (boardId: string) => `/board/${boardId}/settings`,
   ROUTE_CALENDAR: (boardId: string) => `/board/${boardId}/calendar`,
-  ROUTE_MESSAGES: (boardId: string) => `/board/${boardId}/messages`,
+  ROUTE_MESSAGES: `/messages`,
+  ROUTE_NEW_MESSAGE: `/messages/new-message`,
 };

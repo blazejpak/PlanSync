@@ -104,9 +104,9 @@ export const AuthenticationContextProvider = ({
           const userData = await CreatePersonalData({
             ...initialCurrentUserData,
             userId: user.uid,
-            email: user.email || "",
+            email: user.email?.toLocaleLowerCase() || "",
             phoneNumber: null,
-            fullName: user.displayName || "",
+            fullName: user.displayName?.toLocaleLowerCase() || "",
           });
           setCurrentUserData(userData);
         }
@@ -133,9 +133,9 @@ export const AuthenticationContextProvider = ({
           const userData = await CreatePersonalData({
             ...initialCurrentUserData,
             userId: user.uid,
-            email: user.email || "",
+            email: user.email?.toLocaleLowerCase() || "",
             phoneNumber: null,
-            fullName: user.displayName || "",
+            fullName: user.displayName?.toLocaleLowerCase() || "",
           });
           setCurrentUserData(userData);
           navigate(ROUTES.ROUTE_BOARD(time), { replace: true });

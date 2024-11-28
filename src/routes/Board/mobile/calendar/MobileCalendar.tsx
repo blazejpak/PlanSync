@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import {
-  pickCurrentDay,
   selectCurrentDay,
   selectRangeDate,
-} from "../../../store/reducers/calendar";
+} from "../../../../store/reducers/calendar";
 import { DateTime, Interval } from "luxon";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 import styles from "./MobileCalendar.module.scss";
-import { selectAllData } from "../../../store/reducers/tasks";
-import StatusDots from "./StatusDots";
-import { useSafeModalContext } from "../../../context/ModalStates";
-import { Category } from "../../../types/task";
-import { useSafeResponsiveContext } from "../../../context/responsive";
-import { ROUTES } from "../../../types/routes";
+import { selectAllData } from "../../../../store/reducers/tasks";
+import { useSafeModalContext } from "../../../../context/ModalStates";
+import { Category } from "../../../../types/task";
+import { useSafeResponsiveContext } from "../../../../context/responsive";
+import { ROUTES } from "../../../../types/routes";
 import { Navigate, useNavigate } from "react-router-dom";
+import StatusDots from "./StatusDots";
 
 const MobileCalendar = () => {
   const currentDay = useAppSelector(selectCurrentDay);
