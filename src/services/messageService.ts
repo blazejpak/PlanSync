@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   endAt,
   getDocs,
@@ -9,19 +10,31 @@ import {
 } from "firebase/firestore";
 import db from "../utils/firebase/firebase";
 import { User } from "../types/user";
+import { Conversation } from "../types/messages";
 
 export const findUserByName = async (name: string): Promise<User[]> => {
   const userRef = collection(db, "Users");
 
-  const tasksQuery = query(
+  const fullNameQuery = query(
     userRef,
-    orderBy("fullName"), // Pole, po którym będzie sortowane i przeszukiwane
+    orderBy("fullName"),
     startAt(name),
-    endAt(name + "\uf8ff") // Firebase hack do wyszukiwania prefiksu
+    endAt(name + "\uf8ff")
   );
-  const tasksSnapshot = await getDocs(tasksQuery);
 
-  return tasksSnapshot.docs.map((doc) => {
+  const emailQuery = query(
+    userRef,
+    orderBy("email"),
+    startAt(name),
+    endAt(name + "\uf8ff")
+  );
+
+  const [emailSnapshot, fullNameSnapshot] = await Promise.all([
+    getDocs(fullNameQuery),
+    getDocs(emailQuery),
+  ]);
+
+  const fullNameResults = fullNameSnapshot.docs.map((doc) => {
     const data = doc.data();
 
     return {
@@ -29,4 +42,55 @@ export const findUserByName = async (name: string): Promise<User[]> => {
       ...data,
     } as User;
   });
+
+  const emailResults = emailSnapshot.docs.map((doc) => {
+    const data = doc.data();
+
+    return {
+      userId: doc.id,
+      ...data,
+    } as User;
+  });
+
+  const results = [
+    ...fullNameResults,
+    ...emailResults.filter(
+      (emailResult) =>
+        !fullNameResults.some(
+          (fullNameResult) => fullNameResult.userId === emailResult.userId
+        )
+    ),
+  ];
+
+  return results;
+};
+
+export const createNewConversation = async (
+  sender: string,
+  receiver: string
+) => {
+  const conversationRef = collection(db, "Conversations");
+
+  const conversationQuery = query(
+    conversationRef,
+    where("participants", "array-contains", sender)
+  );
+
+  const conversationSnapshot = await getDocs(conversationQuery);
+
+  const existingConversation = conversationSnapshot.docs.find((doc) =>
+    doc.data().participants.includes(receiver)
+  );
+
+  if (existingConversation) {
+    return existingConversation.id;
+  }
+
+  const docRef = await addDoc(conversationRef, {
+    participants: [sender, receiver],
+    lastMessage: "",
+    lastTimestamp: "",
+  });
+
+  return docRef.id;
 };

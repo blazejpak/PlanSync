@@ -1,4 +1,5 @@
 import { FaArrowLeft } from "react-icons/fa";
+import { Skeleton } from "@mui/material";
 
 import styles from "./NewMessage.module.scss";
 import { useSafeResponsiveContext } from "../../../../context/responsive";
@@ -9,6 +10,7 @@ import Input from "../../../../components/form/Input";
 import { findUserByName } from "../../../../services/messageService";
 import { useState } from "react";
 import { User } from "../../../../types/user";
+import List from "./List";
 
 const NewMessage = () => {
   const [users, setUsers] = useState<User[]>();
@@ -40,8 +42,6 @@ const NewMessage = () => {
     }
   };
 
-  console.log(users);
-
   return (
     <section className={styles.container}>
       <div className={styles.header}>
@@ -63,7 +63,35 @@ const NewMessage = () => {
         />
       </div>
 
-      <div></div>
+      <div>
+        {loading ? (
+          <div>
+            <Skeleton
+              variant="rounded"
+              height={100}
+              style={{ marginTop: "2rem" }}
+            />
+            <Skeleton
+              variant="rounded"
+              height={100}
+              style={{ marginTop: "2rem" }}
+            />
+            <Skeleton
+              variant="rounded"
+              height={100}
+              style={{ marginTop: "2rem" }}
+            />
+          </div>
+        ) : (
+          <div className={styles.list}>
+            {users?.map((user) => (
+              <li key={user.userId} className={styles.list__item}>
+                <List data={user} />
+              </li>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 };

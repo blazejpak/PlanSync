@@ -23,6 +23,7 @@ import ShowTask from "./components/modals/ShowTask/ShowTask";
 import Board from "./routes/Board/Board";
 import ErrorBoundary from "./routes/ErrorBoundary";
 import NewMessage from "./routes/Board/mobile/message/NewMessage";
+import Conversation from "./routes/Board/mobile/message/Conversation";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,7 @@ const router = createBrowserRouter([
         element: <Messages />,
       },
       { path: "messages/new-message", element: <NewMessage /> },
+      { path: "messages/:conversationId", element: <Conversation /> },
     ],
   },
 ]);

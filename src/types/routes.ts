@@ -14,4 +14,5 @@ export const ROUTES = {
   ROUTE_CALENDAR: (boardId: string) => `/board/${boardId}/calendar`,
   ROUTE_MESSAGES: `/messages`,
   ROUTE_NEW_MESSAGE: `/messages/new-message`,
+  ROUTE_CONVERSATION: (conversationId: string) => `/messages/${conversationId}`,
 };

@@ -1,7 +1,15 @@
 export type Message = {
+  messageId: string;
+  conversationId: string;
   senderId: string;
   receiverId: string;
   messageContent: string;
   timestamp: string;
-  taskId: string;
+};
+
+export type Conversation = {
+  conversationId: string;
+  participants: string[];
+  lastMessage: string;
+  lastTimestamp: string;
 };
