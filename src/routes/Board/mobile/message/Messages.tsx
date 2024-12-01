@@ -7,22 +7,63 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
 import { DateTime } from "luxon";
 import NavigationMobile from "../../../../components/navigation/NavigationMobile";
+import { useEffect, useState } from "react";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+import {
+  findConversationsByUserId,
+  getReceiverData,
+} from "../../../../services/messageService";
+import { Conversation } from "../../../../types/messages";
+import { User } from "../../../../types/user";
+import List from "./List";
+import { Skeleton } from "@mui/material";
 
 const Messages = () => {
   const { isMobile } = useSafeResponsiveContext();
+  const { currentUserData } = useSafeUserContext();
+  const { userId } = currentUserData;
+
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [receivers, setReceivers] = useState<any>([]);
   const today = DateTime.now().toISODate();
   const navigate = useNavigate();
   if (!isMobile) {
     return <Navigate to={ROUTES.ROUTE_BOARD(today)} replace={true} />;
   }
-
   const newMessage = () => {
     navigate(ROUTES.ROUTE_NEW_MESSAGE);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("first");
+
+      const getConversations = await findConversationsByUserId(userId);
+      setConversations(getConversations);
+      console.log(getConversations);
+      const receiversData: { [conversationId: string]: User } = {};
+      for (const conversation of getConversations) {
+        const receiverData = await getReceiverData(
+          userId,
+          conversation.conversationId
+        );
+        receiversData[conversation.conversationId] = receiverData;
+      }
+      console.log(receiversData);
+      setReceivers(receiversData);
+    };
+
+    fetchData();
+
+    const timer = setInterval(fetchData, 30000);
+    return () => clearInterval(timer);
+  }, []);
+
+  console.log(receivers);
+
   return (
     <section className={styles.container}>
-      <div>
+      <div className={styles.messages}>
         <div className={styles.header}>
           <h1 className={styles.heading}>Chats</h1>
           <button className={styles.button} onClick={newMessage}>
@@ -40,7 +81,41 @@ const Messages = () => {
             onChange={() => {}}
           />
         </div>
-        <div className={styles.messages}></div>
+        <ul className={styles.list}>
+          {conversations.length > 0 &&
+            conversations.map((conversation) => {
+              const receiver = receivers[conversation.conversationId] as User;
+
+              return (
+                <div
+                  key={conversation.conversationId}
+                  className={styles.list__item}
+                >
+                  {receiver ? (
+                    <List data={receiver} />
+                  ) : (
+                    <div>
+                      <Skeleton
+                        variant="rounded"
+                        height={100}
+                        style={{ marginTop: "2rem" }}
+                      />
+                      <Skeleton
+                        variant="rounded"
+                        height={100}
+                        style={{ marginTop: "2rem" }}
+                      />
+                      <Skeleton
+                        variant="rounded"
+                        height={100}
+                        style={{ marginTop: "2rem" }}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+        </ul>
       </div>
       <NavigationMobile />
     </section>

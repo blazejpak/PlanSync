@@ -10,6 +10,7 @@ import { ROUTES } from "../../../../types/routes";
 const List = ({ data }: { data: User }) => {
   const { currentUserData } = useSafeUserContext();
   const navigate = useNavigate();
+  console.log(data);
 
   if (data.userId === currentUserData.userId) return null;
 
@@ -45,9 +46,9 @@ const List = ({ data }: { data: User }) => {
         </div>
       </div>
 
-      <button className={styles.button}>
+      <div className={styles.button}>
         <FaArrowRight size={24} />
-      </button>
+      </div>
     </button>
   );
 };

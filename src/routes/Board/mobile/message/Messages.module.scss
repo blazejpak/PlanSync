@@ -17,6 +17,12 @@
     grid-template-rows: 1fr 10rem;
   }
 
+  .messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
   .header {
     align-items: center;
     display: flex;
@@ -47,6 +53,18 @@
           color: var(--bg-button);
         }
       }
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.2rem;
+
+    &__item {
+      display: flex;
+      flex-direction: column;
     }
   }
 }

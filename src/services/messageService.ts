@@ -1,7 +1,9 @@
 import {
   addDoc,
   collection,
+  doc,
   endAt,
+  getDoc,
   getDocs,
   orderBy,
   query,
@@ -93,4 +95,44 @@ export const createNewConversation = async (
   });
 
   return docRef.id;
+};
+
+export const findConversationsByUserId = async (id: string) => {
+  const userRef = collection(db, "Conversations");
+
+  const conversationsQuery = query(
+    userRef,
+    where("participants", "array-contains", id)
+  );
+
+  const conversationsSnapshot = await getDocs(conversationsQuery);
+
+  return conversationsSnapshot.docs.map((doc) => {
+    const data = doc.data();
+
+    return {
+      conversationId: doc.id,
+      ...data,
+    } as Conversation;
+  });
+};
+
+export const getReceiverData = async (
+  senderId: string,
+  conversationId: string
+) => {
+  const conversationRef = doc(db, "Conversations", conversationId);
+  const conversationDoc = await getDoc(conversationRef);
+
+  const data = conversationDoc.data() as Conversation;
+
+  const receiverId = data.participants.find((id) => id !== senderId);
+
+  const userRef = collection(db, "Users");
+  const userQuery = query(userRef, where("userId", "==", receiverId));
+
+  const userSnapshot = await getDocs(userQuery);
+  const userData = userSnapshot.docs[0].data();
+
+  return userData as User;
 };
