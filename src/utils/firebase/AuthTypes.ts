@@ -30,4 +30,5 @@ export interface PersonalDataProps {
     fontFamily: "Rubik" | "Lora" | "Montserrat";
     fontSize: "small" | "medium" | "large";
   };
+  profileImage: string;
 }

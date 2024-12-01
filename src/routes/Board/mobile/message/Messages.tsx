@@ -3,7 +3,7 @@ import Input from "../../../../components/form/Input";
 import { FaPen } from "react-icons/fa6";
 import styles from "./Messages.module.scss";
 import { useSafeResponsiveContext } from "../../../../context/responsive";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
 import { DateTime } from "luxon";
 import NavigationMobile from "../../../../components/navigation/NavigationMobile";
@@ -36,8 +36,6 @@ const Messages = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("first");
-
       const getConversations = await findConversationsByUserId(userId);
       setConversations(getConversations);
       console.log(getConversations);
@@ -49,7 +47,6 @@ const Messages = () => {
         );
         receiversData[conversation.conversationId] = receiverData;
       }
-      console.log(receiversData);
       setReceivers(receiversData);
     };
 
@@ -58,8 +55,6 @@ const Messages = () => {
     const timer = setInterval(fetchData, 30000);
     return () => clearInterval(timer);
   }, []);
-
-  console.log(receivers);
 
   return (
     <section className={styles.container}>

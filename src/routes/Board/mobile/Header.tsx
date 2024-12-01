@@ -15,7 +15,8 @@ import { CgClose } from "react-icons/cg";
 import { Category } from "../../../types/task";
 
 const Header = () => {
-  const { user, SignOut } = useSafeUserContext();
+  const { user, SignOut, currentUserData } = useSafeUserContext();
+  const { profileImage } = currentUserData;
   const { pickedTheme } = useSafeSettingsContext();
   const { typeCategory, changeCategory } = useSafeModalContext();
   const currentDay = useAppSelector(selectCurrentDay);
@@ -39,7 +40,7 @@ const Header = () => {
     <section className={styles.header}>
       <div className={styles.icons}>
         <button className={styles.button}>
-          <ProfilePhoto />
+          <ProfilePhoto profileImage={profileImage} />
         </button>
         <strong>{currentDay}</strong>
         <button

@@ -6,11 +6,11 @@ import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 import { createNewConversation } from "../../../../services/messageService";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
+import { ProfilePhoto } from "../../../../helpers/ProfilePhoto";
 
 const List = ({ data }: { data: User }) => {
   const { currentUserData } = useSafeUserContext();
   const navigate = useNavigate();
-  console.log(data);
 
   if (data.userId === currentUserData.userId) return null;
 
@@ -35,6 +35,8 @@ const List = ({ data }: { data: User }) => {
       className={styles.container}
       onClick={() => newConversation(data.userId)}
     >
+      <ProfilePhoto profileImage={data.profileImage} />
+
       <div className={styles.list}>
         <div>
           <p>Name: </p>

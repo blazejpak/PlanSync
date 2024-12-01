@@ -67,9 +67,12 @@ const router = createBrowserRouter([
               {
                 path: "",
                 element: (
-                  <Overlay>
-                    <ShowTask />
-                  </Overlay>
+                  <>
+                    <Board />
+                    <Overlay>
+                      <ShowTask />
+                    </Overlay>
+                  </>
                 ),
               },
               {

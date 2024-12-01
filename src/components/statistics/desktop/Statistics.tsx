@@ -20,7 +20,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../types/routes";
 
 const Statistics = () => {
-  const { SignOut } = useSafeUserContext();
+  const { SignOut, currentUserData } = useSafeUserContext();
+  const { profileImage } = currentUserData;
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
@@ -30,7 +32,8 @@ const Statistics = () => {
   const logout = () => {
     SignOut();
   };
-
+  console.log(profileImage);
+  console.log(currentUserData);
   const iconColor = pickedTheme === "dark" ? "white" : "black";
 
   return (
@@ -43,7 +46,7 @@ const Statistics = () => {
             className={`${styles.buttons} ${isStatisticsOpen && styles.open}`}
           >
             <button className={styles.profile__icon}>
-              <ProfilePhoto />
+              <ProfilePhoto profileImage={profileImage} />
             </button>
             <button
               className={styles.profile__button}

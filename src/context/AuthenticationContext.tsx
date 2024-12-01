@@ -51,6 +51,7 @@ const initialCurrentUserData: PersonalDataProps = {
     fontFamily: "Rubik",
     fontSize: "medium",
   },
+  profileImage: "",
 };
 
 const initialData: InitialDataProps = {
@@ -93,7 +94,7 @@ export const AuthenticationContextProvider = ({
       const result = await signInWithPopup(firebaseAuth, googleProvider);
 
       const user = result.user;
-
+      console.log(user);
       if (user) {
         setCurrentUser(user);
 
@@ -107,6 +108,7 @@ export const AuthenticationContextProvider = ({
             email: user.email?.toLocaleLowerCase() || "",
             phoneNumber: null,
             fullName: user.displayName?.toLocaleLowerCase() || "",
+            profileImage: user.photoURL || "",
           });
           setCurrentUserData(userData);
         }
@@ -136,6 +138,7 @@ export const AuthenticationContextProvider = ({
             email: user.email?.toLocaleLowerCase() || "",
             phoneNumber: null,
             fullName: user.displayName?.toLocaleLowerCase() || "",
+            profileImage: "",
           });
           setCurrentUserData(userData);
           navigate(ROUTES.ROUTE_BOARD(time), { replace: true });
