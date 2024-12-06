@@ -8,7 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
 import { ProfilePhoto } from "../../../../helpers/ProfilePhoto";
 
-const List = ({ data }: { data: User }) => {
+const List = ({
+  data,
+  typeOfList,
+}: {
+  data: User;
+  typeOfList: "searchList" | "conversationList";
+}) => {
   const { currentUserData } = useSafeUserContext();
   const navigate = useNavigate();
 
@@ -35,7 +41,9 @@ const List = ({ data }: { data: User }) => {
       className={styles.container}
       onClick={() => newConversation(data.userId)}
     >
-      <ProfilePhoto profileImage={data.profileImage} />
+      {typeOfList === "searchList" && (
+        <ProfilePhoto profileImage={data.profileImage} />
+      )}
 
       <div className={styles.list}>
         <div>

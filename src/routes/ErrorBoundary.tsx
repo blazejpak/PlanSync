@@ -8,9 +8,9 @@ const ErrorBoundary = () => {
   const { boardId } = useParams<{ boardId: string }>();
   const path = useLocation().pathname;
 
-  if (!boardId || path === "/board") {
-    return <Navigate to={`${ROUTES.ROUTE_BOARD(time)}`} replace={true} />;
-  }
+  // if (!boardId || path === "/board") {
+  //   return <Navigate to={`${ROUTES.ROUTE_BOARD(time)}`} replace={true} />;
+  // }
 
   return <div>ErrorBoundary</div>;
 };

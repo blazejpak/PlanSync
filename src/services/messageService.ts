@@ -7,12 +7,13 @@ import {
   getDocs,
   orderBy,
   query,
+  serverTimestamp,
   startAt,
   where,
 } from "firebase/firestore";
 import db from "../utils/firebase/firebase";
 import { User } from "../types/user";
-import { Conversation } from "../types/messages";
+import { Conversation, Message } from "../types/messages";
 
 export const findUserByName = async (name: string): Promise<User[]> => {
   const userRef = collection(db, "Users");
@@ -135,4 +136,22 @@ export const getReceiverData = async (
   const userData = userSnapshot.docs[0].data();
 
   return userData as User;
+};
+
+export const getMessages = async (conversationId: string) => {};
+
+export const sendMessage = async (
+  message: Omit<Message, "messageId,timestamp">
+) => {
+  const messagesRef = collection(db, "Messages");
+
+  const addMessage = await addDoc(messagesRef, {
+    conversationId: message.conversationId,
+    senderId: message.senderId,
+    receiverId: message.receiverId,
+    messageContent: message.messageContent,
+    timestamp: serverTimestamp(),
+  });
+
+  return addMessage.id;
 };

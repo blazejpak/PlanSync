@@ -1,7 +1,9 @@
 import Input from "../../../../components/form/Input";
 
 import { FaPen } from "react-icons/fa6";
+import { PiEmpty } from "react-icons/pi";
 import styles from "./Messages.module.scss";
+
 import { useSafeResponsiveContext } from "../../../../context/responsive";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
@@ -78,6 +80,7 @@ const Messages = () => {
         </div>
         <ul className={styles.list}>
           {conversations.length > 0 &&
+          conversations.some((conversation) => conversation.lastMessage) ? (
             conversations.map((conversation) => {
               const receiver = receivers[conversation.conversationId] as User;
 
@@ -87,7 +90,7 @@ const Messages = () => {
                   className={styles.list__item}
                 >
                   {receiver ? (
-                    <List data={receiver} />
+                    <List data={receiver} typeOfList="conversationList" />
                   ) : (
                     <div>
                       <Skeleton
@@ -109,7 +112,13 @@ const Messages = () => {
                   )}
                 </div>
               );
-            })}
+            })
+          ) : (
+            <div className={styles.list__empty}>
+              <p>Can't find any conversations.</p>
+              <PiEmpty size={48} />
+            </div>
+          )}
         </ul>
       </div>
       <NavigationMobile />

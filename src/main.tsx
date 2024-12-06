@@ -57,12 +57,7 @@ const router = createBrowserRouter([
           },
           {
             path: "t/:taskId",
-            // element: (
-            //   <>
-            //     {/* <Board /> */}
-            //     <Outlet />
-            //   </>
-            // ),
+
             children: [
               {
                 path: "",

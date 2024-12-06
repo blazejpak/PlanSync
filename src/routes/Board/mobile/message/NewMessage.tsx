@@ -32,7 +32,6 @@ const NewMessage = () => {
       if (text.length >= 3) {
         setLoading(true);
         const findUsersByName = await findUserByName(text.toLocaleLowerCase());
-        console.log(findUsersByName);
         setUsers(findUsersByName);
       }
     } catch (error) {
@@ -86,7 +85,7 @@ const NewMessage = () => {
           <div className={styles.list}>
             {users?.map((user) => (
               <li key={user.userId} className={styles.list__item}>
-                <List data={user} />
+                <List data={user} typeOfList="searchList" />
               </li>
             ))}
           </div>
