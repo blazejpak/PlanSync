@@ -10,11 +10,14 @@ import {
   query,
   serverTimestamp,
   startAt,
+  Timestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import db from "../utils/firebase/firebase";
 import { User } from "../types/user";
 import { Conversation, Message } from "../types/messages";
+import { DateTime } from "luxon";
 
 export const findUserByName = async (name: string): Promise<User[]> => {
   const userRef = collection(db, "Users");
@@ -93,10 +96,23 @@ export const createNewConversation = async (
   const docRef = await addDoc(conversationRef, {
     participants: [sender, receiver],
     lastMessage: "",
-    lastTimestamp: "",
+    timestamp: "",
   });
 
   return docRef.id;
+};
+
+export const updateConversation = async (
+  conversationId: string,
+  lastMessage: string,
+  timestamp: string
+) => {
+  const conversationRef = doc(db, "Conversations", conversationId);
+
+  await updateDoc(conversationRef, {
+    lastMessage: lastMessage,
+    timestamp: timestamp,
+  });
 };
 
 export const findConversationsByUserId = async (id: string) => {
@@ -166,7 +182,7 @@ export const getMessages = (
 };
 
 export const sendMessage = async (
-  message: Omit<Message, "messageId,timestamp">
+  message: Omit<Message, "messageId" | "timestamp">
 ) => {
   const messagesRef = collection(db, "Messages");
 
@@ -178,5 +194,13 @@ export const sendMessage = async (
     timestamp: serverTimestamp(),
   });
 
-  return addMessage.id;
+  const messageSnapshot = await getDoc(addMessage);
+  const messageData = messageSnapshot.data();
+
+  return {
+    ...messageData,
+
+    messageId: addMessage.id,
+    timestamp: messageData?.timestamp,
+  } as Message;
 };

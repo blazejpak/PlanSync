@@ -19,10 +19,8 @@ import { Conversation } from "../../../../types/messages";
 import { User } from "../../../../types/user";
 import List from "./List";
 import { Skeleton } from "@mui/material";
-import { GetSettingsData } from "../../../../helpers/GetSettingsData";
 
 const Messages = () => {
-  GetSettingsData();
   const { isMobile } = useSafeResponsiveContext();
 
   const { currentUserData } = useSafeUserContext();
@@ -61,6 +59,8 @@ const Messages = () => {
     const timer = setInterval(fetchData, 30000);
     return () => clearInterval(timer);
   }, []);
+
+  console.log(conversations);
 
   return (
     <section className={styles.container}>

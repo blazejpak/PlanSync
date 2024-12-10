@@ -7,13 +7,9 @@ import Application from "./Application/Application";
 import Account from "./Account/Account";
 import { useSafeResponsiveContext } from "../../../context/responsive";
 import Overlay from "../Overlay";
-import { GetSettingsData } from "../../../helpers/GetSettingsData";
 
 const Settings = () => {
   const { isMobile } = useSafeResponsiveContext();
-  if (isMobile) {
-    GetSettingsData();
-  }
 
   const [isAppOptionsActive, setIsAppOptionsActive] = useState(false);
   const [isAccountOptionsActive, setIsAccountOptionsActive] = useState(false);

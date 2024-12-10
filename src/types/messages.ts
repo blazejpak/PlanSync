@@ -11,5 +11,5 @@ export type Conversation = {
   conversationId: string;
   participants: string[];
   lastMessage: string;
-  lastTimestamp: string;
+  timestamp: string;
 };

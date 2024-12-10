@@ -2,7 +2,7 @@ import profileImg from "../assets/profile-icon.png";
 import { useEffect, useState } from "react";
 
 type ProfilePhoto = {
-  profileImage: string;
+  profileImage: string | undefined;
 };
 
 export const ProfilePhoto = ({ profileImage }: ProfilePhoto) => {
