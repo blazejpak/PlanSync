@@ -19,9 +19,12 @@ import { Conversation } from "../../../../types/messages";
 import { User } from "../../../../types/user";
 import List from "./List";
 import { Skeleton } from "@mui/material";
+import { GetSettingsData } from "../../../../helpers/GetSettingsData";
 
 const Messages = () => {
+  GetSettingsData();
   const { isMobile } = useSafeResponsiveContext();
+
   const { currentUserData } = useSafeUserContext();
   const { userId } = currentUserData;
 
@@ -29,6 +32,7 @@ const Messages = () => {
   const [receivers, setReceivers] = useState<any>([]);
   const today = DateTime.now().toISODate();
   const navigate = useNavigate();
+
   if (!isMobile) {
     return <Navigate to={ROUTES.ROUTE_BOARD(today)} replace={true} />;
   }

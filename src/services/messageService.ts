@@ -5,6 +5,7 @@ import {
   endAt,
   getDoc,
   getDocs,
+  onSnapshot,
   orderBy,
   query,
   serverTimestamp,
@@ -138,7 +139,31 @@ export const getReceiverData = async (
   return userData as User;
 };
 
-export const getMessages = async (conversationId: string) => {};
+export const getMessages = (
+  conversationId: string,
+  updateData: (messages: Message[]) => void
+) => {
+  const messagesRef = collection(db, "Messages");
+
+  const messagesQuery = query(
+    messagesRef,
+    where("conversationsId", "==", conversationId),
+    orderBy("timestamp", "asc")
+  );
+
+  const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
+    const messages: Message[] = [];
+    snapshot.forEach((doc) => {
+      messages.push({
+        messageId: doc.id,
+        ...doc.data(),
+      } as Message);
+    });
+    updateData(messages);
+  });
+
+  return unsubscribe;
+};
 
 export const sendMessage = async (
   message: Omit<Message, "messageId,timestamp">

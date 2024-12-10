@@ -1,18 +1,26 @@
-import { useLocation } from "react-router-dom";
-import { useSafeMobileContext } from "../../../context/MobileStates";
+import TaskList from "../TaskList";
+import StatisticsMobile from "../../../components/statistics/mobile/StatisticsMobile";
+import NavigationMobile from "../../../components/navigation/NavigationMobile";
 
-import MobileHome from "./MobileHome";
-import MobileModal from "./MobileModal";
-import AddTask from "../../../components/modals/AddTask/AddTask";
+import { useAppSelector } from "../../../store/hooks";
+import { selectIsStatisticsOpen } from "../../../store/reducers/statistics";
+
+import styles from "./Mobile.module.scss";
+import Header from "./Header";
 
 const Mobile = () => {
-  const { typeOfPage } = useSafeMobileContext();
+  const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
 
-  const path = useLocation().pathname.split("/").pop();
-
-  // return typeOfPage === "home" ? <MobileHome /> : <MobileModal />;
-
-  return <MobileHome />;
+  return (
+    <section className={`${styles.page}`}>
+      <Header />
+      <StatisticsMobile />
+      <section className={`${styles.board} ${isStatisticsOpen ? "open" : ""}`}>
+        <strong className={styles.heading}>Task overview </strong>
+        <TaskList />
+      </section>
+    </section>
+  );
 };
 
 export default Mobile;

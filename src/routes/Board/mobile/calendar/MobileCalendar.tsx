@@ -15,15 +15,16 @@ import { useSafeResponsiveContext } from "../../../../context/responsive";
 import { ROUTES } from "../../../../types/routes";
 import { Navigate, useNavigate } from "react-router-dom";
 import StatusDots from "./StatusDots";
+import { GetSettingsData } from "../../../../helpers/GetSettingsData";
 
 const MobileCalendar = () => {
+  GetSettingsData();
   const currentDay = useAppSelector(selectCurrentDay);
 
   const { isMobile } = useSafeResponsiveContext();
   if (!isMobile)
     return <Navigate to={ROUTES.ROUTE_BOARD(currentDay)} replace={true} />;
 
-  const dispatch = useAppDispatch();
   const rangeTaskDate = useAppSelector(selectRangeDate);
   const [pickedDay, setPickedDay] = useState("");
   const data = useAppSelector(selectAllData);
@@ -148,8 +149,6 @@ const MobileCalendar = () => {
           </div>
         ))}
       </div>
-
-      {/* {isLoading && <Loading />} */}
     </section>
   );
 };

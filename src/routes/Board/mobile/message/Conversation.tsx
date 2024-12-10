@@ -4,13 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 import { User } from "../../../../types/user";
-import { getReceiverData } from "../../../../services/messageService";
+import {
+  getMessages,
+  getReceiverData,
+} from "../../../../services/messageService";
 import { ProfilePhoto } from "../../../../helpers/ProfilePhoto";
 import { ROUTES } from "../../../../types/routes";
+import { Message } from "../../../../types/messages";
 
 const Conversation = () => {
   const { currentUserData } = useSafeUserContext();
-  const [data, setData] = useState();
+  const [data, setData] = useState<Message[]>([]);
   const [receiver, setReceiver] = useState<User>();
   const navigate = useNavigate();
   const { conversationId } = useParams<{ conversationId: string }>();
@@ -27,7 +31,11 @@ const Conversation = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {}, [conversationId]);
+  useEffect(() => {
+    const unsubscribe = getMessages(conversationId, setData);
+
+    return () => unsubscribe();
+  }, [conversationId]);
 
   const sendMessage = () => {};
 
@@ -38,7 +46,7 @@ const Conversation = () => {
   return (
     <section className={styles.container}>
       <div className={styles.header}>
-        <button className={styles.button__return}>
+        <button className={styles.button__return} onClick={back}>
           <FaArrowLeft size={32} />
         </button>
 

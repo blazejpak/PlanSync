@@ -7,7 +7,6 @@ type ProfilePhoto = {
 
 export const ProfilePhoto = ({ profileImage }: ProfilePhoto) => {
   const [profilePhoto, setProfilePhoto] = useState(profileImg);
-  console.log(profileImage);
   useEffect(() => {
     const loadProfilePhoto = async () => {
       if (profileImage && typeof profileImage === "string") {
