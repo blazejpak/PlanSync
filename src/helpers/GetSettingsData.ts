@@ -1,5 +1,6 @@
 import { useSafeUserContext } from "../context/AuthenticationContext";
 import { useSafeSettingsContext } from "../context/Settings";
+import { PickedFont, PickedFontSize, PickedTheme } from "../types/settings";
 import { getPersonalData } from "../utils/firebase/AuthService";
 
 export const GetSettingsData = async () => {
@@ -7,6 +8,14 @@ export const GetSettingsData = async () => {
     useSafeSettingsContext();
 
   const { currentUserData } = useSafeUserContext();
+
+  const theme = localStorage.getItem("theme") as PickedTheme;
+  const fontFamily = localStorage.getItem("fontFamily") as PickedFont;
+  const fontSize = localStorage.getItem("fontSize") as PickedFontSize;
+
+  if (theme && fontFamily && fontSize) {
+    return;
+  }
 
   if (currentUserData.userId) {
     const userData = await getPersonalData(currentUserData.userId);

@@ -11,8 +11,10 @@ import {
 import { ProfilePhoto } from "../../../../helpers/ProfilePhoto";
 import { ROUTES } from "../../../../types/routes";
 import { Message } from "../../../../types/messages";
+import { GetSettingsData } from "../../../../helpers/GetSettingsData";
 
 const Conversation = () => {
+  GetSettingsData();
   const { currentUserData } = useSafeUserContext();
   const [data, setData] = useState<Message[]>([]);
   const [receiver, setReceiver] = useState<User>();
