@@ -2,20 +2,23 @@ import { FaCircleInfo, FaArrowLeft } from "react-icons/fa6";
 import styles from "./Conversation.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useSafeUserContext } from "../../../../context/AuthenticationContext";
-import { User } from "../../../../types/user";
+import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
+import { User } from "../../../../../types/user";
 import {
   getMessages,
   getReceiverData,
   sendMessage,
   updateConversation,
-} from "../../../../services/messageService";
-import { ProfilePhoto } from "../../../../helpers/ProfilePhoto";
-import { ROUTES } from "../../../../types/routes";
-import { Message } from "../../../../types/messages";
-import { GetSettingsData } from "../../../../helpers/GetSettingsData";
+} from "../../../../../services/messageService";
+import { ProfilePhoto } from "../../../../../helpers/ProfilePhoto";
+import { ROUTES } from "../../../../../types/routes";
+import { Message } from "../../../../../types/messages";
+import { GetSettingsData } from "../../../../../helpers/GetSettingsData";
+import { IoSend } from "react-icons/io5";
+import { CheckIsMobile } from "../../../../../helpers/CheckIsMobile";
 
 const Conversation = () => {
+  CheckIsMobile();
   GetSettingsData();
   const { currentUserData } = useSafeUserContext();
   const [data, setData] = useState<Message[]>([]);
@@ -31,6 +34,7 @@ const Conversation = () => {
         currentUserData.userId,
         conversationId
       );
+      console.log(receiverData);
       setReceiver(receiverData);
     };
     fetchData();
@@ -68,7 +72,12 @@ const Conversation = () => {
     navigate(ROUTES.ROUTE_MESSAGES);
   };
 
-  console.log(messageText);
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const textarea = e.target;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+    setMessageText(textarea.value);
+  };
 
   return (
     <section className={styles.container}>
@@ -89,15 +98,16 @@ const Conversation = () => {
         </button>
       </div>
       <div></div>
-      <form onSubmit={sendMessageSubmit}>
-        <input
-          type="text"
+      <form onSubmit={sendMessageSubmit} className={styles.form}>
+        <textarea
+          className={styles.input}
           value={messageText}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setMessageText(e.target.value)
-          }
+          onChange={handleInputChange}
+          rows={1}
         />
-        <button>send</button>
+        <button type="submit">
+          <IoSend />
+        </button>
       </form>
     </section>
   );

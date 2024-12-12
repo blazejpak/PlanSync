@@ -2,7 +2,7 @@ import NavigationMobile from "../../../components/navigation/NavigationMobile";
 import Settings from "../../../components/modals/Settings/Settings";
 import MobileCalendar from "./MobileCalendar";
 import AddTask from "../../../components/modals/AddTask/AddTask";
-import Messages from "./message/Messages";
+import Messages from "./message/Conversations";
 
 import { useAppSelector } from "../../../store/hooks";
 import { selectIsStatisticsOpen } from "../../../store/reducers/statistics";

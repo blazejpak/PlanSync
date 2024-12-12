@@ -18,12 +18,12 @@ import EditTask from "./components/modals/EditTask/EditTask";
 import DeleteTask from "./components/modals/DeleteTask/DeleteTask";
 import MobileCalendar from "./routes/Board/mobile/calendar/MobileCalendar";
 import Settings from "./components/modals/Settings/Settings";
-import Messages from "./routes/Board/mobile/message/Messages";
 import ShowTask from "./components/modals/ShowTask/ShowTask";
 import Board from "./routes/Board/Board";
 import ErrorBoundary from "./routes/ErrorBoundary";
 import NewMessage from "./routes/Board/mobile/message/NewMessage";
-import Conversation from "./routes/Board/mobile/message/Conversation";
+import Conversation from "./routes/Board/mobile/message/conversation/Conversation";
+import Conversations from "./routes/Board/mobile/message/Conversations";
 
 const router = createBrowserRouter([
   {
@@ -100,7 +100,7 @@ const router = createBrowserRouter([
       },
       {
         path: "messages",
-        element: <Messages />,
+        element: <Conversations />,
       },
       { path: "messages/new-message", element: <NewMessage /> },
       { path: "messages/:conversationId", element: <Conversation /> },

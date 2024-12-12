@@ -2,12 +2,10 @@ import Input from "../../../../components/form/Input";
 
 import { FaPen } from "react-icons/fa6";
 import { PiEmpty } from "react-icons/pi";
-import styles from "./Messages.module.scss";
+import styles from "./Conversations.module.scss";
 
-import { useSafeResponsiveContext } from "../../../../context/responsive";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
-import { DateTime } from "luxon";
 import NavigationMobile from "../../../../components/navigation/NavigationMobile";
 import { useEffect, useState } from "react";
 import { useSafeUserContext } from "../../../../context/AuthenticationContext";
@@ -19,21 +17,18 @@ import { Conversation } from "../../../../types/messages";
 import { User } from "../../../../types/user";
 import List from "./List";
 import { Skeleton } from "@mui/material";
+import { CheckIsMobile } from "../../../../helpers/CheckIsMobile";
 
-const Messages = () => {
-  const { isMobile } = useSafeResponsiveContext();
+const Conversations = () => {
+  CheckIsMobile();
 
   const { currentUserData } = useSafeUserContext();
   const { userId } = currentUserData;
 
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [receivers, setReceivers] = useState<any>([]);
-  const today = DateTime.now().toISODate();
   const navigate = useNavigate();
 
-  if (!isMobile) {
-    return <Navigate to={ROUTES.ROUTE_BOARD(today)} replace={true} />;
-  }
   const newMessage = () => {
     navigate(ROUTES.ROUTE_NEW_MESSAGE);
   };
@@ -130,4 +125,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default Conversations;
