@@ -37,7 +37,6 @@ const Conversations = () => {
     const fetchData = async () => {
       const getConversations = await findConversationsByUserId(userId);
       setConversations(getConversations);
-      console.log(getConversations);
       const receiversData: { [conversationId: string]: User } = {};
       for (const conversation of getConversations) {
         const receiverData = await getReceiverData(
@@ -54,8 +53,6 @@ const Conversations = () => {
     const timer = setInterval(fetchData, 30000);
     return () => clearInterval(timer);
   }, []);
-
-  console.log(conversations);
 
   return (
     <section className={styles.container}>

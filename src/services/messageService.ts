@@ -17,7 +17,6 @@ import {
 import db from "../utils/firebase/firebase";
 import { User } from "../types/user";
 import { Conversation, Message } from "../types/messages";
-import { DateTime } from "luxon";
 
 export const findUserByName = async (name: string): Promise<User[]> => {
   const userRef = collection(db, "Users");
@@ -143,8 +142,8 @@ export const getReceiverData = async (
   const conversationDoc = await getDoc(conversationRef);
 
   const data = conversationDoc.data() as Conversation;
-
-  const receiverId = data.participants.find((id) => id !== senderId);
+  const participants = data.participants;
+  const receiverId = participants.find((id) => id !== senderId);
 
   const userRef = collection(db, "Users");
   const userQuery = query(userRef, where("userId", "==", receiverId));
@@ -163,9 +162,11 @@ export const getMessages = (
 
   const messagesQuery = query(
     messagesRef,
-    where("conversationsId", "==", conversationId),
+    where("conversationId", "==", conversationId),
     orderBy("timestamp", "asc")
   );
+
+  console.log(messagesQuery);
 
   const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
     const messages: Message[] = [];
@@ -175,6 +176,7 @@ export const getMessages = (
         ...doc.data(),
       } as Message);
     });
+    console.log(messages);
     updateData(messages);
   });
 

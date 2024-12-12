@@ -16,6 +16,7 @@ import { Message } from "../../../../../types/messages";
 import { GetSettingsData } from "../../../../../helpers/GetSettingsData";
 import { IoSend } from "react-icons/io5";
 import { CheckIsMobile } from "../../../../../helpers/CheckIsMobile";
+import ChatBubble from "./ChatBubble";
 
 const Conversation = () => {
   CheckIsMobile();
@@ -30,26 +31,27 @@ const Conversation = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const receiverData = await getReceiverData(
-        currentUserData.userId,
-        conversationId
-      );
-      console.log(receiverData);
-      setReceiver(receiverData);
+      if (currentUserData.userId) {
+        const receiverData = await getReceiverData(
+          currentUserData.userId,
+          conversationId
+        );
+        setReceiver(receiverData);
+      }
     };
     fetchData();
-  }, []);
+  }, [currentUserData.userId]);
 
   useEffect(() => {
     const unsubscribe = getMessages(conversationId, setData);
-
+    console.log(data);
     return () => unsubscribe();
   }, [conversationId]);
 
   const sendMessageSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (receiver?.userId && currentUserData.userId) {
+    if (receiver?.userId && currentUserData.userId && messageText.trim()) {
       const message = await sendMessage({
         conversationId,
         messageContent: messageText,
@@ -97,7 +99,11 @@ const Conversation = () => {
           <FaCircleInfo size={32} />
         </button>
       </div>
-      <div></div>
+      <ul>
+        {data.map((message) => {
+          return <ChatBubble key={message.messageId} data={message} />;
+        })}
+      </ul>
       <form onSubmit={sendMessageSubmit} className={styles.form}>
         <textarea
           className={styles.input}
