@@ -9,9 +9,12 @@ import styles from "./NavigationMobile.module.scss";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../types/routes";
 import { DateTime } from "luxon";
+import { useSafeUserContext } from "../../context/AuthenticationContext";
 
 const NavigationMobile = () => {
   const path = useLocation().pathname;
+  const { currentUserData } = useSafeUserContext();
+  const { userId } = currentUserData;
 
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
@@ -49,8 +52,8 @@ const NavigationMobile = () => {
         <IoSettingsOutline />
       </button>
       <button
-        onClick={() => navigate(ROUTES.ROUTE_MESSAGES)}
-        className={`${path === ROUTES.ROUTE_MESSAGES && styles.active}`}
+        onClick={() => navigate(ROUTES.ROUTE_MESSAGES(userId))}
+        className={`${path === ROUTES.ROUTE_MESSAGES(userId) && styles.active}`}
       >
         <FaRegMessage />
       </button>

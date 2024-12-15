@@ -24,6 +24,7 @@ import ErrorBoundary from "./routes/ErrorBoundary";
 import NewMessage from "./routes/Board/mobile/message/NewMessage";
 import Conversation from "./routes/Board/mobile/message/conversation/Conversation";
 import Conversations from "./routes/Board/mobile/message/Conversations";
+import ConversationLoader from "./routes/Board/mobile/message/ConversationLoader";
 
 const router = createBrowserRouter([
   {
@@ -99,11 +100,12 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "messages",
+        path: "messages/:userId",
         element: <Conversations />,
+        loader: ConversationLoader,
       },
-      { path: "messages/new-message", element: <NewMessage /> },
-      { path: "messages/:conversationId", element: <Conversation /> },
+      { path: "messages/:userId/new-message", element: <NewMessage /> },
+      { path: "messages/:userId/:conversationId", element: <Conversation /> },
     ],
   },
 ]);

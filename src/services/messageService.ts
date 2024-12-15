@@ -134,6 +134,32 @@ export const findConversationsByUserId = async (id: string) => {
   });
 };
 
+export const subscribeConversationsByUserId = (
+  userId: string,
+  updateData: (conversations: Conversation[]) => void
+) => {
+  const userRef = collection(db, "Conversations");
+
+  const conversationsQuery = query(
+    userRef,
+    where("participants", "array-contains", userId)
+  );
+
+  const unsubscribe = onSnapshot(conversationsQuery, (snapshot) => {
+    const conversations: Conversation[] = [];
+    snapshot.forEach((doc) => {
+      conversations.push({
+        conversationId: doc.id,
+        ...doc.data(),
+      } as Conversation);
+    });
+    console.log(conversations);
+    updateData(conversations);
+  });
+
+  return unsubscribe;
+};
+
 export const getReceiverData = async (
   senderId: string,
   conversationId: string
@@ -165,8 +191,6 @@ export const getMessages = (
     where("conversationId", "==", conversationId),
     orderBy("timestamp", "asc")
   );
-
-  console.log(messagesQuery);
 
   const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
     const messages: Message[] = [];

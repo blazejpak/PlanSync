@@ -44,7 +44,6 @@ const Conversation = () => {
 
   useEffect(() => {
     const unsubscribe = getMessages(conversationId, setData);
-    console.log(data);
     return () => unsubscribe();
   }, [conversationId]);
 
@@ -71,7 +70,7 @@ const Conversation = () => {
   };
 
   const back = () => {
-    navigate(ROUTES.ROUTE_MESSAGES);
+    navigate(ROUTES.ROUTE_MESSAGES(currentUserData.userId));
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {

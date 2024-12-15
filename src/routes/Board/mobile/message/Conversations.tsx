@@ -4,14 +4,13 @@ import { FaPen } from "react-icons/fa6";
 import { PiEmpty } from "react-icons/pi";
 import styles from "./Conversations.module.scss";
 
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
 import NavigationMobile from "../../../../components/navigation/NavigationMobile";
-import { useEffect, useState } from "react";
-import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
-  findConversationsByUserId,
   getReceiverData,
+  subscribeConversationsByUserId,
 } from "../../../../services/messageService";
 import { Conversation } from "../../../../types/messages";
 import { User } from "../../../../types/user";
@@ -21,24 +20,35 @@ import { CheckIsMobile } from "../../../../helpers/CheckIsMobile";
 
 const Conversations = () => {
   CheckIsMobile();
+  const { userId } = useParams<{ userId: string }>();
+  if (!userId) return null;
 
-  const { currentUserData } = useSafeUserContext();
-  const { userId } = currentUserData;
+  const loaderData = useLoaderData() as Conversation[];
 
-  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [conversations, setConversations] =
+    useState<Conversation[]>(loaderData);
+  const [filteredConversations, setFilteredConversations] = useState<
+    Conversation[]
+  >([]);
   const [receivers, setReceivers] = useState<any>([]);
   const navigate = useNavigate();
 
   const newMessage = () => {
-    navigate(ROUTES.ROUTE_NEW_MESSAGE);
+    navigate(ROUTES.ROUTE_NEW_MESSAGE(userId));
   };
 
   useEffect(() => {
+    const unsubscribe = subscribeConversationsByUserId(userId, (data) => {
+      setConversations(data);
+      setFilteredConversations(data);
+    });
+    return () => unsubscribe();
+  }, [userId]);
+
+  useEffect(() => {
     const fetchData = async () => {
-      const getConversations = await findConversationsByUserId(userId);
-      setConversations(getConversations);
       const receiversData: { [conversationId: string]: User } = {};
-      for (const conversation of getConversations) {
+      for (const conversation of conversations) {
         const receiverData = await getReceiverData(
           userId,
           conversation.conversationId
@@ -47,12 +57,29 @@ const Conversations = () => {
       }
       setReceivers(receiversData);
     };
-
     fetchData();
+  }, [conversations.length]);
 
-    const timer = setInterval(fetchData, 30000);
-    return () => clearInterval(timer);
-  }, []);
+  const findConversations = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase();
+
+    if (!value) {
+      setFilteredConversations(conversations);
+      return;
+    }
+
+    const filtered = conversations.filter((conversation) => {
+      const receiver = receivers[conversation.conversationId] as User;
+      if (!receiver) return false;
+
+      const { email, fullName } = receiver;
+      return (
+        email?.toLowerCase().includes(value) ||
+        fullName?.toLowerCase().includes(value)
+      );
+    });
+    setFilteredConversations(filtered);
+  };
 
   return (
     <section className={styles.container}>
@@ -71,13 +98,15 @@ const Conversations = () => {
             placeholder="Search..."
             required={false}
             type="text"
-            onChange={() => {}}
+            onChange={findConversations}
           />
         </div>
         <ul className={styles.list}>
-          {conversations.length > 0 &&
-          conversations.some((conversation) => conversation.lastMessage) ? (
-            conversations.map((conversation) => {
+          {filteredConversations.length > 0 &&
+          filteredConversations.some(
+            (conversation) => conversation.lastMessage
+          ) ? (
+            filteredConversations.map((conversation) => {
               const receiver = receivers[conversation.conversationId] as User;
 
               return (
