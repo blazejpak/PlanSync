@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 import logo from "../../assets/logo.png";
+import logoWhite from "../../assets/logo-white.png";
 import { MdMenu } from "react-icons/md";
 
 import { ROUTES } from "../../types/routes";
@@ -13,6 +14,12 @@ import { DateTime } from "luxon";
 import { DatesZones } from "../../types/dates";
 
 const HomeNav = () => {
+  let img = logo;
+
+  if ((document.body.className = "dark")) {
+    img = logoWhite;
+  }
+
   const [menuActive, setMenuActive] = useState(false);
   const time = DateTime.now().setLocale(DatesZones.LOCALE).toISO().slice(0, 10);
 
@@ -24,7 +31,7 @@ const HomeNav = () => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <NavLink to={ROUTES.ROUTE_HOME}>
-          <img src={logo} className={styles.logo} alt="Logo" />
+          <img src={img} className={styles.logo} alt="Logo" />
         </NavLink>
 
         {user?.email ? (

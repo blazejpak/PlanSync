@@ -8,7 +8,7 @@
   margin-inline: 5%;
   padding-block: 3.6rem;
 
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid var(--primary-color--300);
 
   @include mixins.responsive(lg) {
     flex-direction: row;
@@ -71,6 +71,10 @@
 
   @include mixins.responsive(md) {
     width: 50%;
+  }
+
+  svg {
+    fill: var(--primary-color--300);
   }
 
   svg:hover {

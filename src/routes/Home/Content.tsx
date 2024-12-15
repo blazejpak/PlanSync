@@ -2,7 +2,7 @@ import styles from "./Content.module.scss";
 
 const HomeContent = () => {
   return (
-    <section className={styles.container}>
+    <main className={styles.container}>
       <h1 className={styles.heading}>Welcome to PlanSync!</h1>
       <p className={styles.text}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia
@@ -50,7 +50,7 @@ const HomeContent = () => {
         rhoncus blandit. Praesent non mi hendrerit, vulputate orci in, tincidunt
         velit.
       </p>
-    </section>
+    </main>
   );
 };
 
