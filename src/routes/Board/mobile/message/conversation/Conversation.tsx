@@ -98,7 +98,7 @@ const Conversation = () => {
           <FaCircleInfo size={32} />
         </button>
       </div>
-      <ul>
+      <ul className={styles.list}>
         {data.map((message) => {
           return <ChatBubble key={message.messageId} data={message} />;
         })}
@@ -109,6 +109,7 @@ const Conversation = () => {
           value={messageText}
           onChange={handleInputChange}
           rows={1}
+          placeholder="Write a message..."
         />
         <button type="submit">
           <IoSend />

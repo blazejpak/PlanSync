@@ -108,7 +108,8 @@ const Conversations = () => {
           ) ? (
             filteredConversations.map((conversation) => {
               const receiver = receivers[conversation.conversationId] as User;
-
+              console.log(conversation);
+              console.log(receiver);
               return (
                 <div
                   key={conversation.conversationId}

@@ -32,7 +32,9 @@ const List = ({
     );
 
     if (conversationId) {
-      navigate(ROUTES.ROUTE_CONVERSATION(conversationId));
+      navigate(
+        ROUTES.ROUTE_CONVERSATION(currentUserData.userId, conversationId)
+      );
     }
   };
 

@@ -1,0 +1,39 @@
+@use "../../../../../styles/variables";
+
+.container {
+  margin-top: 1.2rem;
+  width: 20rem;
+  padding-inline: 0.8rem;
+
+  &.sender {
+    align-self: flex-end;
+  }
+
+  .content {
+    border-radius: var(--border-radius--lg);
+    cursor: pointer;
+    padding: 1.2rem 1rem;
+    font-size: var(--font-paragraph);
+
+    &.sender {
+      background-color: var(--bg-button);
+    }
+
+    &.receiver {
+      background-color: var(--primary-color--500);
+    }
+  }
+  .time {
+    color: var(--primary-color--300);
+    font-size: var(--font-paragraph--smaller);
+    margin-top: 0.2rem;
+  }
+
+  &.receiver .time {
+    text-align: left;
+  }
+
+  &.sender .time {
+    text-align: right;
+  }
+}

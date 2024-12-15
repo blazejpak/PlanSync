@@ -153,7 +153,6 @@ export const subscribeConversationsByUserId = (
         ...doc.data(),
       } as Conversation);
     });
-    console.log(conversations);
     updateData(conversations);
   });
 
@@ -200,7 +199,6 @@ export const getMessages = (
         ...doc.data(),
       } as Message);
     });
-    console.log(messages);
     updateData(messages);
   });
 

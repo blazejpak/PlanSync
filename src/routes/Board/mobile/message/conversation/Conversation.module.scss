@@ -34,6 +34,27 @@
     border-radius: 999px;
     overflow: hidden;
   }
+  .list {
+    display: flex;
+    flex-direction: column;
+    margin-right: -1rem;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      height: 1rem;
+      background-color: var(--primary-color--600);
+      border-radius: 0.8rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--primary-color--500);
+      border-radius: 0.8rem;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: var(--primary-color--300);
+    }
+  }
 
   .button {
     &__return {
@@ -88,6 +109,7 @@
     button {
       background-color: transparent;
       border: none;
+      cursor: pointer;
       width: 4rem;
 
       svg {
