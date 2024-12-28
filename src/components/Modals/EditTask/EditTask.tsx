@@ -33,6 +33,7 @@ const EditTask = () => {
   const { user } = useSafeUserContext();
   const { boardId, taskId } = useParams<{ boardId: string; taskId: string }>();
   const task = data.find((item) => item.id === taskId)!;
+
   useEffect(() => {
     if (task) {
       dispatch(
@@ -59,7 +60,6 @@ const EditTask = () => {
   if (!data || data.length === 0) {
     return <div>Loading tasks...</div>;
   }
-
   const typeOfCalendar =
     task?.rangeDateTo > task?.rangeDateFrom ? "pickDate" : "today";
 
@@ -71,6 +71,8 @@ const EditTask = () => {
     type: task.typeOfTask,
     task: task.task,
   };
+  console.log(task);
+  console.log(initialValue);
 
   const saveTask = (
     values: ValuesTypes,
@@ -118,7 +120,7 @@ const EditTask = () => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <TaskFields handleChange={handleChange} />
+            <TaskFields handleChange={handleChange} values={values} />
 
             <SubtasksFields
               values={values}

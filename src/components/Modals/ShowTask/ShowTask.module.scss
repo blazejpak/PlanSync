@@ -71,6 +71,8 @@
 .subtasks {
   display: flex;
   flex-direction: column;
+  margin-top: 2.4rem;
+  margin-bottom: 2.4rem;
   gap: 1.6rem;
 
   .subtask {
