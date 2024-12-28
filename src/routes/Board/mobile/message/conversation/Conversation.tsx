@@ -1,7 +1,14 @@
 import { FaCircleInfo, FaArrowLeft } from "react-icons/fa6";
 import styles from "./Conversation.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useSafeUserContext } from "../../../../../context/AuthenticationContext";
 import { User } from "../../../../../types/user";
 import {
@@ -15,21 +22,29 @@ import { ROUTES } from "../../../../../types/routes";
 import { Message } from "../../../../../types/messages";
 import { GetSettingsData } from "../../../../../helpers/GetSettingsData";
 import { IoSend } from "react-icons/io5";
-import { CheckIsMobile } from "../../../../../helpers/CheckIsMobile";
 import ChatBubble from "./ChatBubble";
+import useCheckIsMobile from "../../../../../hooks/useCheckIsMobile";
 
 const Conversation = () => {
-  CheckIsMobile();
+  useCheckIsMobile();
+
   GetSettingsData();
   const { currentUserData } = useSafeUserContext();
+
   const [data, setData] = useState<Message[]>([]);
   const [receiver, setReceiver] = useState<User>();
   const [messageText, setMessageText] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const chatRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate();
   const { conversationId } = useParams<{ conversationId: string }>();
   if (!conversationId) return null;
 
   useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+
     const fetchData = async () => {
       if (currentUserData.userId) {
         const receiverData = await getReceiverData(
@@ -41,6 +56,12 @@ const Conversation = () => {
     };
     fetchData();
   }, [currentUserData.userId]);
+
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [data.length]);
 
   useEffect(() => {
     const unsubscribe = getMessages(conversationId, setData);
@@ -57,11 +78,12 @@ const Conversation = () => {
         senderId: currentUserData.userId,
         receiverId: receiver.userId,
       });
-      console.log(message);
+
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+      }
 
       const timestamp = message.timestamp;
-
-      console.log(timestamp);
 
       await updateConversation(conversationId, messageText, timestamp);
 
@@ -78,6 +100,15 @@ const Conversation = () => {
     textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`;
     setMessageText(textarea.value);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      // e.preventDefault();
+      sendMessageSubmit(
+        new Event("submit") as unknown as FormEvent<HTMLFormElement>
+      );
+    }
   };
 
   return (
@@ -98,7 +129,7 @@ const Conversation = () => {
           <FaCircleInfo size={32} />
         </button>
       </div>
-      <ul className={styles.list}>
+      <ul className={styles.list} ref={chatRef}>
         {data.map((message) => {
           return <ChatBubble key={message.messageId} data={message} />;
         })}
@@ -110,6 +141,8 @@ const Conversation = () => {
           onChange={handleInputChange}
           rows={1}
           placeholder="Write a message..."
+          ref={textareaRef}
+          onKeyDown={handleKeyDown}
         />
         <button type="submit">
           <IoSend />

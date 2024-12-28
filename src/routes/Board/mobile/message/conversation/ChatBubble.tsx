@@ -12,7 +12,6 @@ const ChatBubble = ({ data }: ChatBubbleProps) => {
   const { currentUserData } = useSafeUserContext();
   const time = DateTime.fromMillis(+data.timestamp).toFormat("HH:mm");
   const [showTime, setShowTime] = useState(false);
-  console.log(data);
   return (
     <li
       className={`${styles.container} ${

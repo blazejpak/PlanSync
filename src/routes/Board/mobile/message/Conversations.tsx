@@ -16,10 +16,10 @@ import { Conversation } from "../../../../types/messages";
 import { User } from "../../../../types/user";
 import List from "./List";
 import { Skeleton } from "@mui/material";
-import { CheckIsMobile } from "../../../../helpers/CheckIsMobile";
+import useCheckIsMobile from "../../../../hooks/useCheckIsMobile";
 
 const Conversations = () => {
-  CheckIsMobile();
+  useCheckIsMobile();
   const { userId } = useParams<{ userId: string }>();
   if (!userId) return null;
 

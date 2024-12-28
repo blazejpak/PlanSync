@@ -4,17 +4,21 @@ import { Skeleton } from "@mui/material";
 import styles from "./NewMessage.module.scss";
 import { useSafeResponsiveContext } from "../../../../context/responsive";
 import { DateTime } from "luxon";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
 import Input from "../../../../components/form/Input";
 import { findUserByName } from "../../../../services/messageService";
 import { useState } from "react";
 import { User } from "../../../../types/user";
 import List from "./List";
+import useCheckIsMobile from "../../../../hooks/useCheckIsMobile";
 
 const NewMessage = () => {
+  useCheckIsMobile();
+
   const [users, setUsers] = useState<User[]>();
   const [loading, setLoading] = useState(false);
+  const { userId } = useParams<{ userId: string }>();
 
   const { isMobile } = useSafeResponsiveContext();
   const today = DateTime.now().toISODate();
@@ -24,7 +28,9 @@ const NewMessage = () => {
   }
 
   const backToMessages = () => {
-    navigate(ROUTES.ROUTE_MESSAGES);
+    if (userId) {
+      navigate(ROUTES.ROUTE_MESSAGES(userId));
+    }
   };
 
   const findUser = async (text: string) => {
