@@ -35,8 +35,6 @@ const TypeTaskSelect = ({
     { label: "Done", value: "done" },
   ];
 
-  console.log(values);
-
   const handleTypesSelectValue = (value: string) => {
     setFieldValue("type", value);
     setIsTypesSelectClicked(false);

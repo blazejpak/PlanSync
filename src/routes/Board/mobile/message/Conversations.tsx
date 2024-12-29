@@ -99,6 +99,7 @@ const Conversations = () => {
             required={false}
             type="text"
             onChange={findConversations}
+            values=""
           />
         </div>
         <ul className={styles.list}>

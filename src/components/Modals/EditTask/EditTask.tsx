@@ -71,8 +71,6 @@ const EditTask = () => {
     type: task.typeOfTask,
     task: task.task,
   };
-  console.log(task);
-  console.log(initialValue);
 
   const saveTask = (
     values: ValuesTypes,
@@ -101,7 +99,7 @@ const EditTask = () => {
   };
 
   return (
-    <section>
+    <section className={styles.section}>
       <strong className={styles.modal__heading}>Edit task</strong>
 
       <Formik

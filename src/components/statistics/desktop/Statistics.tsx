@@ -32,8 +32,7 @@ const Statistics = () => {
   const logout = () => {
     SignOut();
   };
-  console.log(profileImage);
-  console.log(currentUserData);
+
   const iconColor = pickedTheme === "dark" ? "white" : "black";
 
   return (

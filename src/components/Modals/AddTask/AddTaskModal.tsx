@@ -82,7 +82,7 @@ const AddTaskModal = () => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <TaskFields handleChange={handleChange} />
+            <TaskFields handleChange={handleChange} values={values} />
 
             <SubtasksFields
               values={values}

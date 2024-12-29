@@ -40,20 +40,7 @@
     margin-right: -1rem;
     overflow-y: auto;
 
-    &::-webkit-scrollbar {
-      height: 1rem;
-      background-color: var(--primary-color--600);
-      border-radius: 0.8rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--primary-color--500);
-      border-radius: 0.8rem;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: var(--primary-color--300);
-    }
+    @include mixins.scroll();
   }
 
   .button {
