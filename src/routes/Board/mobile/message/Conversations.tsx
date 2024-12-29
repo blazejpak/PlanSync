@@ -31,6 +31,7 @@ const Conversations = () => {
     Conversation[]
   >([]);
   const [receivers, setReceivers] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const newMessage = () => {
@@ -46,6 +47,8 @@ const Conversations = () => {
   }, [userId]);
 
   useEffect(() => {
+    setIsLoading(true);
+
     const fetchData = async () => {
       const receiversData: { [conversationId: string]: User } = {};
       for (const conversation of conversations) {
@@ -56,6 +59,7 @@ const Conversations = () => {
         receiversData[conversation.conversationId] = receiverData;
       }
       setReceivers(receiversData);
+      setIsLoading(false);
     };
     fetchData();
   }, [conversations.length]);
@@ -99,54 +103,46 @@ const Conversations = () => {
             required={false}
             type="text"
             onChange={findConversations}
-            values=""
           />
         </div>
-        <ul className={styles.list}>
-          {filteredConversations.length > 0 &&
-          filteredConversations.some(
-            (conversation) => conversation.lastMessage
-          ) ? (
-            filteredConversations.map((conversation) => {
-              const receiver = receivers[conversation.conversationId] as User;
-              console.log(conversation);
-              console.log(receiver);
-              return (
-                <div
-                  key={conversation.conversationId}
-                  className={styles.list__item}
-                >
-                  {receiver ? (
-                    <List data={receiver} typeOfList="conversationList" />
-                  ) : (
-                    <div>
-                      <Skeleton
-                        variant="rounded"
-                        height={100}
-                        style={{ marginTop: "2rem" }}
-                      />
-                      <Skeleton
-                        variant="rounded"
-                        height={100}
-                        style={{ marginTop: "2rem" }}
-                      />
-                      <Skeleton
-                        variant="rounded"
-                        height={100}
-                        style={{ marginTop: "2rem" }}
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })
-          ) : (
-            <div className={styles.list__empty}>
-              <p>Can't find any conversations.</p>
-              <PiEmpty size={48} />
-            </div>
-          )}
-        </ul>
+        {isLoading ? (
+          Array(3)
+            .fill(0)
+            .map((_) => (
+              <Skeleton
+                variant="rounded"
+                height={100}
+                style={{ marginTop: ".4rem" }}
+              />
+            ))
+        ) : (
+          <ul className={styles.list}>
+            {filteredConversations.length > 0 &&
+            filteredConversations.some(
+              (conversation) => conversation.lastMessage
+            ) ? (
+              filteredConversations.map((conversation) => {
+                const receiver = receivers[conversation.conversationId] as User;
+
+                return (
+                  <div
+                    key={conversation.conversationId}
+                    className={styles.list__item}
+                  >
+                    {receiver && (
+                      <List data={receiver} typeOfList="conversationList" />
+                    )}
+                  </div>
+                );
+              })
+            ) : (
+              <div className={styles.list__empty}>
+                <p>Can't find any conversations.</p>
+                <PiEmpty size={48} />
+              </div>
+            )}
+          </ul>
+        )}
       </div>
       <NavigationMobile />
     </section>

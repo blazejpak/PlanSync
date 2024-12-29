@@ -7,6 +7,7 @@ import { createNewConversation } from "../../../../services/messageService";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
 import { ProfilePhoto } from "../../../../helpers/ProfilePhoto";
+import { useSafeResponsiveContext } from "../../../../context/responsive";
 
 const List = ({
   data,
@@ -16,6 +17,7 @@ const List = ({
   typeOfList: "searchList" | "conversationList";
 }) => {
   const { currentUserData } = useSafeUserContext();
+  const { isMobile } = useSafeResponsiveContext();
   const navigate = useNavigate();
 
   if (data.userId === currentUserData.userId) return null;
@@ -31,10 +33,13 @@ const List = ({
       receiver
     );
 
-    if (conversationId) {
+    if (conversationId && isMobile) {
       navigate(
         ROUTES.ROUTE_CONVERSATION(currentUserData.userId, conversationId)
       );
+    }
+
+    if (!isMobile) {
     }
   };
 

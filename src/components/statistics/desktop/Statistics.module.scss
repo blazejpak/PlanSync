@@ -42,24 +42,33 @@
     }
   }
 
-  .button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
+  .buttons__bottom {
     margin-block: auto;
     margin-left: auto;
-    margin-right: 1.6rem;
-
-    &:hover {
-      transition: color 0.3s;
-      color: var(--bg-button--hover) !important;
-    }
+    // margin-right: 1.6rem;
 
     @include mixins.responsive(lg) {
       margin: 0;
       margin-top: auto;
+
+      &.open {
+        display: flex;
+        gap: 3.2rem;
+      }
+    }
+
+    button {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      &:hover {
+        transition: color 0.3s;
+        color: var(--bg-button--hover) !important;
+      }
     }
   }
+
   .buttons {
     align-items: center;
     display: flex;

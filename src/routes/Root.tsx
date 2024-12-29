@@ -5,6 +5,7 @@ import { ResponsiveContextProvider } from "../context/responsive";
 import { DateTime } from "luxon";
 import { DatesZones } from "../types/dates";
 import { ROUTES } from "../types/routes";
+import { MessagesStatesProvider } from "../context/Messages";
 
 const Root = () => {
   const time = DateTime.now().setLocale(DatesZones.LOCALE).toString();
@@ -16,7 +17,9 @@ const Root = () => {
     <ResponsiveContextProvider>
       <SettingsContextProvider>
         <AuthenticationContextProvider>
-          <Outlet />
+          <MessagesStatesProvider>
+            <Outlet />
+          </MessagesStatesProvider>
         </AuthenticationContextProvider>
       </SettingsContextProvider>
     </ResponsiveContextProvider>

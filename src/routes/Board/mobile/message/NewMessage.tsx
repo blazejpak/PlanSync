@@ -65,6 +65,7 @@ const NewMessage = () => {
           required={false}
           type="text"
           onChange={(e) => findUser(e.target.value)}
+          values=""
         />
       </div>
 

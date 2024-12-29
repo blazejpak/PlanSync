@@ -1,4 +1,5 @@
 import { IoLogOut, IoSettings, IoEye, IoEyeOff } from "react-icons/io5";
+import { FaRegMessage } from "react-icons/fa6";
 import { useSafeUserContext } from "../../../context/AuthenticationContext";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
@@ -6,7 +7,6 @@ import {
   statisticsOpen,
 } from "../../../store/reducers/statistics";
 import { useSafeSettingsContext } from "../../../context/Settings";
-import Settings from "../../modals/Settings/Settings";
 
 import CalendarMonth from "../../dates/CalendarMonth";
 import Clock from "../../dates/Clock";
@@ -15,25 +15,41 @@ import ComplexWeek from "../ComplexWeek";
 import { ProfilePhoto } from "../../../helpers/ProfilePhoto";
 
 import styles from "./Statistics.module.scss";
-import Overlay from "../../modals/Overlay";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../types/routes";
+import { useEffect, useState } from "react";
+import Messages from "./Messages";
+import { Conversation } from "../../../types/messages";
+import { findConversationsByUserId } from "../../../services/messageService";
+import { useSafeMessagesContext } from "../../../context/Messages";
 
 const Statistics = () => {
   const { SignOut, currentUserData } = useSafeUserContext();
+  const { changeConversationsData, isChatOpen, changeIsChatOpen } =
+    useSafeMessagesContext();
   const { profileImage } = currentUserData;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
-  const { isModalSettingsOpen, pickedTheme } = useSafeSettingsContext();
+  const { pickedTheme } = useSafeSettingsContext();
 
   const logout = () => {
     SignOut();
   };
 
   const iconColor = pickedTheme === "dark" ? "white" : "black";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const getConversations = await findConversationsByUserId(
+        currentUserData.userId
+      );
+      changeConversationsData(getConversations);
+    };
+    fetchData();
+  }, []);
 
   return (
     <section
@@ -75,19 +91,29 @@ const Statistics = () => {
 
       {isStatisticsOpen && <ComplexWeek />}
 
-      {isModalSettingsOpen && (
-        <Overlay>
-          <Settings />
-        </Overlay>
-      )}
-
-      <button
-        className={`${styles.button} ${isStatisticsOpen && styles.open}`}
-        style={{ color: iconColor }}
-        onClick={() => dispatch(statisticsOpen(!isStatisticsOpen))}
+      <div
+        className={`${styles["buttons__bottom"]} ${
+          isStatisticsOpen && styles.open
+        }`}
       >
-        {isStatisticsOpen ? <IoEyeOff size={36} /> : <IoEye size={36} />}
-      </button>
+        <button
+          className={`${styles.button} `}
+          style={{ color: iconColor }}
+          onClick={() => changeIsChatOpen()}
+        >
+          <FaRegMessage size={36} />
+        </button>
+
+        <button
+          className={`${styles.button} ${isStatisticsOpen && styles.open}`}
+          style={{ color: iconColor }}
+          onClick={() => dispatch(statisticsOpen(!isStatisticsOpen))}
+        >
+          {isStatisticsOpen ? <IoEyeOff size={36} /> : <IoEye size={36} />}
+        </button>
+      </div>
+
+      {isChatOpen && <Messages statsOpen={isStatisticsOpen} />}
     </section>
   );
 };

@@ -9,7 +9,7 @@ type InputProps = {
   name: string;
   required: boolean;
   type: string;
-  values: ValuesTypes | "";
+  values?: ValuesTypes;
 };
 
 const Input = ({
@@ -36,7 +36,7 @@ const Input = ({
           onChange={onChange}
           placeholder={placeholder}
           className={styles.input}
-          value={values && values.task}
+          value={values?.task}
         />
       )}
       {type === "textarea" && (
@@ -47,7 +47,7 @@ const Input = ({
           onChange={onChange}
           placeholder={placeholder}
           className={styles.input}
-          value={values && values.description}
+          value={values?.description}
         />
       )}
     </div>
