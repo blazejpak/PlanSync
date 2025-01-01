@@ -10,7 +10,7 @@ import Input from "../../../../components/form/Input";
 import { findUserByName } from "../../../../services/messageService";
 import { useState } from "react";
 import { User } from "../../../../types/user";
-import List from "./List";
+import List from "../../../../components/messages/List";
 import useCheckIsMobile from "../../../../hooks/useCheckIsMobile";
 
 const NewMessage = () => {

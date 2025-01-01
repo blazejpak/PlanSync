@@ -14,7 +14,7 @@ import {
 } from "../../../../services/messageService";
 import { Conversation } from "../../../../types/messages";
 import { User } from "../../../../types/user";
-import List from "./List";
+import List from "../../../../components/messages/List";
 import { Skeleton } from "@mui/material";
 import useCheckIsMobile from "../../../../hooks/useCheckIsMobile";
 

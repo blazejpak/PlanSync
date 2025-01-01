@@ -1,14 +1,14 @@
 import { FaArrowRight } from "react-icons/fa6";
-import { User } from "../../../../types/user";
+import { User } from "../../types/user";
 
 import styles from "./List.module.scss";
-import { useSafeUserContext } from "../../../../context/AuthenticationContext";
-import { createNewConversation } from "../../../../services/messageService";
+import { useSafeUserContext } from "../../context/AuthenticationContext";
+import { createNewConversation } from "../../services/messageService";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../../../types/routes";
-import { ProfilePhoto } from "../../../../helpers/ProfilePhoto";
-import { useSafeResponsiveContext } from "../../../../context/responsive";
-import { useSafeMessagesContext } from "../../../../context/Messages";
+import { ROUTES } from "../../types/routes";
+import { ProfilePhoto } from "../../helpers/ProfilePhoto";
+import { useSafeResponsiveContext } from "../../context/responsive";
+import { useSafeMessagesContext } from "../../context/Messages";
 
 const List = ({
   data,
@@ -19,7 +19,8 @@ const List = ({
 }) => {
   const { currentUserData } = useSafeUserContext();
   const { isMobile } = useSafeResponsiveContext();
-  const { changeIsChatOpen } = useSafeMessagesContext();
+  const { changeIsChatOpen, isChatOpen, changeConversationId } =
+    useSafeMessagesContext();
   const navigate = useNavigate();
 
   if (data.userId === currentUserData.userId) return null;
@@ -41,8 +42,11 @@ const List = ({
       );
     }
 
-    if (!isMobile) {
-      changeIsChatOpen();
+    if (conversationId && !isMobile) {
+      if (isChatOpen) {
+        changeIsChatOpen();
+        changeConversationId(conversationId);
+      }
     }
   };
 

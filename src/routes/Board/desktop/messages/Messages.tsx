@@ -11,7 +11,7 @@ import { User } from "../../../../types/user";
 import styles from "./Messages.module.scss";
 import Input from "../../../../components/form/Input";
 import { Skeleton } from "@mui/material";
-import List from "../../mobile/message/List";
+import List from "../../../../components/messages/List";
 import { PiEmpty } from "react-icons/pi";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectIsStatisticsOpen } from "../../../../store/reducers/statistics";
