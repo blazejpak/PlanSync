@@ -18,10 +18,10 @@ import styles from "./Statistics.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../types/routes";
 import { useEffect, useState } from "react";
-import Messages from "./Messages";
 import { Conversation } from "../../../types/messages";
 import { findConversationsByUserId } from "../../../services/messageService";
 import { useSafeMessagesContext } from "../../../context/Messages";
+import Messages from "../../../routes/Board/desktop/messages/Messages";
 
 const Statistics = () => {
   const { SignOut, currentUserData } = useSafeUserContext();
@@ -113,7 +113,7 @@ const Statistics = () => {
         </button>
       </div>
 
-      {isChatOpen && <Messages statsOpen={isStatisticsOpen} />}
+      {isChatOpen && <Messages />}
     </section>
   );
 };

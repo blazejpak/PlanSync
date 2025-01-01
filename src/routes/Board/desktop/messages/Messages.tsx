@@ -1,25 +1,25 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import Input from "../../form/Input";
-import styles from "./Messages.module.scss";
-import { Conversation } from "../../../types/messages";
-import { User } from "../../../types/user";
-import { PiEmpty } from "react-icons/pi";
-import { Skeleton } from "@mui/material";
-import List from "../../../routes/Board/mobile/message/List";
-import { useSafeUserContext } from "../../../context/AuthenticationContext";
+import { useSafeUserContext } from "../../../../context/AuthenticationContext";
+import { useSafeMessagesContext } from "../../../../context/Messages";
+import { Conversation } from "../../../../types/messages";
 import {
   getReceiverData,
   subscribeConversationsByUserId,
-} from "../../../services/messageService";
-import { useSafeMessagesContext } from "../../../context/Messages";
+} from "../../../../services/messageService";
+import { User } from "../../../../types/user";
 
-type MessagesProps = {
-  statsOpen: boolean;
-};
+import styles from "./Messages.module.scss";
+import Input from "../../../../components/form/Input";
+import { Skeleton } from "@mui/material";
+import List from "../../mobile/message/List";
+import { PiEmpty } from "react-icons/pi";
+import { useAppSelector } from "../../../../store/hooks";
+import { selectIsStatisticsOpen } from "../../../../store/reducers/statistics";
 
-const Messages = ({ statsOpen }: MessagesProps) => {
+const Messages = () => {
   const { currentUserData } = useSafeUserContext();
   const { conversations, changeConversationsData } = useSafeMessagesContext();
+  const isStatsOpen = useAppSelector(selectIsStatisticsOpen);
   const { userId } = currentUserData;
   const [filteredConversations, setFilteredConversations] = useState<
     Conversation[]
@@ -74,7 +74,7 @@ const Messages = ({ statsOpen }: MessagesProps) => {
   };
 
   return (
-    <div className={`${styles.container} ${statsOpen && styles.open}`}>
+    <div className={`${styles.container} ${isStatsOpen && styles.open}`}>
       <div>
         <h1>
           <span>Chats</span>

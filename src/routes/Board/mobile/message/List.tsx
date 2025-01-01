@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../types/routes";
 import { ProfilePhoto } from "../../../../helpers/ProfilePhoto";
 import { useSafeResponsiveContext } from "../../../../context/responsive";
+import { useSafeMessagesContext } from "../../../../context/Messages";
 
 const List = ({
   data,
@@ -18,6 +19,7 @@ const List = ({
 }) => {
   const { currentUserData } = useSafeUserContext();
   const { isMobile } = useSafeResponsiveContext();
+  const { changeIsChatOpen } = useSafeMessagesContext();
   const navigate = useNavigate();
 
   if (data.userId === currentUserData.userId) return null;
@@ -40,6 +42,7 @@ const List = ({
     }
 
     if (!isMobile) {
+      changeIsChatOpen();
     }
   };
 
