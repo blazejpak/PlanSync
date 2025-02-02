@@ -4,25 +4,25 @@ import { Conversation } from "../types/messages";
 
 interface initialValueProps {
   conversations: Conversation[];
-  isChatOpen: boolean;
+  isConversationsOpen: boolean;
   isConversationOpen: boolean;
   conversationId: string;
 
   changeConversationsData: (value: Conversation[]) => void;
+  changeIsConversationsOpen: () => void;
   changeIsConversationOpen: () => void;
-  changeIsChatOpen: () => void;
   changeConversationId: (value: string) => void;
 }
 
 const initialValue: initialValueProps = {
   conversations: [],
-  isChatOpen: false,
+  isConversationsOpen: false,
   isConversationOpen: false,
   conversationId: "",
 
   changeConversationsData: () => {},
+  changeIsConversationsOpen: () => {},
   changeIsConversationOpen: () => {},
-  changeIsChatOpen: () => {},
   changeConversationId: () => {},
 };
 
@@ -35,7 +35,9 @@ interface ChildrenContextProviderType {
 export const MessagesStatesProvider = ({
   children,
 }: ChildrenContextProviderType) => {
-  const [isChatOpen, setIsChatOpen] = useState(initialValue.isChatOpen);
+  const [isConversationsOpen, setIsConversationsOpen] = useState(
+    initialValue.isConversationsOpen
+  );
   const [isConversationOpen, setIsConversationOpen] = useState(
     initialValue.isConversationOpen
   );
@@ -52,8 +54,8 @@ export const MessagesStatesProvider = ({
     setConversationId(value);
   };
 
-  const changeIsChatOpen = () => {
-    setIsChatOpen((prev) => !prev);
+  const changeIsConversationsOpen = () => {
+    setIsConversationsOpen((prev) => !prev);
   };
 
   const changeIsConversationOpen = () => {
@@ -63,9 +65,9 @@ export const MessagesStatesProvider = ({
   return (
     <MessagesStatesContext.Provider
       value={{
-        isChatOpen,
+        isConversationsOpen,
         isConversationOpen,
-        changeIsChatOpen,
+        changeIsConversationsOpen,
         changeIsConversationOpen,
         conversationId,
         changeConversationId,

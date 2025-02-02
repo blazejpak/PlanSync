@@ -4,13 +4,18 @@
 .container {
   background-color: var(--primary-color);
   display: grid;
-  grid-template-rows: 6rem 1fr 10rem;
+  grid-template-rows: 6rem minmax(0, 1fr) 10rem;
   height: 100vh;
   max-width: 100vw;
   padding-bottom: 1.2rem;
   padding-inline: 1.2rem;
   padding-top: 1.6rem;
   width: 100%;
+
+  @include mixins.responsive(md) {
+    height: 40rem;
+    width: 40rem;
+  }
 
   .header {
     align-items: center;

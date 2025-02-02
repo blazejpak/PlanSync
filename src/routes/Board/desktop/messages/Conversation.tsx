@@ -1,23 +1,29 @@
 import Chat from "../../../../components/messages/Chat";
 import { useSafeMessagesContext } from "../../../../context/Messages";
 
+import styles from "./Conversation.module.scss";
+
 const Conversation = () => {
   const {
     changeIsConversationOpen,
-    changeIsChatOpen,
-    isChatOpen,
+    changeIsConversationsOpen,
+    isConversationsOpen,
     isConversationOpen,
     conversationId,
   } = useSafeMessagesContext();
 
   const back = () => {
-    if (isConversationOpen && !isChatOpen) {
+    if (isConversationOpen && !isConversationsOpen) {
       changeIsConversationOpen();
-      changeIsChatOpen();
+      changeIsConversationsOpen();
     }
   };
 
-  return <Chat back={back} conversationId={conversationId} />;
+  return (
+    <section className={styles.container}>
+      <Chat back={back} conversationId={conversationId} />
+    </section>
+  );
 };
 
 export default Conversation;

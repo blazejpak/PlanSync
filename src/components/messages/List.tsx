@@ -19,8 +19,12 @@ const List = ({
 }) => {
   const { currentUserData } = useSafeUserContext();
   const { isMobile } = useSafeResponsiveContext();
-  const { changeIsChatOpen, isChatOpen, changeConversationId } =
-    useSafeMessagesContext();
+  const {
+    changeIsConversationsOpen,
+    isConversationsOpen,
+    changeConversationId,
+    changeIsConversationOpen,
+  } = useSafeMessagesContext();
   const navigate = useNavigate();
 
   if (data.userId === currentUserData.userId) return null;
@@ -43,9 +47,10 @@ const List = ({
     }
 
     if (conversationId && !isMobile) {
-      if (isChatOpen) {
-        changeIsChatOpen();
+      if (isConversationsOpen) {
+        changeIsConversationsOpen();
         changeConversationId(conversationId);
+        changeIsConversationOpen();
       }
     }
   };

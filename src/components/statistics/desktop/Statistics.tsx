@@ -18,15 +18,19 @@ import styles from "./Statistics.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../types/routes";
 import { useEffect, useState } from "react";
-import { Conversation } from "../../../types/messages";
 import { findConversationsByUserId } from "../../../services/messageService";
 import { useSafeMessagesContext } from "../../../context/Messages";
-import Messages from "../../../routes/Board/desktop/messages/Messages";
+import Conversations from "../../../routes/Board/desktop/messages/Conversations";
+import Conversation from "../../../routes/Board/desktop/messages/Conversation";
 
 const Statistics = () => {
   const { SignOut, currentUserData } = useSafeUserContext();
-  const { changeConversationsData, isChatOpen, changeIsChatOpen } =
-    useSafeMessagesContext();
+  const {
+    changeConversationsData,
+    isConversationsOpen,
+    changeIsConversationsOpen,
+    isConversationOpen,
+  } = useSafeMessagesContext();
   const { profileImage } = currentUserData;
 
   const dispatch = useAppDispatch();
@@ -99,7 +103,7 @@ const Statistics = () => {
         <button
           className={`${styles.button} `}
           style={{ color: iconColor }}
-          onClick={() => changeIsChatOpen()}
+          onClick={() => changeIsConversationsOpen()}
         >
           <FaRegMessage size={36} />
         </button>
@@ -113,7 +117,8 @@ const Statistics = () => {
         </button>
       </div>
 
-      {isChatOpen && <Messages />}
+      {isConversationsOpen && <Conversations />}
+      {isConversationOpen && <Conversation />}
     </section>
   );
 };
