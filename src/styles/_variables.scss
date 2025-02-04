@@ -76,6 +76,8 @@ body.large-font {
   --font-color: #2b2c37;
   --font-color--darkBg: #ffffff;
 
+  --shadow-color: rgb(43, 44, 55);
+
   // RADIUS
   --border-radius--sm: 4px;
   --border-radius--md: 8px;
@@ -110,4 +112,6 @@ body.dark {
   --bg-pastel--green: #4caf50;
 
   --font-color: #f0f0f0;
+
+  --shadow-color: rgb(235, 238, 242);
 }
