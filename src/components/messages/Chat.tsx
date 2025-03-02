@@ -4,7 +4,7 @@ import ChatBubble from "../../routes/Board/mobile/message/conversation/ChatBubbl
 import { IoSend } from "react-icons/io5";
 
 import styles from "./Chat.module.scss";
-import {
+import React, {
   ChangeEvent,
   FormEvent,
   KeyboardEvent,
@@ -21,6 +21,7 @@ import {
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 import { User } from "../../types/user";
 import { Message } from "../../types/messages";
+import { DateTime } from "luxon";
 
 type ChatProps = {
   conversationId: string;
@@ -94,8 +95,10 @@ const Chat = ({ conversationId, back }: ChatProps) => {
       }
 
       const timestamp = message.timestamp;
-
       await updateConversation(conversationId, messageText, timestamp);
+      if (chatRef.current) {
+        chatRef.current.scrollTop = chatRef.current.scrollHeight;
+      }
 
       setMessageText("");
     }
@@ -120,8 +123,33 @@ const Chat = ({ conversationId, back }: ChatProps) => {
         </button>
       </div>
       <ul className={styles.list} ref={chatRef}>
-        {data.map((message) => {
-          return <ChatBubble key={message.messageId} data={message} />;
+        {data.map((message, index) => {
+          console.log(message);
+          if (message.timestamp) {
+            const currentDate = DateTime.fromMillis(
+              message.timestamp.toMillis()
+            );
+            const prevDate =
+              index > 0
+                ? DateTime.fromMillis(data[index - 1].timestamp.toMillis())
+                : null;
+
+            const isNewDay =
+              !prevDate ||
+              currentDate.toFormat("yyyy-MM-dd") !==
+                prevDate.toFormat("yyyy-MM-dd");
+
+            return (
+              <React.Fragment key={message.messageId}>
+                {isNewDay && (
+                  <li className={styles.newDay}>
+                    {currentDate.toFormat("dd.MM.yyyy, HH:mm")}
+                  </li>
+                )}
+                <ChatBubble data={message} />
+              </React.Fragment>
+            );
+          }
         })}
       </ul>
       <form onSubmit={sendMessageSubmit} className={styles.form}>

@@ -47,6 +47,32 @@ const CalendarMonth = () => {
     setMonthCalendar(value);
   };
 
+  const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  const firstDayOfMonth = startMonth.weekday;
+  const lastDayOfMonth = endMonth.weekday;
+
+  const emptyFirstDays = Array(firstDayOfMonth - 1).fill(null);
+  const emptyEndDays = Array(7 - lastDayOfMonth).fill(null);
+
+  const allDays = [...emptyFirstDays, ...intervals, ...emptyEndDays];
+
+  const groupDaysByWeek = (days: string[]) => {
+    const weeks: Array<string[]> = [];
+    let currentWeek: string[] = [];
+
+    days.forEach((day, index) => {
+      currentWeek.push(day);
+
+      if (currentWeek.length === 7 || index === days.length - 1) {
+        weeks.push(currentWeek);
+        currentWeek = [];
+      }
+    });
+
+    return weeks;
+  };
+
   return (
     <div className={styles.calendar}>
       <div className={styles.calendar__month}>
@@ -58,25 +84,53 @@ const CalendarMonth = () => {
           <FaArrowRight size={16} />
         </button>
       </div>
-      <div className={styles.calendar__days}>
-        {intervals.map((day) => {
-          if (day) {
-            const today = DateTime.now().toISO().slice(0, 10);
-            const isToday = day === today;
 
-            return (
-              <p
-                key={day}
-                onClick={() => pickDay(day)}
-                className={`${currentDay === day && styles.active__picked}  ${
-                  isToday && styles.active__today
-                } `}
-              >
-                {day?.slice(-2)}
-              </p>
-            );
-          }
-        })}
+      <div className={styles.calendar__weekdays}>
+        {weekDays.map((day) => (
+          <p key={day} className={styles.weekday}>
+            {day}
+          </p>
+        ))}
+      </div>
+
+      <div className={styles.calendar__days}>
+        {groupDaysByWeek(allDays).map((week, weekIndex) => (
+          <div key={`week-${weekIndex}`} className={styles.calendar__week}>
+            {week.map((day, dayIndex) => {
+              if (day === null) {
+                return (
+                  <p
+                    key={`empty-${dayIndex}`}
+                    className={styles.empty__day}
+                  ></p>
+                );
+              }
+
+              if (day) {
+                const from = day === rangeTaskDate.from;
+                const to = day === rangeTaskDate.to;
+
+                const today = DateTime.now().toISO().slice(0, 10);
+                const isToday = day === today;
+                const isPickedDay = day === currentDay;
+
+                return (
+                  <p
+                    key={day}
+                    onClick={() => pickDay(day)}
+                    className={`${from ? styles.active__from : ""} ${
+                      to ? styles.active__to : ""
+                    }  ${isToday && styles.active__today} ${
+                      isPickedDay && !isToday && styles.active__picked
+                    }`}
+                  >
+                    {day?.slice(-2)}
+                  </p>
+                );
+              }
+            })}
+          </div>
+        ))}
       </div>
     </div>
   );

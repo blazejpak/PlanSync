@@ -104,7 +104,7 @@ export const createNewConversation = async (
 export const updateConversation = async (
   conversationId: string,
   lastMessage: string,
-  timestamp: string
+  timestamp: Timestamp
 ) => {
   const conversationRef = doc(db, "Conversations", conversationId);
 
