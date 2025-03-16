@@ -1,6 +1,5 @@
 import TaskList from "../TaskList";
 import StatisticsMobile from "../../../components/statistics/mobile/StatisticsMobile";
-import NavigationMobile from "../../../components/navigation/NavigationMobile";
 
 import { useAppSelector } from "../../../store/hooks";
 import { selectIsStatisticsOpen } from "../../../store/reducers/statistics";
