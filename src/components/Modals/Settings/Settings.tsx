@@ -3,7 +3,7 @@ import { FaArrowDown } from "react-icons/fa";
 import { useState } from "react";
 
 import styles from "./Settings.module.scss";
-import Account from "./account/Account";
+import Account from "./Account/Account";
 import { useSafeResponsiveContext } from "../../../context/responsive";
 import Overlay from "../Overlay";
 import Application from "./Application/Application";
