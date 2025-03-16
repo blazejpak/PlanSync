@@ -11,20 +11,20 @@ import Root from "./routes/Root";
 
 import "./main.scss";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AddTask from "./components/modals/AddTask/AddTask";
-import Overlay from "./components/modals/Overlay";
 import BoardWrapper from "./routes/Board/BoardWrapper";
-import EditTask from "./components/modals/EditTask/EditTask";
-import DeleteTask from "./components/modals/DeleteTask/DeleteTask";
 import MobileCalendar from "./routes/Board/mobile/calendar/MobileCalendar";
-import Settings from "./components/modals/Settings/Settings";
-import ShowTask from "./components/modals/ShowTask/ShowTask";
 import Board from "./routes/Board/Board";
 import ErrorBoundary from "./routes/ErrorBoundary";
 import NewMessage from "./routes/Board/mobile/message/NewMessage";
 import Conversation from "./routes/Board/mobile/message/conversation/Conversation";
 import Conversations from "./routes/Board/mobile/message/Conversations";
 import ConversationLoader from "./routes/Board/mobile/message/ConversationLoader";
+import Overlay from "./components/modals/Overlay";
+import EditTask from "./components/modals/EditTask/EditTask";
+import DeleteTask from "./components/modals/DeleteTask/DeleteTask";
+import ShowTask from "./components/modals/ShowTask/ShowTask";
+import Settings from "./components/modals/Settings/Settings";
+import AddTask from "./components/modals/AddTask/AddTask";
 
 const router = createBrowserRouter([
   {

@@ -16,7 +16,6 @@ import { PiEmpty } from "react-icons/pi";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectIsStatisticsOpen } from "../../../../store/reducers/statistics";
 import useClickOutside from "../../../../hooks/useClickOutside";
-import OverlayWhite from "../../../../components/modals/OverlayWhite";
 
 const Conversations = () => {
   const { currentUserData } = useSafeUserContext();

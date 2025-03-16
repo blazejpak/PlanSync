@@ -1,24 +1,13 @@
 import FilteredTasks from "../FilteredTasks/FilteredTasks";
 
 import styles from "./DisplayTasksWithoutFilterType.module.scss";
-import { useSafeModalContext } from "../../../context/ModalStates";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../types/routes";
 
 const DisplayTasksWithoutFilterType = () => {
-  const { setTaskModal } = useSafeModalContext();
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
   if (!boardId) return null;
-
-  const addTask = (type: "todo" | "progress" | "done") => {
-    setTaskModal({
-      type: "add",
-      prop: type,
-      activeTaskData: null,
-      isActive: true,
-    });
-  };
 
   return (
     <>

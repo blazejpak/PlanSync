@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import Chat from "../../../../components/messages/Chat";
-import OverlayWhite from "../../../../components/modals/OverlayWhite";
 import { useSafeMessagesContext } from "../../../../context/Messages";
 
 import styles from "./Conversation.module.scss";
 import useClickOutside from "../../../../hooks/useClickOutside";
+import OverlayWhite from "../../../../components/modals/OverlayWhite";
 
 const Conversation = () => {
   const {

@@ -8,21 +8,13 @@ import { ROUTES } from "../../../types/routes";
 import { useNavigate, useParams } from "react-router-dom";
 
 const DisplayTasksInOneColumn = () => {
-  const { setTaskModal, typeTaskFilter } = useSafeModalContext();
+  const { typeTaskFilter } = useSafeModalContext();
   const [title, setTitle] = useState("");
 
   const navigate = useNavigate();
   const { boardId } = useParams<{ boardId: string }>();
   if (!boardId) return null;
 
-  const addTask = (type: "todo" | "progress" | "done") => {
-    setTaskModal({
-      type: "add",
-      prop: type,
-      activeTaskData: null,
-      isActive: true,
-    });
-  };
   useEffect(() => {
     if (typeTaskFilter === typeFilter.TODO) setTitle("To do");
     else if (typeTaskFilter === typeFilter.PROGRESS) setTitle("In progress");

@@ -17,7 +17,7 @@ import { ProfilePhoto } from "../../../helpers/ProfilePhoto";
 import styles from "./Statistics.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../../types/routes";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { findConversationsByUserId } from "../../../services/messageService";
 import { useSafeMessagesContext } from "../../../context/Messages";
 import Conversations from "../../../routes/Board/desktop/messages/Conversations";

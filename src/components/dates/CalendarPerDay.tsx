@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { DateTime } from "luxon";
 
-import {
-  pickCurrentDay,
-  pickRangeDate,
-  selectCurrentDay,
-} from "../../store/reducers/calendar";
+import { pickRangeDate, selectCurrentDay } from "../../store/reducers/calendar";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { FaArrowLeft } from "react-icons/fa";

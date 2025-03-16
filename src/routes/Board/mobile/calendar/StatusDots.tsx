@@ -6,7 +6,7 @@ type StatusDotsProps = {
   day: any;
 };
 
-const StatusDots = ({ data, day }: StatusDotsProps) => {
+const StatusDots = ({ data }: StatusDotsProps) => {
   const hasTodo = data.some((task) => task.typeOfTask === "todo");
   const hasProgress = data.some((task) => task.typeOfTask === "progress");
   const hasDone = data.some((task) => task.typeOfTask === "done");
