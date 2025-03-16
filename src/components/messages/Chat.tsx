@@ -124,7 +124,6 @@ const Chat = ({ conversationId, back }: ChatProps) => {
       </div>
       <ul className={styles.list} ref={chatRef}>
         {data.map((message, index) => {
-          console.log(message);
           if (message.timestamp) {
             const currentDate = DateTime.fromMillis(
               message.timestamp.toMillis()

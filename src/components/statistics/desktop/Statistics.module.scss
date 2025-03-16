@@ -19,6 +19,7 @@
 
   @include mixins.responsive(md) {
     flex-direction: row;
+    overflow-x: hidden;
   }
 
   @include mixins.responsive(lg) {

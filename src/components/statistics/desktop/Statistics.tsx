@@ -103,7 +103,12 @@ const Statistics = () => {
         <button
           className={`${styles.button} `}
           style={{ color: iconColor }}
-          onClick={() => changeIsConversationsOpen()}
+          onClick={() => {
+            if (!isConversationsOpen) {
+              changeIsConversationsOpen();
+            }
+          }}
+          disabled={isConversationsOpen}
         >
           <FaRegMessage size={36} />
         </button>

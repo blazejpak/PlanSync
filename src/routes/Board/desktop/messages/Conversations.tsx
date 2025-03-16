@@ -80,70 +80,68 @@ const Conversations = () => {
   useClickOutside({ ref: chatRef, callback: changeIsConversationsOpen });
 
   return (
-    <OverlayWhite>
-      <div
-        className={`${styles.container} ${isStatsOpen && styles.open}`}
-        ref={chatRef}
-      >
-        <div>
-          <h1>
-            <span>Chats</span>
-          </h1>
-        </div>
-
-        <Input
-          id="message"
-          name="message"
-          label=""
-          placeholder="Search..."
-          required={false}
-          type="text"
-          onChange={findConversations}
-        />
-
-        {isLoading ||
-        !conversations.length ||
-        Object.keys(receivers).length === 0 ? (
-          Array(3)
-            .fill(0)
-            .map((_, index) => (
-              <Skeleton
-                key={index}
-                variant="rounded"
-                height={100}
-                style={{ marginTop: "2rem" }}
-              />
-            ))
-        ) : (
-          <ul className={styles.list}>
-            {filteredConversations.length > 0 &&
-            filteredConversations.some(
-              (conversation) => conversation.lastMessage
-            ) ? (
-              filteredConversations.map((conversation) => {
-                const receiver = receivers[conversation.conversationId] as User;
-
-                return (
-                  <div
-                    key={conversation.conversationId}
-                    className={styles.list__item}
-                  >
-                    {receiver && (
-                      <List data={receiver} typeOfList="conversationList" />
-                    )}
-                  </div>
-                );
-              })
-            ) : (
-              <div className={styles.list__empty}>
-                <p>Can't find any conversations.</p>
-                <PiEmpty size={48} />
-              </div>
-            )}
-          </ul>
-        )}
+    <div
+      className={`${styles.container} ${isStatsOpen && styles.open}`}
+      ref={chatRef}
+    >
+      <div>
+        <h1>
+          <span>Chats</span>
+        </h1>
       </div>
-    </OverlayWhite>
+
+      <Input
+        id="message"
+        name="message"
+        label=""
+        placeholder="Search..."
+        required={false}
+        type="text"
+        onChange={findConversations}
+      />
+
+      {isLoading ||
+      !conversations.length ||
+      Object.keys(receivers).length === 0 ? (
+        Array(3)
+          .fill(0)
+          .map((_, index) => (
+            <Skeleton
+              key={index}
+              variant="rounded"
+              height={100}
+              style={{ marginTop: "2rem" }}
+            />
+          ))
+      ) : (
+        <ul className={styles.list}>
+          {filteredConversations.length > 0 &&
+          filteredConversations.some(
+            (conversation) => conversation.lastMessage
+          ) ? (
+            filteredConversations.map((conversation) => {
+              const receiver = receivers[conversation.conversationId] as User;
+
+              return (
+                <div
+                  key={conversation.conversationId}
+                  className={styles.list__item}
+                >
+                  {receiver && (
+                    <List data={receiver} typeOfList="conversationList" />
+                  )}
+                </div>
+              );
+            })
+          ) : (
+            <div className={styles.list__empty}>
+              <p>Can't find any conversations.</p>
+              <PiEmpty size={48} />
+            </div>
+          )}
+        </ul>
+      )}
+    </div>
   );
 };
 
