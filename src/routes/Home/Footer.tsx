@@ -1,12 +1,19 @@
 import logo from "../../assets/logo.png";
+import logoWhite from "../../assets/logo-white.png";
 import { AiFillFacebook, AiFillInstagram } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 
 import styles from "./Footer.module.scss";
 import { Link } from "react-router-dom";
-import { ROUTES } from "../../utils/routes";
+import { ROUTES } from "../../types/routes";
 
 const HomeFooter = () => {
+  let img = logo;
+
+  if ((document.body.className = "dark")) {
+    img = logoWhite;
+  }
+
   const logoLink = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -15,7 +22,7 @@ const HomeFooter = () => {
     <footer className={styles.footer}>
       <div className={styles["left-part"]}>
         <Link to={ROUTES.ROUTE_HOME} onClick={logoLink}>
-          <img src={logo} height={48} alt="Logo" className={styles.image} />
+          <img src={img} height={48} alt="Logo" className={styles.image} />
         </Link>
         <p className={styles.description}>
           PlanSync is a task management app designed to streamline your workflow

@@ -1,6 +1,13 @@
+@use "../../styles/variables";
+@use "../../styles/mixins";
+
 .container {
-  background-color: white;
+  background-color: var(--primary-color);
 
   max-width: 140rem;
   margin-inline: auto;
+  overflow-y: auto;
+  height: 100dvh;
+
+  @include mixins.scroll();
 }

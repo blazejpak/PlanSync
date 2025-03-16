@@ -30,7 +30,10 @@ const UpdateData = () => {
     formikHelpers: FormikHelpers<{ fullName: string }>
   ) => {
     setIsFullNameButtonClicked(true);
-    UpdateUserData({ ...currentUserData, fullName: values.fullName });
+    UpdateUserData({
+      ...currentUserData,
+      fullName: values.fullName.toLocaleLowerCase(),
+    });
     formikHelpers.resetForm();
     setTimeout(() => {
       setIsFullNameButtonClicked(false);

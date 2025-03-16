@@ -4,10 +4,16 @@ import { typeFilter } from "../../../types/task";
 import FilteredTasks from "../FilteredTasks/FilteredTasks";
 
 import styles from "./DisplayTasksInOneColumn.module.scss";
+import { ROUTES } from "../../../types/routes";
+import { useNavigate, useParams } from "react-router-dom";
 
 const DisplayTasksInOneColumn = () => {
   const { setTaskModal, typeTaskFilter } = useSafeModalContext();
   const [title, setTitle] = useState("");
+
+  const navigate = useNavigate();
+  const { boardId } = useParams<{ boardId: string }>();
+  if (!boardId) return null;
 
   const addTask = (type: "todo" | "progress" | "done") => {
     setTaskModal({
@@ -41,7 +47,10 @@ const DisplayTasksInOneColumn = () => {
         <ul className={styles.list}>
           <FilteredTasks typeOfTask={typeTaskFilter} typeOfDevice="desktop" />
         </ul>
-        <button className={styles.add__task} onClick={() => addTask("todo")}>
+        <button
+          className={styles.add__task}
+          onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
+        >
           <p data-color="todo">+</p>
         </button>
       </div>

@@ -8,14 +8,28 @@ import Home from "./routes/Home/Home";
 import SignIn from "./routes/Signin/SignIn";
 import SignUp from "./routes/SignUp/SignUp";
 import Root from "./routes/Root";
-import Board from "./routes/Board/Board";
 
 import "./main.scss";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import AddTask from "./components/modals/AddTask/AddTask";
+import Overlay from "./components/modals/Overlay";
+import BoardWrapper from "./routes/Board/BoardWrapper";
+import EditTask from "./components/modals/EditTask/EditTask";
+import DeleteTask from "./components/modals/DeleteTask/DeleteTask";
+import MobileCalendar from "./routes/Board/mobile/calendar/MobileCalendar";
+import Settings from "./components/modals/Settings/Settings";
+import ShowTask from "./components/modals/ShowTask/ShowTask";
+import Board from "./routes/Board/Board";
+import ErrorBoundary from "./routes/ErrorBoundary";
+import NewMessage from "./routes/Board/mobile/message/NewMessage";
+import Conversation from "./routes/Board/mobile/message/conversation/Conversation";
+import Conversations from "./routes/Board/mobile/message/Conversations";
+import ConversationLoader from "./routes/Board/mobile/message/ConversationLoader";
 
 const router = createBrowserRouter([
   {
     element: <Root />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: "/",
@@ -30,13 +44,68 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "/board",
+        path: "/board/:boardId",
         element: (
           <ProtectedRoute>
-            <Board />
+            <BoardWrapper />
           </ProtectedRoute>
         ),
+        errorElement: <ErrorBoundary />,
+        children: [
+          {
+            path: "add-task",
+            element: <AddTask />,
+          },
+          {
+            path: "t/:taskId",
+
+            children: [
+              {
+                path: "",
+                element: (
+                  <>
+                    <Board />
+                    <Overlay>
+                      <ShowTask />
+                    </Overlay>
+                  </>
+                ),
+              },
+              {
+                path: "edit-task",
+                element: (
+                  <Overlay>
+                    <EditTask />
+                  </Overlay>
+                ),
+              },
+              {
+                path: "delete-task",
+                element: (
+                  <Overlay>
+                    <DeleteTask />
+                  </Overlay>
+                ),
+              },
+            ],
+          },
+          {
+            path: "calendar",
+            element: <MobileCalendar />,
+          },
+          {
+            path: "settings",
+            element: <Settings />,
+          },
+        ],
       },
+      {
+        path: "messages/:userId",
+        element: <Conversations />,
+        loader: ConversationLoader,
+      },
+      { path: "messages/:userId/new-message", element: <NewMessage /> },
+      { path: "messages/:userId/:conversationId", element: <Conversation /> },
     ],
   },
 ]);

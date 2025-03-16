@@ -1,41 +1,34 @@
-import { useSafeModalContext } from "../../../context/ModalStates";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../../../store/hooks";
 import { deleteTask } from "../../../store/reducers/tasks";
 
 import Button from "../../button/Button";
-import Overlay from "../Overlay";
 
 import styles from "./DeleteTask.module.scss";
+import { ROUTES } from "../../../types/routes";
 
 const DeleteTask = () => {
+  const { boardId, taskId } = useParams<{ boardId: string; taskId: string }>();
   const dispatch = useAppDispatch();
-  const { taskModal, setTaskModal, closeModal } = useSafeModalContext();
-  const activeData = taskModal.activeTaskData;
-  if (!activeData) return null;
+  const navigate = useNavigate();
 
-  const handleDeleteTask = (id: string) => {
-    dispatch(deleteTask(id));
-    closeModal();
+  const handleDeleteTask = () => {
+    if (!boardId || !taskId) return null;
+
+    dispatch(deleteTask(taskId));
+    navigate(ROUTES.ROUTE_BOARD(boardId));
   };
 
   const cancel = () => {
-    setTaskModal({
-      ...taskModal,
-      type: "task",
-      prop: null,
-      isActive: false,
-    });
+    if (!boardId || !taskId) return null;
+    navigate(ROUTES.ROUTE_TASK(boardId, taskId));
   };
 
   return (
     <section className={styles.container}>
       <strong>Are you sure you want to delete this task?</strong>
       <div className={styles.buttons}>
-        <Button
-          typeOfButton="delete"
-          onClick={() => handleDeleteTask(activeData.id)}
-          type="button"
-        >
+        <Button typeOfButton="delete" onClick={handleDeleteTask} type="button">
           Delete
         </Button>
         <Button typeOfButton="cancel" onClick={cancel} type="button">

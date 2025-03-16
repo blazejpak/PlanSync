@@ -5,6 +5,8 @@
   height: 80vh;
   overflow-y: auto;
   padding-inline: 1.2rem;
+
+  @include mixins.scroll();
 }
 
 .modal__heading {

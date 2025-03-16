@@ -10,47 +10,66 @@ import {
   pickRangeDate,
   selectRangeDate,
 } from "../../../store/reducers/calendar";
-import { updateTask } from "../../../store/reducers/tasks";
+import { selectAllData, updateTask } from "../../../store/reducers/tasks";
 import TypeTaskSelect from "../TypeTaskSelect";
 import CategoryPicker from "../CategoryPicker";
 
-import Overlay from "../Overlay";
 import TaskFields from "../TaskFields";
 import SubtasksFields from "../SubtasksFields";
 import DateFields from "../DateFields";
 import SaveButton from "../../button/SaveButton";
 
 import styles from "../AddTask/AddTask.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
+import { DateTime } from "luxon";
+import { ROUTES } from "../../../types/routes";
 
 const EditTask = () => {
-  const { taskModal, closeModal } = useSafeModalContext();
-  const activeTask = taskModal.activeTaskData;
-  const { user } = useSafeUserContext();
-
+  const data = useAppSelector(selectAllData);
   const rangeData = useAppSelector(selectRangeDate);
+  const { closeModal } = useSafeModalContext();
   const dispatch = useAppDispatch();
-
-  if (!activeTask || !user) return null;
+  const navigate = useNavigate();
+  const { user } = useSafeUserContext();
+  const { boardId, taskId } = useParams<{ boardId: string; taskId: string }>();
+  const task = data.find((item) => item.id === taskId)!;
 
   useEffect(() => {
-    dispatch(
-      pickRangeDate({
-        from: activeTask.rangeDateFrom,
-        to: activeTask.rangeDateTo,
-      })
-    );
-  }, []);
+    if (task) {
+      dispatch(
+        pickRangeDate({
+          from: task.rangeDateFrom || DateTime.now().toISODate(),
+          to: task.rangeDateTo || DateTime.now().toISODate(),
+        })
+      );
+    }
+  }, [task]);
 
+  if (!taskId) {
+    return <div>Task ID is missing in the URL.</div>;
+  }
+
+  if (!boardId) {
+    return <div>Date is missing in the URL.</div>;
+  }
+
+  if (!task) {
+    return <div>Task not found.</div>;
+  }
+
+  if (!data || data.length === 0) {
+    return <div>Loading tasks...</div>;
+  }
   const typeOfCalendar =
-    activeTask?.rangeDateTo > activeTask?.rangeDateFrom ? "pickDate" : "today";
+    task?.rangeDateTo > task?.rangeDateFrom ? "pickDate" : "today";
 
   const initialValue = {
-    category: activeTask.category,
-    description: activeTask.description,
+    category: task.category,
+    description: task.description,
     pickedRadioDate: typeOfCalendar,
-    subtasks: activeTask.subtasks,
-    type: activeTask.typeOfTask,
-    task: activeTask.task,
+    subtasks: task.subtasks,
+    type: task.typeOfTask,
+    task: task.task,
   };
 
   const saveTask = (
@@ -60,7 +79,7 @@ const EditTask = () => {
     const filteredSubtasks = values.subtasks.filter((subtask) => subtask.title);
 
     const updatedTask = {
-      id: activeTask.id,
+      id: task.id,
       task: values.task,
       category: values.category,
       description: values.description || "",
@@ -69,7 +88,7 @@ const EditTask = () => {
       subtasks: filteredSubtasks,
       typeOfTask: values.type,
       userId: user?.uid,
-      subtasksDone: activeTask.subtasksDone,
+      subtasksDone: task.subtasksDone,
       date: rangeData.from,
     };
 
@@ -80,7 +99,7 @@ const EditTask = () => {
   };
 
   return (
-    <section>
+    <section className={styles.section}>
       <strong className={styles.modal__heading}>Edit task</strong>
 
       <Formik
@@ -99,7 +118,7 @@ const EditTask = () => {
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <TaskFields handleChange={handleChange} />
+            <TaskFields handleChange={handleChange} values={values} />
 
             <SubtasksFields
               values={values}
@@ -139,6 +158,7 @@ const EditTask = () => {
                 Save
               </SaveButton>
               <SaveButton
+                onClick={() => navigate(ROUTES.ROUTE_TASK(boardId, taskId))}
                 isSucceed={null}
                 type="button"
                 style={{ marginTop: "1.6rem" }}

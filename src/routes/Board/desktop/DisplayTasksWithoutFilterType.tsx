@@ -2,9 +2,14 @@ import FilteredTasks from "../FilteredTasks/FilteredTasks";
 
 import styles from "./DisplayTasksWithoutFilterType.module.scss";
 import { useSafeModalContext } from "../../../context/ModalStates";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../../types/routes";
 
 const DisplayTasksWithoutFilterType = () => {
   const { setTaskModal } = useSafeModalContext();
+  const navigate = useNavigate();
+  const { boardId } = useParams<{ boardId: string }>();
+  if (!boardId) return null;
 
   const addTask = (type: "todo" | "progress" | "done") => {
     setTaskModal({
@@ -22,7 +27,10 @@ const DisplayTasksWithoutFilterType = () => {
         <ul className={styles.list}>
           <FilteredTasks typeOfTask="todo" typeOfDevice="desktop" />
         </ul>
-        <button className={styles.add__task} onClick={() => addTask("todo")}>
+        <button
+          className={styles.add__task}
+          onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
+        >
           <p data-color="todo">+</p>
         </button>
       </div>
@@ -35,7 +43,7 @@ const DisplayTasksWithoutFilterType = () => {
         </ul>
         <button
           className={styles.add__task}
-          onClick={() => addTask("progress")}
+          onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
         >
           <p data-color="progress">+</p>
         </button>
@@ -45,7 +53,10 @@ const DisplayTasksWithoutFilterType = () => {
         <ul className={styles.list}>
           <FilteredTasks typeOfTask="done" typeOfDevice="desktop" />
         </ul>
-        <button className={styles.add__task} onClick={() => addTask("done")}>
+        <button
+          className={styles.add__task}
+          onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
+        >
           <p data-color="done">+</p>
         </button>
       </div>

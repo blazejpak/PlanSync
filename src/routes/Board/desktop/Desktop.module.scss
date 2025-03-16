@@ -11,7 +11,7 @@
     grid-template-rows: 10rem 1fr 5rem;
 
     &.open {
-      grid-template-rows: 10rem 1fr 30rem;
+      grid-template-rows: 10rem 1fr 32rem;
     }
   }
   @include mixins.responsive(lg) {

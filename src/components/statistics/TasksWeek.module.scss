@@ -31,12 +31,12 @@
 
     .inner {
       position: absolute;
-      z-index: 10;
+      z-index: 1;
     }
 
     .outer {
       position: absolute;
-      z-index: 20;
+      z-index: 2;
     }
   }
 

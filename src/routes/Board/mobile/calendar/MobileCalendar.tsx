@@ -1,30 +1,35 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import {
-  pickCurrentDay,
   selectCurrentDay,
   selectRangeDate,
-} from "../../../store/reducers/calendar";
+} from "../../../../store/reducers/calendar";
 import { DateTime, Interval } from "luxon";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 import styles from "./MobileCalendar.module.scss";
-import { useSafeMobileContext } from "../../../context/MobileStates";
-import Loading from "../../Loading";
-import { selectAllData } from "../../../store/reducers/tasks";
+import { selectAllData } from "../../../../store/reducers/tasks";
+import { useSafeModalContext } from "../../../../context/ModalStates";
+import { Category } from "../../../../types/task";
+import { useSafeResponsiveContext } from "../../../../context/responsive";
+import { ROUTES } from "../../../../types/routes";
+import { Navigate, useNavigate } from "react-router-dom";
 import StatusDots from "./StatusDots";
-import { useSafeModalContext } from "../../../context/ModalStates";
-import { Category } from "../../../types/task";
+import { GetSettingsData } from "../../../../helpers/GetSettingsData";
 
 const MobileCalendar = () => {
-  const dispatch = useAppDispatch();
-  const rangeTaskDate = useAppSelector(selectRangeDate);
+  GetSettingsData();
   const currentDay = useAppSelector(selectCurrentDay);
-  const [pickedDay, setPickedDay] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const data = useAppSelector(selectAllData);
 
-  const { changeTypeOfPage } = useSafeMobileContext();
+  const { isMobile } = useSafeResponsiveContext();
+  if (!isMobile)
+    return <Navigate to={ROUTES.ROUTE_BOARD(currentDay)} replace={true} />;
+
+  const rangeTaskDate = useAppSelector(selectRangeDate);
+  const [pickedDay, setPickedDay] = useState("");
+  const data = useAppSelector(selectAllData);
+  const navigate = useNavigate();
+
   const { typeCategory } = useSafeModalContext();
 
   const [monthCalendar, setMonthCalendar] = useState(
@@ -41,13 +46,8 @@ const MobileCalendar = () => {
     .map((date: Interval) => date.start?.toISODate());
 
   const pickDay = (day: string) => {
-    dispatch(pickCurrentDay(day));
+    navigate(ROUTES.ROUTE_BOARD(day));
     setPickedDay(day);
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      changeTypeOfPage("home");
-    }, 500);
   };
 
   const previousMonth = () => {
@@ -89,7 +89,7 @@ const MobileCalendar = () => {
   };
 
   return (
-    <div className={styles.calendar}>
+    <section className={styles.calendar}>
       <div className={styles.calendar__month}>
         <button type="button" onClick={previousMonth}>
           <FaArrowLeft size={16} />
@@ -113,8 +113,8 @@ const MobileCalendar = () => {
             {week.map((day, dayIndex) => {
               if (day === null) {
                 return (
-                  <div className={styles.day}>
-                    <p key={`empty-${dayIndex}`}></p>
+                  <div className={styles.day} key={`empty-${dayIndex}`}>
+                    <p></p>
                   </div>
                 );
               }
@@ -136,13 +136,12 @@ const MobileCalendar = () => {
 
               return (
                 <div
+                  key={day}
                   className={`${currentDay === day && styles.active__picked} ${
                     pickedDay === day && styles.active__picked
                   } ${isToday && styles.active__today} ${styles.day}`}
                 >
-                  <p key={day} onClick={() => pickDay(day)}>
-                    {day?.slice(-2)}
-                  </p>
+                  <p onClick={() => pickDay(day)}>{day?.slice(-2)}</p>
                   <StatusDots data={dataByDay} day={day} />
                 </div>
               );
@@ -150,9 +149,7 @@ const MobileCalendar = () => {
           </div>
         ))}
       </div>
-
-      {isLoading && <Loading />}
-    </div>
+    </section>
   );
 };
 

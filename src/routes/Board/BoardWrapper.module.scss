@@ -1,5 +1,5 @@
-@use "../../../styles/variables";
-@use "../../../styles/mixins";
+@use "../../styles/variables";
+@use "../../styles/mixins";
 
 .page {
   background-color: var(--primary-color);
@@ -10,10 +10,10 @@
   width: 100%;
 
   display: grid;
-  grid-template-rows: 15rem 15rem 1fr 8.4rem;
+  grid-template-rows: 1fr 8.4rem;
 
   @include mixins.responsive(sm) {
-    grid-template-rows: 15rem 15rem 1fr 10rem;
+    grid-template-rows: 1fr 10rem;
   }
 
   .board {

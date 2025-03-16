@@ -1,4 +1,5 @@
 import { IoLogOut, IoSettings, IoEye, IoEyeOff } from "react-icons/io5";
+import { FaRegMessage } from "react-icons/fa6";
 import { useSafeUserContext } from "../../../context/AuthenticationContext";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
@@ -6,7 +7,6 @@ import {
   statisticsOpen,
 } from "../../../store/reducers/statistics";
 import { useSafeSettingsContext } from "../../../context/Settings";
-import Settings from "../../modals/Settings/Settings";
 
 import CalendarMonth from "../../dates/CalendarMonth";
 import Clock from "../../dates/Clock";
@@ -15,20 +15,45 @@ import ComplexWeek from "../ComplexWeek";
 import { ProfilePhoto } from "../../../helpers/ProfilePhoto";
 
 import styles from "./Statistics.module.scss";
-import Overlay from "../../modals/Overlay";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../../types/routes";
+import { useEffect, useState } from "react";
+import { findConversationsByUserId } from "../../../services/messageService";
+import { useSafeMessagesContext } from "../../../context/Messages";
+import Conversations from "../../../routes/Board/desktop/messages/Conversations";
+import Conversation from "../../../routes/Board/desktop/messages/Conversation";
 
 const Statistics = () => {
-  const { SignOut } = useSafeUserContext();
+  const { SignOut, currentUserData } = useSafeUserContext();
+  const {
+    changeConversationsData,
+    isConversationsOpen,
+    changeIsConversationsOpen,
+    isConversationOpen,
+  } = useSafeMessagesContext();
+  const { profileImage } = currentUserData;
+
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { boardId } = useParams<{ boardId: string }>();
   const isStatisticsOpen = useAppSelector(selectIsStatisticsOpen);
-  const { changeSettingsModalActive, isModalSettingsOpen, pickedTheme } =
-    useSafeSettingsContext();
+  const { pickedTheme } = useSafeSettingsContext();
 
   const logout = () => {
     SignOut();
   };
 
   const iconColor = pickedTheme === "dark" ? "white" : "black";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const getConversations = await findConversationsByUserId(
+        currentUserData.userId
+      );
+      changeConversationsData(getConversations);
+    };
+    fetchData();
+  }, []);
 
   return (
     <section
@@ -40,11 +65,15 @@ const Statistics = () => {
             className={`${styles.buttons} ${isStatisticsOpen && styles.open}`}
           >
             <button className={styles.profile__icon}>
-              <ProfilePhoto />
+              <ProfilePhoto profileImage={profileImage} />
             </button>
             <button
               className={styles.profile__button}
-              onClick={() => changeSettingsModalActive(true)}
+              onClick={() => {
+                if (boardId) {
+                  navigate(ROUTES.ROUTE_SETTINGS(boardId));
+                }
+              }}
               style={{ color: iconColor }}
             >
               <IoSettings size={24} />
@@ -66,19 +95,35 @@ const Statistics = () => {
 
       {isStatisticsOpen && <ComplexWeek />}
 
-      {isModalSettingsOpen && (
-        <Overlay>
-          <Settings />
-        </Overlay>
-      )}
-
-      <button
-        className={`${styles.button} ${isStatisticsOpen && styles.open}`}
-        style={{ color: iconColor }}
-        onClick={() => dispatch(statisticsOpen(!isStatisticsOpen))}
+      <div
+        className={`${styles["buttons__bottom"]} ${
+          isStatisticsOpen && styles.open
+        }`}
       >
-        {isStatisticsOpen ? <IoEyeOff size={36} /> : <IoEye size={36} />}
-      </button>
+        <button
+          className={`${styles.button} `}
+          style={{ color: iconColor }}
+          onClick={() => {
+            if (!isConversationsOpen) {
+              changeIsConversationsOpen();
+            }
+          }}
+          disabled={isConversationsOpen}
+        >
+          <FaRegMessage size={36} />
+        </button>
+
+        <button
+          className={`${styles.button} ${isStatisticsOpen && styles.open}`}
+          style={{ color: iconColor }}
+          onClick={() => dispatch(statisticsOpen(!isStatisticsOpen))}
+        >
+          {isStatisticsOpen ? <IoEyeOff size={36} /> : <IoEye size={36} />}
+        </button>
+      </div>
+
+      {isConversationsOpen && <Conversations />}
+      {isConversationOpen && <Conversation />}
     </section>
   );
 };

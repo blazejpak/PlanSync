@@ -5,19 +5,23 @@ import { validationSchema } from "./ValidationSchema";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
-import { ROUTES } from "../../utils/routes";
+import { ROUTES } from "../../types/routes";
 import { RotatingLines } from "react-loader-spinner";
 import { FcGoogle } from "react-icons/fc";
+import { selectCurrentDay } from "../../store/reducers/calendar";
+import { useAppSelector } from "../../store/hooks";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
 
+  const selectedDay = useAppSelector(selectCurrentDay);
+
   const { SignUp, user, loading, GoogleLogin, error } = useSafeUserContext();
 
   useEffect(() => {
     if (user) {
-      navigate(ROUTES.ROUTE_BOARD);
+      navigate(ROUTES.ROUTE_BOARD(selectedDay));
     }
   }, []);
 
@@ -43,7 +47,7 @@ const SignUp = () => {
     setIsClicked(true);
 
     GoogleLogin();
-    navigate(ROUTES.ROUTE_BOARD);
+    navigate(ROUTES.ROUTE_BOARD(selectedDay));
   };
 
   return (

@@ -1,18 +1,17 @@
-import { useSafeUserContext } from "../context/AuthenticationContext";
-
 import profileImg from "../assets/profile-icon.png";
 import { useEffect, useState } from "react";
 
-export const ProfilePhoto = () => {
-  const { user } = useSafeUserContext();
+type ProfilePhoto = {
+  profileImage: string | undefined;
+};
 
+export const ProfilePhoto = ({ profileImage }: ProfilePhoto) => {
   const [profilePhoto, setProfilePhoto] = useState(profileImg);
-
   useEffect(() => {
     const loadProfilePhoto = async () => {
-      if (user?.photoURL && typeof user.photoURL === "string") {
+      if (profileImage && typeof profileImage === "string") {
         try {
-          setProfilePhoto(user.photoURL as string);
+          setProfilePhoto(profileImage as string);
         } catch (error) {
           setProfilePhoto(profileImg);
         }
@@ -22,7 +21,7 @@ export const ProfilePhoto = () => {
     };
 
     loadProfilePhoto();
-  }, [user]);
+  }, [profileImage]);
 
   return (
     <img src={profilePhoto} alt="Profile Icon" referrerPolicy="no-referrer" />

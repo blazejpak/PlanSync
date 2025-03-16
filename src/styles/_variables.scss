@@ -52,7 +52,7 @@ body.large-font {
   --primary-color--200: #b1b6be;
   --primary-color--300: #c1c5cd;
   --primary-color--400: #d6dbdf;
-  --primary-color--500: #e5e8ee;
+  --primary-color--500: #d4d6da;
   --primary-color--600: #ebeef2;
   --primary-color--700: #f4f4f4;
 
@@ -75,6 +75,8 @@ body.large-font {
 
   --font-color: #2b2c37;
   --font-color--darkBg: #ffffff;
+
+  --shadow-color: 43, 44, 55;
 
   // RADIUS
   --border-radius--sm: 4px;
@@ -110,4 +112,6 @@ body.dark {
   --bg-pastel--green: #4caf50;
 
   --font-color: #f0f0f0;
+
+  --shadow-color: 235, 238, 242;
 }

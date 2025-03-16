@@ -1,3 +1,4 @@
+import { ValuesTypes } from "../modals/ValuesType";
 import styles from "./Input.module.scss";
 
 type InputProps = {
@@ -8,6 +9,7 @@ type InputProps = {
   name: string;
   required: boolean;
   type: string;
+  values?: ValuesTypes;
 };
 
 const Input = ({
@@ -18,6 +20,7 @@ const Input = ({
   name,
   required,
   type,
+  values,
 }: InputProps) => {
   return (
     <div className={styles.form}>
@@ -33,6 +36,7 @@ const Input = ({
           onChange={onChange}
           placeholder={placeholder}
           className={styles.input}
+          value={values?.task}
         />
       )}
       {type === "textarea" && (
@@ -43,6 +47,7 @@ const Input = ({
           onChange={onChange}
           placeholder={placeholder}
           className={styles.input}
+          value={values?.description}
         />
       )}
     </div>

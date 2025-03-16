@@ -1,4 +1,4 @@
-import { Task } from "../../../types/task";
+import { Task } from "../../../../types/task";
 import styles from "./StatusDots.module.scss";
 
 type StatusDotsProps = {

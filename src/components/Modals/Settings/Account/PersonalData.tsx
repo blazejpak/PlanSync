@@ -6,6 +6,11 @@ import styles from "./PersonalData.module.scss";
 const PersonalData = () => {
   const { currentUserData } = useSafeUserContext();
 
+  const fullName = currentUserData.fullName
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
   return (
     <Indentation>
       <section className={styles.container}>
@@ -16,9 +21,7 @@ const PersonalData = () => {
         <div>
           <strong>Full name:</strong>
           <p>
-            {currentUserData.fullName
-              ? currentUserData.fullName
-              : "You haven't entered your full name yet."}
+            {fullName ? fullName : "You haven't entered your full name yet."}
           </p>
         </div>
         <div>

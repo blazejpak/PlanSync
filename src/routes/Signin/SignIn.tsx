@@ -6,16 +6,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { validationSchema } from "./ValidationSchema";
 import { useSafeUserContext } from "../../context/AuthenticationContext";
 
-import { ROUTES } from "../../utils/routes";
+import { ROUTES } from "../../types/routes";
 import { RotatingLines } from "react-loader-spinner";
 
 import { FcGoogle } from "react-icons/fc";
 import { BiShow, BiHide } from "react-icons/bi";
 import styles from "./SignIn.module.scss";
+import { useAppSelector } from "../../store/hooks";
+import { selectCurrentDay } from "../../store/reducers/calendar";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+
+  const selectedDay = useAppSelector(selectCurrentDay);
 
   const navigate = useNavigate();
 
@@ -23,7 +27,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (user) {
-      navigate(ROUTES.ROUTE_BOARD);
+      navigate(ROUTES.ROUTE_BOARD(selectedDay));
     }
   }, []);
 

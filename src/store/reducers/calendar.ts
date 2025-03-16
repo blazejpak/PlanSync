@@ -3,7 +3,7 @@ import { RootState } from "../store";
 import { DateTime } from "luxon";
 import { DatesZones } from "../../types/dates";
 
-const time = DateTime.now().setLocale(DatesZones.LOCALE).toISO().slice(0, 10);
+const time = DateTime.now().setLocale(DatesZones.LOCALE).toISODate();
 
 type InitialStateProps = {
   currentDay: string;
