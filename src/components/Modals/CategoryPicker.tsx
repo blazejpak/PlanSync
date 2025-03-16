@@ -23,12 +23,7 @@ type CategoryPickerProps = {
   }>>;
 };
 
-const CategoryPicker = ({
-  values,
-  handleChange,
-  handleBlur,
-  setFieldValue,
-}: CategoryPickerProps) => {
+const CategoryPicker = ({ values, setFieldValue }: CategoryPickerProps) => {
   const [isTypesSelectClicked, setIsTypesSelectClicked] = useState(false);
 
   const typesSelect = [

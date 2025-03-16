@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
-import { Stack, TextField } from "@mui/material";
+import { Stack } from "@mui/material";
 import { FormikErrors, FormikTouched, FieldArray } from "formik";
 
-import { Subtask, ValuesTypes } from "./ValuesType";
+import { ValuesTypes } from "./ValuesType";
 
 import { CgClose } from "react-icons/cg";
 import styles from "./SubtasksFields.module.scss";
@@ -21,8 +21,6 @@ interface SubtasksFieldsProps {
 
 const SubtasksFields = ({
   values,
-  errors,
-  touched,
   handleChange,
   setFieldValue,
 }: SubtasksFieldsProps) => {

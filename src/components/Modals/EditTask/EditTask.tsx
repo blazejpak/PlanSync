@@ -74,7 +74,7 @@ const EditTask = () => {
 
   const saveTask = (
     values: ValuesTypes,
-    { setSubmitting, resetForm }: FormikHelpers<ValuesTypes>
+    { resetForm }: FormikHelpers<ValuesTypes>
   ) => {
     const filteredSubtasks = values.subtasks.filter((subtask) => subtask.title);
 
@@ -114,7 +114,6 @@ const EditTask = () => {
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting,
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>

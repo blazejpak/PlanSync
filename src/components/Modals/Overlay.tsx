@@ -14,7 +14,7 @@ type OverlayProps = {
 };
 
 const Overlay = ({ children }: OverlayProps) => {
-  const { setTaskModal, closeModal } = useSafeModalContext();
+  const { closeModal } = useSafeModalContext();
   const { closeSettingsModal } = useSafeSettingsContext();
   const { boardId } = useParams<{ boardId: string }>();
 

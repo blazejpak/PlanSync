@@ -1,6 +1,5 @@
 import { MouseEvent, useEffect, useState } from "react";
 
-import { useSafeModalContext } from "../../../context/ModalStates";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   selectAllData,
@@ -9,7 +8,6 @@ import {
 } from "../../../store/reducers/tasks";
 
 import SaveButton from "../../button/SaveButton";
-import Overlay from "../Overlay";
 
 import { HiDotsVertical } from "react-icons/hi";
 import styles from "./ShowTask.module.scss";

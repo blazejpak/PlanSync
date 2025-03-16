@@ -21,12 +21,7 @@ type TypeTaskSelectProps = {
   }>>;
 };
 
-const TypeTaskSelect = ({
-  values,
-  handleChange,
-  handleBlur,
-  setFieldValue,
-}: TypeTaskSelectProps) => {
+const TypeTaskSelect = ({ values, setFieldValue }: TypeTaskSelectProps) => {
   const [isTypesSelectClicked, setIsTypesSelectClicked] = useState(false);
 
   const typesSelect = [

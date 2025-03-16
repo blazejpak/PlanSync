@@ -16,8 +16,7 @@ import styles from "./UpdateData.module.scss";
 
 const UpdateData = () => {
   const { pickedTheme } = useSafeSettingsContext();
-  const { currentUserData, UpdateUserData, isSucceed, error } =
-    useSafeUserContext();
+  const { currentUserData, UpdateUserData, isSucceed } = useSafeUserContext();
 
   const [isFullNameButtonClicked, setIsFullNameButtonClicked] = useState(false);
   const [isPhoneNumberButtonClicked, setIsPhoneNumberButtonClicked] =
@@ -70,8 +69,6 @@ const UpdateData = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting,
-            setFieldValue,
           }) => (
             <form onSubmit={handleSubmit} className={styles.input__box}>
               <TextField
@@ -124,8 +121,6 @@ const UpdateData = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting,
-            setFieldValue,
           }) => (
             <form onSubmit={handleSubmit} className={styles.input__box}>
               <TextField

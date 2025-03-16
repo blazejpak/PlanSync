@@ -36,7 +36,7 @@ const AddTaskModal = () => {
 
   const submitAddTask = (
     values: ValuesTypes,
-    { setSubmitting, resetForm }: FormikHelpers<ValuesTypes>
+    { resetForm }: FormikHelpers<ValuesTypes>
   ) => {
     if (values.task && user) {
       const filteredSubtasks = values.subtasks.filter(
@@ -78,7 +78,6 @@ const AddTaskModal = () => {
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting,
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
