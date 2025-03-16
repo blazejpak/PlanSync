@@ -1,4 +1,4 @@
-import { ValuesTypes } from "../modals/ValuesType";
+import { ValuesTypes } from "../boxes/ValuesType";
 import styles from "./Input.module.scss";
 
 type InputProps = {

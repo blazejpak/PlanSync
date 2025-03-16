@@ -19,12 +19,12 @@ import NewMessage from "./routes/Board/mobile/message/NewMessage";
 import Conversation from "./routes/Board/mobile/message/conversation/Conversation";
 import Conversations from "./routes/Board/mobile/message/Conversations";
 import ConversationLoader from "./routes/Board/mobile/message/ConversationLoader";
-import Overlay from "./components/modals/Overlay";
-import EditTask from "./components/modals/EditTask/EditTask";
-import DeleteTask from "./components/modals/DeleteTask/DeleteTask";
-import ShowTask from "./components/modals/ShowTask/ShowTask";
-import Settings from "./components/modals/Settings/Settings";
-import AddTask from "./components/modals/AddTask/AddTask";
+import Overlay from "./components/boxes/Overlay";
+import EditTask from "./components/boxes/EditTask/EditTask";
+import DeleteTask from "./components/boxes/DeleteTask/DeleteTask";
+import ShowTask from "./components/boxes/ShowTask/ShowTask";
+import Settings from "./components/boxes/Settings/Settings";
+import AddTask from "./components/boxes/AddTask/AddTask";
 
 const router = createBrowserRouter([
   {

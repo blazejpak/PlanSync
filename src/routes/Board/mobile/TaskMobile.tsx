@@ -4,11 +4,11 @@ import { useSafeModalContext } from "../../../context/ModalStates";
 
 import styles from "./TaskMobile.module.scss";
 import FilteredTasks from "../FilteredTasks/FilteredTasks";
-import Overlay from "../../../components/modals/Overlay";
-import ShowTask from "../../../components/modals/ShowTask/ShowTask";
-import EditTask from "../../../components/modals/EditTask/EditTask";
-import DeleteTask from "../../../components/modals/DeleteTask/DeleteTask";
-import AddTask from "../../../components/modals/AddTask/AddTask";
+import Overlay from "../../../components/boxes/Overlay";
+import ShowTask from "../../../components/boxes/ShowTask/ShowTask";
+import EditTask from "../../../components/boxes/EditTask/EditTask";
+import DeleteTask from "../../../components/boxes/DeleteTask/DeleteTask";
+import AddTask from "../../../components/boxes/AddTask/AddTask";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(

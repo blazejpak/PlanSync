@@ -4,7 +4,7 @@ import { useSafeMessagesContext } from "../../../../context/Messages";
 
 import styles from "./Conversation.module.scss";
 import useClickOutside from "../../../../hooks/useClickOutside";
-import OverlayWhite from "../../../../components/modals/OverlayWhite";
+import OverlayWhite from "../../../../components/boxes/OverlayWhite";
 
 const Conversation = () => {
   const {
