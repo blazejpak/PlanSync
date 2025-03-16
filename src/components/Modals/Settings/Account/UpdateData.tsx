@@ -4,15 +4,15 @@ import { TextField } from "@mui/material";
 
 import SaveButton from "../../../button/SaveButton";
 
-import {
-  validationPhoneSchema,
-  validationFullNameSchema,
-} from "./AccountValidation";
 import { useSafeSettingsContext } from "../../../../context/Settings";
 import { useSafeUserContext } from "../../../../context/AuthenticationContext";
 
 import Indentation from "../Indentation";
 import styles from "./UpdateData.module.scss";
+import {
+  validationFullNameSchema,
+  validationPhoneSchema,
+} from "./AccountValidation";
 
 const UpdateData = () => {
   const { pickedTheme } = useSafeSettingsContext();

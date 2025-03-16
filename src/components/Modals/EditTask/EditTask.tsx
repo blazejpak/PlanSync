@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Formik, FormikHelpers } from "formik";
 
-import { validationSchema } from "../AddTask/AddTaskValidationSchema";
+import { validationSchema } from "../addTask/AddTaskValidationSchema";
 import { ValuesTypes } from "../ValuesType";
 import { useSafeModalContext } from "../../../context/ModalStates";
 import { useSafeUserContext } from "../../../context/AuthenticationContext";

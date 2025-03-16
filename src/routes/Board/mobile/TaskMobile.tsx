@@ -5,10 +5,10 @@ import { useSafeModalContext } from "../../../context/ModalStates";
 import styles from "./TaskMobile.module.scss";
 import FilteredTasks from "../FilteredTasks/FilteredTasks";
 import Overlay from "../../../components/modals/Overlay";
-import ShowTask from "../../../components/modals/ShowTask/ShowTask";
-import EditTask from "../../../components/modals/EditTask/EditTask";
-import DeleteTask from "../../../components/modals/DeleteTask/DeleteTask";
-import AddTask from "../../../components/modals/AddTask/AddTask";
+import ShowTask from "../../../components/modals/showTask/ShowTask";
+import EditTask from "../../../components/modals/editTask/EditTask";
+import DeleteTask from "../../../components/modals/deleteTask/DeleteTask";
+import AddTask from "../../../components/modals/addTask/AddTask";
 
 const TaskMobile = () => {
   const [typeTasks, setTypeTasks] = useState<"todo" | "progress" | "done">(
