@@ -76,7 +76,7 @@ const SubtasksFields = ({
                 if (!values.subtasks[values.subtasks.length - 1].title) {
                   setSubtaskError(true);
                 } else {
-                  push({ title: "", isDone: false, id: 0 });
+                  push({ title: "", isDone: false, id: Math.random() });
                 }
               }}
             >

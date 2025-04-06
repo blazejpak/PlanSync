@@ -16,11 +16,15 @@ import { selectRangeDate } from "../../../store/reducers/calendar";
 
 import { ValuesTypes } from "../ValuesType";
 import styles from "./AddTask.module.scss";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../../types/routes";
 
 const AddTaskModal = () => {
   const { user } = useSafeUserContext();
-  const { taskModal, closeModal } = useSafeModalContext();
-  const typeOfTask = taskModal.prop as string;
+  const { closeModal } = useSafeModalContext();
+  const { typeOfTask } = useLocation().state;
+  const navigate = useNavigate();
+  const { boardId } = useParams<{ boardId: string }>();
 
   const rangeData = useAppSelector(selectRangeDate);
   const dispatch = useAppDispatch();
@@ -42,7 +46,6 @@ const AddTaskModal = () => {
       const filteredSubtasks = values.subtasks.filter(
         (subtask) => subtask.title
       );
-
       dispatch(
         addTask({
           task: values.task,
@@ -57,9 +60,11 @@ const AddTaskModal = () => {
           date: rangeData.from,
         })
       );
-
-      resetForm();
+      if (boardId) {
+        navigate(ROUTES.ROUTE_BOARD(boardId), { replace: true });
+      }
       closeModal();
+      resetForm();
     }
   };
 

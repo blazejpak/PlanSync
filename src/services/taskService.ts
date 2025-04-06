@@ -26,7 +26,7 @@ export const fetchAll = async () => {
 export const fetchTasksByUserId = async (userId: string): Promise<Task[]> => {
   const tasksRef = collection(db, "Tasks");
 
-  const tasksQuery = query(tasksRef, where("userId", "array-contains", userId));
+  const tasksQuery = query(tasksRef, where("userId", "==", userId));
 
   const tasksSnapshot = await getDocs(tasksQuery);
 

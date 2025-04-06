@@ -28,10 +28,9 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
 
   li {
-    margin-top: 1.6rem;
+    margin-top: 0.8rem;
     cursor: pointer;
   }
 }

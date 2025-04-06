@@ -13,7 +13,7 @@
   width: 100%;
 
   @include mixins.responsive(md) {
-    height: auto;
+    height: 45rem;
     max-height: 100vh;
     border-radius: var(--border-radius--md);
     padding-inline: 0;
@@ -47,7 +47,7 @@
     overflow-y: auto;
 
     @include mixins.responsive(md) {
-      max-height: 22rem;
+      max-height: auto;
     }
 
     @include mixins.scroll();

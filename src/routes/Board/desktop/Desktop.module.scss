@@ -36,8 +36,11 @@
   padding: 3.2rem;
 
   @include mixins.responsive(md) {
-    height: 100%;
+    height: auto;
+    overflow-y: auto;
     width: 100vw;
+
+    @include mixins.scroll();
   }
 
   @include mixins.responsive(lg) {

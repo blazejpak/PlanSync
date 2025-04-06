@@ -27,7 +27,6 @@ const DisplayTasksInOneColumn = () => {
     if (type === typeFilter.DONE) return styles.done;
     return "";
   };
-
   return (
     <>
       <div className={styles.column}>
@@ -41,7 +40,13 @@ const DisplayTasksInOneColumn = () => {
         </ul>
         <button
           className={styles.add__task}
-          onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
+          onClick={() =>
+            navigate(ROUTES.ROUTE_ADD_TASK(boardId), {
+              state: {
+                typeOfTask: typeTaskFilter,
+              },
+            })
+          }
         >
           <p data-color="todo">+</p>
         </button>

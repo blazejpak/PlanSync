@@ -18,7 +18,13 @@ const DisplayTasksWithoutFilterType = () => {
         </ul>
         <button
           className={styles.add__task}
-          onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
+          onClick={() =>
+            navigate(ROUTES.ROUTE_ADD_TASK(boardId), {
+              state: {
+                typeOfTask: "todo",
+              },
+            })
+          }
         >
           <p data-color="todo">+</p>
         </button>
@@ -32,7 +38,13 @@ const DisplayTasksWithoutFilterType = () => {
         </ul>
         <button
           className={styles.add__task}
-          onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
+          onClick={() =>
+            navigate(ROUTES.ROUTE_ADD_TASK(boardId), {
+              state: {
+                typeOfTask: "progress",
+              },
+            })
+          }
         >
           <p data-color="progress">+</p>
         </button>
@@ -44,7 +56,13 @@ const DisplayTasksWithoutFilterType = () => {
         </ul>
         <button
           className={styles.add__task}
-          onClick={() => navigate(ROUTES.ROUTE_ADD_TASK(boardId))}
+          onClick={() =>
+            navigate(ROUTES.ROUTE_ADD_TASK(boardId), {
+              state: {
+                typeOfTask: "done",
+              },
+            })
+          }
         >
           <p data-color="done">+</p>
         </button>
