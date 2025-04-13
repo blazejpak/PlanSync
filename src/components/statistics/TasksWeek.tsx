@@ -28,7 +28,7 @@ const TasksWeek = () => {
       <div className={styles.result}>
         <strong className={styles.score}>
           {countDoneTasks !== Infinity && !Number.isNaN(countDoneTasks)
-            ? `${countDoneTasks}%`
+            ? `${countDoneTasks.toFixed(2)}%`
             : 0}
         </strong>
         <div className={styles.inner}>

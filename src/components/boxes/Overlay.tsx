@@ -25,7 +25,7 @@ const Overlay = ({ children }: OverlayProps) => {
     ref: modalRef,
     callback: () => {
       if (boardId) {
-        navigate(ROUTES.ROUTE_BOARD(boardId));
+        navigate(ROUTES.ROUTE_BOARD(boardId), { replace: true });
       }
     },
   });

@@ -9,7 +9,7 @@ import styles from "./ComplexWeek.module.scss";
 import { colors } from "../../helpers/colors";
 
 const ComplexWeek = () => {
-  const [weekData, setWeekData] = useState<{
+  const [dataArr, setDataArr] = useState<{
     todo: Task[];
     progress: Task[];
     done: Task[];
@@ -19,10 +19,9 @@ const ComplexWeek = () => {
 
   useEffect(() => {
     if (data.length <= 0) return;
-
     const newData = WeekData(data) as Task[];
 
-    setWeekData({
+    setDataArr({
       todo: newData.filter((item) => item.typeOfTask === typeFilter.TODO),
       progress: newData.filter(
         (item) => item.typeOfTask === typeFilter.PROGRESS
@@ -38,16 +37,16 @@ const ComplexWeek = () => {
   };
 
   const countTodoTasks = useMemo(
-    () => calculatePercentage(weekData.todo),
-    [weekData.todo]
+    () => calculatePercentage(dataArr.todo),
+    [dataArr.todo]
   );
   const countProgressTasks = useMemo(
-    () => calculatePercentage(weekData.progress),
-    [weekData.progress]
+    () => calculatePercentage(dataArr.progress),
+    [dataArr.progress]
   );
   const countDoneTasks = useMemo(
-    () => calculatePercentage(weekData.done),
-    [weekData.done]
+    () => calculatePercentage(dataArr.done),
+    [dataArr.done]
   );
 
   return (
@@ -70,7 +69,7 @@ const ComplexWeek = () => {
               borderRadius: "16px",
             }}
           />
-          <p>{`${countTodoTasks}%`}</p>
+          <p>{`${countTodoTasks.toFixed(2)}%`}</p>
         </div>
       </div>
 
@@ -88,7 +87,7 @@ const ComplexWeek = () => {
             variant="determinate"
             style={{ height: "2rem", width: "100%", borderRadius: "16px" }}
           />
-          <p>{`${countProgressTasks}%`}</p>
+          <p>{`${countProgressTasks.toFixed(2)}%`}</p>
         </div>
       </div>
 
@@ -112,7 +111,7 @@ const ComplexWeek = () => {
             }}
           />
 
-          <p>{`${countDoneTasks}%`}</p>
+          <p>{`${countDoneTasks.toFixed(2)}%`}</p>
         </div>
       </div>
     </div>

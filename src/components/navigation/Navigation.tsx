@@ -6,14 +6,22 @@ import logo from "../../assets/logo-white.png";
 import logoMobile from "../../assets/logo-mobile.png";
 import styles from "./Navigation.module.scss";
 import { useSafeResponsiveContext } from "../../context/responsive";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../../types/routes";
 
 const Navigation = () => {
   const { isMobile } = useSafeResponsiveContext();
   const navigate = useNavigate();
+  const { boardId } = useParams<{ boardId: string }>();
 
   const handleButtonClick = () => {
-    navigate("add-task");
+    if (boardId) {
+      navigate(ROUTES.ROUTE_ADD_TASK(boardId), {
+        state: {
+          typeOfTask: "todo",
+        },
+      });
+    }
   };
 
   return (
