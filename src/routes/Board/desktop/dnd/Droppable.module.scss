@@ -7,6 +7,17 @@
     text-transform: uppercase;
   }
 }
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  li {
+    margin-top: 0.8rem;
+    cursor: pointer;
+  }
+}
+
 .column {
   display: flex;
   flex-direction: column;
@@ -22,16 +33,6 @@
 
   .done {
     background-color: var(--bg-pink);
-  }
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-
-  li {
-    margin-top: 0.8rem;
-    cursor: pointer;
   }
 }
 

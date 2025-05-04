@@ -55,6 +55,22 @@ export const updateTask = createAsyncThunk(
   }
 );
 
+export const updateWorkflowStep = createAsyncThunk(
+  "tasks/updateWorkflowStep",
+  async (
+    { id, newType }: { id: string; newType: "todo" | "progress" | "done" },
+    { rejectWithValue }
+  ) => {
+    try {
+      await taskService.updateWorkflowStep(id, newType);
+
+      return { id, newType };
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 type InitialStateProps = {
   fetchStatus: Status;
   addStatus: Status;
@@ -148,6 +164,24 @@ export const tasksSlice = createSlice({
         );
       })
       .addCase(updateTask.rejected, (state, action) => {
+        state.updateStatus = Status.FAILED;
+        state.error = action.payload as string;
+      })
+      .addCase(updateWorkflowStep.pending, (state) => {
+        state.updateStatus = Status.LOADING;
+        state.error = "";
+      })
+      .addCase(updateWorkflowStep.fulfilled, (state, action) => {
+        state.updateStatus = Status.SUCCEEDED;
+        state.error = "";
+
+        state.data = state.data.map((task) =>
+          task.id === action.payload.id
+            ? { ...task, typeOfTask: action.payload.newType }
+            : task
+        );
+      })
+      .addCase(updateWorkflowStep.rejected, (state, action) => {
         state.updateStatus = Status.FAILED;
         state.error = action.payload as string;
       });

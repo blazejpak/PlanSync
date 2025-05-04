@@ -55,10 +55,19 @@ export const update = async (updatedTask: Task) => {
   await updateDoc(taskRef, taskData);
 };
 
+export const updateWorkflowStep = async (
+  id: string,
+  newTypeTask: "todo" | "progress" | "done"
+) => {
+  const taskRef = doc(db, "Tasks", id);
+  await updateDoc(taskRef, { typeOfTask: newTypeTask });
+};
+
 export const taskService = {
   fetchAll,
   fetchTasksByUserId,
   add,
   remove,
   update,
+  updateWorkflowStep,
 };

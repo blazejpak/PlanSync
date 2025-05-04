@@ -1,7 +1,5 @@
 import { Skeleton } from "@mui/material";
 
-import TaskItem from "../TaskItem";
-
 import { Status, Task, typeFilter } from "../../../types/task";
 import { useSafeModalContext } from "../../../context/ModalStates";
 import { useAppSelector } from "../../../store/hooks";
@@ -10,11 +8,9 @@ import {
   selectFetchStatus,
 } from "../../../store/reducers/tasks";
 
-import styles from "./FilteredTasks.module.scss";
 import { useEffect, useState } from "react";
 import { selectCurrentDay } from "../../../store/reducers/calendar";
-import { useNavigate, useParams } from "react-router-dom";
-import { ROUTES } from "../../../types/routes";
+import Draggable from "../desktop/dnd/Draggable";
 
 type FilteredTasksProps = {
   typeOfTask: Omit<typeFilter, "all">;
@@ -23,8 +19,6 @@ type FilteredTasksProps = {
 
 const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
   const { typeCategory } = useSafeModalContext();
-  const navigate = useNavigate();
-  const { boardId } = useParams<{ boardId: string }>();
 
   const data = useAppSelector(selectDataFromTheCurrentDay);
   const dataStatus = useAppSelector(selectFetchStatus);
@@ -56,21 +50,14 @@ const FilteredTasks = ({ typeOfTask, typeOfDevice }: FilteredTasksProps) => {
       <Skeleton variant="rounded" height={100} style={{ marginTop: "2rem" }} />
     );
   }
-  return filteredData.map((task) => {
-    return (
-      <li
-        className={`${typeOfDevice === "mobile" && styles.task}`}
-        key={task.id}
-        onClick={() => {
-          if (boardId) {
-            navigate(ROUTES.ROUTE_TASK(boardId, task.id));
-          }
-        }}
-      >
-        <TaskItem data={task} />
-      </li>
-    );
-  });
+
+  return (
+    <>
+      {filteredData.map((task) => {
+        return <Draggable task={task} key={task.id} />;
+      })}
+    </>
+  );
 };
 
 export default FilteredTasks;
